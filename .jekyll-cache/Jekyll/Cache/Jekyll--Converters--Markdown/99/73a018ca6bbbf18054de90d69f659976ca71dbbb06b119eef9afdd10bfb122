@@ -1,0 +1,349 @@
+I"�X<h1 id="minimal-mistakes-jekyll-theme"><a href="https://mmistakes.github.io/minimal-mistakes/">Minimal Mistakes Jekyll theme</a></h1>
+
+<p><a href="https://raw.githubusercontent.com/mmistakes/minimal-mistakes/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-lightgrey.svg" alt="LICENSE" /></a>
+<a href="https://jekyllrb.com/"><img src="https://img.shields.io/badge/jekyll-%3E%3D%203.7-blue.svg" alt="Jekyll" /></a>
+<a href="https://rubygems.org/gems/minimal-mistakes-jekyll"><img src="https://img.shields.io/gem/v/minimal-mistakes-jekyll.svg" alt="Ruby gem" /></a>
+<a href="https://www.paypal.me/mmistakes"><img src="https://img.shields.io/badge/PayPal-tip%20me-green.svg?logo=paypal" alt="Tip Me via PayPal" /></a>
+<a href="https://www.buymeacoffee.com/mmistakes"><img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg" alt="Donate to this project using Buy Me A Coffee" /></a></p>
+
+<p>Minimal Mistakes is a flexible two-column Jekyll theme, perfect for building personal sites, blogs, and portfolios. As the name implies, styling is purposely minimalistic to be enhanced and customized by you :smile:.</p>
+
+<p>:sparkles: See what’s new in the <a href="CHANGELOG.md">CHANGELOG</a>.</p>
+
+<p><strong>If you enjoy this theme, please consider sponsoring:</strong></p>
+
+<p><a href="https://www.buymeacoffee.com/mmistakes"><img src="https://user-images.githubusercontent.com/1376749/120938564-50c59780-c6e1-11eb-814f-22a0399623c5.png" alt="&quot;Buy Me A Coffee&quot;" /></a>
+ <a href="https://www.paypal.me/mmistakes"><img src="https://cdn.jsdelivr.net/gh/twolfson/paypal-github-button@1.0.0/dist/button.svg" alt="Support via PayPal" /></a></p>
+
+<p><strong>Note:</strong> The theme uses the <a href="https://github.com/benbalter/jekyll-include-cache">jekyll-include-cache</a> plugin which will need to be installed in your <code class="language-plaintext highlighter-rouge">Gemfile</code> and added to the <code class="language-plaintext highlighter-rouge">plugins</code> array of <code class="language-plaintext highlighter-rouge">_config.yml</code>. Otherwise you’ll encounter <code class="language-plaintext highlighter-rouge">Unknown tag 'include_cached'</code> errors at build.</p>
+
+<p><a href="https://mmistakes.github.io/minimal-mistakes/"><img src="screenshot.png (live preview)" alt="Minimal Mistakes live preview" /></a></p>
+
+<p><img src="screenshot-layouts.png" alt="layout examples" /></p>
+
+<h2 id="notable-features">Notable features</h2>
+
+<ul>
+  <li>Bundled as a “theme gem” for easier installation/upgrading.</li>
+  <li>Compatible with GitHub Pages.</li>
+  <li>Support for Jekyll’s built-in Sass/SCSS preprocessor.</li>
+  <li>Nine different skins (color variations).</li>
+  <li>Several responsive layout options (single, archive index, search, splash, and paginated home page).</li>
+  <li>Optimized for search engines with support for <a href="https://dev.twitter.com/cards/overview">Twitter Cards</a> and <a href="http://ogp.me/">Open Graph</a> data.</li>
+  <li>Optional <a href="https://mmistakes.github.io/minimal-mistakes/docs/layouts/#headers">header images</a>, <a href="https://mmistakes.github.io/minimal-mistakes/docs/layouts/#sidebars">custom sidebars</a>, <a href="https://mmistakes.github.io/minimal-mistakes/docs/helpers/#table-of-contents">table of contents</a>, <a href="https://mmistakes.github.io/minimal-mistakes/docs/helpers/#gallery">galleries</a>, related posts, <a href="https://mmistakes.github.io/minimal-mistakes/docs/configuration/#breadcrumb-navigation-beta">breadcrumb links</a>, <a href="https://mmistakes.github.io/minimal-mistakes/docs/helpers/#navigation-list">navigation lists</a>, and more.</li>
+  <li>Commenting support (powered by <a href="https://disqus.com/">Disqus</a>, <a href="https://developers.facebook.com/docs/plugins/comments">Facebook</a>, Google+, <a href="https://www.discourse.org/">Discourse</a>, static-based via <a href="https://staticman.net/">Staticman</a>, and <a href="https://utteranc.es/">utterances</a>).</li>
+  <li><a href="https://www.google.com/analytics/">Google Analytics</a> support.</li>
+  <li>UI localized text in English (default), Arabic (عربي), Brazilian Portuguese (Português brasileiro), Catalan, Chinese, Danish, Dutch, Finnish, French (Français), German (Deutsch), Greek, Hebrew, Hindi (हिंदी), Hungarian, Indonesian, Irish (Gaeilge), Italian (Italiano), Japanese, Korean, Malayalam, Myanmar (Burmese), Nepali (Nepalese), Norwegian (Norsk), Persian (فارسی), Polish, Punjabi (ਪੰਜਾਬੀ), Romanian, Russian, Slovak, Spanish (Español), Swedish, Thai, Turkish (Türkçe), and Vietnamese.</li>
+</ul>
+
+<h2 id="skins-color-variations">Skins (color variations)</h2>
+
+<p>This theme comes in nine different skins (in addition to the default one).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><code class="language-plaintext highlighter-rouge">air</code></th>
+      <th><code class="language-plaintext highlighter-rouge">contrast</code></th>
+      <th><code class="language-plaintext highlighter-rouge">dark</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://mmistakes.github.io/minimal-mistakes/assets/images/air-skin-archive-large.png"><img src="https://mmistakes.github.io/minimal-mistakes/assets/images/air-skin-archive.png" alt="air skin" /></a></td>
+      <td><a href="https://mmistakes.github.io/minimal-mistakes/assets/images/contrast-skin-archive-large.png"><img src="https://mmistakes.github.io/minimal-mistakes/assets/images/contrast-skin-archive.png" alt="contrast skin" /></a></td>
+      <td><a href="https://mmistakes.github.io/minimal-mistakes/assets/images/dark-skin-archive-large.png"><img src="https://mmistakes.github.io/minimal-mistakes/assets/images/dark-skin-archive.png" alt="dark skin" /></a></td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th><code class="language-plaintext highlighter-rouge">dirt</code></th>
+      <th><code class="language-plaintext highlighter-rouge">mint</code></th>
+      <th><code class="language-plaintext highlighter-rouge">sunrise</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://mmistakes.github.io/minimal-mistakes/assets/images/dirt-skin-archive-large.png"><img src="https://mmistakes.github.io/minimal-mistakes/assets/images/dirt-skin-archive.png" alt="dirt skin" /></a></td>
+      <td><a href="https://mmistakes.github.io/minimal-mistakes/assets/images/mint-skin-archive-large.png"><img src="https://mmistakes.github.io/minimal-mistakes/assets/images/mint-skin-archive.png" alt="mint skin" /></a></td>
+      <td><a href="https://mmistakes.github.io/minimal-mistakes/assets/images/sunrise-skin-archive-large.png"><img src="https://mmistakes.github.io/minimal-mistakes/assets/images/sunrise-skin-archive.png" alt="sunrise skin" /></a></td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th><code class="language-plaintext highlighter-rouge">aqua</code></th>
+      <th><code class="language-plaintext highlighter-rouge">neon</code></th>
+      <th><code class="language-plaintext highlighter-rouge">plum</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://mmistakes.github.io/minimal-mistakes/assets/images/aqua-skin-archive-large.png"><img src="https://mmistakes.github.io/minimal-mistakes/assets/images/aqua-skin-archive.png" alt="aqua skin" /></a></td>
+      <td><a href="https://mmistakes.github.io/minimal-mistakes/assets/images/neon-skin-archive-large.png"><img src="https://mmistakes.github.io/minimal-mistakes/assets/images/neon-skin-archive.png" alt="neon skin" /></a></td>
+      <td><a href="https://mmistakes.github.io/minimal-mistakes/assets/images/plum-skin-archive-large.png"><img src="https://mmistakes.github.io/minimal-mistakes/assets/images/plum-skin-archive.png" alt="plum skin" /></a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="demo-pages">Demo pages</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://mmistakes.github.io/minimal-mistakes/layout-header-image-text-readability/">Post with Header Image</a></td>
+      <td>A post with a large header image.</td>
+    </tr>
+    <tr>
+      <td><a href="https://mmistakes.github.io/minimal-mistakes/markup/markup-html-tags-and-formatting/">HTML Tags and Formatting Post</a></td>
+      <td>A variety of common markup showing how the theme styles them.</td>
+    </tr>
+    <tr>
+      <td><a href="https://mmistakes.github.io/minimal-mistakes/markup-syntax-highlighting/">Syntax Highlighting Post</a></td>
+      <td>Post displaying highlighted code.</td>
+    </tr>
+    <tr>
+      <td><a href="https://mmistakes.github.io/minimal-mistakes/post%20formats/post-gallery/">Post with a Gallery</a></td>
+      <td>A post showing several images wrapped in <code class="language-plaintext highlighter-rouge">&lt;figure&gt;</code> elements.</td>
+    </tr>
+    <tr>
+      <td><a href="https://mmistakes.github.io/minimal-mistakes/recipes/chocolate-chip-cookies/">Sample Collection Page</a></td>
+      <td>Single page from a collection.</td>
+    </tr>
+    <tr>
+      <td><a href="https://mmistakes.github.io/minimal-mistakes/categories/">Categories Archive</a></td>
+      <td>Posts grouped by category.</td>
+    </tr>
+    <tr>
+      <td><a href="https://mmistakes.github.io/minimal-mistakes/tags/">Tags Archive</a></td>
+      <td>Posts grouped by tag.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Additional sample posts are available under <a href="https://mmistakes.github.io/minimal-mistakes/year-archive/">posts archive</a> on the demo site. Source files for these (and the entire demo site) can be found in <a href="docs"><code class="language-plaintext highlighter-rouge">/docs</code></a>.</p>
+
+<h2 id="installation">Installation</h2>
+
+<p>There are three ways to install: as a <a href="https://jekyllrb.com/docs/themes/#understanding-gem-based-themes">gem-based theme</a>, as a <a href="https://blog.github.com/2017-11-29-use-any-theme-with-github-pages/">remote theme</a> (GitHub Pages compatible), or forking/directly copying all of the theme files into your project.</p>
+
+<h3 id="gem-based-method">Gem-based method</h3>
+
+<p>With Gem-based themes, directories such as the <code class="language-plaintext highlighter-rouge">assets</code>, <code class="language-plaintext highlighter-rouge">_layouts</code>, <code class="language-plaintext highlighter-rouge">_includes</code>, and <code class="language-plaintext highlighter-rouge">_sass</code> are stored in the theme’s gem, hidden from your immediate view. Yet all of the necessary directories will be read and processed during Jekyll’s build process.</p>
+
+<p>This allows for easier installation and updating as you don’t have to manage any of the theme files. To install:</p>
+
+<ol>
+  <li>
+    <p>Add the following to your <code class="language-plaintext highlighter-rouge">Gemfile</code>:</p>
+
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gem</span> <span class="s2">"minimal-mistakes-jekyll"</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Fetch and update bundled gems by running the following <a href="http://bundler.io/">Bundler</a> command:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Set the <code class="language-plaintext highlighter-rouge">theme</code> in your project’s Jekyll <code class="language-plaintext highlighter-rouge">_config.yml</code> file:</p>
+
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">theme</span><span class="pi">:</span> <span class="s">minimal-mistakes-jekyll</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>To update the theme run <code class="language-plaintext highlighter-rouge">bundle update</code>.</p>
+
+<h3 id="remote-theme-method">Remote theme method</h3>
+
+<p>Remote themes are similar to Gem-based themes, but do not require <code class="language-plaintext highlighter-rouge">Gemfile</code> changes or whitelisting making them ideal for sites hosted with GitHub Pages.</p>
+
+<p>To install:</p>
+
+<ol>
+  <li>
+    <p>Create/replace the contents of your <code class="language-plaintext highlighter-rouge">Gemfile</code> with the following:</p>
+
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">source</span> <span class="s2">"https://rubygems.org"</span>
+
+<span class="n">gem</span> <span class="s2">"github-pages"</span><span class="p">,</span> <span class="ss">group: :jekyll_plugins</span>
+<span class="n">gem</span> <span class="s2">"jekyll-include-cache"</span><span class="p">,</span> <span class="ss">group: :jekyll_plugins</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Add <code class="language-plaintext highlighter-rouge">jekyll-include-cache</code> to the <code class="language-plaintext highlighter-rouge">plugins</code> array of your <code class="language-plaintext highlighter-rouge">_config.yml</code>.</p>
+  </li>
+  <li>
+    <p>Fetch and update bundled gems by running the following <a href="http://bundler.io/">Bundler</a> command:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Add <code class="language-plaintext highlighter-rouge">remote_theme: "mmistakes/minimal-mistakes@4.23.0"</code> to your <code class="language-plaintext highlighter-rouge">_config.yml</code> file. Remove any other <code class="language-plaintext highlighter-rouge">theme:</code> or <code class="language-plaintext highlighter-rouge">remote_theme:</code> entry.</p>
+  </li>
+</ol>
+
+<p><strong>Looking for an example?</strong> Use the <a href="https://github.com/mmistakes/mm-github-pages-starter/generate">Minimal Mistakes remote theme starter</a> for the quickest method of getting a GitHub Pages hosted site up and running. Generate a new repository from the starter, replace sample content with your own, and configure as needed.</p>
+
+<h2 id="usage">Usage</h2>
+
+<p>For detailed instructions on how to configure, customize, add/migrate content, and more read the <a href="https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/">theme’s documentation</a>.</p>
+
+<hr />
+
+<h2 id="contributing">Contributing</h2>
+
+<p>Found a typo in the documentation or interested in <a href="https://github.com/mmistakes/minimal-mistakes/issues">fixing a bug</a>? Then by all means <a href="https://github.com/mmistakes/minimal-mistakes/issues/new">submit an issue</a> or <a href="https://help.github.com/articles/using-pull-requests/">pull request</a>. If this is your first pull request, it may be helpful to read up on the <a href="https://guides.github.com/introduction/flow/">GitHub Flow</a> first.</p>
+
+<p>For help with using the theme or general Jekyll support questions, please use the <a href="https://talk.jekyllrb.com/">Jekyll Talk forums</a>.</p>
+
+<h3 id="pull-requests">Pull Requests</h3>
+
+<p>When submitting a pull request:</p>
+
+<ol>
+  <li>Clone the repo.</li>
+  <li>Create a branch off of <code class="language-plaintext highlighter-rouge">master</code> and give it a meaningful name (e.g. <code class="language-plaintext highlighter-rouge">my-awesome-new-feature</code>).</li>
+  <li>Open a pull request on GitHub and describe the feature or fix.</li>
+</ol>
+
+<p>Theme documentation and demo pages can be found in the <a href="docs"><code class="language-plaintext highlighter-rouge">/docs</code></a> if submitting improvements, typo corrections, etc.</p>
+
+<h2 id="development">Development</h2>
+
+<p>To set up your environment to develop this theme, run <code class="language-plaintext highlighter-rouge">bundle install</code>.</p>
+
+<p>To test the theme, run <code class="language-plaintext highlighter-rouge">bundle exec rake preview</code> and open your browser at <code class="language-plaintext highlighter-rouge">http://localhost:4000/test/</code>. This starts a Jekyll server using content in the <code class="language-plaintext highlighter-rouge">test/</code> directory. As modifications are made to the theme and test site, it will regenerate and you should see the changes in the browser after a refresh.</p>
+
+<hr />
+
+<h2 id="credits">Credits</h2>
+
+<h3 id="creator">Creator</h3>
+
+<p><strong>Michael Rose</strong></p>
+
+<ul>
+  <li><a href="https://mademistakes.com">https://mademistakes.com</a></li>
+  <li><a href="https://twitter.com/mmistakes">https://twitter.com/mmistakes</a></li>
+  <li><a href="https://github.com/mmistakes">https://github.com/mmistakes</a></li>
+</ul>
+
+<h3 id="icons--demo-images">Icons + Demo Images:</h3>
+
+<ul>
+  <li><a href="https://thenounproject.com">The Noun Project</a> – Garrett Knoll, Arthur Shlain, and <a href="https://thenounproject.com/tracytam">tracy tam</a></li>
+  <li><a href="http://fontawesome.io/">Font Awesome</a></li>
+  <li><a href="https://unsplash.com/">Unsplash</a></li>
+</ul>
+
+<h3 id="other">Other:</h3>
+
+<ul>
+  <li><a href="http://jekyllrb.com/">Jekyll</a></li>
+  <li><a href="http://jquery.com/">jQuery</a></li>
+  <li><a href="http://susy.oddbird.net/">Susy</a></li>
+  <li><a href="http://breakpoint-sass.com/">Breakpoint</a></li>
+  <li><a href="http://dimsemenov.com/plugins/magnific-popup/">Magnific Popup</a></li>
+  <li><a href="http://fitvidsjs.com/">FitVids.JS</a></li>
+  <li><a href="https://github.com/lukejacksonn/GreedyNav">GreedyNav.js</a></li>
+  <li><a href="https://github.com/cferdinandi/smooth-scroll">Smooth Scroll</a></li>
+  <li><a href="https://github.com/cferdinandi/gumshoe">Gumshoe</a></li>
+  <li><a href="http://benalman.com/projects/jquery-throttle-debounce-plugin/">jQuery throttle / debounce</a></li>
+  <li><a href="http://lunrjs.com">Lunr</a></li>
+</ul>
+
+<hr />
+
+<h2 id="license">License</h2>
+
+<p>The MIT License (MIT)</p>
+
+<p>Copyright (c) 2013-2020 Michael Rose and contributors</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the “Software”), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</p>
+
+<p>Minimal Mistakes incorporates icons from <a href="https://thenounproject.com/">The Noun Project</a> 
+creators Garrett Knoll, Arthur Shlain, and tracy tam.
+Icons are distributed under Creative Commons Attribution 3.0 United States (CC BY 3.0 US).</p>
+
+<p>Minimal Mistakes incorporates <a href="http://fontawesome.io/">Font Awesome</a>,
+Copyright (c) 2017 Dave Gandy.
+Font Awesome is distributed under the terms of the <a href="http://scripts.sil.org/OFL">SIL OFL 1.1</a> 
+and <a href="http://opensource.org/licenses/MIT">MIT License</a>.</p>
+
+<p>Minimal Mistakes incorporates photographs from <a href="https://unsplash.com">Unsplash</a>.</p>
+
+<p>Minimal Mistakes incorporates <a href="http://susy.oddbird.net/">Susy</a>,
+Copyright (c) 2017, Miriam Eric Suzanne.
+Susy is distributed under the terms of the <a href="https://opensource.org/licenses/BSD-3-Clause">BSD 3-clause “New” or “Revised” License</a>.</p>
+
+<p>Minimal Mistakes incorporates <a href="http://breakpoint-sass.com/">Breakpoint</a>.
+Breakpoint is distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT/GPL Licenses</a>.</p>
+
+<p>Minimal Mistakes incorporates <a href="https://github.com/davatron5000/FitVids.js/">FitVids.js</a>,
+Copyright (c) 2013 Dave Rubert and Chris Coyier.
+FitVids is distributed under the terms of the <a href="http://www.wtfpl.net/">WTFPL License</a>.</p>
+
+<p>Minimal Mistakes incorporates <a href="http://dimsemenov.com/plugins/magnific-popup/">Magnific Popup</a>,
+Copyright (c) 2014-2016 Dmitry Semenov, http://dimsemenov.com.
+Magnific Popup is distributed under the terms of the MIT License.</p>
+
+<p>Minimal Mistakes incorporates <a href="http://github.com/cferdinandi/smooth-scroll">Smooth Scroll</a>,
+Copyright (c) 2019 Chris Ferdinandi.
+Smooth Scroll is distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT License</a>.</p>
+
+<p>Minimal Mistakes incorporates <a href="http://github.com/cferdinandi/gumshoe">Gumshoejs</a>,
+Copyright (c) 2019 Chris Ferdinandi.
+Smooth Scroll is distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT License</a>.</p>
+
+<p>Minimal Mistakes incorporates <a href="http://benalman.com/projects/jquery-throttle-debounce-plugin/">jQuery throttle / debounce</a>,
+Copyright (c) 2010 “Cowboy” Ben Alman.
+jQuery throttle / debounce is distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT License</a>.</p>
+
+<p>Minimal Mistakes incorporates <a href="https://github.com/lukejacksonn/GreedyNav">GreedyNav.js</a>,
+Copyright (c) 2015 Luke Jackson.
+GreedyNav.js is distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT License</a>.</p>
+
+<p>Minimal Mistakes incorporates <a href="https://github.com/mushishi78/jekyll-group-by-array">Jekyll Group-By-Array</a>,
+Copyright (c) 2015 Max White <a href="mailto:mushishi78@gmail.com">mushishi78@gmail.com</a>.
+Jekyll Group-By-Array is distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT License</a>.</p>
+
+<p>Minimal Mistakes incorporates <a href="https://allejo.io/blog/a-jekyll-toc-in-liquid-only/">@allejo’s Pure Liquid Jekyll Table of Contents</a>,
+Copyright (c) 2017 Vladimir Jimenez.
+Pure Liquid Jekyll Table of Contents is distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT License</a>.</p>
+
+<p>Minimal Mistakes incorporates <a href="http://lunrjs.com">Lunr</a>,
+Copyright (c) 2018 Oliver Nightingale.
+Lunr is distributed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT License</a>.</p>
+:ET
