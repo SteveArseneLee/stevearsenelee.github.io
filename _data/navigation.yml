@@ -4,6 +4,18 @@ main:
     url: /about/
   - title: "Category"
     url: /categories/
+sidebar:
+  - title: "Data Engineering"
+    url: /categories/#dataengineering/
+    # children:
+    #   - title: "Child Page A1"
+    #     url: /categories/#dataengineering/
+      # - title: "Child Page A2"
+      #   url: /
+      # - title: "Child Page A3"
+      #   url: /
+      # - title: "Child Page A4"
+      #   url: /
   # - title: "About"
   #   url: https://mmistakes.github.io/minimal-mistakes/about/
   # - title: "Sample Posts"
