@@ -90,7 +90,7 @@ last_modified_at: 2021-07-14
 
     ```docker
     kubectl get pods
-    ```
+     
 
 3. 오브젝트 스펙으로 MetalLB 구성
 
