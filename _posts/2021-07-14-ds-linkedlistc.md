@@ -1,11 +1,11 @@
 ---
 title:  "[Data Structure] 연결리스트"
-excerpt: "연결리스트"
+excerpt: "연결리스트 with C"
 
 categories:
   - Data Structure
 tags:
-  - [Data Structure]
+  - [Data Structure, C]
 
 toc: true
 toc_sticky: true

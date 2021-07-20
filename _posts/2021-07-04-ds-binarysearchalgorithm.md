@@ -1,11 +1,11 @@
 ---
 title:  "[Data Structure] Binary Search Algorithm"
-excerpt: "이진탐색 알고리즘"
+excerpt: "이진탐색 알고리즘 with C"
 
 categories:
   - Data Structure
 tags:
-  - [Data Structure]
+  - [Data Structure, C]
 
 toc: true
 toc_sticky: true

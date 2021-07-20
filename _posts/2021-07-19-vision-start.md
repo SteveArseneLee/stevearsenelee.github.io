@@ -46,3 +46,12 @@ last_modified_at: 2021-07-19
 ### Object Localization 개요
 원본 이미지 -> Feature Extractor -> Feature Map -> FC Layer -> Soft max Class score
 
+### Sliding Window 방식
+Window를 왼쪽 상단에서부터 오른쪽 하단으로 이동시키면서 Object를 Detection하는 방식
+  - 다양한 형태의 Window를 각각 sliding 시키는 방식
+  - Window Scale은 고정하고 scale을 변경한 여러 이미지를 사용하는 방식
+- Object Detection의 초기 기법으로 활용
+- 오브젝트 없는 영역도 무조건 슬라이딩해야하며 여러 형태의 Window와 여러 Scale을 가진 이미지를 스캔해서 검출해야해서 수행시간이 오래걸리고 검출 성능이 상대적으로 낮음
+- Region Proposal(영역 추정) 기법의 등장으로 활용도는 떨어졌지만 Object Detection 발전을 위한 기술적 토대 제공
+
+
