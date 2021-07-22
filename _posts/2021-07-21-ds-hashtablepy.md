@@ -1,4 +1,4 @@
- ---
+---
 title:  "[Data Structure] Hash Table"
 excerpt: "Hash Table with python"
 
@@ -286,9 +286,3 @@ read_data('da')
 ### 검색에서 해쉬 테이블의 사용 예
 - 16개의 배열에 데이터를 저장하고, 검색할 때 O(n)
 - 16개의 데이터 저장공간을 가진 위의 해쉬 테이블에 데이터를 저장하고, 검색할 때 O(1)
- 
-```python
-```
-
-```python
-```
