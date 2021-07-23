@@ -126,7 +126,7 @@ shape[0]은 행의 길이를 알수 있음
 ```python
 train['Survived'].value_counts()
 ```
-> 0    549
+>   0    549
     1    342
     Name: Survived, dtype: int64
 
@@ -175,7 +175,7 @@ fig = plt.figure(figsize=(10,2))
 sns.countplot(y='Survived', data=train)
 print(train.Survived.value_counts())
 ```
-<img src= ".. /images/da/kagglestart1.png">
+![Survived](/assets/images/kagglestart1.png)
 
 ```python
 f,ax=plt.subplots(1, 2, figsize=(15, 6))
