@@ -175,7 +175,7 @@ fig = plt.figure(figsize=(10,2))
 sns.countplot(y='Survived', data=train)
 print(train.Survived.value_counts())
 ```
-![Survived](/assets/images/kagglestart1.png)
+![Survived](/assets/images/da/kagglestart1.png)
 
 ```python
 f,ax=plt.subplots(1, 2, figsize=(15, 6))
