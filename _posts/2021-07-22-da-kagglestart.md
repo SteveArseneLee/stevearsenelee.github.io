@@ -187,6 +187,153 @@ ax[1].set_title('Survived')
 plt.show()
 ```
 
+#### Pclass 분석
+- Pclass는 값이 숫자이고 서열이 정해진 Ordinal Feature
+- Key : 1 = 1st, 2 = 2nd, 3 = 3rd
+
+```python
+train.groupby(['Pclass','Survived'])['Survived'].count()
+```
+
+crosstab 메소드
+
+```python
+pd.crosstab(train.Pclass, train.Survived, margins=True).style.background_gradient(cmap='summer_r')
+```
+- pd.crosstba : 판다스의 크로탭에서
+- train.Pclass, train.Survived :  트레인 셋의 Pclass와 Survived를 묶음
+- margins = True : 합을 구함
+- style ~ : 그래프의 스타일 선택
+
+```python
+f, ax = plt.subplots(1, 2, figsize=(12, 6))
+train[['Pclass','Survived']].groupby(['Pclass']).mean().plot.bar(ax=ax[0])
+ax[0].set_title('Survived per Pcalss')
+sns.countplot('Pclass', hue='Survived', data=train, ax=ax[1])
+ax[1].set_title('Pcalss Survived vs Not Survived')
+plt.show()
+```
+
+
+#### Name 분석
+- Initial이란 열을 새로 만들어서 여기에 Name에서 추출한 Regular Expression을 넣기
+
+```python
+# data->데이터 셋을 복사해 temp 데이터셋으로 만듬
+temp = data.copy()
+# temp에 Initial이란 열을 새로 만들고 0을 기본값으로 줌
+temp['Initial']
+# data의 name항목의 string추출하는데 A-Z대문자,a-z소문자,0-9숫자,+덩어리로 .으로 끝나는 것에서 
+temp['Initial'] = data.Name.str.extract('([A-Za-z]+)\.')
+```
+
+##### 생존율 함수
+```python
+def survpct(col):
+    # 특정 열(col)에 대해 생존('Survived')율(mean) - 즉 0이냐 1이냐의 평균 값을 열 별로 내는 것을 return
+    return temp.groupby(col)['Survived'].mean()
+
+survpct('Initial')
+```
+
+```python
+temp['NumName'] = temp['LastName'].factorize()[0]
+```
+- temp에서 NumName이란 새 열을 만듬
+- temp의 Name에서 factorize한 것을 넣음
+    - factorize : 문자를 숫자로 바꿔줌
+
+
+#### Sex 분석
+```python
+def bag(col, target, title, title1):
+    f,ax=plt.subplots(1,2,figsize=(12,5))
+    train.groupby([col])[target].mean().plot(kind='bar', ax=ax[0])
+    ax[0].set_title(title)
+    sns.countplot(col, hue=target, data=train, ax=ax[1])
+    ax[1].set_title(title1)
+    plt.show()
+
+bag('Sex','Survived','Survived per Sex','Sex Survived vs Not Survived')
+```
+
+
+#### Age 분석
+- Age는 Continuous한 값
+- 빈칸이 많아서 빈칸처리가 결정적인 역할을 함
+- Age의 최대, 최소, 중간을 보자
+```python
+print('Oldest Passenger was', data['Age'].max(), 'Years')
+print('Youngest Passenger was', data['Age'].min(), 'Years')
+print('Average Age on the ship was', int(data['Age'].mean()), 'Years')
+```
+##### math 모듈
+- ceil() : 올림
+- floor() : 내림
+- max() : 주어진 숫자 중에서 가장 큰 값을 보여줌
+- min() : 주어진 숫자 중에서 가장 작은 값을 보여줌
+- mean() : 평균 값
+
+빈 값 처리
+- 삭제
+- 채워넣기
+    - 평균값
+
+```python
+sns.swarmplot(x=train['Survived'], y=train['Age'])
+plt.xlabel("Survived")
+plt.ylabel("Age")
+plt.show()
+```
+
+```python
+f, ax = plt.subplots(1,2,figsize=(18,8))
+sns.violinplot("Pclass", "Age", hue="Survived", data=train, split=True, ax=ax[0])
+ax[0].set_title('Pclass and Age vs Survived')
+ax[0].set_yticks(range(0, 110, 10))
+sns.violinplot("Sex","Age", hue="Survived", data=train, split=True, ax=ax[1])
+ax[1].set_title('Sex and Age vs Survived')
+ax[1].set_yticks(range(0, 110, 10))
+plt.show()
+```
+
+람다함수란 런타임에 생성해서 사용할 수 있는 익명 함수
+일반적인 함수와 같이 정의해두고 쓰는 것이 아닌 필요한 곳에서 간단한 기능을 즉시 사용하고 버릴 수 있는 함수
+```python
+a = 2
+b = 2
+print(a**b)
+
+# 이를 함수로 만들면
+def sample(a,b):
+    print(a**b)
+sample(2,2)
+
+# 이를 람다로 만들면
+a = lambda x, y: x**y
+print(a(2,2))
+
+
+### 다른 샘플
+sample1 = lambda x,y,z:x+y+z
+print(sample1(1,2,3))
+
+print(list(map(lambda x: x**2, [5,6,7,8,9])))
+```
+
+cut은 구간을 3씩 정확히 나누며 아이템 개수와 상관없이 나눔
+qcut은 구간과 상관없이 개수 기준으로 나눔
+
+Family or Alone?
+- "SibSp" + "Parch" 분석
+- SipSp : 이 항목은 탑승자가 혼자인지 또는 가족과 함께 있는지를 나타냄.
+- Sibling : 형제, 자매, 의붓 형제, 이복 누이
+- Spouse : 남편, 아내
+- Parch는 부모와 함께 탔는지를 봄
+- 이 그룹 둘을 "Alone?그룹과 "Family"그룹으로 나눔
+
+
+
 ```python
 
 ```
@@ -207,3 +354,138 @@ plt.show()
 
 ```
 
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
