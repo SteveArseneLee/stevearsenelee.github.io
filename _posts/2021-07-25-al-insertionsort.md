@@ -27,11 +27,48 @@ for index in range(데이터길이 - 1):
         # if 기준데이터 > 뒤데이터:
             swap(data[index2], data[index2-1])
         else:
-            
+            break
 ```
 
+### 알고리즘 구현
+1. for stand in range(len(data_list)) 로 반복
+2. key = data_list[stand]
+3. for num in range(stand, 0, -1) 반복
+    - 내부 반복문 안에서 data_list[stand] < data_list[num - 1]이면,
+        - data_list[num - 1], data_list[num] = data_list[num], data_list[num - 1]
 ```python
-```
+def insertion_sort(data):
+    for index in range(len(data) - 1):
+        for index2 in range(index+1, 0, -1):
+            if data[index2] < data[index2 - 1]:
+                data[index2], data[index2 - 1] = data[index2 - 1], data[index2]
+            else:
+                break
+    return data
 
+# 테스트
+import random
+data_list = random.sample(range(100), 50)
+print(insertion_sort(data_list))
+```
+### 알고리즘 분석
+- 반복문이 두 개 O(n^2)
+    - 최악의 경우, n*(n-1) / 2
+- 완전 정렬이 되어 있는 상태라면 최선은 O(n)
+
+다른 예제
 ```python
+rand_data_list = [3,5,1,2]
+
+def insertion_sort(data_list):
+    for stand in range(len(data_list)):
+        key = data_list[stand]
+        for num in range(stand, 0, -1):
+            if key < data_list[num - 1]:
+                data_list[num - 1], data_list[num]
+            else:
+                break
+    return data_list
+
+print(insertion_sort(rand_data_list))
 ```
