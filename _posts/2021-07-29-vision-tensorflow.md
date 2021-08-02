@@ -1,4 +1,18 @@
+---
+title:  "[Vision] Tensorflow"
+excerpt: "Tensorflow"
 
+categories:
+  - Vision
+tags:
+  - [Vision]
+
+toc: true
+toc_sticky: true
+ 
+date: 2021-07-29
+last_modified_at: 2021-07-29
+---
 
 ```python
 import numpy as np
