@@ -16,3 +16,5 @@ Label Encoding
 One Hot Encoding
 - 열의 항목에 0 또는 1을 할당
 - 해당되면 1 비해당이면 0
+
+Random Forest - 랜덤으로 생성된 많은 의사결정트리
