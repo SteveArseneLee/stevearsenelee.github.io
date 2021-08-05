@@ -263,13 +263,12 @@ compress_html:
   ignore:
     envs: development
 
-
 # Defaults
 defaults:
   # _posts
   - scope:
       path: ""
-      type: docs
+      type: posts
     values:
       layout: single
       author_profile: true
@@ -277,9 +276,6 @@ defaults:
       comments: # true
       share: true
       related: true
-      sidebar_main: true
-      sidebar:
-        nav: "docs"
 
   # _pages
   - scope:
