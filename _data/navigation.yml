@@ -6,13 +6,13 @@ main:
     url: /categories/
     children:
       - title: "Data Structure"
-        url: "/categories/#datastructure/"
+        url: "/categories/#data-structure/"
       - title: "BOJ"
         url: "/categories/#BOJ/"
 
 sidebar:
   - title: "Data Engineering"
-    url: /categories/#dataengineering/
+    url: /categories/#data-engineering/
     # children:
     #   - title: "Child Page A1"
     #     url: /categories/#dataengineering/

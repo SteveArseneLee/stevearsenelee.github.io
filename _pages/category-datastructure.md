@@ -1,6 +1,6 @@
 ---
 title: "Data Structure"
-permalink: /categories/#datastructure/
+permalink: /categories/#data-structure/
 layout: category
 author_profile: true
 taxonomy: Data Structure
