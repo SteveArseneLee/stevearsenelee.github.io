@@ -54,4 +54,8 @@ Window를 왼쪽 상단에서부터 오른쪽 하단으로 이동시키면서 Ob
 - 오브젝트 없는 영역도 무조건 슬라이딩해야하며 여러 형태의 Window와 여러 Scale을 가진 이미지를 스캔해서 검출해야해서 수행시간이 오래걸리고 검출 성능이 상대적으로 낮음
 - Region Proposal(영역 추정) 기법의 등장으로 활용도는 떨어졌지만 Object Detection 발전을 위한 기술적 토대 제공
 
+### Object Detection - 두개 이상의 Object를 검출
+
+
+
 
