@@ -95,7 +95,7 @@ analytics:
 # Site Author
 author:
   name             : "SteveArseneLee"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/assets/images/Profile.jpeg"
   bio              : "Since 2021.07.03"
   location         : "Anywhere"
   email            : "lclgood@khu.ac.kr"
