@@ -1,8 +1,11 @@
 ---
-title: "Data Engineering"
-permalink: /categories/#boj/
-layout: category
+title: "BOJ"
+layout: archive
+permalink: categories/boj
 author_profile: true
-taxonomy: Data Engineering
+sidebar_main: true
 ---
-## BOJ
+
+
+{% assign posts = site.categories.BOJ %}
+{% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}
