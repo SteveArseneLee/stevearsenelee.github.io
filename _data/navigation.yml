@@ -11,8 +11,9 @@ main:
         url: "/categories/#BOJ/"
 
 sidebar:
-  - title: "Data Engineering"
-    url: /categories/#data-engineering/
+  nav: "docs"
+  # - title: "Data Engineering"
+  #   url: /categories/#data-engineering/
     # children:
     #   - title: "Child Page A1"
     #     url: /categories/#dataengineering/
