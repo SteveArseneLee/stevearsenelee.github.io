@@ -19,7 +19,7 @@
                 <!--category[1].size 로 해당 카테고리를 가진 글의 개수 표시--> 
                 {% for category in site.categories %}
                     {% if category[0] == "Data Structure" %}
-                        <li><a href="/categories/cpp" class="">Data Structure({{category[1].size}})</a></li>
+                        <li><a href="/categories/data_structure" class="">Data Structure({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -33,7 +33,7 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "BOJ" %}
-                        <li><a href="/categories/algorithm" class="">BOJ ({{category[1].size}})</a></li>
+                        <li><a href="/categories/boj" class="">BOJ ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -42,14 +42,14 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Data Engineering" %}
-                        <li><a href="/categories/algorithm" class="">Data Engineering ({{category[1].size}})</a></li>
+                        <li><a href="/categories/data_engineering" class="">Data Engineering ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Data Science" %}
-                        <li><a href="/categories/Data Science" class="">Data Science ({{category[1].size}})</a></li>
+                        <li><a href="/categories/data_science" class="">Data Science ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
