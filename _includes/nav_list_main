@@ -44,7 +44,7 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-        <span class="nav__sub-title">Coding Test</span>
+        <span class="nav__sub-title">Data Science & Vision</span>
             
             <ul>
                 {% for category in site.categories %}
@@ -56,14 +56,14 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Data Science" %}
-                        <li><a href="/categories/programmers" class="">Data Science ({{category[1].size}})</a></li>
+                        <li><a href="/categories/Data Science" class="">Data Science ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Vision" %}
-                        <li><a href="/categories/algorithm" class="">Vision ({{category[1].size}})</a></li>
+                        <li><a href="/categories/vision" class="">Vision ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
