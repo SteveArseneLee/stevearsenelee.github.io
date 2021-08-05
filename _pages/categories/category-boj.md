@@ -6,7 +6,7 @@ author_profile: true
 sidebar_main: true
 ---
 
-### Data Engineering
+### BOJ
 
 {% assign posts = site.categories.boj %}
 {% for post in posts %} {% include archive-single2.html type=page.entries_layout %} {% endfor %}
