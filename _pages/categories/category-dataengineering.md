@@ -1,9 +1,9 @@
 ---
 title: "Data Engineering"
-permalink: /categories/#data-engineering/
-layout: category
+layout: archive
+permalink: categories/data_engineering
 author_profile: true
-taxonomy: Data Engineering
+sidebar_main: true
 ---
 
 ### Data Engineering

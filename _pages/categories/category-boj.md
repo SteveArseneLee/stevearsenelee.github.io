@@ -1,9 +1,9 @@
 ---
 title: "BOJ"
-permalink: /categories/#boj/
-layout: category
+layout: archive
+permalink: categories/boj
 author_profile: true
-taxonomy: Data Engineering
+sidebar_main: true
 ---
 
 ### Data Engineering

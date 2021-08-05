@@ -1,11 +1,10 @@
 ---
 title: "Data Structure"
-permalink: /categories/#data-structure/
-layout: category
+layout: archive
+permalink: categories/data_structure
 author_profile: true
-taxonomy: Data Structure
+sidebar_main: true
 ---
-
 ### Data Structure
 
 {% assign posts = site.categories.datastructure %}

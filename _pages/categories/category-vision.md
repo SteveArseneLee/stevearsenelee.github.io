@@ -1,11 +1,10 @@
 ---
 title: "Vision"
-permalink: /categories/#vision/
-layout: category
+layout: archive
+permalink: categories/vision
 author_profile: true
-taxonomy: Data Engineering
+sidebar_main: true
 ---
-
 ### Data Engineering
 
 {% assign posts = site.categories.vision %}

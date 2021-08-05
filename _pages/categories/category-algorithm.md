@@ -1,11 +1,10 @@
 ---
 title: "Algorithm"
-permalink: /categories/#algorithm/
-layout: category
+layout: archive
+permalink: categories/algorithm
 author_profile: true
-taxonomy: Data Structure
+sidebar_main: true
 ---
-
 ### Data Structure
 
 {% assign posts = site.categories.algorithm %}
