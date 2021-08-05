@@ -26,14 +26,14 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Algorithm" %}
-                        <li><a href="/categories/algorithm" class="">Algorithm ({{category[1].size}})</a></li>
+                        <li><a href="/categories/algorithm/" class="">Algorithm ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "BOJ" %}
-                        <li><a href="/categories/boj" class="">BOJ ({{category[1].size}})</a></li>
+                        <li><a href="/categories/boj/" class="">BOJ ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
