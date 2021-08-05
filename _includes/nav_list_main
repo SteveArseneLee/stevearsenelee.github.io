@@ -62,7 +62,6 @@
             </ul>
       </li>
       <span class="nav__sub-title">BOJ</span>
-            
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "BOJ_Class1" %}
@@ -70,7 +69,13 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-            
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "BOJ_Class2" %}
+                        <li><a href="/categories/BOJ_Class2" class="">BOJ_Class2 ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
       </li>
   </ul>
 </nav>
