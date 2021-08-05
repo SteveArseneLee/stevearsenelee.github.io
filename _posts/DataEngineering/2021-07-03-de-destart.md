@@ -3,9 +3,9 @@ title:  "[Data Engineering] 시작하기."
 excerpt: "Let's start Data Engineering"
 
 categories:
-  - DataEngineering
+  - Data Engineering
 tags:
-  - [DataEngineering]
+  - [Data Engineering]
 
 toc: true
 toc_sticky: true
