@@ -10,6 +10,7 @@ main:
       - title: "BOJ"
         url: "/categories/#BOJ/"
 
+        
 sidebar:
   nav: "posts"
   # - title: "Data Engineering"
