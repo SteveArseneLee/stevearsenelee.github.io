@@ -4,6 +4,12 @@ main:
     url: /about/
   - title: "Category"
     url: /categories/
+    children:
+      - title: "Data Structure"
+        url: "/categories/#datastructure/"
+      - title: "BOJ"
+        url: "/categories/#BOJ/"
+
 sidebar:
   - title: "Data Engineering"
     url: /categories/#dataengineering/
