@@ -8,5 +8,5 @@ taxonomy: Data Engineering
 
 ### Data Engineering
 
-{% assign posts = site.categories.datastructure %}
+{% assign posts = site.categories.dataengineering %}
 {% for post in posts %} {% include archive-single2.html type=page.entries_layout %} {% endfor %}
