@@ -3,9 +3,9 @@ title:  "[Data Science] Bio Data Science"
 excerpt: "Bio Data Science"
 
 categories:
-  - Algorithm
+  - Data Science
 tags:
-  - [Algorithm]
+  - [Data Science, Python]
 
 toc: true
 toc_sticky: true
