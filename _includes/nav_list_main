@@ -68,7 +68,7 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-        <span class="nav__sub-title">Data Science & Vision</span>
+        <span class="nav__sub-title">Real Coding</span>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Programming" %}
