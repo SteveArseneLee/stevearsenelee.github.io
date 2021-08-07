@@ -83,6 +83,14 @@
                     {% endif %}
                 {% endfor %}
             </ul>
+        <span class="nav__sub-title">Project</span>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "Tidyverse" %}
+                        <li><a href="/categories/Tidyverse" class="">Tidyverse 데이터과학 ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
       </li>
   </ul>
 </nav>
