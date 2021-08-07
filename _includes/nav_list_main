@@ -46,6 +46,7 @@
                     {% endif %}
                 {% endfor %}
             </ul>
+
         <span class="nav__sub-title">Data Science & Vision</span>
             <ul>
                 {% for category in site.categories %}
@@ -68,6 +69,7 @@
                     {% endif %}
                 {% endfor %}
             </ul>
+
         <span class="nav__sub-title">Real Coding</span>
             <ul>
                 {% for category in site.categories %}
@@ -83,6 +85,7 @@
                     {% endif %}
                 {% endfor %}
             </ul>
+            
         <span class="nav__sub-title">Project</span>
             <ul>
                 {% for category in site.categories %}
