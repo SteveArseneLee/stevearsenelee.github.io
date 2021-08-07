@@ -1,9 +1,9 @@
 ---
-title: "BOJ"
+title: "BOJ_Bronze"
 layout: archive
-permalink: categories/BOJ_Class1/
+permalink: categories/BOJ_Bronze/
 author_profile: true
 sidebar_main: true
 ---
-{% assign posts = site.categories.BOJ_Class1 %}
+{% assign posts = site.categories.BOJ_Bronze %}
 {% for post in posts %} {% include archive-single2.html type=page.entries_layout %} {% endfor %}

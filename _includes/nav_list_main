@@ -34,15 +34,15 @@
         <span class="nav__sub-title">BOJ</span>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "BOJ_Class1" %}
-                        <li><a href="/categories/BOJ_Class1" class="">BOJ_Class1 ({{category[1].size}})</a></li>
+                    {% if category[0] == "BOJ_Bronze" %}
+                        <li><a href="/categories/BOJ_Bronze" class="">BOJ_Bronze ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "BOJ_Class2" %}
-                        <li><a href="/categories/BOJ_Class2" class="">BOJ_Class2 ({{category[1].size}})</a></li>
+                    {% if category[0] == "BOJ_Silver" %}
+                        <li><a href="/categories/BOJ_Silver" class="">BOJ_Silver ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
