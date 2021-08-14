@@ -59,6 +59,7 @@ void addBack(int data){
     count++;
 }
 
+
 void addFirst(int data){
     for(int i = count; i>= 1; i--){ // 한칸씩 원소를 당김
         arr[i] = arr[i-1];
@@ -90,9 +91,7 @@ int main(){
 }
 ```
 
-
-
-
+---
 
 ### 포인터 기반 연결리스트
 1. 일반적으로 연결리스트는 구조체와 포인터를 함께 사용해 구현
