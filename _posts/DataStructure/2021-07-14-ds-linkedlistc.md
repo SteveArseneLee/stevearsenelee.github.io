@@ -1,5 +1,5 @@
 ---
-title:  "[Data Structure] 연결리스트"
+title:  "[Data Structure] Linked List"
 excerpt: "연결리스트 with C"
 
 categories:
