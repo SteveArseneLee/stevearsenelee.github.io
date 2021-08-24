@@ -1,7 +1,7 @@
 ---
 title: "Django"
 layout: archive
-permalink: categories/BackEnd/Django
+permalink: categories/Django
 author_profile: true
 sidebar_main: true
 ---
