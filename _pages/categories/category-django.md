@@ -1,5 +1,5 @@
 ---
-title: "Backend-Django"
+title: "Django"
 layout: archive
 permalink: categories/BackEnd/Django
 author_profile: true
