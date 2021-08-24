@@ -85,7 +85,14 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-            
+         <span class="nav__sub-title">FrontEnd</span>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "FrontEnd" %}
+                        <li><a href="/categories/FrontEnd" class="">FrontEnd ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
         <span class="nav__sub-title">BackEnd</span>
             <ul>
                 {% for category in site.categories %}

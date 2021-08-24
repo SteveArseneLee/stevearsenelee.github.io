@@ -1,10 +1,10 @@
 ---
-title: "Tidyverse 데이터과학"
+title: "FrontEnd"
 layout: archive
-permalink: categories/Tidyverse
+permalink: categories/FrontEnd
 author_profile: true
 sidebar_main: true
 ---
 
-{% assign posts = site.categories.Tidyverse %}
+{% assign posts = site.categories.FrontEnd %}
 {% for post in posts %} {% include archive-single2.html type=page.entries_layout %} {% endfor %}
