@@ -85,7 +85,8 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-         <span class="nav__sub-title">FrontEnd</span>
+
+         <span class="nav__sub-title">Web</span>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "FrontEnd" %}
@@ -93,11 +94,19 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-        <span class="nav__sub-title">BackEnd</span>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Django" %}
                         <li><a href="/categories/Django" class="">Django ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+        <span class="nav__sub-title">잡지식들</span>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "Others" %}
+                        <li><a href="/categories/Django" class="">Others ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
