@@ -84,19 +84,21 @@ tf.cast(tensor, dtype=tf.unit)
 #### 난수 생성
 - numpy에선 nomral distribution을 기본적으로 생성
     - np.random.randn()
-```python
-np.random.randn(9)
-```
+    ```python
+    np.random.randn(9)
+    ```
+
 - tf.random.normal
-```python
-tf.random.normal(([3,3]))
-```
+    ```python
+    tf.random.normal(([3,3]))
+    ```
 - tf.random.uniform
-```python
-tf.random.uniform(([4,4]))
-```
+    ```python
+    tf.random.uniform(([4,4]))
+    ```
 
 ### Data Preprocess(MNIST)
+
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
@@ -104,23 +106,26 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 %matplotlib inline
 ```
+
 #### 데이터 불러오기
+
 Tensorflow에서 제공해주는 데이터셋(MNIST)예제 불러오기
-```python
-from tensorflow.keras import datasets
-```
+    ```python
+    from tensorflow.keras import datasets
+    ```
 데이터 shape 확인하기
-```python
-mnist = datasets.mnist
-(train_x, train_y), (test_x, test_y) = mnist.load_data()
-train_x.shape
-```
+    ```python
+    mnist = datasets.mnist
+    (train_x, train_y), (test_x, test_y) = mnist.load_data()
+    train_x.shape
+    ```
 
 ## Layer Explaination
 
 ```python
 import tensorflow as tf
 ```
+
 ### Input Image
 Input으로 들어갈 DataSet을 들여다보면서 시각화
 - os
