@@ -131,6 +131,7 @@ Input으로 들어갈 DataSet을 들여다보면서 시각화
 - os
 - glob
 - matplotlib
+
 ```python
 import matplotlib.pyplot as plt
 %matplotlib inline
@@ -141,13 +142,16 @@ from tensorflow.keras import datasets
 image = train_x[0]
 image.shape
 ```
-[batch_size, height, width, channel]
+
+**[batch_size, height, width, channel]**
+
 ```python
 # plt.imshow(image, 'gray')
 # plt.show()
 image = image[tf.newaxis, ... , tf.newaxis]
 image.shape
 ```
+
 ### Convolution
 - filters : layer에서 나갈 때 몇 개의 filter를 만들 것인지 (weights, filters, channels)
 - kernel_size : filter(Weight)의 사이즈
@@ -158,13 +162,12 @@ image.shape
 ```python
 tf.keras.layers.Conv2D(filters=3, kernel_size=(3,3), strides=(1,1), padding='SAME', activation='relu')
 ```
-(3,3) 대신에 3으로도 대체 가능
-```python
-tf.keras.layers.Conv2D(3,3,1,'SAME')
-```
+
+```tf.keras.layers.Conv2D(3,3,1,'SAME')```로 (3,3) 대신에 3으로도 대체 가능
 
 ### Visualization
 - tf.keras.layers.Conv2D
+
 ```python
 image
 image = tf.cast(image, dtype=tf.float32)
@@ -191,6 +194,7 @@ plt.show()
 
 weight 불러오기
 - layer.get_weights()
+
 ```python
 weight = layer.get_weights()[0]
 len(weight)
