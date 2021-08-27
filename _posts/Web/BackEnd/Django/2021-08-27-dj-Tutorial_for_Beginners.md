@@ -1,3 +1,18 @@
+---
+title:  "[Django] Django-Django for Beginners"
+excerpt: "강의 정리"
+
+categories:
+  - Django
+tags:
+  - [Programming, python, Backend]
+
+toc: true
+toc_sticky: true
+ 
+date: 2021-08-27
+last_modified_at: 2021-08-27
+---
 ## Django Tutorial for Beginners
 ### 기본 환경 생성
 이번 포스트는 [Youtube](https://www.youtube.com/watch?v=rHux0gMZ3Eg&t=273s)를 보고 정리한 내용입니다.
