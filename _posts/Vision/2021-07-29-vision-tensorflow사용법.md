@@ -36,13 +36,17 @@ arr.shape
 ```python
 tf.constant([1,2,3])
 ```
+
 - tf.constant()
     - tuple -> Tensor
+
 ```python
 tf.constant(((1,2,3),(1,2,3)))
 ```
+
 - tf.constant()
     - Array -> Tensor
+
 ```python
 arr = np.array([1,2,3])
 tensor = tf.constant(arr)
@@ -56,15 +60,19 @@ tensor.shape()
 - data type 확인
     - Tensor 생성할 때도 data type을 정해주지 않아서 data type에 대한 혼동이 올 수 있음
     - Data Type 에 따라 모델의 무게나 성능 차이에도 영향을 줄 수 있음
+
 ```python
 tensor.dtype
 ```
 - data type 정의
+
 ```python
 tf.constant([1,2,3], dtype=tf.float32)
 ```
+
 - data type 변환
     - Numpy에서 astype()을 주듯이, Tensorflow에선 tf.cast사용
+
 ```python
 arr = np.array([1,2,3], dtype=np.float32)
 arr.astype(np.unit8)
