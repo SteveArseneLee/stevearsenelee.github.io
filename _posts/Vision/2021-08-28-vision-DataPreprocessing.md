@@ -1,11 +1,11 @@
 ---
-title:  "[Vision] Data Preprocessing"
+title:  "[Vision] Data Preprocessing with Python"
 excerpt: "Data Preprocessing"
 
 categories:
   - Vision
 tags:
-  - [Vision, Machine Learning]
+  - [Vision, Machine Learning, python]
 
 toc: true
 toc_sticky: true
@@ -13,7 +13,8 @@ toc_sticky: true
 date: 2021-08-28
 last_modified_at: 2021-08-28
 ---
-## Data Preprocessing Tools
+# Data Preprocessing Tools
+## Python
 
 #### 라이브러리 호출
 ```python
@@ -90,43 +91,4 @@ X_train[:, 3:] = sc.fit_transform(X_train[:, 3:])
 X_test[:, 3:] = sc.transform(X_test[:, 3:])
 print(X_train)
 print(X_test)
-```
-
-```python
-```
-
-```python
-```
-
-```python
-```
-
-```python
-```
-
-```python
-```
-
-```python
-```
-
-```python
-```
-
-```python
-```
-
-```python
-```
-
-```python
-```
-
-```python
-```
-
-```python
-```
-
-```python
 ```

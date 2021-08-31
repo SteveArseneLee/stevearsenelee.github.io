@@ -101,12 +101,28 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-
+        
+        <span class="nav__sub-title">3학년 2학기</span>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "FSSN" %}
+                        <li><a href="/categories/FSSN" class="">FSSN ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "SE" %}
+                        <li><a href="/categories/SE" class="">Software Engineering ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        
         <span class="nav__sub-title">잡지식들</span>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Others" %}
-                        <li><a href="/categories/Django" class="">Others ({{category[1].size}})</a></li>
+                        <li><a href="/categories/Others" class="">Others ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
