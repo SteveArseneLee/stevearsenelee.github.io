@@ -106,7 +106,7 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "DevOps" %}
-                        <li><a href="/categories/DevOps" class="">FSSN ({{category[1].size}})</a></li>
+                        <li><a href="/categories/DevOps" class="">DevOps ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
