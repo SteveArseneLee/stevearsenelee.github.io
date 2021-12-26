@@ -1,4 +1,4 @@
----
+<!-- ---
 title:  "[Data Structure] Doubly Linked List"
 excerpt: "Doubly Linked List with python"
 
@@ -136,4 +136,4 @@ else:
 
 double_linked_list.insert_before(1.5,2)
 double_linked_list.desc()
-```
+``` -->

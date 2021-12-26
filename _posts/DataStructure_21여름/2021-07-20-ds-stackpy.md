@@ -1,4 +1,4 @@
----
+<!-- ---
 title:  "[Data Structure] Stack"
 excerpt: "Stack with python"
 
@@ -66,4 +66,4 @@ def pop():
 for index in range(10):
     push(index)
 pop()
-```
+``` -->

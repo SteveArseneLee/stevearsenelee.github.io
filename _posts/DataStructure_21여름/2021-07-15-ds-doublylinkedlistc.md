@@ -1,4 +1,4 @@
----
+<!-- ---
 title:  "[Data Structure] 양방향 연결리스트"
 excerpt: "양방향 연결리스트 with C"
 
@@ -80,4 +80,4 @@ int main(){
     removeFront();
     show();
 }
-```
+``` -->

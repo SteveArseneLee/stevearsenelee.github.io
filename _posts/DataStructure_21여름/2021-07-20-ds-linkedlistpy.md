@@ -1,4 +1,4 @@
----
+<!-- ---
 title:  "[Data Structure] Linked List"
 excerpt: "Linked List with python"
 
@@ -179,4 +179,4 @@ linkedlist1.desc()
 
 linkedlist1.delete(9)
 linkedlist1.desc()
-```
+``` -->

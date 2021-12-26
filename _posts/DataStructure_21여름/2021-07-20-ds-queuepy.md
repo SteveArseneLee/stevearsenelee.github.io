@@ -1,4 +1,4 @@
----
+<!-- ---
 title:  "[Data Structure] Queue"
 excerpt: "Queue with python"
 
@@ -77,4 +77,4 @@ for index in range(10):
 
 len(queue_list)
 dequeue()
-```
+``` -->

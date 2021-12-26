@@ -1,4 +1,4 @@
----
+<!-- ---
 title:  "[Data Structure] Binary Search Algorithm"
 excerpt: "이진탐색 알고리즘 with C"
 
@@ -132,4 +132,4 @@ int main(){
     Fibo(7);
     return 0;
 }
-```
+``` -->
