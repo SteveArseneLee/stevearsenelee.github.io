@@ -1,4 +1,4 @@
----
+<!-- ---
 title:  "[Algorithm] Selection Sort"
 excerpt: "선택 정렬"
 
@@ -63,4 +63,4 @@ def selection_sort(data):
 import random
 data_list = random.sample(range(100),10)
 selection_sort(data_list)
-```
+``` -->

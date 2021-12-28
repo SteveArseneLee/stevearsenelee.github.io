@@ -1,4 +1,4 @@
----
+<!-- ---
 title:  "[Algorithm] Merge Sort"
 excerpt: "병합정렬"
 
@@ -144,36 +144,4 @@ def merge(left, right):
 ```python
 ```
 
-```python
-```
-
-```python
-```
-
-```python
-```
-
-```python
-```
-
-```python
-```
-
-```python
-```
-
-```python
-```
-
-```python
-```
-
-```python
-```
-
-```python
-```
-
-```python
-```
-
+ -->
