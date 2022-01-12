@@ -1,4 +1,4 @@
----
+<!-- ---
 title:  "[Algorithm] Sorting Algorithm(Bubble Sort)"
 excerpt: "정렬 알고리즘 개요 & Bubble Sort"
 
@@ -89,4 +89,4 @@ bubblesort(data_list)
 #### 알고리즘 분석
 - 반복문이 두개 O(n^2)
     - 최악의 경우 n*(n-1) / 2
-- 완전 정렬이 되어 있는 상태라면 최선은 O(n)
+- 완전 정렬이 되어 있는 상태라면 최선은 O(n) -->

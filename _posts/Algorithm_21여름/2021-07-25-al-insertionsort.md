@@ -1,4 +1,4 @@
----
+<!-- ---
 title:  "[Algorithm] Insertion Sort"
 excerpt: "삽입 정렬"
 
@@ -71,4 +71,4 @@ def insertion_sort(data_list):
     return data_list
 
 print(insertion_sort(rand_data_list))
-```
+``` -->
