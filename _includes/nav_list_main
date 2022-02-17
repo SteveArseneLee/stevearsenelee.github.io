@@ -30,6 +30,29 @@
                     {% endif %}
                 {% endfor %}
             </ul>
+
+        <span class="nav__sub-title">Real Coding</span>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "Programming" %}
+                        <li><a href="/categories/Programming" class="">Programming ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "CodingTest" %}
+                        <li><a href="/categories/CodingTest" class="">CodingTest ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "이코테" %}
+                        <li><a href="/categories/이코테" class="">이코테 ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
             
         <span class="nav__sub-title">BOJ</span>
             <ul>
@@ -66,29 +89,6 @@
                 {% for category in site.categories %}
                     {% if category[0] == "Vision" %}
                         <li><a href="/categories/Vision" class="">Vision ({{category[1].size}})</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-
-        <span class="nav__sub-title">Real Coding</span>
-            <ul>
-                {% for category in site.categories %}
-                    {% if category[0] == "Programming" %}
-                        <li><a href="/categories/Programming" class="">Programming ({{category[1].size}})</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-            <ul>
-                {% for category in site.categories %}
-                    {% if category[0] == "CodingTest" %}
-                        <li><a href="/categories/CodingTest" class="">CodingTest ({{category[1].size}})</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-            <ul>
-                {% for category in site.categories %}
-                    {% if category[0] == "이코테" %}
-                        <li><a href="/categories/이코테" class="">이코테 ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
