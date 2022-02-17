@@ -1,6 +1,6 @@
 ---
 title:  "[이코테] 시작"
-excerpt: "Vision 시작"
+excerpt: "이코테 시작"
 
 categories:
   - 이코테
