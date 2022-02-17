@@ -13,6 +13,7 @@ toc_sticky: true
 date: 2022-02-17
 last_modified_at: 2022-02-17
 ---
+(그리디 알고리즘)[https://github.com/SteveArseneLee/Algorithm-Summary/tree/main/Greedy]
 # 그리디 알고리즘(탐욕법)
 - 현재 상황에서 지금 당장 좋은 것만 고르는 방법
 
