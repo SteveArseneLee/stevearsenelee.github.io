@@ -40,4 +40,29 @@ print(coin)
 
 ### 실전 문제) 큰 수의 법칙
 다양한 수로 이루어진 배열이 있을 때 주어진 수들을 M번 더해 가장 큰 수를 만드는 법칙  
-단, 
+단, 배열의 특정한 인덱스에 해당하는 수가 연속해서 K번을 초과해 더해질 수 없음.  
+ex) 순서대로 2,4,5,4,6으로 이루어진 배열이 있을 때 M이 8이고, K가 3이라 가정
+이 경우 특정한 인덱스의 수가 연속해서 세번까지만 더해질 수 있으므로 큰 수의 법칙에 따른 결과는  
+6 + 6 + 6 + 5 + 6 + 6 + 6 + 5 인 46  
+하지만 서로 다른 인덱스에 있을 경우 같은 수면 서로 다른 것으로 간주함.  
+따라서, 3,4,3,4,3이 주어지고 M이 7, K가 2이면  
+4 + 4 + 4 + 4 + 4 + 4 + 4인 28이 도출됨.  
+```python
+N,M,K = map(int, input().rstrip().split())
+lst = list(map(int, input().split()))
+lst.sort()
+first = lst[-1]
+second = lst[-2]
+result = 0
+while True:
+    for i in range(K):
+        if M == 0:
+            break
+        result += first
+        M -= 1
+    if M == 0:
+        break
+    result += second
+    M -= 1
+print(result)
+```
