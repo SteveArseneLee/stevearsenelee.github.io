@@ -102,3 +102,16 @@ __AWS Sagemaker__
 
 # VPC(Virtual Private Cloud)
 Amazon VPC를 이용하면 사용자가 정의한 가상 네트워크로 AWS 리소스를 시작할 수 있음  
+- 계정 생성 시 default로 VPC를 만들어줌
+- EC2, RDS, S3 등의 서비스 활용 가능
+- 서브넷 구성
+- 보안 설정(IP block, inbound outbound 설정)
+- VPC Peering(VPC 간의 연결)
+- IP 대역 지정 가능
+- VPC는 하나의 Region에만 속할 수 있음
+
+
+subnet
+- VPC의 하위 단위(sub + network)
+- 하나의 AZ에서만 생성 가능
+- 하나의 AZ에는 여러 개의 subnet 생성 가능
