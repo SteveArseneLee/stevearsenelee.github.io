@@ -3,9 +3,9 @@ title:  "[이코테] 시작"
 excerpt: "Vision 시작"
 
 categories:
-  - ecote
+  - 이코테
 tags:
-  - [ecote, python]
+  - [이코테, python]
 
 toc: true
 toc_sticky: true
