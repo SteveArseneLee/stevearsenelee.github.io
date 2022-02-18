@@ -36,3 +36,13 @@ last_modified_at: 2022-02-18
 (이때 겁나 조마조마했다....)
 7. ```aws ec2 describe-key-pairs```를 보면 KeyPairId가 나온다.
 계정에 들어가서 계정ID를 확인해본다. (드디어 맞았다....)
+
+```aws configure --profile 새로운사용자명```으로 추가적인 세팅 가능  
+__AWS_PROFILE__ 환경변수 혹은 __--profile__ 옵션을 사용해 특정 사용자 프로파일로 명령어 수행 가능
+```aws sts get-caller-identity --profile=사용자명```으로 검색가능
+
+#### AWS CLI 사용법
+```aws <command> <subcommand> [options and parameters]```
+
+디버그 모드 활성화  
+```aws sts get-caller-identity --debug```
