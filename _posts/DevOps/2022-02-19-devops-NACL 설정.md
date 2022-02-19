@@ -27,3 +27,7 @@ Response
 
 80번 포트는 서버 입장에서 들어오는 것으로 Inbound
 1025번 포트는 서버 입장에서 나가는 것으로 Outbound - 임시포트(1024 ~ 65535)
+
+**stateful하다는것은 상태를 기억한다는 뜻**
+
+즉, Security Group에 원래 쏴주면 Inbound : 80 / Outbound : None으로 가는데 stateful함으로써 1025포트도 허용해주는 것  
