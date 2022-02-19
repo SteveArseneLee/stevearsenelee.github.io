@@ -17,11 +17,11 @@ last_modified_at: 2022-02-19
 - NACL - stateless
 - Security Group - stateful
 
-Request
+Request  
 |source|175.34.136.133|1025|
 |destination|13.120.100.100|80|
 
-Response
+Response  
 |source|13.120.100.100|80|
 |destination|175.34.136.133|1025|
 
