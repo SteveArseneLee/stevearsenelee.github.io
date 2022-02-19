@@ -31,3 +31,5 @@ Response
 **stateful하다는것은 상태를 기억한다는 뜻**
 
 즉, Security Group에 원래 쏴주면 Inbound : 80 / Outbound : None으로 가는데 stateful함으로써 1025포트도 허용해주는 것  
+
+반대로 NACL처럼 **stateless**는 있는 그대로만 한다는 것으로, Inbound : 80 / Outbound : None을 지킨다.
