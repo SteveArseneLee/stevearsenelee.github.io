@@ -37,3 +37,7 @@ destination|175.34.136.133|1025
 즉, Security Group에 원래 쏴주면 Inbound : 80 / Outbound : None으로 가는데 stateful함으로써 1025포트도 허용해주는 것  
 
 반대로 NACL처럼 **stateless**는 있는 그대로만 한다는 것으로, Inbound : 80 / Outbound : None을 지킨다.
+
+### AWS에서 NACL 설정하기
+기존에 만든 VPC와 서브넷에 연결되어 있는 NACL이 하나 존재할 것이다. 이를 먼저 **private_NACL**로 바꿔준다.  
+그 뒤에 **네트워크 ACL 생성**을 누르고 **public_NACL**이란 이름으로 기존 VPC를 선택해 생성해준다.
