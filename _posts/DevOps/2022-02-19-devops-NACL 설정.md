@@ -18,8 +18,10 @@ last_modified_at: 2022-02-19
 - Security Group - stateful
 
 Request  
-|source|175.34.136.133|1025|
-|destination|13.120.100.100|80|
+&nbsp; | &nbsp; |&nbsp; 
+------ | -----  | -----
+source|175.34.136.133|1025
+|destination|13.120.100.100|80
 
 Response  
 |source|13.120.100.100|80|
