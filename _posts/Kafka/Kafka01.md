@@ -57,3 +57,6 @@ last_modified_at: 2022-05-04
 - [Producer/Broker/Topic 별]
 - 초당 평균 전송 요청 건수
 - 초당 전송 데이터 사이즈
+- 평균 요청 처리 시간
+- 초당 평균 record 전송 건수
+- 초당 평균 record 전송 사이즈
