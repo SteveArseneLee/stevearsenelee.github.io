@@ -69,6 +69,7 @@
                     {% endif %}
                 {% endfor %}
             </ul>
+            
         <span class="nav__sub-title">Data Analysis</span>
             <ul>
                 {% for category in site.categories %}
