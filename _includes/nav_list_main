@@ -30,6 +30,15 @@
                     {% endif %}
                 {% endfor %}
             </ul>
+        
+        <span class="nav__sub-title">Data Analysis</span>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "Kafka" %}
+                        <li><a href="/categories/Kafka" class="">Kafka ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
 
         <span class="nav__sub-title">Real Coding</span>
             <ul>
@@ -69,15 +78,7 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-            
-        <span class="nav__sub-title">Data Analysis</span>
-            <ul>
-                {% for category in site.categories %}
-                    {% if category[0] == "Kafka" %}
-                        <li><a href="/categories/Kafka" class="">Kafka ({{category[1].size}})</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
+
 
         <span class="nav__sub-title">Data Science & Vision</span>
             <ul>
