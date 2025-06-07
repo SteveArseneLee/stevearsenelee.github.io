@@ -13,13 +13,16 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v3
         with:
-          submodules: true  # 중요: submodule 같이 clone
+          submodules: false
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
           hugo-version: '0.121.1'
           extended: true
+
+      - name: List book theme contents
+        run: ls -R themes/book
 
       - name: Build site
         run: hugo --minify
