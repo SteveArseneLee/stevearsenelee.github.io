@@ -1,17 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Others on LogLee's Training Ground</title><link>https://stevearsenelee.github.io/docs/others/</link><description>Recent content in Others on LogLee's Training Ground</description><generator>Hugo</generator><language>ko</language><atom:link href="https://stevearsenelee.github.io/docs/others/index.xml" rel="self" type="application/rss+xml"/><item><title>Todo List</title><link>https://stevearsenelee.github.io/docs/others/todolist/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://stevearsenelee.github.io/docs/others/todolist/</guid><description>&lt;h2 id="todo">
- Todo&amp;hellip;
- &lt;a class="anchor" href="#todo">#&lt;/a>
-&lt;/h2>
-&lt;ul>
-&lt;li>&lt;input disabled="" type="checkbox"> Ingress 설정&lt;/li>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> Test&lt;/li>
-&lt;li>&lt;input disabled="" type="checkbox"> Kafka 올리기&lt;/li>
-&lt;/ul>
-&lt;h2 id="done">
- Done
- &lt;a class="anchor" href="#done">#&lt;/a>
-&lt;/h2>
-&lt;ul>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> Ceph 올리기&lt;/li>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> &lt;/li>
-&lt;/ul></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Others on LogLee&#39;s Training Ground</title>
+    <link>http://localhost:1313/docs/others/</link>
+    <description>Recent content in Others on LogLee&#39;s Training Ground</description>
+    <generator>Hugo</generator>
+    <language>ko</language>
+    <atom:link href="http://localhost:1313/docs/others/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Todo List</title>
+      <link>http://localhost:1313/docs/others/todolist/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/others/todolist/</guid>
+      <description>&lt;h2 id=&#34;todo&#34;&gt;&#xA;  Todo&amp;hellip;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#todo&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Ingress 설정&lt;/li&gt;&#xA;&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Test&lt;/li&gt;&#xA;&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Kafka 올리기&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;done&#34;&gt;&#xA;  Done&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#done&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Ceph 올리기&lt;/li&gt;&#xA;&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; &lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

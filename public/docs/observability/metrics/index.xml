@@ -1,5 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Metrics on LogLee's Training Ground</title><link>https://stevearsenelee.github.io/docs/observability/metrics/</link><description>Recent content in Metrics on LogLee's Training Ground</description><generator>Hugo</generator><language>ko</language><atom:link href="https://stevearsenelee.github.io/docs/observability/metrics/index.xml" rel="self" type="application/rss+xml"/><item><title>Prom</title><link>https://stevearsenelee.github.io/docs/observability/metrics/prom-test/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://stevearsenelee.github.io/docs/observability/metrics/prom-test/</guid><description>&lt;h2 id="producer-acks-batch-page-cache-and-flush">
- Producer Acks, Batch, Page Cache and Flush
- &lt;a class="anchor" href="#producer-acks-batch-page-cache-and-flush">#&lt;/a>
-&lt;/h2>
-&lt;p>acks 설정은 요청이 성공할 때를 정의하는 데 사용되는 &lt;strong>Producer&lt;/strong>에 설정하는 Parameter&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Metrics on LogLee&#39;s Training Ground</title>
+    <link>http://localhost:1313/docs/observability/metrics/</link>
+    <description>Recent content in Metrics on LogLee&#39;s Training Ground</description>
+    <generator>Hugo</generator>
+    <language>ko</language>
+    <atom:link href="http://localhost:1313/docs/observability/metrics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Prom</title>
+      <link>http://localhost:1313/docs/observability/metrics/prom-test/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/observability/metrics/prom-test/</guid>
+      <description>&lt;h2 id=&#34;producer-acks-batch-page-cache-and-flush&#34;&gt;&#xA;  Producer Acks, Batch, Page Cache and Flush&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#producer-acks-batch-page-cache-and-flush&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;acks 설정은 요청이 성공할 때를 정의하는 데 사용되는 &lt;strong&gt;Producer&lt;/strong&gt;에 설정하는 Parameter&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

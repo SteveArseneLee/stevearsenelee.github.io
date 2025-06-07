@@ -1,4 +1,9 @@
-<!doctype html><html lang=ko dir=ltr><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
   1. 정의
   #
 
@@ -201,45 +206,1151 @@ MLQ 확장형, 프로세스가 다른 큐로 이동 가능
       
   
 
-=> 📌 Linux CFS는 가상 런타임(VRuntime) 기반으로, 각 태스크의 실행 시간을 추적하며 가장 “덜 사용한” 프로세스에게 CPU를 할당."><meta name=theme-color media="(prefers-color-scheme: light)" content="#ffffff"><meta name=theme-color media="(prefers-color-scheme: dark)" content="#343a40"><meta name=color-scheme content="light dark"><meta property="og:url" content="https://stevearsenelee.github.io/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/2-cpu-scheduling/"><meta property="og:site_name" content="LogLee's Training Ground"><meta property="og:title" content="2. CPU Scheduling"><meta property="og:description" content="1. 정의 # CPU 스케줄링은 Ready Queue에 있는 프로세스들 중 어떤 프로세스에게 CPU를 할당할지 결정하는 정책. 멀티태스킹 OS에서 프로세스 간 CPU를 공유하기 위한 핵심 메커니즘. OS의 핵심 기능 중 하나로, 스케줄러는 다양한 정책에 따라 프로세스를 선택함. 주요 목적 # 시스템 자원의 공정한 분배 CPU 사용률(Throughput) 극대화 대기 시간, 응답 시간 최소화 전반적인 시스템 반응성 향상 2. 스케쥴링이 필요한 시점 # 프로세스가 CPU burst를 마치고 I/O 요청 → CPU 반환 프로세스가 종료됨 선점형 스케줄러의 경우, 더 높은 우선순위의 프로세스가 도착 sleep(), wait() 호출 후 wake up될 때 3. 주요 스케쥴링 기준 # 기준 설명 CPU burst time 얼마나 짧게 CPU를 점유할지 우선순위 (Priority) 사용자/시스템 지정 도착 시간 (Arrival Time) 먼저 온 순서 대기 시간 / 응답 시간 유저가 체감하는 반응 속도 Aging 기아(Starvation) 방지 목적 4. 스케쥴링 알고리즘 # FCFS (First-Come, First-Served) 먼저 온 순서대로 처리 (Queue 기반) 단순하지만 Convoy 현상 발생 가능 (긴 작업이 짧은 작업을 막음) SJF (Shortest Job First) CPU burst가 가장 짧은 작업 우선 이론상 가장 효율적 (대기시간 최소), 하지만 예측이 어렵다 비선점형(기본) 또는 **선점형(SRTF)**으로 구현 가능 Round Robin (RR) 각 프로세스에 Time Quantum 부여 시간 할당이 끝나면 선점 발생 → 공정성 ↑ 응답성이 중요할 때 유용 (인터랙티브 시스템) Priority Scheduling 우선순위 높은 작업부터 실행 Starvation 발생 가능 → Aging 기법으로 완화 Multi-Level Queue (MLQ) 프로세스를 성격에 따라 여러 큐로 분류 (ex. interactive, batch) 큐마다 별도 알고리즘 사용 큐 간 우선순위 존재 (low queue는 starvation 가능) Multi-Level Feedback Queue (MLFQ) MLQ 확장형, 프로세스가 다른 큐로 이동 가능 초기엔 높은 우선순위에서 시작, CPU 오래 쓰면 점점 낮은 우선순위로 이동 현대 OS가 채택하는 현실적인 정책 5. 선점형 vs 비선점형 # 구분 비선점형 선점형 설명 CPU를 할당받으면 자발적으로 반환할 때까지 유지 우선순위 등 조건에 따라 중간에 선점 가능 예시 알고리즘 FCFS, SJF RR, Priority(선점형), SRTF 특징 단순, context switch 적음 응답성 우수, 복잡도 ↑ 6. 성능 지표 # 지표 설명 CPU 사용률 CPU가 놀지 않고 일하는 비율 Throughput 단위 시간당 완료된 프로세스 수 Turnaround Time 프로세스 시작 ~ 종료까지 걸린 시간 Waiting Time Ready Queue에서 기다린 시간 Response Time 요청 후 첫 반응까지 걸린 시간 7. 실무 예시 # OS 스케줄러 Linux (CFS) Completely Fair Scheduler – 시간 단위를 Weight로 변환해 공정하게 분배 Windows Multilevel Feedback Queue 기반 선점형 RTOS Priority-based preemptive scheduling (실시간성 강조) => 📌 Linux CFS는 가상 런타임(VRuntime) 기반으로, 각 태스크의 실행 시간을 추적하며 가장 “덜 사용한” 프로세스에게 CPU를 할당."><meta property="og:locale" content="ko"><meta property="og:type" content="article"><meta property="article:section" content="docs"><title>2. CPU Scheduling | LogLee's Training Ground</title>
-<link rel=icon href=/favicon.png><link rel=manifest href=/manifest.json><link rel=canonical href=https://stevearsenelee.github.io/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/2-cpu-scheduling/><link rel=stylesheet href=/book.min.9adb8ebbd2b7c0d066fb01527510676c64916f6b7ba373f7d0ab4abe97ed4ae8.css integrity="sha256-mtuOu9K3wNBm+wFSdRBnbGSRb2t7o3P30KtKvpftSug=" crossorigin=anonymous><script defer src=/fuse.min.js></script><script defer src=/kr.search.min.a6a135180603ac50023a4d59d06d9857356b4e280890b7d6a369fc6950f3e528.js integrity="sha256-pqE1GAYDrFACOk1Z0G2YVzVrTigIkLfWo2n8aVDz5Sg=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/><span>LogLee's Training Ground</span></a></h2><div class="book-search hidden"><input type=text id=book-search-input placeholder aria-label maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><script>document.querySelector(".book-search").classList.remove("hidden")</script><ul><li><input type=checkbox id=section-79150fdf9dbf158df9c917a93d39407f class=toggle>
-<label for=section-79150fdf9dbf158df9c917a93d39407f class=flex><a role=button class=flex-auto>Infra</a></label><ul><li><input type=checkbox id=section-afa7bc76ec3321dc3793f4204885e0ab class=toggle>
-<label for=section-afa7bc76ec3321dc3793f4204885e0ab class=flex><a role=button class=flex-auto>KVM</a></label><ul></ul></li><li><input type=checkbox id=section-3f41a0b8f3b7286a296b17538ec448af class=toggle>
-<label for=section-3f41a0b8f3b7286a296b17538ec448af class=flex><a role=button class=flex-auto>Kubernetes</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-d4754ecbc33cae4a97284c5e5fb94d54 class=toggle>
-<label for=section-d4754ecbc33cae4a97284c5e5fb94d54 class=flex><a role=button class=flex-auto>Data Engineering</a></label><ul><li><input type=checkbox id=section-641462dde2c25fe744d467e801495669 class=toggle>
-<label for=section-641462dde2c25fe744d467e801495669 class=flex><a role=button class=flex-auto>Hadoop</a></label><ul></ul></li><li><input type=checkbox id=section-f83ca8c7296ad5011fcbbaeba0329ca2 class=toggle>
-<label for=section-f83ca8c7296ad5011fcbbaeba0329ca2 class=flex><a role=button class=flex-auto>Modeling</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-8ff501dd10e04dc7d58e4fa05c590467 class=toggle>
-<label for=section-8ff501dd10e04dc7d58e4fa05c590467 class=flex><a role=button class=flex-auto>Data Integration</a></label><ul><li><input type=checkbox id=section-dfa9aef9d6d1d14a26805d019ab993d7 class=toggle>
-<label for=section-dfa9aef9d6d1d14a26805d019ab993d7 class=flex><a role=button class=flex-auto>Kafka</a></label><ul><li><a href=/docs/data-integration/kafka/kafka-basic/>Kafka 심화 개념</a></li><li><a href=/docs/data-integration/kafka/kafka-troubleshooting-optimization/>Kafka 운영 요소</a></li><li><a href=/docs/data-integration/kafka/kafka-data-structure/>Kafka의 데이터 구조</a></li><li><a href=/docs/data-integration/kafka/kafka-storage-performance-test/>Kafka의 성능 측정 (Block storage vs NFS)</a></li><li><a href=/docs/data-integration/kafka/kafka-storage/>Kafka의 저장소</a></li></ul></li></ul></li><li><input type=checkbox id=section-d5d55849c0cd749a3de3a547305dd4b1 class=toggle>
-<label for=section-d5d55849c0cd749a3de3a547305dd4b1 class=flex><a role=button class=flex-auto>Data Lake Platform</a></label><ul><li><input type=checkbox id=section-7e667220fef74178cc1de6a791b2f882 class=toggle>
-<label for=section-7e667220fef74178cc1de6a791b2f882 class=flex><a role=button class=flex-auto>Ceph</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-2ded06cba2240a952325fd742ea5255f class=toggle>
-<label for=section-2ded06cba2240a952325fd742ea5255f class=flex><a role=button class=flex-auto>Data Processing</a></label><ul><li><input type=checkbox id=section-61862c92f7adb593e694b832ef32779a class=toggle>
-<label for=section-61862c92f7adb593e694b832ef32779a class=flex><a role=button class=flex-auto>Flink</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-5cdf1754fdf767f4d7e6b8fb75b850fb class=toggle>
-<label for=section-5cdf1754fdf767f4d7e6b8fb75b850fb class=flex><a role=button class=flex-auto>Language</a></label><ul></ul></li><li><input type=checkbox id=section-8bff7ae517186b2d376a0661467cef2d class=toggle>
-<label for=section-8bff7ae517186b2d376a0661467cef2d class=flex><a role=button class=flex-auto>Observability</a></label><ul><li><input type=checkbox id=section-8bd6aac4580b36d82077704ed5049b20 class=toggle>
-<label for=section-8bd6aac4580b36d82077704ed5049b20 class=flex><a role=button class=flex-auto>Logs</a></label><ul></ul></li><li><input type=checkbox id=section-3820b01d8d343a30aa49f2bd3d0ac76c class=toggle>
-<label for=section-3820b01d8d343a30aa49f2bd3d0ac76c class=flex><a role=button class=flex-auto>Metrics</a></label><ul></ul></li><li><input type=checkbox id=section-27eb68f1910975dd7e21ea458d19f57f class=toggle>
-<label for=section-27eb68f1910975dd7e21ea458d19f57f class=flex><a role=button class=flex-auto>Traces</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-78891673ccb2c2d2b66a96ea50ab1361 class=toggle>
-<label for=section-78891673ccb2c2d2b66a96ea50ab1361 class=flex><a role=button class=flex-auto>Others</a></label><ul></ul></li><li><input type=checkbox id=section-d7f1d1be3855e072724de9475cdfbfc3 class=toggle>
-<label for=section-d7f1d1be3855e072724de9475cdfbfc3 class=flex><a role=button class=flex-auto>알고리즘</a></label><ul><li><input type=checkbox id=section-747d8ad5c3c7f33d6e58ddfb67dea44e class=toggle>
-<label for=section-747d8ad5c3c7f33d6e58ddfb67dea44e class=flex><a role=button class=flex-auto>a-really-important</a></label><ul></ul></li><li><input type=checkbox id=section-7e15309ad0b085600c1f239bb8c8eb2e class=toggle>
-<label for=section-7e15309ad0b085600c1f239bb8c8eb2e class=flex><a role=button class=flex-auto>dp</a></label><ul></ul></li><li><input type=checkbox id=section-534e71b0d21d0db126610564d17c9a8c class=toggle>
-<label for=section-534e71b0d21d0db126610564d17c9a8c class=flex><a role=button class=flex-auto>sorting</a></label><ul></ul></li><li><input type=checkbox id=section-a47eb3a03ca7a90c2669be5223712fab class=toggle>
-<label for=section-a47eb3a03ca7a90c2669be5223712fab class=flex><a role=button class=flex-auto>완전탐색</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-d7e1497bbb4a05194486c8bb2b0ea79a class=toggle checked>
-<label for=section-d7e1497bbb4a05194486c8bb2b0ea79a class=flex><a role=button class=flex-auto>컴퓨터이론</a></label><ul><li><input type=checkbox id=section-a1c99ab2d40536151b21eb12a5041410 class=toggle>
-<label for=section-a1c99ab2d40536151b21eb12a5041410 class=flex><a role=button class=flex-auto>네트워크</a></label><ul></ul></li><li><input type=checkbox id=section-2268fd08902c3bcc533339d8cbf128ef class=toggle>
-<label for=section-2268fd08902c3bcc533339d8cbf128ef class=flex><a role=button class=flex-auto>데이터베이스</a></label><ul></ul></li><li><input type=checkbox id=section-2998a9560058ec62c67d1a55ea134d38 class=toggle>
-<label for=section-2998a9560058ec62c67d1a55ea134d38 class=flex><a role=button class=flex-auto>디자인패턴</a></label><ul></ul></li><li><input type=checkbox id=section-055d0164778e6e1df37e6d55c5d9cf85 class=toggle checked>
-<label for=section-055d0164778e6e1df37e6d55c5d9cf85 class=flex><a role=button class=flex-auto>운영체제</a></label><ul></ul></li><li><input type=checkbox id=section-3a909f63114456639d5607c0ecf991ab class=toggle>
-<label for=section-3a909f63114456639d5607c0ecf991ab class=flex><a role=button class=flex-auto>자료구조</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-4fdec2fe2003d2cde62ccb52c0009bfc class=toggle>
-<label for=section-4fdec2fe2003d2cde62ccb52c0009bfc class=flex><a role=button class=flex-auto>트러블슈팅</a></label><ul></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label><h3>2. CPU Scheduling</h3><label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#1-정의>1. 정의</a><ul><li><a href=#주요-목적>주요 목적</a></li></ul></li><li><a href=#2-스케쥴링이-필요한-시점>2. 스케쥴링이 필요한 시점</a></li><li><a href=#3-주요-스케쥴링-기준>3. 주요 스케쥴링 기준</a></li><li><a href=#4-스케쥴링-알고리즘>4. 스케쥴링 알고리즘</a></li><li><a href=#5-선점형-vs-비선점형>5. 선점형 vs 비선점형</a></li><li><a href=#6-성능-지표>6. 성능 지표</a></li><li><a href=#7-실무-예시>7. 실무 예시</a></li><li><a href=#8-자주-묻는-면접-질문>8. 자주 묻는 면접 질문</a></li></ul></nav></aside></header><article class="markdown book-article"><h2 id=1-정의>1. 정의
-<a class=anchor href=#1-%ec%a0%95%ec%9d%98>#</a></h2><ul><li>CPU 스케줄링은 Ready Queue에 있는 프로세스들 중 어떤 프로세스에게 CPU를 할당할지 결정하는 정책.</li><li>멀티태스킹 OS에서 프로세스 간 CPU를 공유하기 위한 핵심 메커니즘.</li><li>OS의 핵심 기능 중 하나로, 스케줄러는 다양한 정책에 따라 프로세스를 선택함.</li></ul><h3 id=주요-목적>주요 목적
-<a class=anchor href=#%ec%a3%bc%ec%9a%94-%eb%aa%a9%ec%a0%81>#</a></h3><ul><li>시스템 자원의 공정한 분배</li><li>CPU 사용률(Throughput) 극대화</li><li>대기 시간, 응답 시간 최소화</li><li>전반적인 시스템 반응성 향상</li></ul><h2 id=2-스케쥴링이-필요한-시점>2. 스케쥴링이 필요한 시점
-<a class=anchor href=#2-%ec%8a%a4%ec%bc%80%ec%a5%b4%eb%a7%81%ec%9d%b4-%ed%95%84%ec%9a%94%ed%95%9c-%ec%8b%9c%ec%a0%90>#</a></h2><ul><li>프로세스가 CPU burst를 마치고 I/O 요청 → CPU 반환</li><li>프로세스가 종료됨</li><li>선점형 스케줄러의 경우, 더 높은 우선순위의 프로세스가 도착</li><li>sleep(), wait() 호출 후 wake up될 때</li></ul><h2 id=3-주요-스케쥴링-기준>3. 주요 스케쥴링 기준
-<a class=anchor href=#3-%ec%a3%bc%ec%9a%94-%ec%8a%a4%ec%bc%80%ec%a5%b4%eb%a7%81-%ea%b8%b0%ec%a4%80>#</a></h2><table><thead><tr><th>기준</th><th>설명</th></tr></thead><tbody><tr><td>CPU burst time</td><td>얼마나 짧게 CPU를 점유할지</td></tr><tr><td>우선순위 (Priority)</td><td>사용자/시스템 지정</td></tr><tr><td>도착 시간 (Arrival Time)</td><td>먼저 온 순서</td></tr><tr><td>대기 시간 / 응답 시간</td><td>유저가 체감하는 반응 속도</td></tr><tr><td>Aging</td><td>기아(Starvation) 방지 목적</td></tr></tbody></table><h2 id=4-스케쥴링-알고리즘>4. 스케쥴링 알고리즘
-<a class=anchor href=#4-%ec%8a%a4%ec%bc%80%ec%a5%b4%eb%a7%81-%ec%95%8c%ea%b3%a0%eb%a6%ac%ec%a6%98>#</a></h2><ol><li>FCFS (First-Come, First-Served)</li></ol><ul><li>먼저 온 순서대로 처리 (Queue 기반)</li><li>단순하지만 Convoy 현상 발생 가능 (긴 작업이 짧은 작업을 막음)</li></ul><ol start=2><li>SJF (Shortest Job First)</li></ol><ul><li>CPU burst가 가장 짧은 작업 우선</li><li>이론상 가장 효율적 (대기시간 최소), 하지만 예측이 어렵다</li><li>비선점형(기본) 또는 **선점형(SRTF)**으로 구현 가능</li></ul><ol start=3><li>Round Robin (RR)</li></ol><ul><li>각 프로세스에 Time Quantum 부여</li><li>시간 할당이 끝나면 선점 발생 → 공정성 ↑</li><li>응답성이 중요할 때 유용 (인터랙티브 시스템)</li></ul><ol start=4><li>Priority Scheduling</li></ol><ul><li>우선순위 높은 작업부터 실행</li><li>Starvation 발생 가능 → Aging 기법으로 완화</li></ul><ol start=5><li>Multi-Level Queue (MLQ)</li></ol><ul><li>프로세스를 성격에 따라 여러 큐로 분류 (ex. interactive, batch)</li><li>큐마다 별도 알고리즘 사용</li><li>큐 간 우선순위 존재 (low queue는 starvation 가능)</li></ul><ol start=6><li>Multi-Level Feedback Queue (MLFQ)</li></ol><ul><li>MLQ 확장형, 프로세스가 다른 큐로 이동 가능</li><li>초기엔 높은 우선순위에서 시작, CPU 오래 쓰면 점점 낮은 우선순위로 이동</li><li>현대 OS가 채택하는 현실적인 정책</li></ul><h2 id=5-선점형-vs-비선점형>5. 선점형 vs 비선점형
-<a class=anchor href=#5-%ec%84%a0%ec%a0%90%ed%98%95-vs-%eb%b9%84%ec%84%a0%ec%a0%90%ed%98%95>#</a></h2><table><thead><tr><th>구분</th><th>비선점형</th><th>선점형</th></tr></thead><tbody><tr><td>설명</td><td>CPU를 할당받으면 자발적으로 반환할 때까지 유지</td><td>우선순위 등 조건에 따라 중간에 선점 가능</td></tr><tr><td>예시 알고리즘</td><td>FCFS, SJF</td><td>RR, Priority(선점형), SRTF</td></tr><tr><td>특징</td><td>단순, context switch 적음</td><td>응답성 우수, 복잡도 ↑</td></tr></tbody></table><h2 id=6-성능-지표>6. 성능 지표
-<a class=anchor href=#6-%ec%84%b1%eb%8a%a5-%ec%a7%80%ed%91%9c>#</a></h2><table><thead><tr><th>지표</th><th>설명</th></tr></thead><tbody><tr><td>CPU 사용률</td><td>CPU가 놀지 않고 일하는 비율</td></tr><tr><td>Throughput</td><td>단위 시간당 완료된 프로세스 수</td></tr><tr><td>Turnaround Time</td><td>프로세스 시작 ~ 종료까지 걸린 시간</td></tr><tr><td>Waiting Time</td><td>Ready Queue에서 기다린 시간</td></tr><tr><td>Response Time</td><td>요청 후 첫 반응까지 걸린 시간</td></tr></tbody></table><h2 id=7-실무-예시>7. 실무 예시
-<a class=anchor href=#7-%ec%8b%a4%eb%ac%b4-%ec%98%88%ec%8b%9c>#</a></h2><table><thead><tr><th>OS</th><th>스케줄러</th></tr></thead><tbody><tr><td>Linux (CFS)</td><td>Completely Fair Scheduler – 시간 단위를 Weight로 변환해 공정하게 분배</td></tr><tr><td>Windows</td><td>Multilevel Feedback Queue 기반 선점형</td></tr><tr><td>RTOS</td><td>Priority-based preemptive scheduling (실시간성 강조)</td></tr></tbody></table><p>=> 📌 Linux CFS는 가상 런타임(VRuntime) 기반으로, 각 태스크의 실행 시간을 추적하며 가장 “덜 사용한” 프로세스에게 CPU를 할당.</p><h2 id=8-자주-묻는-면접-질문>8. 자주 묻는 면접 질문
-<a class=anchor href=#8-%ec%9e%90%ec%a3%bc-%eb%ac%bb%eb%8a%94-%eb%a9%b4%ec%a0%91-%ec%a7%88%eb%ac%b8>#</a></h2><blockquote><p>Q1. SJF가 이상적으로 효율적인 이유는?</p></blockquote><p>A.</p><ul><li>SJF는 평균 대기 시간을 수학적으로 최소화하는 최적 알고리즘.</li><li>하지만 실제 CPU burst time을 정확히 예측하는 건 어렵기 때문에 실무 적용이 제한적.</li></ul><blockquote><p>Q2. Round Robin의 타임퀀텀 크기는 어떻게 결정해야 하나요?</p></blockquote><p>A.</p><ul><li>너무 작으면 context switching 오버헤드 증가</li><li>너무 크면 FCFS처럼 변함</li><li>일반적으로 10~100ms 수준</li></ul><blockquote><p>Q3. 선점형 스케줄링이 필요한 이유는?</p></blockquote><p>A.</p><ul><li>실시간 반응이 필요한 환경 (GUI, 인터랙티브 shell 등)</li><li>짧은 작업이 긴 작업에 의해 밀리는 것을 방지</li></ul><blockquote><p>Q4. 멀티코어 환경에서 스케줄링은 어떻게 동작하나요?</p></blockquote><ul><li>각 CPU에 Run Queue를 두는 per-CPU 모델 사용</li><li>부하 분산을 위한 load balancing 또는 task migration 전략 필요</li><li>Linux는 SMP(Symmetric Multi Processing) 스케줄러로 처리</li></ul></article><footer class=book-footer><div class="flex flex-wrap justify-between"></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#1-정의>1. 정의</a><ul><li><a href=#주요-목적>주요 목적</a></li></ul></li><li><a href=#2-스케쥴링이-필요한-시점>2. 스케쥴링이 필요한 시점</a></li><li><a href=#3-주요-스케쥴링-기준>3. 주요 스케쥴링 기준</a></li><li><a href=#4-스케쥴링-알고리즘>4. 스케쥴링 알고리즘</a></li><li><a href=#5-선점형-vs-비선점형>5. 선점형 vs 비선점형</a></li><li><a href=#6-성능-지표>6. 성능 지표</a></li><li><a href=#7-실무-예시>7. 실무 예시</a></li><li><a href=#8-자주-묻는-면접-질문>8. 자주 묻는 면접 질문</a></li></ul></nav></div></aside></main></body></html>
+=&gt; 📌 Linux CFS는 가상 런타임(VRuntime) 기반으로, 각 태스크의 실행 시간을 추적하며 가장 “덜 사용한” 프로세스에게 CPU를 할당.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/2-cpu-scheduling/">
+  <meta property="og:site_name" content="LogLee&#39;s Training Ground">
+  <meta property="og:title" content="2. CPU Scheduling">
+  <meta property="og:description" content="1. 정의 # CPU 스케줄링은 Ready Queue에 있는 프로세스들 중 어떤 프로세스에게 CPU를 할당할지 결정하는 정책. 멀티태스킹 OS에서 프로세스 간 CPU를 공유하기 위한 핵심 메커니즘. OS의 핵심 기능 중 하나로, 스케줄러는 다양한 정책에 따라 프로세스를 선택함. 주요 목적 # 시스템 자원의 공정한 분배 CPU 사용률(Throughput) 극대화 대기 시간, 응답 시간 최소화 전반적인 시스템 반응성 향상 2. 스케쥴링이 필요한 시점 # 프로세스가 CPU burst를 마치고 I/O 요청 → CPU 반환 프로세스가 종료됨 선점형 스케줄러의 경우, 더 높은 우선순위의 프로세스가 도착 sleep(), wait() 호출 후 wake up될 때 3. 주요 스케쥴링 기준 # 기준 설명 CPU burst time 얼마나 짧게 CPU를 점유할지 우선순위 (Priority) 사용자/시스템 지정 도착 시간 (Arrival Time) 먼저 온 순서 대기 시간 / 응답 시간 유저가 체감하는 반응 속도 Aging 기아(Starvation) 방지 목적 4. 스케쥴링 알고리즘 # FCFS (First-Come, First-Served) 먼저 온 순서대로 처리 (Queue 기반) 단순하지만 Convoy 현상 발생 가능 (긴 작업이 짧은 작업을 막음) SJF (Shortest Job First) CPU burst가 가장 짧은 작업 우선 이론상 가장 효율적 (대기시간 최소), 하지만 예측이 어렵다 비선점형(기본) 또는 **선점형(SRTF)**으로 구현 가능 Round Robin (RR) 각 프로세스에 Time Quantum 부여 시간 할당이 끝나면 선점 발생 → 공정성 ↑ 응답성이 중요할 때 유용 (인터랙티브 시스템) Priority Scheduling 우선순위 높은 작업부터 실행 Starvation 발생 가능 → Aging 기법으로 완화 Multi-Level Queue (MLQ) 프로세스를 성격에 따라 여러 큐로 분류 (ex. interactive, batch) 큐마다 별도 알고리즘 사용 큐 간 우선순위 존재 (low queue는 starvation 가능) Multi-Level Feedback Queue (MLFQ) MLQ 확장형, 프로세스가 다른 큐로 이동 가능 초기엔 높은 우선순위에서 시작, CPU 오래 쓰면 점점 낮은 우선순위로 이동 현대 OS가 채택하는 현실적인 정책 5. 선점형 vs 비선점형 # 구분 비선점형 선점형 설명 CPU를 할당받으면 자발적으로 반환할 때까지 유지 우선순위 등 조건에 따라 중간에 선점 가능 예시 알고리즘 FCFS, SJF RR, Priority(선점형), SRTF 특징 단순, context switch 적음 응답성 우수, 복잡도 ↑ 6. 성능 지표 # 지표 설명 CPU 사용률 CPU가 놀지 않고 일하는 비율 Throughput 단위 시간당 완료된 프로세스 수 Turnaround Time 프로세스 시작 ~ 종료까지 걸린 시간 Waiting Time Ready Queue에서 기다린 시간 Response Time 요청 후 첫 반응까지 걸린 시간 7. 실무 예시 # OS 스케줄러 Linux (CFS) Completely Fair Scheduler – 시간 단위를 Weight로 변환해 공정하게 분배 Windows Multilevel Feedback Queue 기반 선점형 RTOS Priority-based preemptive scheduling (실시간성 강조) =&gt; 📌 Linux CFS는 가상 런타임(VRuntime) 기반으로, 각 태스크의 실행 시간을 추적하며 가장 “덜 사용한” 프로세스에게 CPU를 할당.">
+  <meta property="og:locale" content="ko">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>2. CPU Scheduling | LogLee&#39;s Training Ground</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/2-cpu-scheduling/">
+<link rel="stylesheet" href="/book.min.9adb8ebbd2b7c0d066fb01527510676c64916f6b7ba373f7d0ab4abe97ed4ae8.css" integrity="sha256-mtuOu9K3wNBm&#43;wFSdRBnbGSRb2t7o3P30KtKvpftSug=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/kr.search.min.a6a135180603ac50023a4d59d06d9857356b4e280890b7d6a369fc6950f3e528.js" integrity="sha256-pqE1GAYDrFACOk1Z0G2YVzVrTigIkLfWo2n8aVDz5Sg=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>LogLee&#39;s Training Ground</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="" aria-label="" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-79150fdf9dbf158df9c917a93d39407f" class="toggle"  />
+    <label for="section-79150fdf9dbf158df9c917a93d39407f" class="flex">
+      <a role="button" class="flex-auto ">Infra</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-afa7bc76ec3321dc3793f4204885e0ab" class="toggle"  />
+    <label for="section-afa7bc76ec3321dc3793f4204885e0ab" class="flex">
+      <a role="button" class="flex-auto ">KVM</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3f41a0b8f3b7286a296b17538ec448af" class="toggle"  />
+    <label for="section-3f41a0b8f3b7286a296b17538ec448af" class="flex">
+      <a role="button" class="flex-auto ">Kubernetes</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d4754ecbc33cae4a97284c5e5fb94d54" class="toggle"  />
+    <label for="section-d4754ecbc33cae4a97284c5e5fb94d54" class="flex">
+      <a role="button" class="flex-auto ">Data Engineering</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-641462dde2c25fe744d467e801495669" class="toggle"  />
+    <label for="section-641462dde2c25fe744d467e801495669" class="flex">
+      <a role="button" class="flex-auto ">Hadoop</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f83ca8c7296ad5011fcbbaeba0329ca2" class="toggle"  />
+    <label for="section-f83ca8c7296ad5011fcbbaeba0329ca2" class="flex">
+      <a role="button" class="flex-auto ">Modeling</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8ff501dd10e04dc7d58e4fa05c590467" class="toggle"  />
+    <label for="section-8ff501dd10e04dc7d58e4fa05c590467" class="flex">
+      <a role="button" class="flex-auto ">Data Integration</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-dfa9aef9d6d1d14a26805d019ab993d7" class="toggle"  />
+    <label for="section-dfa9aef9d6d1d14a26805d019ab993d7" class="flex">
+      <a role="button" class="flex-auto ">Kafka</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-basic/" class="">Kafka 심화 개념</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-troubleshooting-optimization/" class="">Kafka 운영 요소</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-data-structure/" class="">Kafka의 데이터 구조</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-storage-performance-test/" class="">Kafka의 성능 측정 (Block storage vs NFS)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-storage/" class="">Kafka의 저장소</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d5d55849c0cd749a3de3a547305dd4b1" class="toggle"  />
+    <label for="section-d5d55849c0cd749a3de3a547305dd4b1" class="flex">
+      <a role="button" class="flex-auto ">Data Lake Platform</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-7e667220fef74178cc1de6a791b2f882" class="toggle"  />
+    <label for="section-7e667220fef74178cc1de6a791b2f882" class="flex">
+      <a role="button" class="flex-auto ">Ceph</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2ded06cba2240a952325fd742ea5255f" class="toggle"  />
+    <label for="section-2ded06cba2240a952325fd742ea5255f" class="flex">
+      <a role="button" class="flex-auto ">Data Processing</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-61862c92f7adb593e694b832ef32779a" class="toggle"  />
+    <label for="section-61862c92f7adb593e694b832ef32779a" class="flex">
+      <a role="button" class="flex-auto ">Flink</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-5cdf1754fdf767f4d7e6b8fb75b850fb" class="toggle"  />
+    <label for="section-5cdf1754fdf767f4d7e6b8fb75b850fb" class="flex">
+      <a role="button" class="flex-auto ">Language</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8bff7ae517186b2d376a0661467cef2d" class="toggle"  />
+    <label for="section-8bff7ae517186b2d376a0661467cef2d" class="flex">
+      <a role="button" class="flex-auto ">Observability</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8bd6aac4580b36d82077704ed5049b20" class="toggle"  />
+    <label for="section-8bd6aac4580b36d82077704ed5049b20" class="flex">
+      <a role="button" class="flex-auto ">Logs</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3820b01d8d343a30aa49f2bd3d0ac76c" class="toggle"  />
+    <label for="section-3820b01d8d343a30aa49f2bd3d0ac76c" class="flex">
+      <a role="button" class="flex-auto ">Metrics</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-27eb68f1910975dd7e21ea458d19f57f" class="toggle"  />
+    <label for="section-27eb68f1910975dd7e21ea458d19f57f" class="flex">
+      <a role="button" class="flex-auto ">Traces</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-78891673ccb2c2d2b66a96ea50ab1361" class="toggle"  />
+    <label for="section-78891673ccb2c2d2b66a96ea50ab1361" class="flex">
+      <a role="button" class="flex-auto ">Others</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d7f1d1be3855e072724de9475cdfbfc3" class="toggle"  />
+    <label for="section-d7f1d1be3855e072724de9475cdfbfc3" class="flex">
+      <a role="button" class="flex-auto ">알고리즘</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-747d8ad5c3c7f33d6e58ddfb67dea44e" class="toggle"  />
+    <label for="section-747d8ad5c3c7f33d6e58ddfb67dea44e" class="flex">
+      <a role="button" class="flex-auto ">a-really-important</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-7e15309ad0b085600c1f239bb8c8eb2e" class="toggle"  />
+    <label for="section-7e15309ad0b085600c1f239bb8c8eb2e" class="flex">
+      <a role="button" class="flex-auto ">dp</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-534e71b0d21d0db126610564d17c9a8c" class="toggle"  />
+    <label for="section-534e71b0d21d0db126610564d17c9a8c" class="flex">
+      <a role="button" class="flex-auto ">sorting</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-a47eb3a03ca7a90c2669be5223712fab" class="toggle"  />
+    <label for="section-a47eb3a03ca7a90c2669be5223712fab" class="flex">
+      <a role="button" class="flex-auto ">완전탐색</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d7e1497bbb4a05194486c8bb2b0ea79a" class="toggle" checked />
+    <label for="section-d7e1497bbb4a05194486c8bb2b0ea79a" class="flex">
+      <a role="button" class="flex-auto ">컴퓨터이론</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-a1c99ab2d40536151b21eb12a5041410" class="toggle"  />
+    <label for="section-a1c99ab2d40536151b21eb12a5041410" class="flex">
+      <a role="button" class="flex-auto ">네트워크</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2268fd08902c3bcc533339d8cbf128ef" class="toggle"  />
+    <label for="section-2268fd08902c3bcc533339d8cbf128ef" class="flex">
+      <a role="button" class="flex-auto ">데이터베이스</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2998a9560058ec62c67d1a55ea134d38" class="toggle"  />
+    <label for="section-2998a9560058ec62c67d1a55ea134d38" class="flex">
+      <a role="button" class="flex-auto ">디자인패턴</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-055d0164778e6e1df37e6d55c5d9cf85" class="toggle" checked />
+    <label for="section-055d0164778e6e1df37e6d55c5d9cf85" class="flex">
+      <a role="button" class="flex-auto ">운영체제</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3a909f63114456639d5607c0ecf991ab" class="toggle"  />
+    <label for="section-3a909f63114456639d5607c0ecf991ab" class="flex">
+      <a role="button" class="flex-auto ">자료구조</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-4fdec2fe2003d2cde62ccb52c0009bfc" class="toggle"  />
+    <label for="section-4fdec2fe2003d2cde62ccb52c0009bfc" class="flex">
+      <a role="button" class="flex-auto ">트러블슈팅</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>2. CPU Scheduling</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-정의">1. 정의</a>
+      <ul>
+        <li><a href="#주요-목적">주요 목적</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-스케쥴링이-필요한-시점">2. 스케쥴링이 필요한 시점</a></li>
+    <li><a href="#3-주요-스케쥴링-기준">3. 주요 스케쥴링 기준</a></li>
+    <li><a href="#4-스케쥴링-알고리즘">4. 스케쥴링 알고리즘</a></li>
+    <li><a href="#5-선점형-vs-비선점형">5. 선점형 vs 비선점형</a></li>
+    <li><a href="#6-성능-지표">6. 성능 지표</a></li>
+    <li><a href="#7-실무-예시">7. 실무 예시</a></li>
+    <li><a href="#8-자주-묻는-면접-질문">8. 자주 묻는 면접 질문</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h2 id="1-정의">
+  1. 정의
+  <a class="anchor" href="#1-%ec%a0%95%ec%9d%98">#</a>
+</h2>
+<ul>
+<li>CPU 스케줄링은 Ready Queue에 있는 프로세스들 중 어떤 프로세스에게 CPU를 할당할지 결정하는 정책.</li>
+<li>멀티태스킹 OS에서 프로세스 간 CPU를 공유하기 위한 핵심 메커니즘.</li>
+<li>OS의 핵심 기능 중 하나로, 스케줄러는 다양한 정책에 따라 프로세스를 선택함.</li>
+</ul>
+<h3 id="주요-목적">
+  주요 목적
+  <a class="anchor" href="#%ec%a3%bc%ec%9a%94-%eb%aa%a9%ec%a0%81">#</a>
+</h3>
+<ul>
+<li>시스템 자원의 공정한 분배</li>
+<li>CPU 사용률(Throughput) 극대화</li>
+<li>대기 시간, 응답 시간 최소화</li>
+<li>전반적인 시스템 반응성 향상</li>
+</ul>
+<h2 id="2-스케쥴링이-필요한-시점">
+  2. 스케쥴링이 필요한 시점
+  <a class="anchor" href="#2-%ec%8a%a4%ec%bc%80%ec%a5%b4%eb%a7%81%ec%9d%b4-%ed%95%84%ec%9a%94%ed%95%9c-%ec%8b%9c%ec%a0%90">#</a>
+</h2>
+<ul>
+<li>프로세스가 CPU burst를 마치고 I/O 요청 → CPU 반환</li>
+<li>프로세스가 종료됨</li>
+<li>선점형 스케줄러의 경우, 더 높은 우선순위의 프로세스가 도착</li>
+<li>sleep(), wait() 호출 후 wake up될 때</li>
+</ul>
+<h2 id="3-주요-스케쥴링-기준">
+  3. 주요 스케쥴링 기준
+  <a class="anchor" href="#3-%ec%a3%bc%ec%9a%94-%ec%8a%a4%ec%bc%80%ec%a5%b4%eb%a7%81-%ea%b8%b0%ec%a4%80">#</a>
+</h2>
+<table>
+  <thead>
+      <tr>
+          <th>기준</th>
+          <th>설명</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>CPU burst time</td>
+          <td>얼마나 짧게 CPU를 점유할지</td>
+      </tr>
+      <tr>
+          <td>우선순위 (Priority)</td>
+          <td>사용자/시스템 지정</td>
+      </tr>
+      <tr>
+          <td>도착 시간 (Arrival Time)</td>
+          <td>먼저 온 순서</td>
+      </tr>
+      <tr>
+          <td>대기 시간 / 응답 시간</td>
+          <td>유저가 체감하는 반응 속도</td>
+      </tr>
+      <tr>
+          <td>Aging</td>
+          <td>기아(Starvation) 방지 목적</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="4-스케쥴링-알고리즘">
+  4. 스케쥴링 알고리즘
+  <a class="anchor" href="#4-%ec%8a%a4%ec%bc%80%ec%a5%b4%eb%a7%81-%ec%95%8c%ea%b3%a0%eb%a6%ac%ec%a6%98">#</a>
+</h2>
+<ol>
+<li>FCFS (First-Come, First-Served)</li>
+</ol>
+<ul>
+<li>먼저 온 순서대로 처리 (Queue 기반)</li>
+<li>단순하지만 Convoy 현상 발생 가능 (긴 작업이 짧은 작업을 막음)</li>
+</ul>
+<ol start="2">
+<li>SJF (Shortest Job First)</li>
+</ol>
+<ul>
+<li>CPU burst가 가장 짧은 작업 우선</li>
+<li>이론상 가장 효율적 (대기시간 최소), 하지만 예측이 어렵다</li>
+<li>비선점형(기본) 또는 **선점형(SRTF)**으로 구현 가능</li>
+</ul>
+<ol start="3">
+<li>Round Robin (RR)</li>
+</ol>
+<ul>
+<li>각 프로세스에 Time Quantum 부여</li>
+<li>시간 할당이 끝나면 선점 발생 → 공정성 ↑</li>
+<li>응답성이 중요할 때 유용 (인터랙티브 시스템)</li>
+</ul>
+<ol start="4">
+<li>Priority Scheduling</li>
+</ol>
+<ul>
+<li>우선순위 높은 작업부터 실행</li>
+<li>Starvation 발생 가능 → Aging 기법으로 완화</li>
+</ul>
+<ol start="5">
+<li>Multi-Level Queue (MLQ)</li>
+</ol>
+<ul>
+<li>프로세스를 성격에 따라 여러 큐로 분류 (ex. interactive, batch)</li>
+<li>큐마다 별도 알고리즘 사용</li>
+<li>큐 간 우선순위 존재 (low queue는 starvation 가능)</li>
+</ul>
+<ol start="6">
+<li>Multi-Level Feedback Queue (MLFQ)</li>
+</ol>
+<ul>
+<li>MLQ 확장형, 프로세스가 다른 큐로 이동 가능</li>
+<li>초기엔 높은 우선순위에서 시작, CPU 오래 쓰면 점점 낮은 우선순위로 이동</li>
+<li>현대 OS가 채택하는 현실적인 정책</li>
+</ul>
+<h2 id="5-선점형-vs-비선점형">
+  5. 선점형 vs 비선점형
+  <a class="anchor" href="#5-%ec%84%a0%ec%a0%90%ed%98%95-vs-%eb%b9%84%ec%84%a0%ec%a0%90%ed%98%95">#</a>
+</h2>
+<table>
+  <thead>
+      <tr>
+          <th>구분</th>
+          <th>비선점형</th>
+          <th>선점형</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>설명</td>
+          <td>CPU를 할당받으면 자발적으로 반환할 때까지 유지</td>
+          <td>우선순위 등 조건에 따라 중간에 선점 가능</td>
+      </tr>
+      <tr>
+          <td>예시 알고리즘</td>
+          <td>FCFS, SJF</td>
+          <td>RR, Priority(선점형), SRTF</td>
+      </tr>
+      <tr>
+          <td>특징</td>
+          <td>단순, context switch 적음</td>
+          <td>응답성 우수, 복잡도 ↑</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="6-성능-지표">
+  6. 성능 지표
+  <a class="anchor" href="#6-%ec%84%b1%eb%8a%a5-%ec%a7%80%ed%91%9c">#</a>
+</h2>
+<table>
+  <thead>
+      <tr>
+          <th>지표</th>
+          <th>설명</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>CPU 사용률</td>
+          <td>CPU가 놀지 않고 일하는 비율</td>
+      </tr>
+      <tr>
+          <td>Throughput</td>
+          <td>단위 시간당 완료된 프로세스 수</td>
+      </tr>
+      <tr>
+          <td>Turnaround Time</td>
+          <td>프로세스 시작 ~ 종료까지 걸린 시간</td>
+      </tr>
+      <tr>
+          <td>Waiting Time</td>
+          <td>Ready Queue에서 기다린 시간</td>
+      </tr>
+      <tr>
+          <td>Response Time</td>
+          <td>요청 후 첫 반응까지 걸린 시간</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="7-실무-예시">
+  7. 실무 예시
+  <a class="anchor" href="#7-%ec%8b%a4%eb%ac%b4-%ec%98%88%ec%8b%9c">#</a>
+</h2>
+<table>
+  <thead>
+      <tr>
+          <th>OS</th>
+          <th>스케줄러</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Linux (CFS)</td>
+          <td>Completely Fair Scheduler – 시간 단위를 Weight로 변환해 공정하게 분배</td>
+      </tr>
+      <tr>
+          <td>Windows</td>
+          <td>Multilevel Feedback Queue 기반 선점형</td>
+      </tr>
+      <tr>
+          <td>RTOS</td>
+          <td>Priority-based preemptive scheduling (실시간성 강조)</td>
+      </tr>
+  </tbody>
+</table>
+<p>=&gt; 📌 Linux CFS는 가상 런타임(VRuntime) 기반으로, 각 태스크의 실행 시간을 추적하며 가장 “덜 사용한” 프로세스에게 CPU를 할당.</p>
+<h2 id="8-자주-묻는-면접-질문">
+  8. 자주 묻는 면접 질문
+  <a class="anchor" href="#8-%ec%9e%90%ec%a3%bc-%eb%ac%bb%eb%8a%94-%eb%a9%b4%ec%a0%91-%ec%a7%88%eb%ac%b8">#</a>
+</h2>
+<blockquote>
+<p>Q1. SJF가 이상적으로 효율적인 이유는?</p></blockquote>
+<p>A.</p>
+<ul>
+<li>SJF는 평균 대기 시간을 수학적으로 최소화하는 최적 알고리즘.</li>
+<li>하지만 실제 CPU burst time을 정확히 예측하는 건 어렵기 때문에 실무 적용이 제한적.</li>
+</ul>
+<blockquote>
+<p>Q2. Round Robin의 타임퀀텀 크기는 어떻게 결정해야 하나요?</p></blockquote>
+<p>A.</p>
+<ul>
+<li>너무 작으면 context switching 오버헤드 증가</li>
+<li>너무 크면 FCFS처럼 변함</li>
+<li>일반적으로 10~100ms 수준</li>
+</ul>
+<blockquote>
+<p>Q3. 선점형 스케줄링이 필요한 이유는?</p></blockquote>
+<p>A.</p>
+<ul>
+<li>실시간 반응이 필요한 환경 (GUI, 인터랙티브 shell 등)</li>
+<li>짧은 작업이 긴 작업에 의해 밀리는 것을 방지</li>
+</ul>
+<blockquote>
+<p>Q4. 멀티코어 환경에서 스케줄링은 어떻게 동작하나요?</p></blockquote>
+<ul>
+<li>각 CPU에 Run Queue를 두는 per-CPU 모델 사용</li>
+<li>부하 분산을 위한 load balancing 또는 task migration 전략 필요</li>
+<li>Linux는 SMP(Symmetric Multi Processing) 스케줄러로 처리</li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-정의">1. 정의</a>
+      <ul>
+        <li><a href="#주요-목적">주요 목적</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-스케쥴링이-필요한-시점">2. 스케쥴링이 필요한 시점</a></li>
+    <li><a href="#3-주요-스케쥴링-기준">3. 주요 스케쥴링 기준</a></li>
+    <li><a href="#4-스케쥴링-알고리즘">4. 스케쥴링 알고리즘</a></li>
+    <li><a href="#5-선점형-vs-비선점형">5. 선점형 vs 비선점형</a></li>
+    <li><a href="#6-성능-지표">6. 성능 지표</a></li>
+    <li><a href="#7-실무-예시">7. 실무 예시</a></li>
+    <li><a href="#8-자주-묻는-면접-질문">8. 자주 묻는 면접 질문</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

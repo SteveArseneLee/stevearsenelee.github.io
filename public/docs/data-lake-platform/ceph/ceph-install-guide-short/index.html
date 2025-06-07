@@ -1,4 +1,9 @@
-<!doctype html><html lang=ko dir=ltr><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content='
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
   1. Rook Operator 배포
   #
 
@@ -51,9 +56,9 @@ spec:
   storage:
     useAllNodes: true
     useAllDevices: false
-    deviceFilter: "vdb"
+    deviceFilter: &#34;vdb&#34;
     config:
-      osdsPerDevice: "1"
+      osdsPerDevice: &#34;1&#34;
 
   disruptionManagement:
     managePodBudgets: true
@@ -79,176 +84,1066 @@ spec:
   resources:  # 🔧 각 데몬별 리소스 제한
     mgr:
       limits:
-        cpu: "250m"
-        memory: "256Mi"
+        cpu: &#34;250m&#34;
+        memory: &#34;256Mi&#34;
       requests:
-        cpu: "100m"
-        memory: "128Mi"
+        cpu: &#34;100m&#34;
+        memory: &#34;128Mi&#34;
     mon:
       limits:
-        cpu: "500m"
-        memory: "512Mi"
+        cpu: &#34;500m&#34;
+        memory: &#34;512Mi&#34;
       requests:
-        cpu: "250m"
-        memory: "256Mi"
+        cpu: &#34;250m&#34;
+        memory: &#34;256Mi&#34;
     osd:
       limits:
-        cpu: "1000m"
-        memory: "2Gi"
+        cpu: &#34;1000m&#34;
+        memory: &#34;2Gi&#34;
       requests:
-        cpu: "500m"
-        memory: "1Gi"
+        cpu: &#34;500m&#34;
+        memory: &#34;1Gi&#34;
 
-k apply -f ceph-cluster.yaml를 실행해 리소스를 배포한다.'><meta name=theme-color media="(prefers-color-scheme: light)" content="#ffffff"><meta name=theme-color media="(prefers-color-scheme: dark)" content="#343a40"><meta name=color-scheme content="light dark"><meta property="og:url" content="https://stevearsenelee.github.io/docs/data-lake-platform/ceph/ceph-install-guide-short/"><meta property="og:site_name" content="LogLee's Training Ground"><meta property="og:title" content="Ceph 구축하기 - 요약본"><meta property="og:description" content='1. Rook Operator 배포 # # 공식 Helm 차트로 설치 helm repo add rook-release https://charts.rook.io/release helm repo update # 네임스페이스 생성 kubectl create ns rook-ceph # Operator 설치 helm install rook-ceph rook-release/rook-ceph --namespace rook-ceph 2. CephCluster 리소스 배포 # ceph-cluster.yaml apiVersion: ceph.rook.io/v1 kind: CephCluster metadata: name: rook-ceph namespace: rook-ceph spec: cephVersion: image: quay.io/ceph/ceph:v18.2.2 allowUnsupported: false dataDirHostPath: /var/lib/rook mon: count: 3 allowMultiplePerNode: false mgr: count: 1 allowMultiplePerNode: false dashboard: enabled: true ssl: false crashCollector: disable: true logCollector: enabled: true periodicity: daily maxLogSize: 500M storage: useAllNodes: true useAllDevices: false deviceFilter: "vdb" config: osdsPerDevice: "1" disruptionManagement: managePodBudgets: true osdMaintenanceTimeout: 30 priorityClassNames: mon: system-node-critical osd: system-node-critical mgr: system-cluster-critical healthCheck: daemonHealth: mon: disabled: false interval: 45s osd: disabled: false interval: 60s status: disabled: false interval: 60s resources: # 🔧 각 데몬별 리소스 제한 mgr: limits: cpu: "250m" memory: "256Mi" requests: cpu: "100m" memory: "128Mi" mon: limits: cpu: "500m" memory: "512Mi" requests: cpu: "250m" memory: "256Mi" osd: limits: cpu: "1000m" memory: "2Gi" requests: cpu: "500m" memory: "1Gi" k apply -f ceph-cluster.yaml를 실행해 리소스를 배포한다.'><meta property="og:locale" content="ko"><meta property="og:type" content="article"><meta property="article:section" content="docs"><title>Ceph 구축하기 - 요약본 | LogLee's Training Ground</title>
-<link rel=icon href=/favicon.png><link rel=manifest href=/manifest.json><link rel=canonical href=https://stevearsenelee.github.io/docs/data-lake-platform/ceph/ceph-install-guide-short/><link rel=stylesheet href=/book.min.9adb8ebbd2b7c0d066fb01527510676c64916f6b7ba373f7d0ab4abe97ed4ae8.css integrity="sha256-mtuOu9K3wNBm+wFSdRBnbGSRb2t7o3P30KtKvpftSug=" crossorigin=anonymous><script defer src=/fuse.min.js></script><script defer src=/kr.search.min.a6a135180603ac50023a4d59d06d9857356b4e280890b7d6a369fc6950f3e528.js integrity="sha256-pqE1GAYDrFACOk1Z0G2YVzVrTigIkLfWo2n8aVDz5Sg=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/><span>LogLee's Training Ground</span></a></h2><div class="book-search hidden"><input type=text id=book-search-input placeholder aria-label maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><script>document.querySelector(".book-search").classList.remove("hidden")</script><ul><li><input type=checkbox id=section-79150fdf9dbf158df9c917a93d39407f class=toggle>
-<label for=section-79150fdf9dbf158df9c917a93d39407f class=flex><a role=button class=flex-auto>Infra</a></label><ul><li><input type=checkbox id=section-afa7bc76ec3321dc3793f4204885e0ab class=toggle>
-<label for=section-afa7bc76ec3321dc3793f4204885e0ab class=flex><a role=button class=flex-auto>KVM</a></label><ul></ul></li><li><input type=checkbox id=section-3f41a0b8f3b7286a296b17538ec448af class=toggle>
-<label for=section-3f41a0b8f3b7286a296b17538ec448af class=flex><a role=button class=flex-auto>Kubernetes</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-d4754ecbc33cae4a97284c5e5fb94d54 class=toggle>
-<label for=section-d4754ecbc33cae4a97284c5e5fb94d54 class=flex><a role=button class=flex-auto>Data Engineering</a></label><ul><li><input type=checkbox id=section-641462dde2c25fe744d467e801495669 class=toggle>
-<label for=section-641462dde2c25fe744d467e801495669 class=flex><a role=button class=flex-auto>Hadoop</a></label><ul></ul></li><li><input type=checkbox id=section-f83ca8c7296ad5011fcbbaeba0329ca2 class=toggle>
-<label for=section-f83ca8c7296ad5011fcbbaeba0329ca2 class=flex><a role=button class=flex-auto>Modeling</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-8ff501dd10e04dc7d58e4fa05c590467 class=toggle>
-<label for=section-8ff501dd10e04dc7d58e4fa05c590467 class=flex><a role=button class=flex-auto>Data Integration</a></label><ul><li><input type=checkbox id=section-dfa9aef9d6d1d14a26805d019ab993d7 class=toggle>
-<label for=section-dfa9aef9d6d1d14a26805d019ab993d7 class=flex><a role=button class=flex-auto>Kafka</a></label><ul><li><a href=/docs/data-integration/kafka/kafka-basic/>Kafka 심화 개념</a></li><li><a href=/docs/data-integration/kafka/kafka-troubleshooting-optimization/>Kafka 운영 요소</a></li><li><a href=/docs/data-integration/kafka/kafka-data-structure/>Kafka의 데이터 구조</a></li><li><a href=/docs/data-integration/kafka/kafka-storage-performance-test/>Kafka의 성능 측정 (Block storage vs NFS)</a></li><li><a href=/docs/data-integration/kafka/kafka-storage/>Kafka의 저장소</a></li></ul></li></ul></li><li><input type=checkbox id=section-d5d55849c0cd749a3de3a547305dd4b1 class=toggle checked>
-<label for=section-d5d55849c0cd749a3de3a547305dd4b1 class=flex><a role=button class=flex-auto>Data Lake Platform</a></label><ul><li><input type=checkbox id=section-7e667220fef74178cc1de6a791b2f882 class=toggle checked>
-<label for=section-7e667220fef74178cc1de6a791b2f882 class=flex><a role=button class=flex-auto>Ceph</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-2ded06cba2240a952325fd742ea5255f class=toggle>
-<label for=section-2ded06cba2240a952325fd742ea5255f class=flex><a role=button class=flex-auto>Data Processing</a></label><ul><li><input type=checkbox id=section-61862c92f7adb593e694b832ef32779a class=toggle>
-<label for=section-61862c92f7adb593e694b832ef32779a class=flex><a role=button class=flex-auto>Flink</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-5cdf1754fdf767f4d7e6b8fb75b850fb class=toggle>
-<label for=section-5cdf1754fdf767f4d7e6b8fb75b850fb class=flex><a role=button class=flex-auto>Language</a></label><ul></ul></li><li><input type=checkbox id=section-8bff7ae517186b2d376a0661467cef2d class=toggle>
-<label for=section-8bff7ae517186b2d376a0661467cef2d class=flex><a role=button class=flex-auto>Observability</a></label><ul><li><input type=checkbox id=section-8bd6aac4580b36d82077704ed5049b20 class=toggle>
-<label for=section-8bd6aac4580b36d82077704ed5049b20 class=flex><a role=button class=flex-auto>Logs</a></label><ul></ul></li><li><input type=checkbox id=section-3820b01d8d343a30aa49f2bd3d0ac76c class=toggle>
-<label for=section-3820b01d8d343a30aa49f2bd3d0ac76c class=flex><a role=button class=flex-auto>Metrics</a></label><ul></ul></li><li><input type=checkbox id=section-27eb68f1910975dd7e21ea458d19f57f class=toggle>
-<label for=section-27eb68f1910975dd7e21ea458d19f57f class=flex><a role=button class=flex-auto>Traces</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-78891673ccb2c2d2b66a96ea50ab1361 class=toggle>
-<label for=section-78891673ccb2c2d2b66a96ea50ab1361 class=flex><a role=button class=flex-auto>Others</a></label><ul></ul></li><li><input type=checkbox id=section-d7f1d1be3855e072724de9475cdfbfc3 class=toggle>
-<label for=section-d7f1d1be3855e072724de9475cdfbfc3 class=flex><a role=button class=flex-auto>알고리즘</a></label><ul><li><input type=checkbox id=section-747d8ad5c3c7f33d6e58ddfb67dea44e class=toggle>
-<label for=section-747d8ad5c3c7f33d6e58ddfb67dea44e class=flex><a role=button class=flex-auto>a-really-important</a></label><ul></ul></li><li><input type=checkbox id=section-7e15309ad0b085600c1f239bb8c8eb2e class=toggle>
-<label for=section-7e15309ad0b085600c1f239bb8c8eb2e class=flex><a role=button class=flex-auto>dp</a></label><ul></ul></li><li><input type=checkbox id=section-534e71b0d21d0db126610564d17c9a8c class=toggle>
-<label for=section-534e71b0d21d0db126610564d17c9a8c class=flex><a role=button class=flex-auto>sorting</a></label><ul></ul></li><li><input type=checkbox id=section-a47eb3a03ca7a90c2669be5223712fab class=toggle>
-<label for=section-a47eb3a03ca7a90c2669be5223712fab class=flex><a role=button class=flex-auto>완전탐색</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-d7e1497bbb4a05194486c8bb2b0ea79a class=toggle>
-<label for=section-d7e1497bbb4a05194486c8bb2b0ea79a class=flex><a role=button class=flex-auto>컴퓨터이론</a></label><ul><li><input type=checkbox id=section-a1c99ab2d40536151b21eb12a5041410 class=toggle>
-<label for=section-a1c99ab2d40536151b21eb12a5041410 class=flex><a role=button class=flex-auto>네트워크</a></label><ul></ul></li><li><input type=checkbox id=section-2268fd08902c3bcc533339d8cbf128ef class=toggle>
-<label for=section-2268fd08902c3bcc533339d8cbf128ef class=flex><a role=button class=flex-auto>데이터베이스</a></label><ul></ul></li><li><input type=checkbox id=section-2998a9560058ec62c67d1a55ea134d38 class=toggle>
-<label for=section-2998a9560058ec62c67d1a55ea134d38 class=flex><a role=button class=flex-auto>디자인패턴</a></label><ul></ul></li><li><input type=checkbox id=section-055d0164778e6e1df37e6d55c5d9cf85 class=toggle>
-<label for=section-055d0164778e6e1df37e6d55c5d9cf85 class=flex><a role=button class=flex-auto>운영체제</a></label><ul></ul></li><li><input type=checkbox id=section-3a909f63114456639d5607c0ecf991ab class=toggle>
-<label for=section-3a909f63114456639d5607c0ecf991ab class=flex><a role=button class=flex-auto>자료구조</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-4fdec2fe2003d2cde62ccb52c0009bfc class=toggle>
-<label for=section-4fdec2fe2003d2cde62ccb52c0009bfc class=flex><a role=button class=flex-auto>트러블슈팅</a></label><ul></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label><h3>Ceph 구축하기 - 요약본</h3><label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><ul><li><a href=#1-rook-operator-배포>1. Rook Operator 배포</a></li><li><a href=#2-cephcluster-리소스-배포>2. CephCluster 리소스 배포</a></li><li><a href=#3-rbd를-위한-cephblockpool--storageclasss-구성>3. RBD를 위한 CephBlockPool & StorageClasss 구성</a></li></ul></li></ul></nav></aside></header><article class="markdown book-article"><h3 id=1-rook-operator-배포>1. Rook Operator 배포
-<a class=anchor href=#1-rook-operator-%eb%b0%b0%ed%8f%ac>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#75715e># 공식 Helm 차트로 설치</span>
-</span></span><span style=display:flex><span>helm repo add rook-release https://charts.rook.io/release
-</span></span><span style=display:flex><span>helm repo update
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e># 네임스페이스 생성</span>
-</span></span><span style=display:flex><span>kubectl create ns rook-ceph
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e># Operator 설치</span>
-</span></span><span style=display:flex><span>helm install rook-ceph rook-release/rook-ceph --namespace rook-ceph
-</span></span></code></pre></div><h3 id=2-cephcluster-리소스-배포>2. CephCluster 리소스 배포
-<a class=anchor href=#2-cephcluster-%eb%a6%ac%ec%86%8c%ec%8a%a4-%eb%b0%b0%ed%8f%ac>#</a></h3><details markdown=1><summary>ceph-cluster.yaml</summary><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>ceph.rook.io/v1</span>
-</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>CephCluster</span>
-</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
-</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>rook-ceph</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>namespace</span>: <span style=color:#ae81ff>rook-ceph</span>
-</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
-</span></span><span style=display:flex><span>  <span style=color:#f92672>cephVersion</span>:
-</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>quay.io/ceph/ceph:v18.2.2</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>allowUnsupported</span>: <span style=color:#66d9ef>false</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>dataDirHostPath</span>: <span style=color:#ae81ff>/var/lib/rook</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>mon</span>:
-</span></span><span style=display:flex><span>    <span style=color:#f92672>count</span>: <span style=color:#ae81ff>3</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>allowMultiplePerNode</span>: <span style=color:#66d9ef>false</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>mgr</span>:
-</span></span><span style=display:flex><span>    <span style=color:#f92672>count</span>: <span style=color:#ae81ff>1</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>allowMultiplePerNode</span>: <span style=color:#66d9ef>false</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>dashboard</span>:
-</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>true</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>ssl</span>: <span style=color:#66d9ef>false</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>crashCollector</span>:
-</span></span><span style=display:flex><span>    <span style=color:#f92672>disable</span>: <span style=color:#66d9ef>true</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>logCollector</span>:
-</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>true</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>periodicity</span>: <span style=color:#ae81ff>daily</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>maxLogSize</span>: <span style=color:#ae81ff>500M</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>storage</span>:
-</span></span><span style=display:flex><span>    <span style=color:#f92672>useAllNodes</span>: <span style=color:#66d9ef>true</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>useAllDevices</span>: <span style=color:#66d9ef>false</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>deviceFilter</span>: <span style=color:#e6db74>&#34;vdb&#34;</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>config</span>:
-</span></span><span style=display:flex><span>      <span style=color:#f92672>osdsPerDevice</span>: <span style=color:#e6db74>&#34;1&#34;</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>disruptionManagement</span>:
-</span></span><span style=display:flex><span>    <span style=color:#f92672>managePodBudgets</span>: <span style=color:#66d9ef>true</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>osdMaintenanceTimeout</span>: <span style=color:#ae81ff>30</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>priorityClassNames</span>:
-</span></span><span style=display:flex><span>    <span style=color:#f92672>mon</span>: <span style=color:#ae81ff>system-node-critical</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>osd</span>: <span style=color:#ae81ff>system-node-critical</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>mgr</span>: <span style=color:#ae81ff>system-cluster-critical</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>healthCheck</span>:
-</span></span><span style=display:flex><span>    <span style=color:#f92672>daemonHealth</span>:
-</span></span><span style=display:flex><span>      <span style=color:#f92672>mon</span>:
-</span></span><span style=display:flex><span>        <span style=color:#f92672>disabled</span>: <span style=color:#66d9ef>false</span>
-</span></span><span style=display:flex><span>        <span style=color:#f92672>interval</span>: <span style=color:#ae81ff>45s</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>osd</span>:
-</span></span><span style=display:flex><span>        <span style=color:#f92672>disabled</span>: <span style=color:#66d9ef>false</span>
-</span></span><span style=display:flex><span>        <span style=color:#f92672>interval</span>: <span style=color:#ae81ff>60s</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>status</span>:
-</span></span><span style=display:flex><span>        <span style=color:#f92672>disabled</span>: <span style=color:#66d9ef>false</span>
-</span></span><span style=display:flex><span>        <span style=color:#f92672>interval</span>: <span style=color:#ae81ff>60s</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>resources</span>:  <span style=color:#75715e># 🔧 각 데몬별 리소스 제한</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>mgr</span>:
-</span></span><span style=display:flex><span>      <span style=color:#f92672>limits</span>:
-</span></span><span style=display:flex><span>        <span style=color:#f92672>cpu</span>: <span style=color:#e6db74>&#34;250m&#34;</span>
-</span></span><span style=display:flex><span>        <span style=color:#f92672>memory</span>: <span style=color:#e6db74>&#34;256Mi&#34;</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>requests</span>:
-</span></span><span style=display:flex><span>        <span style=color:#f92672>cpu</span>: <span style=color:#e6db74>&#34;100m&#34;</span>
-</span></span><span style=display:flex><span>        <span style=color:#f92672>memory</span>: <span style=color:#e6db74>&#34;128Mi&#34;</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>mon</span>:
-</span></span><span style=display:flex><span>      <span style=color:#f92672>limits</span>:
-</span></span><span style=display:flex><span>        <span style=color:#f92672>cpu</span>: <span style=color:#e6db74>&#34;500m&#34;</span>
-</span></span><span style=display:flex><span>        <span style=color:#f92672>memory</span>: <span style=color:#e6db74>&#34;512Mi&#34;</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>requests</span>:
-</span></span><span style=display:flex><span>        <span style=color:#f92672>cpu</span>: <span style=color:#e6db74>&#34;250m&#34;</span>
-</span></span><span style=display:flex><span>        <span style=color:#f92672>memory</span>: <span style=color:#e6db74>&#34;256Mi&#34;</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>osd</span>:
-</span></span><span style=display:flex><span>      <span style=color:#f92672>limits</span>:
-</span></span><span style=display:flex><span>        <span style=color:#f92672>cpu</span>: <span style=color:#e6db74>&#34;1000m&#34;</span>
-</span></span><span style=display:flex><span>        <span style=color:#f92672>memory</span>: <span style=color:#e6db74>&#34;2Gi&#34;</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>requests</span>:
-</span></span><span style=display:flex><span>        <span style=color:#f92672>cpu</span>: <span style=color:#e6db74>&#34;500m&#34;</span>
-</span></span><span style=display:flex><span>        <span style=color:#f92672>memory</span>: <span style=color:#e6db74>&#34;1Gi&#34;</span>
-</span></span></code></pre></div></details><p><code>k apply -f ceph-cluster.yaml</code>를 실행해 리소스를 배포한다.</p><ul><li>mon, mgr, osd 개수와 설정</li><li>deviceFilter로 사용할 디스크 선택 (vdb 등)</li><li>리소스 제한</li><li>health check, priority 설정 등</li></ul><h3 id=3-rbd를-위한-cephblockpool--storageclasss-구성>3. RBD를 위한 CephBlockPool & StorageClasss 구성
-<a class=anchor href=#3-rbd%eb%a5%bc-%ec%9c%84%ed%95%9c-cephblockpool--storageclasss-%ea%b5%ac%ec%84%b1>#</a></h3><p>CephBlockPool.yaml</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>ceph.rook.io/v1</span>
-</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>CephBlockPool</span>
-</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
-</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>replicapool</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>namespace</span>: <span style=color:#ae81ff>rook-ceph</span>
-</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
-</span></span><span style=display:flex><span>  <span style=color:#f92672>failureDomain</span>: <span style=color:#ae81ff>host</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>replicated</span>:
-</span></span><span style=display:flex><span>    <span style=color:#f92672>size</span>: <span style=color:#ae81ff>3</span>
-</span></span></code></pre></div><p>StorageClass.yaml</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>storage.k8s.io/v1</span>
-</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>StorageClass</span>
-</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
-</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>rook-ceph-block</span>
-</span></span><span style=display:flex><span><span style=color:#f92672>provisioner</span>: <span style=color:#ae81ff>rook-ceph.rbd.csi.ceph.com</span>
-</span></span><span style=display:flex><span><span style=color:#f92672>parameters</span>:
-</span></span><span style=display:flex><span>  <span style=color:#f92672>clusterID</span>: <span style=color:#ae81ff>rook-ceph</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>pool</span>: <span style=color:#ae81ff>replicapool</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>imageFormat</span>: <span style=color:#e6db74>&#34;2&#34;</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>imageFeatures</span>: <span style=color:#ae81ff>layering</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>csi.storage.k8s.io/provisioner-secret-name</span>: <span style=color:#ae81ff>rook-csi-rbd-provisioner</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>csi.storage.k8s.io/provisioner-secret-namespace</span>: <span style=color:#ae81ff>rook-ceph</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>csi.storage.k8s.io/node-stage-secret-name</span>: <span style=color:#ae81ff>rook-csi-rbd-node</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>csi.storage.k8s.io/node-stage-secret-namespace</span>: <span style=color:#ae81ff>rook-ceph</span>
-</span></span><span style=display:flex><span><span style=color:#f92672>reclaimPolicy</span>: <span style=color:#ae81ff>Delete</span>
-</span></span><span style=display:flex><span><span style=color:#f92672>allowVolumeExpansion</span>: <span style=color:#66d9ef>true</span>
-</span></span><span style=display:flex><span><span style=color:#f92672>mountOptions</span>:
-</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>discard</span>
-</span></span></code></pre></div><p>위 sc를 기준으로 pvc를 생성하면 자동으로 RBD 볼륨이 생성됨.</p></article><footer class=book-footer><div class="flex flex-wrap justify-between"></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><ul><li><a href=#1-rook-operator-배포>1. Rook Operator 배포</a></li><li><a href=#2-cephcluster-리소스-배포>2. CephCluster 리소스 배포</a></li><li><a href=#3-rbd를-위한-cephblockpool--storageclasss-구성>3. RBD를 위한 CephBlockPool & StorageClasss 구성</a></li></ul></li></ul></nav></div></aside></main></body></html>
+k apply -f ceph-cluster.yaml를 실행해 리소스를 배포한다.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/data-lake-platform/ceph/ceph-install-guide-short/">
+  <meta property="og:site_name" content="LogLee&#39;s Training Ground">
+  <meta property="og:title" content="Ceph 구축하기 - 요약본">
+  <meta property="og:description" content="1. Rook Operator 배포 # # 공식 Helm 차트로 설치 helm repo add rook-release https://charts.rook.io/release helm repo update # 네임스페이스 생성 kubectl create ns rook-ceph # Operator 설치 helm install rook-ceph rook-release/rook-ceph --namespace rook-ceph 2. CephCluster 리소스 배포 # ceph-cluster.yaml apiVersion: ceph.rook.io/v1 kind: CephCluster metadata: name: rook-ceph namespace: rook-ceph spec: cephVersion: image: quay.io/ceph/ceph:v18.2.2 allowUnsupported: false dataDirHostPath: /var/lib/rook mon: count: 3 allowMultiplePerNode: false mgr: count: 1 allowMultiplePerNode: false dashboard: enabled: true ssl: false crashCollector: disable: true logCollector: enabled: true periodicity: daily maxLogSize: 500M storage: useAllNodes: true useAllDevices: false deviceFilter: &#34;vdb&#34; config: osdsPerDevice: &#34;1&#34; disruptionManagement: managePodBudgets: true osdMaintenanceTimeout: 30 priorityClassNames: mon: system-node-critical osd: system-node-critical mgr: system-cluster-critical healthCheck: daemonHealth: mon: disabled: false interval: 45s osd: disabled: false interval: 60s status: disabled: false interval: 60s resources: # 🔧 각 데몬별 리소스 제한 mgr: limits: cpu: &#34;250m&#34; memory: &#34;256Mi&#34; requests: cpu: &#34;100m&#34; memory: &#34;128Mi&#34; mon: limits: cpu: &#34;500m&#34; memory: &#34;512Mi&#34; requests: cpu: &#34;250m&#34; memory: &#34;256Mi&#34; osd: limits: cpu: &#34;1000m&#34; memory: &#34;2Gi&#34; requests: cpu: &#34;500m&#34; memory: &#34;1Gi&#34; k apply -f ceph-cluster.yaml를 실행해 리소스를 배포한다.">
+  <meta property="og:locale" content="ko">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>Ceph 구축하기 - 요약본 | LogLee&#39;s Training Ground</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/docs/data-lake-platform/ceph/ceph-install-guide-short/">
+<link rel="stylesheet" href="/book.min.9adb8ebbd2b7c0d066fb01527510676c64916f6b7ba373f7d0ab4abe97ed4ae8.css" integrity="sha256-mtuOu9K3wNBm&#43;wFSdRBnbGSRb2t7o3P30KtKvpftSug=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/kr.search.min.a6a135180603ac50023a4d59d06d9857356b4e280890b7d6a369fc6950f3e528.js" integrity="sha256-pqE1GAYDrFACOk1Z0G2YVzVrTigIkLfWo2n8aVDz5Sg=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>LogLee&#39;s Training Ground</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="" aria-label="" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-79150fdf9dbf158df9c917a93d39407f" class="toggle"  />
+    <label for="section-79150fdf9dbf158df9c917a93d39407f" class="flex">
+      <a role="button" class="flex-auto ">Infra</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-afa7bc76ec3321dc3793f4204885e0ab" class="toggle"  />
+    <label for="section-afa7bc76ec3321dc3793f4204885e0ab" class="flex">
+      <a role="button" class="flex-auto ">KVM</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3f41a0b8f3b7286a296b17538ec448af" class="toggle"  />
+    <label for="section-3f41a0b8f3b7286a296b17538ec448af" class="flex">
+      <a role="button" class="flex-auto ">Kubernetes</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d4754ecbc33cae4a97284c5e5fb94d54" class="toggle"  />
+    <label for="section-d4754ecbc33cae4a97284c5e5fb94d54" class="flex">
+      <a role="button" class="flex-auto ">Data Engineering</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-641462dde2c25fe744d467e801495669" class="toggle"  />
+    <label for="section-641462dde2c25fe744d467e801495669" class="flex">
+      <a role="button" class="flex-auto ">Hadoop</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f83ca8c7296ad5011fcbbaeba0329ca2" class="toggle"  />
+    <label for="section-f83ca8c7296ad5011fcbbaeba0329ca2" class="flex">
+      <a role="button" class="flex-auto ">Modeling</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8ff501dd10e04dc7d58e4fa05c590467" class="toggle"  />
+    <label for="section-8ff501dd10e04dc7d58e4fa05c590467" class="flex">
+      <a role="button" class="flex-auto ">Data Integration</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-dfa9aef9d6d1d14a26805d019ab993d7" class="toggle"  />
+    <label for="section-dfa9aef9d6d1d14a26805d019ab993d7" class="flex">
+      <a role="button" class="flex-auto ">Kafka</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-basic/" class="">Kafka 심화 개념</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-troubleshooting-optimization/" class="">Kafka 운영 요소</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-data-structure/" class="">Kafka의 데이터 구조</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-storage-performance-test/" class="">Kafka의 성능 측정 (Block storage vs NFS)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-storage/" class="">Kafka의 저장소</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d5d55849c0cd749a3de3a547305dd4b1" class="toggle" checked />
+    <label for="section-d5d55849c0cd749a3de3a547305dd4b1" class="flex">
+      <a role="button" class="flex-auto ">Data Lake Platform</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-7e667220fef74178cc1de6a791b2f882" class="toggle" checked />
+    <label for="section-7e667220fef74178cc1de6a791b2f882" class="flex">
+      <a role="button" class="flex-auto ">Ceph</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2ded06cba2240a952325fd742ea5255f" class="toggle"  />
+    <label for="section-2ded06cba2240a952325fd742ea5255f" class="flex">
+      <a role="button" class="flex-auto ">Data Processing</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-61862c92f7adb593e694b832ef32779a" class="toggle"  />
+    <label for="section-61862c92f7adb593e694b832ef32779a" class="flex">
+      <a role="button" class="flex-auto ">Flink</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-5cdf1754fdf767f4d7e6b8fb75b850fb" class="toggle"  />
+    <label for="section-5cdf1754fdf767f4d7e6b8fb75b850fb" class="flex">
+      <a role="button" class="flex-auto ">Language</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8bff7ae517186b2d376a0661467cef2d" class="toggle"  />
+    <label for="section-8bff7ae517186b2d376a0661467cef2d" class="flex">
+      <a role="button" class="flex-auto ">Observability</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8bd6aac4580b36d82077704ed5049b20" class="toggle"  />
+    <label for="section-8bd6aac4580b36d82077704ed5049b20" class="flex">
+      <a role="button" class="flex-auto ">Logs</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3820b01d8d343a30aa49f2bd3d0ac76c" class="toggle"  />
+    <label for="section-3820b01d8d343a30aa49f2bd3d0ac76c" class="flex">
+      <a role="button" class="flex-auto ">Metrics</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-27eb68f1910975dd7e21ea458d19f57f" class="toggle"  />
+    <label for="section-27eb68f1910975dd7e21ea458d19f57f" class="flex">
+      <a role="button" class="flex-auto ">Traces</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-78891673ccb2c2d2b66a96ea50ab1361" class="toggle"  />
+    <label for="section-78891673ccb2c2d2b66a96ea50ab1361" class="flex">
+      <a role="button" class="flex-auto ">Others</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d7f1d1be3855e072724de9475cdfbfc3" class="toggle"  />
+    <label for="section-d7f1d1be3855e072724de9475cdfbfc3" class="flex">
+      <a role="button" class="flex-auto ">알고리즘</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-747d8ad5c3c7f33d6e58ddfb67dea44e" class="toggle"  />
+    <label for="section-747d8ad5c3c7f33d6e58ddfb67dea44e" class="flex">
+      <a role="button" class="flex-auto ">a-really-important</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-7e15309ad0b085600c1f239bb8c8eb2e" class="toggle"  />
+    <label for="section-7e15309ad0b085600c1f239bb8c8eb2e" class="flex">
+      <a role="button" class="flex-auto ">dp</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-534e71b0d21d0db126610564d17c9a8c" class="toggle"  />
+    <label for="section-534e71b0d21d0db126610564d17c9a8c" class="flex">
+      <a role="button" class="flex-auto ">sorting</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-a47eb3a03ca7a90c2669be5223712fab" class="toggle"  />
+    <label for="section-a47eb3a03ca7a90c2669be5223712fab" class="flex">
+      <a role="button" class="flex-auto ">완전탐색</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d7e1497bbb4a05194486c8bb2b0ea79a" class="toggle"  />
+    <label for="section-d7e1497bbb4a05194486c8bb2b0ea79a" class="flex">
+      <a role="button" class="flex-auto ">컴퓨터이론</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-a1c99ab2d40536151b21eb12a5041410" class="toggle"  />
+    <label for="section-a1c99ab2d40536151b21eb12a5041410" class="flex">
+      <a role="button" class="flex-auto ">네트워크</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2268fd08902c3bcc533339d8cbf128ef" class="toggle"  />
+    <label for="section-2268fd08902c3bcc533339d8cbf128ef" class="flex">
+      <a role="button" class="flex-auto ">데이터베이스</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2998a9560058ec62c67d1a55ea134d38" class="toggle"  />
+    <label for="section-2998a9560058ec62c67d1a55ea134d38" class="flex">
+      <a role="button" class="flex-auto ">디자인패턴</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-055d0164778e6e1df37e6d55c5d9cf85" class="toggle"  />
+    <label for="section-055d0164778e6e1df37e6d55c5d9cf85" class="flex">
+      <a role="button" class="flex-auto ">운영체제</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3a909f63114456639d5607c0ecf991ab" class="toggle"  />
+    <label for="section-3a909f63114456639d5607c0ecf991ab" class="flex">
+      <a role="button" class="flex-auto ">자료구조</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-4fdec2fe2003d2cde62ccb52c0009bfc" class="toggle"  />
+    <label for="section-4fdec2fe2003d2cde62ccb52c0009bfc" class="flex">
+      <a role="button" class="flex-auto ">트러블슈팅</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Ceph 구축하기 - 요약본</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-rook-operator-배포">1. Rook Operator 배포</a></li>
+        <li><a href="#2-cephcluster-리소스-배포">2. CephCluster 리소스 배포</a></li>
+        <li><a href="#3-rbd를-위한-cephblockpool--storageclasss-구성">3. RBD를 위한 CephBlockPool &amp; StorageClasss 구성</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h3 id="1-rook-operator-배포">
+  1. Rook Operator 배포
+  <a class="anchor" href="#1-rook-operator-%eb%b0%b0%ed%8f%ac">#</a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># 공식 Helm 차트로 설치</span>
+</span></span><span style="display:flex;"><span>helm repo add rook-release https://charts.rook.io/release
+</span></span><span style="display:flex;"><span>helm repo update
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 네임스페이스 생성</span>
+</span></span><span style="display:flex;"><span>kubectl create ns rook-ceph
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Operator 설치</span>
+</span></span><span style="display:flex;"><span>helm install rook-ceph rook-release/rook-ceph --namespace rook-ceph
+</span></span></code></pre></div><h3 id="2-cephcluster-리소스-배포">
+  2. CephCluster 리소스 배포
+  <a class="anchor" href="#2-cephcluster-%eb%a6%ac%ec%86%8c%ec%8a%a4-%eb%b0%b0%ed%8f%ac">#</a>
+</h3>
+<details markdown="1">
+  <summary>ceph-cluster.yaml</summary>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">ceph.rook.io/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">CephCluster</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">rook-ceph</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">rook-ceph</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">cephVersion</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">quay.io/ceph/ceph:v18.2.2</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">allowUnsupported</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">dataDirHostPath</span>: <span style="color:#ae81ff">/var/lib/rook</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">mon</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">count</span>: <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">allowMultiplePerNode</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">mgr</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">count</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">allowMultiplePerNode</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">dashboard</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ssl</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">crashCollector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">disable</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">logCollector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">periodicity</span>: <span style="color:#ae81ff">daily</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">maxLogSize</span>: <span style="color:#ae81ff">500M</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">storage</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">useAllNodes</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">useAllDevices</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">deviceFilter</span>: <span style="color:#e6db74">&#34;vdb&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">config</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">osdsPerDevice</span>: <span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">disruptionManagement</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">managePodBudgets</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">osdMaintenanceTimeout</span>: <span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">priorityClassNames</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">mon</span>: <span style="color:#ae81ff">system-node-critical</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">osd</span>: <span style="color:#ae81ff">system-node-critical</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">mgr</span>: <span style="color:#ae81ff">system-cluster-critical</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">healthCheck</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">daemonHealth</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">mon</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">disabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">interval</span>: <span style="color:#ae81ff">45s</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">osd</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">disabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">interval</span>: <span style="color:#ae81ff">60s</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">status</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">disabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">interval</span>: <span style="color:#ae81ff">60s</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">resources</span>:  <span style="color:#75715e"># 🔧 각 데몬별 리소스 제한</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">mgr</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">limits</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cpu</span>: <span style="color:#e6db74">&#34;250m&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">memory</span>: <span style="color:#e6db74">&#34;256Mi&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">requests</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cpu</span>: <span style="color:#e6db74">&#34;100m&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">memory</span>: <span style="color:#e6db74">&#34;128Mi&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">mon</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">limits</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cpu</span>: <span style="color:#e6db74">&#34;500m&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">memory</span>: <span style="color:#e6db74">&#34;512Mi&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">requests</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cpu</span>: <span style="color:#e6db74">&#34;250m&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">memory</span>: <span style="color:#e6db74">&#34;256Mi&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">osd</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">limits</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cpu</span>: <span style="color:#e6db74">&#34;1000m&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">memory</span>: <span style="color:#e6db74">&#34;2Gi&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">requests</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cpu</span>: <span style="color:#e6db74">&#34;500m&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">memory</span>: <span style="color:#e6db74">&#34;1Gi&#34;</span>
+</span></span></code></pre></div></details>
+<p><code>k apply -f ceph-cluster.yaml</code>를 실행해 리소스를 배포한다.</p>
+<ul>
+<li>mon, mgr, osd 개수와 설정</li>
+<li>deviceFilter로 사용할 디스크 선택 (vdb 등)</li>
+<li>리소스 제한</li>
+<li>health check, priority 설정 등</li>
+</ul>
+<h3 id="3-rbd를-위한-cephblockpool--storageclasss-구성">
+  3. RBD를 위한 CephBlockPool &amp; StorageClasss 구성
+  <a class="anchor" href="#3-rbd%eb%a5%bc-%ec%9c%84%ed%95%9c-cephblockpool--storageclasss-%ea%b5%ac%ec%84%b1">#</a>
+</h3>
+<p>CephBlockPool.yaml</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">ceph.rook.io/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">CephBlockPool</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">replicapool</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">rook-ceph</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">failureDomain</span>: <span style="color:#ae81ff">host</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">replicated</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">size</span>: <span style="color:#ae81ff">3</span>
+</span></span></code></pre></div><p>StorageClass.yaml</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">storage.k8s.io/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">StorageClass</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">rook-ceph-block</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">provisioner</span>: <span style="color:#ae81ff">rook-ceph.rbd.csi.ceph.com</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">clusterID</span>: <span style="color:#ae81ff">rook-ceph</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">pool</span>: <span style="color:#ae81ff">replicapool</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">imageFormat</span>: <span style="color:#e6db74">&#34;2&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">imageFeatures</span>: <span style="color:#ae81ff">layering</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">csi.storage.k8s.io/provisioner-secret-name</span>: <span style="color:#ae81ff">rook-csi-rbd-provisioner</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">csi.storage.k8s.io/provisioner-secret-namespace</span>: <span style="color:#ae81ff">rook-ceph</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">csi.storage.k8s.io/node-stage-secret-name</span>: <span style="color:#ae81ff">rook-csi-rbd-node</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">csi.storage.k8s.io/node-stage-secret-namespace</span>: <span style="color:#ae81ff">rook-ceph</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">reclaimPolicy</span>: <span style="color:#ae81ff">Delete</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">allowVolumeExpansion</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">mountOptions</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">discard</span>
+</span></span></code></pre></div><p>위 sc를 기준으로 pvc를 생성하면 자동으로 RBD 볼륨이 생성됨.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-rook-operator-배포">1. Rook Operator 배포</a></li>
+        <li><a href="#2-cephcluster-리소스-배포">2. CephCluster 리소스 배포</a></li>
+        <li><a href="#3-rbd를-위한-cephblockpool--storageclasss-구성">3. RBD를 위한 CephBlockPool &amp; StorageClasss 구성</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

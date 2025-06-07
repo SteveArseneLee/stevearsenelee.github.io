@@ -1,1 +1,39 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Categories on LogLee's Training Ground</title><link>https://stevearsenelee.github.io/categories/</link><description>Recent content in Categories on LogLee's Training Ground</description><generator>Hugo</generator><language>ko</language><atom:link href="https://stevearsenelee.github.io/categories/index.xml" rel="self" type="application/rss+xml"/><item><title>Ceph</title><link>https://stevearsenelee.github.io/categories/ceph/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://stevearsenelee.github.io/categories/ceph/</guid><description/></item><item><title>Data Engineering</title><link>https://stevearsenelee.github.io/categories/data-engineering/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://stevearsenelee.github.io/categories/data-engineering/</guid><description/></item><item><title>Dataengineering</title><link>https://stevearsenelee.github.io/categories/dataengineering/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://stevearsenelee.github.io/categories/dataengineering/</guid><description/></item><item><title>Kafka</title><link>https://stevearsenelee.github.io/categories/kafka/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://stevearsenelee.github.io/categories/kafka/</guid><description/></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on LogLee&#39;s Training Ground</title>
+    <link>http://localhost:1313/categories/</link>
+    <description>Recent content in Categories on LogLee&#39;s Training Ground</description>
+    <generator>Hugo</generator>
+    <language>ko</language>
+    <atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ceph</title>
+      <link>http://localhost:1313/categories/ceph/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/ceph/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Data Engineering</title>
+      <link>http://localhost:1313/categories/data-engineering/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/data-engineering/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Dataengineering</title>
+      <link>http://localhost:1313/categories/dataengineering/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/dataengineering/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Kafka</title>
+      <link>http://localhost:1313/categories/kafka/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/kafka/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

@@ -1,47 +1,25 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Kvm on LogLee's Training Ground</title><link>https://stevearsenelee.github.io/tags/kvm/</link><description>Recent content in Kvm on LogLee's Training Ground</description><generator>Hugo</generator><language>ko</language><atom:link href="https://stevearsenelee.github.io/tags/kvm/index.xml" rel="self" type="application/rss+xml"/><item><title>VM 생성</title><link>https://stevearsenelee.github.io/docs/infra/kvm/vm-creattion-guide/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://stevearsenelee.github.io/docs/infra/kvm/vm-creattion-guide/</guid><description>&lt;p>[준비 단계]&lt;/p>
-&lt;ol>
-&lt;li>os image 다운로드 받아놓기&lt;/li>
-&lt;li>Resource 용량 산정 (cpu, memory, disk)&lt;/li>
-&lt;li>ip 설계&lt;/li>
-&lt;li>(선택) 물리 서버가 n대라면 VM 분배 계획&lt;/li>
-&lt;/ol>
-&lt;p>[실습 단계]&lt;/p></description></item><item><title>VM 생성 간단</title><link>https://stevearsenelee.github.io/docs/infra/kvm/vm-install-simple/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://stevearsenelee.github.io/docs/infra/kvm/vm-install-simple/</guid><description>&lt;p>Home에는&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#!/bin/bash
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>set -e
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>echo &lt;span style="color:#e6db74">&amp;#34;[HOME SERVER - STORAGE POOL &amp;amp; VOLUME SETUP]&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># [1] Storage Pools 생성&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>echo &lt;span style="color:#e6db74">&amp;#34;[1] Creating storage pools...&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo mkdir -p /mnt/kvm-pool /mnt/ceph-pool
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo chown libvirt-qemu:kvm /mnt/kvm-pool /mnt/ceph-pool
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo chmod &lt;span style="color:#ae81ff">770&lt;/span> /mnt/kvm-pool /mnt/ceph-pool
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo virsh pool-define-as --name kvm-pool --type dir --target /mnt/kvm-pool
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo virsh pool-build kvm-pool
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo virsh pool-start kvm-pool
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo virsh pool-autostart kvm-pool
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo virsh pool-define-as --name ceph-pool --type dir --target /mnt/ceph-pool
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo virsh pool-build ceph-pool
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo virsh pool-start ceph-pool
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo virsh pool-autostart ceph-pool
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># [2] Volume 생성&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>echo &lt;span style="color:#e6db74">&amp;#34;[2] Creating VM OS disks...&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>cd /mnt/kvm-pool
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo qemu-img create -f qcow2 ctrl-node.qcow2 40G
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo qemu-img create -f qcow2 k8s-m1.qcow2 30G
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo qemu-img create -f qcow2 k8s-m2.qcow2 30G
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo qemu-img create -f qcow2 k8s-w1.qcow2 50G
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo qemu-img create -f qcow2 k8s-w2.qcow2 50G
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>echo &lt;span style="color:#e6db74">&amp;#34;[3] Creating Ceph raw disks...&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>cd /mnt/ceph-pool
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo qemu-img create -f raw k8s-w1-ceph.img 100G
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo qemu-img create -f raw k8s-w2-ceph.img 100G
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>echo &lt;span style="color:#e6db74">&amp;#34;[HOME SERVER SETUP COMPLETE]&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Test에는&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kvm on LogLee&#39;s Training Ground</title>
+    <link>http://localhost:1313/tags/kvm/</link>
+    <description>Recent content in Kvm on LogLee&#39;s Training Ground</description>
+    <generator>Hugo</generator>
+    <language>ko</language>
+    <atom:link href="http://localhost:1313/tags/kvm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>VM 생성</title>
+      <link>http://localhost:1313/docs/infra/kvm/vm-creattion-guide/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/infra/kvm/vm-creattion-guide/</guid>
+      <description>&lt;p&gt;[준비 단계]&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;os image 다운로드 받아놓기&lt;/li&gt;&#xA;&lt;li&gt;Resource 용량 산정 (cpu, memory, disk)&lt;/li&gt;&#xA;&lt;li&gt;ip 설계&lt;/li&gt;&#xA;&lt;li&gt;(선택) 물리 서버가 n대라면 VM 분배 계획&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;[실습 단계]&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>VM 생성 간단</title>
+      <link>http://localhost:1313/docs/infra/kvm/vm-install-simple/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/infra/kvm/vm-install-simple/</guid>
+      <description>&lt;p&gt;Home에는&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/bin/bash&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;set -e&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[HOME SERVER - STORAGE POOL &amp;amp; VOLUME SETUP]&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# [1] Storage Pools 생성&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[1] Creating storage pools...&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mkdir -p /mnt/kvm-pool /mnt/ceph-pool&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo chown libvirt-qemu:kvm /mnt/kvm-pool /mnt/ceph-pool&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo chmod &lt;span style=&#34;color:#ae81ff&#34;&gt;770&lt;/span&gt; /mnt/kvm-pool /mnt/ceph-pool&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo virsh pool-define-as --name kvm-pool --type dir --target /mnt/kvm-pool&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo virsh pool-build kvm-pool&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo virsh pool-start kvm-pool&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo virsh pool-autostart kvm-pool&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo virsh pool-define-as --name ceph-pool --type dir --target /mnt/ceph-pool&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo virsh pool-build ceph-pool&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo virsh pool-start ceph-pool&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo virsh pool-autostart ceph-pool&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# [2] Volume 생성&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[2] Creating VM OS disks...&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd /mnt/kvm-pool&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo qemu-img create -f qcow2 ctrl-node.qcow2 40G&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo qemu-img create -f qcow2 k8s-m1.qcow2 30G&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo qemu-img create -f qcow2 k8s-m2.qcow2 30G&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo qemu-img create -f qcow2 k8s-w1.qcow2 50G&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo qemu-img create -f qcow2 k8s-w2.qcow2 50G&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[3] Creating Ceph raw disks...&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd /mnt/ceph-pool&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo qemu-img create -f raw k8s-w1-ceph.img 100G&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo qemu-img create -f raw k8s-w2-ceph.img 100G&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[HOME SERVER SETUP COMPLETE]&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Test에는&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

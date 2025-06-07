@@ -1,33 +1,885 @@
-<!doctype html><html lang=ko dir=ltr><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=theme-color media="(prefers-color-scheme: light)" content="#ffffff"><meta name=theme-color media="(prefers-color-scheme: dark)" content="#343a40"><meta name=color-scheme content="light dark"><meta property="og:url" content="https://stevearsenelee.github.io/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/"><meta property="og:site_name" content="LogLee's Training Ground"><meta property="og:title" content="운영체제"><meta property="og:locale" content="ko"><meta property="og:type" content="website"><title>운영체제 | LogLee's Training Ground</title>
-<link rel=icon href=/favicon.png><link rel=manifest href=/manifest.json><link rel=canonical href=https://stevearsenelee.github.io/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/><link rel=stylesheet href=/book.min.9adb8ebbd2b7c0d066fb01527510676c64916f6b7ba373f7d0ab4abe97ed4ae8.css integrity="sha256-mtuOu9K3wNBm+wFSdRBnbGSRb2t7o3P30KtKvpftSug=" crossorigin=anonymous><script defer src=/fuse.min.js></script><script defer src=/kr.search.min.a6a135180603ac50023a4d59d06d9857356b4e280890b7d6a369fc6950f3e528.js integrity="sha256-pqE1GAYDrFACOk1Z0G2YVzVrTigIkLfWo2n8aVDz5Sg=" crossorigin=anonymous></script><link rel=alternate type=application/rss+xml href=https://stevearsenelee.github.io/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/index.xml title="LogLee's Training Ground"></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/><span>LogLee's Training Ground</span></a></h2><div class="book-search hidden"><input type=text id=book-search-input placeholder aria-label maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><script>document.querySelector(".book-search").classList.remove("hidden")</script><ul><li><input type=checkbox id=section-79150fdf9dbf158df9c917a93d39407f class=toggle>
-<label for=section-79150fdf9dbf158df9c917a93d39407f class=flex><a role=button class=flex-auto>Infra</a></label><ul><li><input type=checkbox id=section-afa7bc76ec3321dc3793f4204885e0ab class=toggle>
-<label for=section-afa7bc76ec3321dc3793f4204885e0ab class=flex><a role=button class=flex-auto>KVM</a></label><ul></ul></li><li><input type=checkbox id=section-3f41a0b8f3b7286a296b17538ec448af class=toggle>
-<label for=section-3f41a0b8f3b7286a296b17538ec448af class=flex><a role=button class=flex-auto>Kubernetes</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-d4754ecbc33cae4a97284c5e5fb94d54 class=toggle>
-<label for=section-d4754ecbc33cae4a97284c5e5fb94d54 class=flex><a role=button class=flex-auto>Data Engineering</a></label><ul><li><input type=checkbox id=section-641462dde2c25fe744d467e801495669 class=toggle>
-<label for=section-641462dde2c25fe744d467e801495669 class=flex><a role=button class=flex-auto>Hadoop</a></label><ul></ul></li><li><input type=checkbox id=section-f83ca8c7296ad5011fcbbaeba0329ca2 class=toggle>
-<label for=section-f83ca8c7296ad5011fcbbaeba0329ca2 class=flex><a role=button class=flex-auto>Modeling</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-8ff501dd10e04dc7d58e4fa05c590467 class=toggle>
-<label for=section-8ff501dd10e04dc7d58e4fa05c590467 class=flex><a role=button class=flex-auto>Data Integration</a></label><ul><li><input type=checkbox id=section-dfa9aef9d6d1d14a26805d019ab993d7 class=toggle>
-<label for=section-dfa9aef9d6d1d14a26805d019ab993d7 class=flex><a role=button class=flex-auto>Kafka</a></label><ul><li><a href=/docs/data-integration/kafka/kafka-basic/>Kafka 심화 개념</a></li><li><a href=/docs/data-integration/kafka/kafka-troubleshooting-optimization/>Kafka 운영 요소</a></li><li><a href=/docs/data-integration/kafka/kafka-data-structure/>Kafka의 데이터 구조</a></li><li><a href=/docs/data-integration/kafka/kafka-storage-performance-test/>Kafka의 성능 측정 (Block storage vs NFS)</a></li><li><a href=/docs/data-integration/kafka/kafka-storage/>Kafka의 저장소</a></li></ul></li></ul></li><li><input type=checkbox id=section-d5d55849c0cd749a3de3a547305dd4b1 class=toggle>
-<label for=section-d5d55849c0cd749a3de3a547305dd4b1 class=flex><a role=button class=flex-auto>Data Lake Platform</a></label><ul><li><input type=checkbox id=section-7e667220fef74178cc1de6a791b2f882 class=toggle>
-<label for=section-7e667220fef74178cc1de6a791b2f882 class=flex><a role=button class=flex-auto>Ceph</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-2ded06cba2240a952325fd742ea5255f class=toggle>
-<label for=section-2ded06cba2240a952325fd742ea5255f class=flex><a role=button class=flex-auto>Data Processing</a></label><ul><li><input type=checkbox id=section-61862c92f7adb593e694b832ef32779a class=toggle>
-<label for=section-61862c92f7adb593e694b832ef32779a class=flex><a role=button class=flex-auto>Flink</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-5cdf1754fdf767f4d7e6b8fb75b850fb class=toggle>
-<label for=section-5cdf1754fdf767f4d7e6b8fb75b850fb class=flex><a role=button class=flex-auto>Language</a></label><ul></ul></li><li><input type=checkbox id=section-8bff7ae517186b2d376a0661467cef2d class=toggle>
-<label for=section-8bff7ae517186b2d376a0661467cef2d class=flex><a role=button class=flex-auto>Observability</a></label><ul><li><input type=checkbox id=section-8bd6aac4580b36d82077704ed5049b20 class=toggle>
-<label for=section-8bd6aac4580b36d82077704ed5049b20 class=flex><a role=button class=flex-auto>Logs</a></label><ul></ul></li><li><input type=checkbox id=section-3820b01d8d343a30aa49f2bd3d0ac76c class=toggle>
-<label for=section-3820b01d8d343a30aa49f2bd3d0ac76c class=flex><a role=button class=flex-auto>Metrics</a></label><ul></ul></li><li><input type=checkbox id=section-27eb68f1910975dd7e21ea458d19f57f class=toggle>
-<label for=section-27eb68f1910975dd7e21ea458d19f57f class=flex><a role=button class=flex-auto>Traces</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-78891673ccb2c2d2b66a96ea50ab1361 class=toggle>
-<label for=section-78891673ccb2c2d2b66a96ea50ab1361 class=flex><a role=button class=flex-auto>Others</a></label><ul></ul></li><li><input type=checkbox id=section-d7f1d1be3855e072724de9475cdfbfc3 class=toggle>
-<label for=section-d7f1d1be3855e072724de9475cdfbfc3 class=flex><a role=button class=flex-auto>알고리즘</a></label><ul><li><input type=checkbox id=section-747d8ad5c3c7f33d6e58ddfb67dea44e class=toggle>
-<label for=section-747d8ad5c3c7f33d6e58ddfb67dea44e class=flex><a role=button class=flex-auto>a-really-important</a></label><ul></ul></li><li><input type=checkbox id=section-7e15309ad0b085600c1f239bb8c8eb2e class=toggle>
-<label for=section-7e15309ad0b085600c1f239bb8c8eb2e class=flex><a role=button class=flex-auto>dp</a></label><ul></ul></li><li><input type=checkbox id=section-534e71b0d21d0db126610564d17c9a8c class=toggle>
-<label for=section-534e71b0d21d0db126610564d17c9a8c class=flex><a role=button class=flex-auto>sorting</a></label><ul></ul></li><li><input type=checkbox id=section-a47eb3a03ca7a90c2669be5223712fab class=toggle>
-<label for=section-a47eb3a03ca7a90c2669be5223712fab class=flex><a role=button class=flex-auto>완전탐색</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-d7e1497bbb4a05194486c8bb2b0ea79a class=toggle checked>
-<label for=section-d7e1497bbb4a05194486c8bb2b0ea79a class=flex><a role=button class=flex-auto>컴퓨터이론</a></label><ul><li><input type=checkbox id=section-a1c99ab2d40536151b21eb12a5041410 class=toggle>
-<label for=section-a1c99ab2d40536151b21eb12a5041410 class=flex><a role=button class=flex-auto>네트워크</a></label><ul></ul></li><li><input type=checkbox id=section-2268fd08902c3bcc533339d8cbf128ef class=toggle>
-<label for=section-2268fd08902c3bcc533339d8cbf128ef class=flex><a role=button class=flex-auto>데이터베이스</a></label><ul></ul></li><li><input type=checkbox id=section-2998a9560058ec62c67d1a55ea134d38 class=toggle>
-<label for=section-2998a9560058ec62c67d1a55ea134d38 class=flex><a role=button class=flex-auto>디자인패턴</a></label><ul></ul></li><li><input type=checkbox id=section-055d0164778e6e1df37e6d55c5d9cf85 class=toggle checked>
-<label for=section-055d0164778e6e1df37e6d55c5d9cf85 class=flex><a role=button class="flex-auto active">운영체제</a></label><ul></ul></li><li><input type=checkbox id=section-3a909f63114456639d5607c0ecf991ab class=toggle>
-<label for=section-3a909f63114456639d5607c0ecf991ab class=flex><a role=button class=flex-auto>자료구조</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-4fdec2fe2003d2cde62ccb52c0009bfc class=toggle>
-<label for=section-4fdec2fe2003d2cde62ccb52c0009bfc class=flex><a role=button class=flex-auto>트러블슈팅</a></label><ul></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label><h3>운영체제</h3><label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents></nav></aside></header><main class=book-content><article class=markdown></article></main><footer class=book-footer><div class="flex flex-wrap justify-between"></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents></nav></div></aside></main></body></html>
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/">
+  <meta property="og:site_name" content="LogLee&#39;s Training Ground">
+  <meta property="og:title" content="운영체제">
+  <meta property="og:locale" content="ko">
+  <meta property="og:type" content="website">
+<title>운영체제 | LogLee&#39;s Training Ground</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/">
+<link rel="stylesheet" href="/book.min.9adb8ebbd2b7c0d066fb01527510676c64916f6b7ba373f7d0ab4abe97ed4ae8.css" integrity="sha256-mtuOu9K3wNBm&#43;wFSdRBnbGSRb2t7o3P30KtKvpftSug=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/kr.search.min.a6a135180603ac50023a4d59d06d9857356b4e280890b7d6a369fc6950f3e528.js" integrity="sha256-pqE1GAYDrFACOk1Z0G2YVzVrTigIkLfWo2n8aVDz5Sg=" crossorigin="anonymous"></script>
+<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/index.xml" title="LogLee's Training Ground" />
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>LogLee&#39;s Training Ground</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="" aria-label="" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-79150fdf9dbf158df9c917a93d39407f" class="toggle"  />
+    <label for="section-79150fdf9dbf158df9c917a93d39407f" class="flex">
+      <a role="button" class="flex-auto ">Infra</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-afa7bc76ec3321dc3793f4204885e0ab" class="toggle"  />
+    <label for="section-afa7bc76ec3321dc3793f4204885e0ab" class="flex">
+      <a role="button" class="flex-auto ">KVM</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3f41a0b8f3b7286a296b17538ec448af" class="toggle"  />
+    <label for="section-3f41a0b8f3b7286a296b17538ec448af" class="flex">
+      <a role="button" class="flex-auto ">Kubernetes</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d4754ecbc33cae4a97284c5e5fb94d54" class="toggle"  />
+    <label for="section-d4754ecbc33cae4a97284c5e5fb94d54" class="flex">
+      <a role="button" class="flex-auto ">Data Engineering</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-641462dde2c25fe744d467e801495669" class="toggle"  />
+    <label for="section-641462dde2c25fe744d467e801495669" class="flex">
+      <a role="button" class="flex-auto ">Hadoop</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f83ca8c7296ad5011fcbbaeba0329ca2" class="toggle"  />
+    <label for="section-f83ca8c7296ad5011fcbbaeba0329ca2" class="flex">
+      <a role="button" class="flex-auto ">Modeling</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8ff501dd10e04dc7d58e4fa05c590467" class="toggle"  />
+    <label for="section-8ff501dd10e04dc7d58e4fa05c590467" class="flex">
+      <a role="button" class="flex-auto ">Data Integration</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-dfa9aef9d6d1d14a26805d019ab993d7" class="toggle"  />
+    <label for="section-dfa9aef9d6d1d14a26805d019ab993d7" class="flex">
+      <a role="button" class="flex-auto ">Kafka</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-basic/" class="">Kafka 심화 개념</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-troubleshooting-optimization/" class="">Kafka 운영 요소</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-data-structure/" class="">Kafka의 데이터 구조</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-storage-performance-test/" class="">Kafka의 성능 측정 (Block storage vs NFS)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-storage/" class="">Kafka의 저장소</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d5d55849c0cd749a3de3a547305dd4b1" class="toggle"  />
+    <label for="section-d5d55849c0cd749a3de3a547305dd4b1" class="flex">
+      <a role="button" class="flex-auto ">Data Lake Platform</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-7e667220fef74178cc1de6a791b2f882" class="toggle"  />
+    <label for="section-7e667220fef74178cc1de6a791b2f882" class="flex">
+      <a role="button" class="flex-auto ">Ceph</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2ded06cba2240a952325fd742ea5255f" class="toggle"  />
+    <label for="section-2ded06cba2240a952325fd742ea5255f" class="flex">
+      <a role="button" class="flex-auto ">Data Processing</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-61862c92f7adb593e694b832ef32779a" class="toggle"  />
+    <label for="section-61862c92f7adb593e694b832ef32779a" class="flex">
+      <a role="button" class="flex-auto ">Flink</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-5cdf1754fdf767f4d7e6b8fb75b850fb" class="toggle"  />
+    <label for="section-5cdf1754fdf767f4d7e6b8fb75b850fb" class="flex">
+      <a role="button" class="flex-auto ">Language</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8bff7ae517186b2d376a0661467cef2d" class="toggle"  />
+    <label for="section-8bff7ae517186b2d376a0661467cef2d" class="flex">
+      <a role="button" class="flex-auto ">Observability</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8bd6aac4580b36d82077704ed5049b20" class="toggle"  />
+    <label for="section-8bd6aac4580b36d82077704ed5049b20" class="flex">
+      <a role="button" class="flex-auto ">Logs</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3820b01d8d343a30aa49f2bd3d0ac76c" class="toggle"  />
+    <label for="section-3820b01d8d343a30aa49f2bd3d0ac76c" class="flex">
+      <a role="button" class="flex-auto ">Metrics</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-27eb68f1910975dd7e21ea458d19f57f" class="toggle"  />
+    <label for="section-27eb68f1910975dd7e21ea458d19f57f" class="flex">
+      <a role="button" class="flex-auto ">Traces</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-78891673ccb2c2d2b66a96ea50ab1361" class="toggle"  />
+    <label for="section-78891673ccb2c2d2b66a96ea50ab1361" class="flex">
+      <a role="button" class="flex-auto ">Others</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d7f1d1be3855e072724de9475cdfbfc3" class="toggle"  />
+    <label for="section-d7f1d1be3855e072724de9475cdfbfc3" class="flex">
+      <a role="button" class="flex-auto ">알고리즘</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-747d8ad5c3c7f33d6e58ddfb67dea44e" class="toggle"  />
+    <label for="section-747d8ad5c3c7f33d6e58ddfb67dea44e" class="flex">
+      <a role="button" class="flex-auto ">a-really-important</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-7e15309ad0b085600c1f239bb8c8eb2e" class="toggle"  />
+    <label for="section-7e15309ad0b085600c1f239bb8c8eb2e" class="flex">
+      <a role="button" class="flex-auto ">dp</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-534e71b0d21d0db126610564d17c9a8c" class="toggle"  />
+    <label for="section-534e71b0d21d0db126610564d17c9a8c" class="flex">
+      <a role="button" class="flex-auto ">sorting</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-a47eb3a03ca7a90c2669be5223712fab" class="toggle"  />
+    <label for="section-a47eb3a03ca7a90c2669be5223712fab" class="flex">
+      <a role="button" class="flex-auto ">완전탐색</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d7e1497bbb4a05194486c8bb2b0ea79a" class="toggle" checked />
+    <label for="section-d7e1497bbb4a05194486c8bb2b0ea79a" class="flex">
+      <a role="button" class="flex-auto ">컴퓨터이론</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-a1c99ab2d40536151b21eb12a5041410" class="toggle"  />
+    <label for="section-a1c99ab2d40536151b21eb12a5041410" class="flex">
+      <a role="button" class="flex-auto ">네트워크</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2268fd08902c3bcc533339d8cbf128ef" class="toggle"  />
+    <label for="section-2268fd08902c3bcc533339d8cbf128ef" class="flex">
+      <a role="button" class="flex-auto ">데이터베이스</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2998a9560058ec62c67d1a55ea134d38" class="toggle"  />
+    <label for="section-2998a9560058ec62c67d1a55ea134d38" class="flex">
+      <a role="button" class="flex-auto ">디자인패턴</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-055d0164778e6e1df37e6d55c5d9cf85" class="toggle" checked />
+    <label for="section-055d0164778e6e1df37e6d55c5d9cf85" class="flex">
+      <a role="button" class="flex-auto active">운영체제</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3a909f63114456639d5607c0ecf991ab" class="toggle"  />
+    <label for="section-3a909f63114456639d5607c0ecf991ab" class="flex">
+      <a role="button" class="flex-auto ">자료구조</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-4fdec2fe2003d2cde62ccb52c0009bfc" class="toggle"  />
+    <label for="section-4fdec2fe2003d2cde62ccb52c0009bfc" class="flex">
+      <a role="button" class="flex-auto ">트러블슈팅</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>운영체제</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents"></nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<main class="book-content">
+  <article class="markdown">
+    
+  </article>
+</main>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents"></nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

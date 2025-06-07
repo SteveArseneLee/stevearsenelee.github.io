@@ -1,100 +1,1082 @@
-<!doctype html><html lang=ko dir=ltr><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
   상황
   #
 
 
 다음과 같은 이슈가 발생했다. 현재 구축된 스택은 ceph, minio, kafka, kafka-ui뿐인데, request&amp;limit을 최적화했음에도 내 환경에서는 다소 버거운 것으로 보인다.
-따라서 다음과 같은 결정을 하게됐다."><meta name=theme-color media="(prefers-color-scheme: light)" content="#ffffff"><meta name=theme-color media="(prefers-color-scheme: dark)" content="#343a40"><meta name=color-scheme content="light dark"><meta property="og:url" content="https://stevearsenelee.github.io/docs/troubleshooting/resource-issue/"><meta property="og:site_name" content="LogLee's Training Ground"><meta property="og:title" content="리소스 이슈 인한 인프라 재구축"><meta property="og:description" content="상황 # 다음과 같은 이슈가 발생했다. 현재 구축된 스택은 ceph, minio, kafka, kafka-ui뿐인데, request&amp;limit을 최적화했음에도 내 환경에서는 다소 버거운 것으로 보인다. 따라서 다음과 같은 결정을 하게됐다."><meta property="og:locale" content="ko"><meta property="og:type" content="article"><meta property="article:section" content="docs"><title>리소스 이슈 인한 인프라 재구축 | LogLee's Training Ground</title>
-<link rel=icon href=/favicon.png><link rel=manifest href=/manifest.json><link rel=canonical href=https://stevearsenelee.github.io/docs/troubleshooting/resource-issue/><link rel=stylesheet href=/book.min.9adb8ebbd2b7c0d066fb01527510676c64916f6b7ba373f7d0ab4abe97ed4ae8.css integrity="sha256-mtuOu9K3wNBm+wFSdRBnbGSRb2t7o3P30KtKvpftSug=" crossorigin=anonymous><script defer src=/fuse.min.js></script><script defer src=/kr.search.min.a6a135180603ac50023a4d59d06d9857356b4e280890b7d6a369fc6950f3e528.js integrity="sha256-pqE1GAYDrFACOk1Z0G2YVzVrTigIkLfWo2n8aVDz5Sg=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/><span>LogLee's Training Ground</span></a></h2><div class="book-search hidden"><input type=text id=book-search-input placeholder aria-label maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><script>document.querySelector(".book-search").classList.remove("hidden")</script><ul><li><input type=checkbox id=section-79150fdf9dbf158df9c917a93d39407f class=toggle>
-<label for=section-79150fdf9dbf158df9c917a93d39407f class=flex><a role=button class=flex-auto>Infra</a></label><ul><li><input type=checkbox id=section-afa7bc76ec3321dc3793f4204885e0ab class=toggle>
-<label for=section-afa7bc76ec3321dc3793f4204885e0ab class=flex><a role=button class=flex-auto>KVM</a></label><ul></ul></li><li><input type=checkbox id=section-3f41a0b8f3b7286a296b17538ec448af class=toggle>
-<label for=section-3f41a0b8f3b7286a296b17538ec448af class=flex><a role=button class=flex-auto>Kubernetes</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-d4754ecbc33cae4a97284c5e5fb94d54 class=toggle>
-<label for=section-d4754ecbc33cae4a97284c5e5fb94d54 class=flex><a role=button class=flex-auto>Data Engineering</a></label><ul><li><input type=checkbox id=section-641462dde2c25fe744d467e801495669 class=toggle>
-<label for=section-641462dde2c25fe744d467e801495669 class=flex><a role=button class=flex-auto>Hadoop</a></label><ul></ul></li><li><input type=checkbox id=section-f83ca8c7296ad5011fcbbaeba0329ca2 class=toggle>
-<label for=section-f83ca8c7296ad5011fcbbaeba0329ca2 class=flex><a role=button class=flex-auto>Modeling</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-8ff501dd10e04dc7d58e4fa05c590467 class=toggle>
-<label for=section-8ff501dd10e04dc7d58e4fa05c590467 class=flex><a role=button class=flex-auto>Data Integration</a></label><ul><li><input type=checkbox id=section-dfa9aef9d6d1d14a26805d019ab993d7 class=toggle>
-<label for=section-dfa9aef9d6d1d14a26805d019ab993d7 class=flex><a role=button class=flex-auto>Kafka</a></label><ul><li><a href=/docs/data-integration/kafka/kafka-basic/>Kafka 심화 개념</a></li><li><a href=/docs/data-integration/kafka/kafka-troubleshooting-optimization/>Kafka 운영 요소</a></li><li><a href=/docs/data-integration/kafka/kafka-data-structure/>Kafka의 데이터 구조</a></li><li><a href=/docs/data-integration/kafka/kafka-storage-performance-test/>Kafka의 성능 측정 (Block storage vs NFS)</a></li><li><a href=/docs/data-integration/kafka/kafka-storage/>Kafka의 저장소</a></li></ul></li></ul></li><li><input type=checkbox id=section-d5d55849c0cd749a3de3a547305dd4b1 class=toggle>
-<label for=section-d5d55849c0cd749a3de3a547305dd4b1 class=flex><a role=button class=flex-auto>Data Lake Platform</a></label><ul><li><input type=checkbox id=section-7e667220fef74178cc1de6a791b2f882 class=toggle>
-<label for=section-7e667220fef74178cc1de6a791b2f882 class=flex><a role=button class=flex-auto>Ceph</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-2ded06cba2240a952325fd742ea5255f class=toggle>
-<label for=section-2ded06cba2240a952325fd742ea5255f class=flex><a role=button class=flex-auto>Data Processing</a></label><ul><li><input type=checkbox id=section-61862c92f7adb593e694b832ef32779a class=toggle>
-<label for=section-61862c92f7adb593e694b832ef32779a class=flex><a role=button class=flex-auto>Flink</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-5cdf1754fdf767f4d7e6b8fb75b850fb class=toggle>
-<label for=section-5cdf1754fdf767f4d7e6b8fb75b850fb class=flex><a role=button class=flex-auto>Language</a></label><ul></ul></li><li><input type=checkbox id=section-8bff7ae517186b2d376a0661467cef2d class=toggle>
-<label for=section-8bff7ae517186b2d376a0661467cef2d class=flex><a role=button class=flex-auto>Observability</a></label><ul><li><input type=checkbox id=section-8bd6aac4580b36d82077704ed5049b20 class=toggle>
-<label for=section-8bd6aac4580b36d82077704ed5049b20 class=flex><a role=button class=flex-auto>Logs</a></label><ul></ul></li><li><input type=checkbox id=section-3820b01d8d343a30aa49f2bd3d0ac76c class=toggle>
-<label for=section-3820b01d8d343a30aa49f2bd3d0ac76c class=flex><a role=button class=flex-auto>Metrics</a></label><ul></ul></li><li><input type=checkbox id=section-27eb68f1910975dd7e21ea458d19f57f class=toggle>
-<label for=section-27eb68f1910975dd7e21ea458d19f57f class=flex><a role=button class=flex-auto>Traces</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-78891673ccb2c2d2b66a96ea50ab1361 class=toggle>
-<label for=section-78891673ccb2c2d2b66a96ea50ab1361 class=flex><a role=button class=flex-auto>Others</a></label><ul></ul></li><li><input type=checkbox id=section-d7f1d1be3855e072724de9475cdfbfc3 class=toggle>
-<label for=section-d7f1d1be3855e072724de9475cdfbfc3 class=flex><a role=button class=flex-auto>알고리즘</a></label><ul><li><input type=checkbox id=section-747d8ad5c3c7f33d6e58ddfb67dea44e class=toggle>
-<label for=section-747d8ad5c3c7f33d6e58ddfb67dea44e class=flex><a role=button class=flex-auto>a-really-important</a></label><ul></ul></li><li><input type=checkbox id=section-7e15309ad0b085600c1f239bb8c8eb2e class=toggle>
-<label for=section-7e15309ad0b085600c1f239bb8c8eb2e class=flex><a role=button class=flex-auto>dp</a></label><ul></ul></li><li><input type=checkbox id=section-534e71b0d21d0db126610564d17c9a8c class=toggle>
-<label for=section-534e71b0d21d0db126610564d17c9a8c class=flex><a role=button class=flex-auto>sorting</a></label><ul></ul></li><li><input type=checkbox id=section-a47eb3a03ca7a90c2669be5223712fab class=toggle>
-<label for=section-a47eb3a03ca7a90c2669be5223712fab class=flex><a role=button class=flex-auto>완전탐색</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-d7e1497bbb4a05194486c8bb2b0ea79a class=toggle>
-<label for=section-d7e1497bbb4a05194486c8bb2b0ea79a class=flex><a role=button class=flex-auto>컴퓨터이론</a></label><ul><li><input type=checkbox id=section-a1c99ab2d40536151b21eb12a5041410 class=toggle>
-<label for=section-a1c99ab2d40536151b21eb12a5041410 class=flex><a role=button class=flex-auto>네트워크</a></label><ul></ul></li><li><input type=checkbox id=section-2268fd08902c3bcc533339d8cbf128ef class=toggle>
-<label for=section-2268fd08902c3bcc533339d8cbf128ef class=flex><a role=button class=flex-auto>데이터베이스</a></label><ul></ul></li><li><input type=checkbox id=section-2998a9560058ec62c67d1a55ea134d38 class=toggle>
-<label for=section-2998a9560058ec62c67d1a55ea134d38 class=flex><a role=button class=flex-auto>디자인패턴</a></label><ul></ul></li><li><input type=checkbox id=section-055d0164778e6e1df37e6d55c5d9cf85 class=toggle>
-<label for=section-055d0164778e6e1df37e6d55c5d9cf85 class=flex><a role=button class=flex-auto>운영체제</a></label><ul></ul></li><li><input type=checkbox id=section-3a909f63114456639d5607c0ecf991ab class=toggle>
-<label for=section-3a909f63114456639d5607c0ecf991ab class=flex><a role=button class=flex-auto>자료구조</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-4fdec2fe2003d2cde62ccb52c0009bfc class=toggle checked>
-<label for=section-4fdec2fe2003d2cde62ccb52c0009bfc class=flex><a role=button class=flex-auto>트러블슈팅</a></label><ul></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label><h3>리소스 이슈 인한 인프라 재구축</h3><label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><ul><li><a href=#상황>상황</a></li><li><a href=#문제-원인>문제 원인</a></li><li><a href=#해결-방법>해결 방법</a></li></ul></li></ul></nav></aside></header><article class="markdown book-article"><h3 id=상황>상황
-<a class=anchor href=#%ec%83%81%ed%99%a9>#</a></h3><p><img src=/troubleshooting/resource-request.png alt="resource issue"></p><p>다음과 같은 이슈가 발생했다. 현재 구축된 스택은 ceph, minio, kafka, kafka-ui뿐인데, request&amp;limit을 최적화했음에도 내 환경에서는 다소 버거운 것으로 보인다.
-따라서 다음과 같은 결정을 하게됐다.</p><h3 id=문제-원인>문제 원인
-<a class=anchor href=#%eb%ac%b8%ec%a0%9c-%ec%9b%90%ec%9d%b8>#</a></h3><p>위 스택들의 request를 다음과 같이 최소화했을때</p><table><thead><tr><th>항목</th><th>Before</th><th>After</th></tr></thead><tbody><tr><td>Ceph OSD 5개 CPU 요청</td><td>2.5코어</td><td>1.5코어</td></tr><tr><td>Kafka Pod 3개 CPU 요청</td><td>1.5코어</td><td>0.9코어</td></tr><tr><td>Kafka-UI</td><td>없음</td><td>0.1코어</td></tr><tr><td>총합 감소량</td><td>약 2.5~3코어</td><td>1.5코어 이상 확보</td></tr></tbody></table><p>아래와 같이 리소스를 사용한다.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>ubuntu@ctrl-node:~/kafka$ kubectl describe nodes | grep -A5 <span style=color:#e6db74>&#34;Allocated resources&#34;</span>
-</span></span><span style=display:flex><span>Allocated resources:
-</span></span><span style=display:flex><span>  <span style=color:#f92672>(</span>Total limits may be over <span style=color:#ae81ff>100</span> percent, i.e., overcommitted.<span style=color:#f92672>)</span>
-</span></span><span style=display:flex><span>  Resource           Requests       Limits
-</span></span><span style=display:flex><span>  --------           --------       ------
-</span></span><span style=display:flex><span>  cpu                1050m <span style=color:#f92672>(</span>43%<span style=color:#f92672>)</span>    <span style=color:#ae81ff>1</span> <span style=color:#f92672>(</span>41%<span style=color:#f92672>)</span>
-</span></span><span style=display:flex><span>  memory             370760Ki <span style=color:#f92672>(</span>5%<span style=color:#f92672>)</span>  1280288k <span style=color:#f92672>(</span>17%<span style=color:#f92672>)</span>
-</span></span><span style=display:flex><span>--
-</span></span><span style=display:flex><span>Allocated resources:
-</span></span><span style=display:flex><span>  <span style=color:#f92672>(</span>Total limits may be over <span style=color:#ae81ff>100</span> percent, i.e., overcommitted.<span style=color:#f92672>)</span>
-</span></span><span style=display:flex><span>  Resource           Requests        Limits
-</span></span><span style=display:flex><span>  --------           --------        ------
-</span></span><span style=display:flex><span>  cpu                900m <span style=color:#f92672>(</span>37%<span style=color:#f92672>)</span>      <span style=color:#ae81ff>0</span> <span style=color:#f92672>(</span>0%<span style=color:#f92672>)</span>
-</span></span><span style=display:flex><span>  memory             <span style=color:#ae81ff>210800640</span> <span style=color:#f92672>(</span>2%<span style=color:#f92672>)</span>  1024288k <span style=color:#f92672>(</span>13%<span style=color:#f92672>)</span>
-</span></span><span style=display:flex><span>--
-</span></span><span style=display:flex><span>Allocated resources:
-</span></span><span style=display:flex><span>  <span style=color:#f92672>(</span>Total limits may be over <span style=color:#ae81ff>100</span> percent, i.e., overcommitted.<span style=color:#f92672>)</span>
-</span></span><span style=display:flex><span>  Resource           Requests        Limits
-</span></span><span style=display:flex><span>  --------           --------        ------
-</span></span><span style=display:flex><span>  cpu                800m <span style=color:#f92672>(</span>23%<span style=color:#f92672>)</span>      <span style=color:#ae81ff>0</span> <span style=color:#f92672>(</span>0%<span style=color:#f92672>)</span>
-</span></span><span style=display:flex><span>  memory             <span style=color:#ae81ff>137400320</span> <span style=color:#f92672>(</span>1%<span style=color:#f92672>)</span>  <span style=color:#ae81ff>709715200</span> <span style=color:#f92672>(</span>9%<span style=color:#f92672>)</span>
-</span></span><span style=display:flex><span>--
-</span></span><span style=display:flex><span>Allocated resources:
-</span></span><span style=display:flex><span>  <span style=color:#f92672>(</span>Total limits may be over <span style=color:#ae81ff>100</span> percent, i.e., overcommitted.<span style=color:#f92672>)</span>
-</span></span><span style=display:flex><span>  Resource           Requests          Limits
-</span></span><span style=display:flex><span>  --------           --------          ------
-</span></span><span style=display:flex><span>  cpu                1675m <span style=color:#f92672>(</span>69%<span style=color:#f92672>)</span>       1700m <span style=color:#f92672>(</span>70%<span style=color:#f92672>)</span>
-</span></span><span style=display:flex><span>  memory             <span style=color:#ae81ff>2987972608</span> <span style=color:#f92672>(</span>18%<span style=color:#f92672>)</span>  <span style=color:#ae81ff>6346859776</span> <span style=color:#f92672>(</span>40%<span style=color:#f92672>)</span>
-</span></span><span style=display:flex><span>--
-</span></span><span style=display:flex><span>Allocated resources:
-</span></span><span style=display:flex><span>  <span style=color:#f92672>(</span>Total limits may be over <span style=color:#ae81ff>100</span> percent, i.e., overcommitted.<span style=color:#f92672>)</span>
-</span></span><span style=display:flex><span>  Resource           Requests         Limits
-</span></span><span style=display:flex><span>  --------           --------         ------
-</span></span><span style=display:flex><span>  cpu                2625m <span style=color:#f92672>(</span>77%<span style=color:#f92672>)</span>      2800m <span style=color:#f92672>(</span>82%<span style=color:#f92672>)</span>
-</span></span><span style=display:flex><span>  memory             4957750Ki <span style=color:#f92672>(</span>32%<span style=color:#f92672>)</span>  <span style=color:#ae81ff>9165432064</span> <span style=color:#f92672>(</span>57%<span style=color:#f92672>)</span>
-</span></span><span style=display:flex><span>--
-</span></span><span style=display:flex><span>Allocated resources:
-</span></span><span style=display:flex><span>  <span style=color:#f92672>(</span>Total limits may be over <span style=color:#ae81ff>100</span> percent, i.e., overcommitted.<span style=color:#f92672>)</span>
-</span></span><span style=display:flex><span>  Resource           Requests         Limits
-</span></span><span style=display:flex><span>  --------           --------         ------
-</span></span><span style=display:flex><span>  cpu                2675m <span style=color:#f92672>(</span>78%<span style=color:#f92672>)</span>      2300m <span style=color:#f92672>(</span>67%<span style=color:#f92672>)</span>
-</span></span><span style=display:flex><span>  memory             4752950Ki <span style=color:#f92672>(</span>30%<span style=color:#f92672>)</span>  <span style=color:#ae81ff>10104956160</span> <span style=color:#f92672>(</span>63%<span style=color:#f92672>)</span>
-</span></span><span style=display:flex><span>--
-</span></span><span style=display:flex><span>Allocated resources:
-</span></span><span style=display:flex><span>  <span style=color:#f92672>(</span>Total limits may be over <span style=color:#ae81ff>100</span> percent, i.e., overcommitted.<span style=color:#f92672>)</span>
-</span></span><span style=display:flex><span>  Resource           Requests         Limits
-</span></span><span style=display:flex><span>  --------           --------         ------
-</span></span><span style=display:flex><span>  cpu                2625m <span style=color:#f92672>(</span>77%<span style=color:#f92672>)</span>      2800m <span style=color:#f92672>(</span>82%<span style=color:#f92672>)</span>
-</span></span><span style=display:flex><span>  memory             4884022Ki <span style=color:#f92672>(</span>31%<span style=color:#f92672>)</span>  <span style=color:#ae81ff>10373391616</span> <span style=color:#f92672>(</span>65%<span style=color:#f92672>)</span>
-</span></span><span style=display:flex><span>--
-</span></span><span style=display:flex><span>Allocated resources:
-</span></span><span style=display:flex><span>  <span style=color:#f92672>(</span>Total limits may be over <span style=color:#ae81ff>100</span> percent, i.e., overcommitted.<span style=color:#f92672>)</span>
-</span></span><span style=display:flex><span>  Resource           Requests         Limits
-</span></span><span style=display:flex><span>  --------           --------         ------
-</span></span><span style=display:flex><span>  cpu                2375m <span style=color:#f92672>(</span>69%<span style=color:#f92672>)</span>      1400m <span style=color:#f92672>(</span>41%<span style=color:#f92672>)</span>
-</span></span><span style=display:flex><span>  memory             3835446Ki <span style=color:#f92672>(</span>24%<span style=color:#f92672>)</span>  <span style=color:#ae81ff>8494343424</span> <span style=color:#f92672>(</span>53%<span style=color:#f92672>)</span>
-</span></span></code></pre></div><p>현실적으로 턱없이 부족한 리소스다.</p><h3 id=해결-방법>해결 방법
-<a class=anchor href=#%ed%95%b4%ea%b2%b0-%eb%b0%a9%eb%b2%95>#</a></h3><p>사실 해결을 했다기보단, 현실적인 대안을 찾게됐다.</p><ol><li>Worker node 개수를 4대로 줄이고 리소스 추가 할당</li><li>Cloud Storage 도입</li></ol><table><thead><tr><th>항목</th><th>AWS</th><th>GCP</th><th>Azure</th></tr></thead><tbody><tr><td>Block Storage</td><td>EBS (가장 안정적, 옵션 다양)</td><td>Persistent Disk (속도 좋음, 가격 저렴)</td><td>Managed Disk (무난함)</td></tr><tr><td>Object Storage</td><td>S3 (업계 표준, 생태계 최강)</td><td>GCS (가격 저렴, 성능 빠름)</td><td>Blob Storage (무난)</td></tr><tr><td>File Storage</td><td>EFS (비쌈)</td><td>Filestore (가격 적당, 성능 빠름)</td><td>Azure Files (가장 저렴)</td></tr><tr><td>총평</td><td>&ldquo;기업표준&rdquo; & 비쌈</td><td>&ldquo;가격/성능 균형&rdquo; 최고</td><td>&ldquo;비용 최저&rdquo; 목적이면 고려</td></tr></tbody></table><p>비용만 생각한다면 <strong>Azure</strong>가 최선이지만, 편의성을 고려하면 <strong>AWS</strong>나 <strong>GCP</strong>를 선택해야한다.
-따라서 <strong>GCP</strong>의 스토리지들을 채택했다.</p><table><thead><tr><th>Storage Type</th><th>Product</th></tr></thead><tbody><tr><td>Block Storage</td><td>Balanced Persistent Disk (pd-balanced)</td></tr><tr><td>Object Storage</td><td>GCS Standard</td></tr><tr><td>File Storage</td><td>Filestore Basic HDD</td></tr></tbody></table></article><footer class=book-footer><div class="flex flex-wrap justify-between"></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><ul><li><a href=#상황>상황</a></li><li><a href=#문제-원인>문제 원인</a></li><li><a href=#해결-방법>해결 방법</a></li></ul></li></ul></nav></div></aside></main></body></html>
+따라서 다음과 같은 결정을 하게됐다.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/troubleshooting/resource-issue/">
+  <meta property="og:site_name" content="LogLee&#39;s Training Ground">
+  <meta property="og:title" content="리소스 이슈 인한 인프라 재구축">
+  <meta property="og:description" content="상황 # 다음과 같은 이슈가 발생했다. 현재 구축된 스택은 ceph, minio, kafka, kafka-ui뿐인데, request&amp;limit을 최적화했음에도 내 환경에서는 다소 버거운 것으로 보인다. 따라서 다음과 같은 결정을 하게됐다.">
+  <meta property="og:locale" content="ko">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>리소스 이슈 인한 인프라 재구축 | LogLee&#39;s Training Ground</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/docs/troubleshooting/resource-issue/">
+<link rel="stylesheet" href="/book.min.9adb8ebbd2b7c0d066fb01527510676c64916f6b7ba373f7d0ab4abe97ed4ae8.css" integrity="sha256-mtuOu9K3wNBm&#43;wFSdRBnbGSRb2t7o3P30KtKvpftSug=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/kr.search.min.a6a135180603ac50023a4d59d06d9857356b4e280890b7d6a369fc6950f3e528.js" integrity="sha256-pqE1GAYDrFACOk1Z0G2YVzVrTigIkLfWo2n8aVDz5Sg=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>LogLee&#39;s Training Ground</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="" aria-label="" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-79150fdf9dbf158df9c917a93d39407f" class="toggle"  />
+    <label for="section-79150fdf9dbf158df9c917a93d39407f" class="flex">
+      <a role="button" class="flex-auto ">Infra</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-afa7bc76ec3321dc3793f4204885e0ab" class="toggle"  />
+    <label for="section-afa7bc76ec3321dc3793f4204885e0ab" class="flex">
+      <a role="button" class="flex-auto ">KVM</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3f41a0b8f3b7286a296b17538ec448af" class="toggle"  />
+    <label for="section-3f41a0b8f3b7286a296b17538ec448af" class="flex">
+      <a role="button" class="flex-auto ">Kubernetes</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d4754ecbc33cae4a97284c5e5fb94d54" class="toggle"  />
+    <label for="section-d4754ecbc33cae4a97284c5e5fb94d54" class="flex">
+      <a role="button" class="flex-auto ">Data Engineering</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-641462dde2c25fe744d467e801495669" class="toggle"  />
+    <label for="section-641462dde2c25fe744d467e801495669" class="flex">
+      <a role="button" class="flex-auto ">Hadoop</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f83ca8c7296ad5011fcbbaeba0329ca2" class="toggle"  />
+    <label for="section-f83ca8c7296ad5011fcbbaeba0329ca2" class="flex">
+      <a role="button" class="flex-auto ">Modeling</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8ff501dd10e04dc7d58e4fa05c590467" class="toggle"  />
+    <label for="section-8ff501dd10e04dc7d58e4fa05c590467" class="flex">
+      <a role="button" class="flex-auto ">Data Integration</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-dfa9aef9d6d1d14a26805d019ab993d7" class="toggle"  />
+    <label for="section-dfa9aef9d6d1d14a26805d019ab993d7" class="flex">
+      <a role="button" class="flex-auto ">Kafka</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-basic/" class="">Kafka 심화 개념</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-troubleshooting-optimization/" class="">Kafka 운영 요소</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-data-structure/" class="">Kafka의 데이터 구조</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-storage-performance-test/" class="">Kafka의 성능 측정 (Block storage vs NFS)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-storage/" class="">Kafka의 저장소</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d5d55849c0cd749a3de3a547305dd4b1" class="toggle"  />
+    <label for="section-d5d55849c0cd749a3de3a547305dd4b1" class="flex">
+      <a role="button" class="flex-auto ">Data Lake Platform</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-7e667220fef74178cc1de6a791b2f882" class="toggle"  />
+    <label for="section-7e667220fef74178cc1de6a791b2f882" class="flex">
+      <a role="button" class="flex-auto ">Ceph</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2ded06cba2240a952325fd742ea5255f" class="toggle"  />
+    <label for="section-2ded06cba2240a952325fd742ea5255f" class="flex">
+      <a role="button" class="flex-auto ">Data Processing</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-61862c92f7adb593e694b832ef32779a" class="toggle"  />
+    <label for="section-61862c92f7adb593e694b832ef32779a" class="flex">
+      <a role="button" class="flex-auto ">Flink</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-5cdf1754fdf767f4d7e6b8fb75b850fb" class="toggle"  />
+    <label for="section-5cdf1754fdf767f4d7e6b8fb75b850fb" class="flex">
+      <a role="button" class="flex-auto ">Language</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8bff7ae517186b2d376a0661467cef2d" class="toggle"  />
+    <label for="section-8bff7ae517186b2d376a0661467cef2d" class="flex">
+      <a role="button" class="flex-auto ">Observability</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8bd6aac4580b36d82077704ed5049b20" class="toggle"  />
+    <label for="section-8bd6aac4580b36d82077704ed5049b20" class="flex">
+      <a role="button" class="flex-auto ">Logs</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3820b01d8d343a30aa49f2bd3d0ac76c" class="toggle"  />
+    <label for="section-3820b01d8d343a30aa49f2bd3d0ac76c" class="flex">
+      <a role="button" class="flex-auto ">Metrics</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-27eb68f1910975dd7e21ea458d19f57f" class="toggle"  />
+    <label for="section-27eb68f1910975dd7e21ea458d19f57f" class="flex">
+      <a role="button" class="flex-auto ">Traces</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-78891673ccb2c2d2b66a96ea50ab1361" class="toggle"  />
+    <label for="section-78891673ccb2c2d2b66a96ea50ab1361" class="flex">
+      <a role="button" class="flex-auto ">Others</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d7f1d1be3855e072724de9475cdfbfc3" class="toggle"  />
+    <label for="section-d7f1d1be3855e072724de9475cdfbfc3" class="flex">
+      <a role="button" class="flex-auto ">알고리즘</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-747d8ad5c3c7f33d6e58ddfb67dea44e" class="toggle"  />
+    <label for="section-747d8ad5c3c7f33d6e58ddfb67dea44e" class="flex">
+      <a role="button" class="flex-auto ">a-really-important</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-7e15309ad0b085600c1f239bb8c8eb2e" class="toggle"  />
+    <label for="section-7e15309ad0b085600c1f239bb8c8eb2e" class="flex">
+      <a role="button" class="flex-auto ">dp</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-534e71b0d21d0db126610564d17c9a8c" class="toggle"  />
+    <label for="section-534e71b0d21d0db126610564d17c9a8c" class="flex">
+      <a role="button" class="flex-auto ">sorting</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-a47eb3a03ca7a90c2669be5223712fab" class="toggle"  />
+    <label for="section-a47eb3a03ca7a90c2669be5223712fab" class="flex">
+      <a role="button" class="flex-auto ">완전탐색</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d7e1497bbb4a05194486c8bb2b0ea79a" class="toggle"  />
+    <label for="section-d7e1497bbb4a05194486c8bb2b0ea79a" class="flex">
+      <a role="button" class="flex-auto ">컴퓨터이론</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-a1c99ab2d40536151b21eb12a5041410" class="toggle"  />
+    <label for="section-a1c99ab2d40536151b21eb12a5041410" class="flex">
+      <a role="button" class="flex-auto ">네트워크</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2268fd08902c3bcc533339d8cbf128ef" class="toggle"  />
+    <label for="section-2268fd08902c3bcc533339d8cbf128ef" class="flex">
+      <a role="button" class="flex-auto ">데이터베이스</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2998a9560058ec62c67d1a55ea134d38" class="toggle"  />
+    <label for="section-2998a9560058ec62c67d1a55ea134d38" class="flex">
+      <a role="button" class="flex-auto ">디자인패턴</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-055d0164778e6e1df37e6d55c5d9cf85" class="toggle"  />
+    <label for="section-055d0164778e6e1df37e6d55c5d9cf85" class="flex">
+      <a role="button" class="flex-auto ">운영체제</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3a909f63114456639d5607c0ecf991ab" class="toggle"  />
+    <label for="section-3a909f63114456639d5607c0ecf991ab" class="flex">
+      <a role="button" class="flex-auto ">자료구조</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-4fdec2fe2003d2cde62ccb52c0009bfc" class="toggle" checked />
+    <label for="section-4fdec2fe2003d2cde62ccb52c0009bfc" class="flex">
+      <a role="button" class="flex-auto ">트러블슈팅</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>리소스 이슈 인한 인프라 재구축</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#상황">상황</a></li>
+        <li><a href="#문제-원인">문제 원인</a></li>
+        <li><a href="#해결-방법">해결 방법</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h3 id="상황">
+  상황
+  <a class="anchor" href="#%ec%83%81%ed%99%a9">#</a>
+</h3>
+<p><img src="/troubleshooting/resource-request.png" alt="resource issue" /></p>
+<p>다음과 같은 이슈가 발생했다. 현재 구축된 스택은 ceph, minio, kafka, kafka-ui뿐인데, request&amp;limit을 최적화했음에도 내 환경에서는 다소 버거운 것으로 보인다.
+따라서 다음과 같은 결정을 하게됐다.</p>
+<h3 id="문제-원인">
+  문제 원인
+  <a class="anchor" href="#%eb%ac%b8%ec%a0%9c-%ec%9b%90%ec%9d%b8">#</a>
+</h3>
+<p>위 스택들의 request를 다음과 같이 최소화했을때</p>
+<table>
+  <thead>
+      <tr>
+          <th>항목</th>
+          <th>Before</th>
+          <th>After</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Ceph OSD 5개 CPU 요청</td>
+          <td>2.5코어</td>
+          <td>1.5코어</td>
+      </tr>
+      <tr>
+          <td>Kafka Pod 3개 CPU 요청</td>
+          <td>1.5코어</td>
+          <td>0.9코어</td>
+      </tr>
+      <tr>
+          <td>Kafka-UI</td>
+          <td>없음</td>
+          <td>0.1코어</td>
+      </tr>
+      <tr>
+          <td>총합 감소량</td>
+          <td>약 2.5~3코어</td>
+          <td>1.5코어 이상 확보</td>
+      </tr>
+  </tbody>
+</table>
+<p>아래와 같이 리소스를 사용한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>ubuntu@ctrl-node:~/kafka$ kubectl describe nodes | grep -A5 <span style="color:#e6db74">&#34;Allocated resources&#34;</span>
+</span></span><span style="display:flex;"><span>Allocated resources:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>Total limits may be over <span style="color:#ae81ff">100</span> percent, i.e., overcommitted.<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  Resource           Requests       Limits
+</span></span><span style="display:flex;"><span>  --------           --------       ------
+</span></span><span style="display:flex;"><span>  cpu                1050m <span style="color:#f92672">(</span>43%<span style="color:#f92672">)</span>    <span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>41%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  memory             370760Ki <span style="color:#f92672">(</span>5%<span style="color:#f92672">)</span>  1280288k <span style="color:#f92672">(</span>17%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>--
+</span></span><span style="display:flex;"><span>Allocated resources:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>Total limits may be over <span style="color:#ae81ff">100</span> percent, i.e., overcommitted.<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  Resource           Requests        Limits
+</span></span><span style="display:flex;"><span>  --------           --------        ------
+</span></span><span style="display:flex;"><span>  cpu                900m <span style="color:#f92672">(</span>37%<span style="color:#f92672">)</span>      <span style="color:#ae81ff">0</span> <span style="color:#f92672">(</span>0%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  memory             <span style="color:#ae81ff">210800640</span> <span style="color:#f92672">(</span>2%<span style="color:#f92672">)</span>  1024288k <span style="color:#f92672">(</span>13%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>--
+</span></span><span style="display:flex;"><span>Allocated resources:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>Total limits may be over <span style="color:#ae81ff">100</span> percent, i.e., overcommitted.<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  Resource           Requests        Limits
+</span></span><span style="display:flex;"><span>  --------           --------        ------
+</span></span><span style="display:flex;"><span>  cpu                800m <span style="color:#f92672">(</span>23%<span style="color:#f92672">)</span>      <span style="color:#ae81ff">0</span> <span style="color:#f92672">(</span>0%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  memory             <span style="color:#ae81ff">137400320</span> <span style="color:#f92672">(</span>1%<span style="color:#f92672">)</span>  <span style="color:#ae81ff">709715200</span> <span style="color:#f92672">(</span>9%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>--
+</span></span><span style="display:flex;"><span>Allocated resources:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>Total limits may be over <span style="color:#ae81ff">100</span> percent, i.e., overcommitted.<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  Resource           Requests          Limits
+</span></span><span style="display:flex;"><span>  --------           --------          ------
+</span></span><span style="display:flex;"><span>  cpu                1675m <span style="color:#f92672">(</span>69%<span style="color:#f92672">)</span>       1700m <span style="color:#f92672">(</span>70%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  memory             <span style="color:#ae81ff">2987972608</span> <span style="color:#f92672">(</span>18%<span style="color:#f92672">)</span>  <span style="color:#ae81ff">6346859776</span> <span style="color:#f92672">(</span>40%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>--
+</span></span><span style="display:flex;"><span>Allocated resources:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>Total limits may be over <span style="color:#ae81ff">100</span> percent, i.e., overcommitted.<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  Resource           Requests         Limits
+</span></span><span style="display:flex;"><span>  --------           --------         ------
+</span></span><span style="display:flex;"><span>  cpu                2625m <span style="color:#f92672">(</span>77%<span style="color:#f92672">)</span>      2800m <span style="color:#f92672">(</span>82%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  memory             4957750Ki <span style="color:#f92672">(</span>32%<span style="color:#f92672">)</span>  <span style="color:#ae81ff">9165432064</span> <span style="color:#f92672">(</span>57%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>--
+</span></span><span style="display:flex;"><span>Allocated resources:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>Total limits may be over <span style="color:#ae81ff">100</span> percent, i.e., overcommitted.<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  Resource           Requests         Limits
+</span></span><span style="display:flex;"><span>  --------           --------         ------
+</span></span><span style="display:flex;"><span>  cpu                2675m <span style="color:#f92672">(</span>78%<span style="color:#f92672">)</span>      2300m <span style="color:#f92672">(</span>67%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  memory             4752950Ki <span style="color:#f92672">(</span>30%<span style="color:#f92672">)</span>  <span style="color:#ae81ff">10104956160</span> <span style="color:#f92672">(</span>63%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>--
+</span></span><span style="display:flex;"><span>Allocated resources:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>Total limits may be over <span style="color:#ae81ff">100</span> percent, i.e., overcommitted.<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  Resource           Requests         Limits
+</span></span><span style="display:flex;"><span>  --------           --------         ------
+</span></span><span style="display:flex;"><span>  cpu                2625m <span style="color:#f92672">(</span>77%<span style="color:#f92672">)</span>      2800m <span style="color:#f92672">(</span>82%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  memory             4884022Ki <span style="color:#f92672">(</span>31%<span style="color:#f92672">)</span>  <span style="color:#ae81ff">10373391616</span> <span style="color:#f92672">(</span>65%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>--
+</span></span><span style="display:flex;"><span>Allocated resources:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>Total limits may be over <span style="color:#ae81ff">100</span> percent, i.e., overcommitted.<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  Resource           Requests         Limits
+</span></span><span style="display:flex;"><span>  --------           --------         ------
+</span></span><span style="display:flex;"><span>  cpu                2375m <span style="color:#f92672">(</span>69%<span style="color:#f92672">)</span>      1400m <span style="color:#f92672">(</span>41%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  memory             3835446Ki <span style="color:#f92672">(</span>24%<span style="color:#f92672">)</span>  <span style="color:#ae81ff">8494343424</span> <span style="color:#f92672">(</span>53%<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>현실적으로 턱없이 부족한 리소스다.</p>
+<h3 id="해결-방법">
+  해결 방법
+  <a class="anchor" href="#%ed%95%b4%ea%b2%b0-%eb%b0%a9%eb%b2%95">#</a>
+</h3>
+<p>사실 해결을 했다기보단, 현실적인 대안을 찾게됐다.</p>
+<ol>
+<li>Worker node 개수를 4대로 줄이고 리소스 추가 할당</li>
+<li>Cloud Storage 도입</li>
+</ol>
+<table>
+  <thead>
+      <tr>
+          <th>항목</th>
+          <th>AWS</th>
+          <th>GCP</th>
+          <th>Azure</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Block Storage</td>
+          <td>EBS (가장 안정적, 옵션 다양)</td>
+          <td>Persistent Disk (속도 좋음, 가격 저렴)</td>
+          <td>Managed Disk (무난함)</td>
+      </tr>
+      <tr>
+          <td>Object Storage</td>
+          <td>S3 (업계 표준, 생태계 최강)</td>
+          <td>GCS (가격 저렴, 성능 빠름)</td>
+          <td>Blob Storage (무난)</td>
+      </tr>
+      <tr>
+          <td>File Storage</td>
+          <td>EFS (비쌈)</td>
+          <td>Filestore (가격 적당, 성능 빠름)</td>
+          <td>Azure Files (가장 저렴)</td>
+      </tr>
+      <tr>
+          <td>총평</td>
+          <td>&ldquo;기업표준&rdquo; &amp; 비쌈</td>
+          <td>&ldquo;가격/성능 균형&rdquo; 최고</td>
+          <td>&ldquo;비용 최저&rdquo; 목적이면 고려</td>
+      </tr>
+  </tbody>
+</table>
+<p>비용만 생각한다면 <strong>Azure</strong>가 최선이지만, 편의성을 고려하면 <strong>AWS</strong>나 <strong>GCP</strong>를 선택해야한다.
+따라서 <strong>GCP</strong>의 스토리지들을 채택했다.</p>
+<table>
+  <thead>
+      <tr>
+          <th>Storage Type</th>
+          <th>Product</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Block Storage</td>
+          <td>Balanced Persistent Disk (pd-balanced)</td>
+      </tr>
+      <tr>
+          <td>Object Storage</td>
+          <td>GCS Standard</td>
+      </tr>
+      <tr>
+          <td>File Storage</td>
+          <td>Filestore Basic HDD</td>
+      </tr>
+  </tbody>
+</table>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#상황">상황</a></li>
+        <li><a href="#문제-원인">문제 원인</a></li>
+        <li><a href="#해결-방법">해결 방법</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

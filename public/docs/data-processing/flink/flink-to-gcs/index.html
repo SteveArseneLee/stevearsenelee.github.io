@@ -1,4 +1,9 @@
-<!doctype html><html lang=ko dir=ltr><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content='
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
   1. GCP 준비
   #
 
@@ -41,162 +46,1095 @@ wget https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-hadoop2-latest.
 
 참고:
 flink-gs-fs-hadoop은 Flink 1.20 공식 릴리스부터 기본 지원.
-단, 여전히 &ldquo;gcs-connector-hadoop"은 별도 필요함 (GCP 라이브러리).'><meta name=theme-color media="(prefers-color-scheme: light)" content="#ffffff"><meta name=theme-color media="(prefers-color-scheme: dark)" content="#343a40"><meta name=color-scheme content="light dark"><meta property="og:url" content="https://stevearsenelee.github.io/docs/data-processing/flink/flink-to-gcs/"><meta property="og:site_name" content="LogLee's Training Ground"><meta property="og:title" content="Flink to GCS"><meta property="og:description" content='1. GCP 준비 # Bucket 생성 Service account 생성 (최소 권한) Storage Object Admin Storage Object Creator Service account key(Json file) 생성 후 다운로드 2. K8s Secret 생성 # kubectl create secret generic {secret_key_name} \ --from-file={1번에서 발급받은 json파일}={/path/to/your/keyfile.json} \ -n flink # e.g. kubectl create secret generic gcp-steve-account-key \ --from-file=squidengineer-25d36a46ab7f.json=/path/to/your/keyfile.json \ -n flink 3. GCS Connector 준비 # 필요 JAR 목록 # flink-gs-fs-hadoop-1.20.1.jar : Flink가 GCS를 지원하는 플러그인 gcs-connector-hadoop2-latest.jar : GCS와 HDFS 인터페이스를 연결하는 Google 제공 connector wget https://repo1.maven.org/maven2/org/apache/flink/flink-gs-fs-hadoop/1.20.1/flink-gs-fs-hadoop-1.20.1.jar wget https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-hadoop2-latest.jar 참고:
+단, 여전히 &ldquo;gcs-connector-hadoop&quot;은 별도 필요함 (GCP 라이브러리).">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/data-processing/flink/flink-to-gcs/">
+  <meta property="og:site_name" content="LogLee&#39;s Training Ground">
+  <meta property="og:title" content="Flink to GCS">
+  <meta property="og:description" content="1. GCP 준비 # Bucket 생성 Service account 생성 (최소 권한) Storage Object Admin Storage Object Creator Service account key(Json file) 생성 후 다운로드 2. K8s Secret 생성 # kubectl create secret generic {secret_key_name} \ --from-file={1번에서 발급받은 json파일}={/path/to/your/keyfile.json} \ -n flink # e.g. kubectl create secret generic gcp-steve-account-key \ --from-file=squidengineer-25d36a46ab7f.json=/path/to/your/keyfile.json \ -n flink 3. GCS Connector 준비 # 필요 JAR 목록 # flink-gs-fs-hadoop-1.20.1.jar : Flink가 GCS를 지원하는 플러그인 gcs-connector-hadoop2-latest.jar : GCS와 HDFS 인터페이스를 연결하는 Google 제공 connector wget https://repo1.maven.org/maven2/org/apache/flink/flink-gs-fs-hadoop/1.20.1/flink-gs-fs-hadoop-1.20.1.jar wget https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-hadoop2-latest.jar 참고:
 flink-gs-fs-hadoop은 Flink 1.20 공식 릴리스부터 기본 지원.
-단, 여전히 “gcs-connector-hadoop"은 별도 필요함 (GCP 라이브러리).'><meta property="og:locale" content="ko"><meta property="og:type" content="article"><meta property="article:section" content="docs"><title>Flink to GCS | LogLee's Training Ground</title>
-<link rel=icon href=/favicon.png><link rel=manifest href=/manifest.json><link rel=canonical href=https://stevearsenelee.github.io/docs/data-processing/flink/flink-to-gcs/><link rel=stylesheet href=/book.min.9adb8ebbd2b7c0d066fb01527510676c64916f6b7ba373f7d0ab4abe97ed4ae8.css integrity="sha256-mtuOu9K3wNBm+wFSdRBnbGSRb2t7o3P30KtKvpftSug=" crossorigin=anonymous><script defer src=/fuse.min.js></script><script defer src=/kr.search.min.a6a135180603ac50023a4d59d06d9857356b4e280890b7d6a369fc6950f3e528.js integrity="sha256-pqE1GAYDrFACOk1Z0G2YVzVrTigIkLfWo2n8aVDz5Sg=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/><span>LogLee's Training Ground</span></a></h2><div class="book-search hidden"><input type=text id=book-search-input placeholder aria-label maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><script>document.querySelector(".book-search").classList.remove("hidden")</script><ul><li><input type=checkbox id=section-79150fdf9dbf158df9c917a93d39407f class=toggle>
-<label for=section-79150fdf9dbf158df9c917a93d39407f class=flex><a role=button class=flex-auto>Infra</a></label><ul><li><input type=checkbox id=section-afa7bc76ec3321dc3793f4204885e0ab class=toggle>
-<label for=section-afa7bc76ec3321dc3793f4204885e0ab class=flex><a role=button class=flex-auto>KVM</a></label><ul></ul></li><li><input type=checkbox id=section-3f41a0b8f3b7286a296b17538ec448af class=toggle>
-<label for=section-3f41a0b8f3b7286a296b17538ec448af class=flex><a role=button class=flex-auto>Kubernetes</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-d4754ecbc33cae4a97284c5e5fb94d54 class=toggle>
-<label for=section-d4754ecbc33cae4a97284c5e5fb94d54 class=flex><a role=button class=flex-auto>Data Engineering</a></label><ul><li><input type=checkbox id=section-641462dde2c25fe744d467e801495669 class=toggle>
-<label for=section-641462dde2c25fe744d467e801495669 class=flex><a role=button class=flex-auto>Hadoop</a></label><ul></ul></li><li><input type=checkbox id=section-f83ca8c7296ad5011fcbbaeba0329ca2 class=toggle>
-<label for=section-f83ca8c7296ad5011fcbbaeba0329ca2 class=flex><a role=button class=flex-auto>Modeling</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-8ff501dd10e04dc7d58e4fa05c590467 class=toggle>
-<label for=section-8ff501dd10e04dc7d58e4fa05c590467 class=flex><a role=button class=flex-auto>Data Integration</a></label><ul><li><input type=checkbox id=section-dfa9aef9d6d1d14a26805d019ab993d7 class=toggle>
-<label for=section-dfa9aef9d6d1d14a26805d019ab993d7 class=flex><a role=button class=flex-auto>Kafka</a></label><ul><li><a href=/docs/data-integration/kafka/kafka-basic/>Kafka 심화 개념</a></li><li><a href=/docs/data-integration/kafka/kafka-troubleshooting-optimization/>Kafka 운영 요소</a></li><li><a href=/docs/data-integration/kafka/kafka-data-structure/>Kafka의 데이터 구조</a></li><li><a href=/docs/data-integration/kafka/kafka-storage-performance-test/>Kafka의 성능 측정 (Block storage vs NFS)</a></li><li><a href=/docs/data-integration/kafka/kafka-storage/>Kafka의 저장소</a></li></ul></li></ul></li><li><input type=checkbox id=section-d5d55849c0cd749a3de3a547305dd4b1 class=toggle>
-<label for=section-d5d55849c0cd749a3de3a547305dd4b1 class=flex><a role=button class=flex-auto>Data Lake Platform</a></label><ul><li><input type=checkbox id=section-7e667220fef74178cc1de6a791b2f882 class=toggle>
-<label for=section-7e667220fef74178cc1de6a791b2f882 class=flex><a role=button class=flex-auto>Ceph</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-2ded06cba2240a952325fd742ea5255f class=toggle checked>
-<label for=section-2ded06cba2240a952325fd742ea5255f class=flex><a role=button class=flex-auto>Data Processing</a></label><ul><li><input type=checkbox id=section-61862c92f7adb593e694b832ef32779a class=toggle checked>
-<label for=section-61862c92f7adb593e694b832ef32779a class=flex><a role=button class=flex-auto>Flink</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-5cdf1754fdf767f4d7e6b8fb75b850fb class=toggle>
-<label for=section-5cdf1754fdf767f4d7e6b8fb75b850fb class=flex><a role=button class=flex-auto>Language</a></label><ul></ul></li><li><input type=checkbox id=section-8bff7ae517186b2d376a0661467cef2d class=toggle>
-<label for=section-8bff7ae517186b2d376a0661467cef2d class=flex><a role=button class=flex-auto>Observability</a></label><ul><li><input type=checkbox id=section-8bd6aac4580b36d82077704ed5049b20 class=toggle>
-<label for=section-8bd6aac4580b36d82077704ed5049b20 class=flex><a role=button class=flex-auto>Logs</a></label><ul></ul></li><li><input type=checkbox id=section-3820b01d8d343a30aa49f2bd3d0ac76c class=toggle>
-<label for=section-3820b01d8d343a30aa49f2bd3d0ac76c class=flex><a role=button class=flex-auto>Metrics</a></label><ul></ul></li><li><input type=checkbox id=section-27eb68f1910975dd7e21ea458d19f57f class=toggle>
-<label for=section-27eb68f1910975dd7e21ea458d19f57f class=flex><a role=button class=flex-auto>Traces</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-78891673ccb2c2d2b66a96ea50ab1361 class=toggle>
-<label for=section-78891673ccb2c2d2b66a96ea50ab1361 class=flex><a role=button class=flex-auto>Others</a></label><ul></ul></li><li><input type=checkbox id=section-d7f1d1be3855e072724de9475cdfbfc3 class=toggle>
-<label for=section-d7f1d1be3855e072724de9475cdfbfc3 class=flex><a role=button class=flex-auto>알고리즘</a></label><ul><li><input type=checkbox id=section-747d8ad5c3c7f33d6e58ddfb67dea44e class=toggle>
-<label for=section-747d8ad5c3c7f33d6e58ddfb67dea44e class=flex><a role=button class=flex-auto>a-really-important</a></label><ul></ul></li><li><input type=checkbox id=section-7e15309ad0b085600c1f239bb8c8eb2e class=toggle>
-<label for=section-7e15309ad0b085600c1f239bb8c8eb2e class=flex><a role=button class=flex-auto>dp</a></label><ul></ul></li><li><input type=checkbox id=section-534e71b0d21d0db126610564d17c9a8c class=toggle>
-<label for=section-534e71b0d21d0db126610564d17c9a8c class=flex><a role=button class=flex-auto>sorting</a></label><ul></ul></li><li><input type=checkbox id=section-a47eb3a03ca7a90c2669be5223712fab class=toggle>
-<label for=section-a47eb3a03ca7a90c2669be5223712fab class=flex><a role=button class=flex-auto>완전탐색</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-d7e1497bbb4a05194486c8bb2b0ea79a class=toggle>
-<label for=section-d7e1497bbb4a05194486c8bb2b0ea79a class=flex><a role=button class=flex-auto>컴퓨터이론</a></label><ul><li><input type=checkbox id=section-a1c99ab2d40536151b21eb12a5041410 class=toggle>
-<label for=section-a1c99ab2d40536151b21eb12a5041410 class=flex><a role=button class=flex-auto>네트워크</a></label><ul></ul></li><li><input type=checkbox id=section-2268fd08902c3bcc533339d8cbf128ef class=toggle>
-<label for=section-2268fd08902c3bcc533339d8cbf128ef class=flex><a role=button class=flex-auto>데이터베이스</a></label><ul></ul></li><li><input type=checkbox id=section-2998a9560058ec62c67d1a55ea134d38 class=toggle>
-<label for=section-2998a9560058ec62c67d1a55ea134d38 class=flex><a role=button class=flex-auto>디자인패턴</a></label><ul></ul></li><li><input type=checkbox id=section-055d0164778e6e1df37e6d55c5d9cf85 class=toggle>
-<label for=section-055d0164778e6e1df37e6d55c5d9cf85 class=flex><a role=button class=flex-auto>운영체제</a></label><ul></ul></li><li><input type=checkbox id=section-3a909f63114456639d5607c0ecf991ab class=toggle>
-<label for=section-3a909f63114456639d5607c0ecf991ab class=flex><a role=button class=flex-auto>자료구조</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-4fdec2fe2003d2cde62ccb52c0009bfc class=toggle>
-<label for=section-4fdec2fe2003d2cde62ccb52c0009bfc class=flex><a role=button class=flex-auto>트러블슈팅</a></label><ul></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label><h3>Flink to GCS</h3><label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#1-gcp-준비>1. GCP 준비</a></li><li><a href=#2-k8s-secret-생성>2. K8s Secret 생성</a></li><li><a href=#3-gcs-connector-준비>3. GCS Connector 준비</a><ul><li><a href=#필요-jar-목록>필요 JAR 목록</a></li></ul></li><li><a href=#4-custom-flink-docker-image-만들기>4. Custom Flink Docker image 만들기</a><ul><li><a href=#dockerfile-작성>Dockerfile 작성</a></li><li><a href=#이미지-빌드-및-업로드>이미지 빌드 및 업로드</a></li></ul></li><li><a href=#5-flinkdeployment-yaml-작성>5. FlinkDeployment YAML 작성</a></li><li><a href=#6-flink-sql-client로-데이터-삽입>6. Flink SQL Client로 데이터 삽입</a></li></ul></nav></aside></header><article class="markdown book-article"><h2 id=1-gcp-준비>1. GCP 준비
-<a class=anchor href=#1-gcp-%ec%a4%80%eb%b9%84>#</a></h2><ul><li>Bucket 생성</li><li>Service account 생성 (최소 권한)<ul><li>Storage Object Admin</li><li>Storage Object Creator</li></ul></li><li>Service account key(Json file) 생성 후 다운로드</li></ul><h2 id=2-k8s-secret-생성>2. K8s Secret 생성
-<a class=anchor href=#2-k8s-secret-%ec%83%9d%ec%84%b1>#</a></h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>kubectl create secret generic <span style=color:#f92672>{</span>secret_key_name<span style=color:#f92672>}</span> <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --from-file<span style=color:#f92672>={</span>1번에서 발급받은 json파일<span style=color:#f92672>}={</span>/path/to/your/keyfile.json<span style=color:#f92672>}</span> <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  -n flink
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e># e.g.</span>
-</span></span><span style=display:flex><span>kubectl create secret generic gcp-steve-account-key <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --from-file<span style=color:#f92672>=</span>squidengineer-25d36a46ab7f.json<span style=color:#f92672>=</span>/path/to/your/keyfile.json <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  -n flink
-</span></span></code></pre></div><h2 id=3-gcs-connector-준비>3. GCS Connector 준비
-<a class=anchor href=#3-gcs-connector-%ec%a4%80%eb%b9%84>#</a></h2><h3 id=필요-jar-목록>필요 JAR 목록
-<a class=anchor href=#%ed%95%84%ec%9a%94-jar-%eb%aa%a9%eb%a1%9d>#</a></h3><ul><li>flink-gs-fs-hadoop-1.20.1.jar : Flink가 GCS를 지원하는 플러그인</li><li>gcs-connector-hadoop2-latest.jar : GCS와 HDFS 인터페이스를 연결하는 Google 제공 connector</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>wget https://repo1.maven.org/maven2/org/apache/flink/flink-gs-fs-hadoop/1.20.1/flink-gs-fs-hadoop-1.20.1.jar
-</span></span><span style=display:flex><span>wget https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-hadoop2-latest.jar
-</span></span></code></pre></div><blockquote><p>참고:<br>flink-gs-fs-hadoop은 Flink 1.20 공식 릴리스부터 기본 지원.<br>단, 여전히 &ldquo;gcs-connector-hadoop"은 별도 필요함 (GCP 라이브러리).</p></blockquote><h2 id=4-custom-flink-docker-image-만들기>4. Custom Flink Docker image 만들기
-<a class=anchor href=#4-custom-flink-docker-image-%eb%a7%8c%eb%93%a4%ea%b8%b0>#</a></h2><h3 id=dockerfile-작성>Dockerfile 작성
-<a class=anchor href=#dockerfile-%ec%9e%91%ec%84%b1>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-dockerfile data-lang=dockerfile><span style=display:flex><span><span style=color:#66d9ef>FROM</span><span style=color:#e6db74> flink:1.20.1-scala_2.12</span><span style=color:#960050;background-color:#1e0010>
-</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
-</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#75715e># GCS connector 플러그인 및 라이브러리 추가</span><span style=color:#960050;background-color:#1e0010>
-</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>RUN</span> mkdir -p /opt/flink/plugins/flink-gs-fs-hadoop<span style=color:#960050;background-color:#1e0010>
-</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>COPY</span> flink-gs-fs-hadoop-1.20.1.jar /opt/flink/plugins/flink-gs-fs-hadoop/<span style=color:#960050;background-color:#1e0010>
-</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>COPY</span> gcs-connector-hadoop2-latest.jar /opt/flink/lib/<span style=color:#960050;background-color:#1e0010>
-</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
-</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#75715e># 플러그인 활성화</span><span style=color:#960050;background-color:#1e0010>
-</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>RUN</span> echo <span style=color:#e6db74>&#34;plugins.enable: flink-gs-fs-hadoop&#34;</span> &gt;&gt; /opt/flink/conf/flink-conf.yaml<span style=color:#960050;background-color:#1e0010>
-</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>RUN</span> chmod -R <span style=color:#ae81ff>755</span> /opt/flink/plugins/flink-gs-fs-hadoop<span style=color:#960050;background-color:#1e0010>
-</span></span></span></code></pre></div><h3 id=이미지-빌드-및-업로드>이미지 빌드 및 업로드
-<a class=anchor href=#%ec%9d%b4%eb%af%b8%ec%a7%80-%eb%b9%8c%eb%93%9c-%eb%b0%8f-%ec%97%85%eb%a1%9c%eb%93%9c>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>docker build -t <span style=color:#f92672>{</span>dockerhub-username<span style=color:#f92672>}</span>/steve-flink-gcs:1.20.1 .
-</span></span><span style=display:flex><span>docker push <span style=color:#f92672>{</span>dockerhub-username<span style=color:#f92672>}</span>/steve-flink-gcs:1.20.1
-</span></span></code></pre></div><h2 id=5-flinkdeployment-yaml-작성>5. FlinkDeployment YAML 작성
-<a class=anchor href=#5-flinkdeployment-yaml-%ec%9e%91%ec%84%b1>#</a></h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>flink.apache.org/v1beta1</span>
-</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>FlinkDeployment</span>
-</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
-</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: {<span style=color:#ae81ff>cluster-name}</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>namespace</span>: <span style=color:#ae81ff>flink</span>
-</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
-</span></span><span style=display:flex><span>  <span style=color:#f92672>image</span>: {<span style=color:#ae81ff>dockerhub-username}/steve-flink-gcs:1.20.1</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>flinkVersion</span>: <span style=color:#ae81ff>v1_20</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>serviceAccount</span>: <span style=color:#ae81ff>flink</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>mode</span>: <span style=color:#ae81ff>standalone</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>flinkConfiguration</span>:
-</span></span><span style=display:flex><span>    <span style=color:#f92672>taskmanager.numberOfTaskSlots</span>: <span style=color:#e6db74>&#34;2&#34;</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>jobmanager.memory.process.size</span>: <span style=color:#e6db74>&#34;1024m&#34;</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>taskmanager.memory.process.size</span>: <span style=color:#e6db74>&#34;2048m&#34;</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>kubernetes.rest-service.exposed.type</span>: <span style=color:#ae81ff>ClusterIP</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>kubernetes.deployment.target</span>: <span style=color:#ae81ff>standalone</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>fs.gs.project.id</span>: {<span style=color:#ae81ff>gcp-project-id}</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>fs.gs.system.bucket</span>: {<span style=color:#ae81ff>bucket-name}</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>fs.gs.auth.service.account.json.keyfile</span>: <span style=color:#ae81ff>/opt/flink/custom-config/{gcp-secret-key}</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>fs.gs.impl</span>: <span style=color:#ae81ff>com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>fs.AbstractFileSystem.gs.impl</span>: <span style=color:#ae81ff>com.google.cloud.hadoop.fs.gcs.GoogleHadoopFS</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>plugins.enable</span>: <span style=color:#ae81ff>flink-gs-fs-hadoop</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>jobManager</span>:
-</span></span><span style=display:flex><span>    <span style=color:#f92672>replicas</span>: <span style=color:#ae81ff>1</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>resource</span>:
-</span></span><span style=display:flex><span>      <span style=color:#f92672>memory</span>: <span style=color:#e6db74>&#34;2048m&#34;</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>cpu</span>: <span style=color:#ae81ff>1</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>podTemplate</span>:
-</span></span><span style=display:flex><span>      <span style=color:#f92672>spec</span>:
-</span></span><span style=display:flex><span>        <span style=color:#f92672>volumes</span>:
-</span></span><span style=display:flex><span>          - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>gcp-sa-key</span>
-</span></span><span style=display:flex><span>            <span style=color:#f92672>secret</span>:
-</span></span><span style=display:flex><span>              <span style=color:#f92672>secretName</span>: {<span style=color:#ae81ff>secret-name}</span>
-</span></span><span style=display:flex><span>        <span style=color:#f92672>containers</span>:
-</span></span><span style=display:flex><span>          - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>flink-main-container</span>
-</span></span><span style=display:flex><span>            <span style=color:#f92672>env</span>:
-</span></span><span style=display:flex><span>              - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>GOOGLE_APPLICATION_CREDENTIALS</span>
-</span></span><span style=display:flex><span>                <span style=color:#f92672>value</span>: <span style=color:#ae81ff>/opt/flink/custom-config/{gcp-secret-key}</span>
-</span></span><span style=display:flex><span>            <span style=color:#f92672>volumeMounts</span>:
-</span></span><span style=display:flex><span>              - <span style=color:#f92672>mountPath</span>: <span style=color:#ae81ff>/opt/flink/custom-config/{gcp-secret-key}</span>
-</span></span><span style=display:flex><span>                <span style=color:#f92672>name</span>: <span style=color:#ae81ff>gcp-sa-key</span>
-</span></span><span style=display:flex><span>                <span style=color:#f92672>subPath</span>: {<span style=color:#ae81ff>gcp-secret-key}</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>taskManager</span>:
-</span></span><span style=display:flex><span>    <span style=color:#f92672>replicas</span>: <span style=color:#ae81ff>2</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>resource</span>:
-</span></span><span style=display:flex><span>      <span style=color:#f92672>memory</span>: <span style=color:#e6db74>&#34;2048m&#34;</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>cpu</span>: <span style=color:#ae81ff>1</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>podTemplate</span>:
-</span></span><span style=display:flex><span>      <span style=color:#f92672>spec</span>:
-</span></span><span style=display:flex><span>        <span style=color:#f92672>volumes</span>:
-</span></span><span style=display:flex><span>          - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>gcp-sa-key</span>
-</span></span><span style=display:flex><span>            <span style=color:#f92672>secret</span>:
-</span></span><span style=display:flex><span>              <span style=color:#f92672>secretName</span>: {<span style=color:#ae81ff>secret-name}</span>
-</span></span><span style=display:flex><span>        <span style=color:#f92672>containers</span>:
-</span></span><span style=display:flex><span>          - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>flink-main-container</span>
-</span></span><span style=display:flex><span>            <span style=color:#f92672>volumeMounts</span>:
-</span></span><span style=display:flex><span>              - <span style=color:#f92672>mountPath</span>: <span style=color:#ae81ff>/opt/flink/custom-config/{gcp-secret-key}</span>
-</span></span><span style=display:flex><span>                <span style=color:#f92672>name</span>: <span style=color:#ae81ff>gcp-sa-key</span>
-</span></span><span style=display:flex><span>                <span style=color:#f92672>subPath</span>: {<span style=color:#ae81ff>gcp-secret-key}</span>
-</span></span><span style=display:flex><span>            <span style=color:#f92672>env</span>:
-</span></span><span style=display:flex><span>              - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>GOOGLE_APPLICATION_CREDENTIALS</span>
-</span></span><span style=display:flex><span>                <span style=color:#f92672>value</span>: <span style=color:#ae81ff>/opt/flink/custom-config/squidengineer-25d36a46ab7f.json</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>ingress</span>:
-</span></span><span style=display:flex><span>    <span style=color:#f92672>template</span>: <span style=color:#e6db74>&#34;{ingress-name}&#34;</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>className</span>: <span style=color:#ae81ff>nginx</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>annotations</span>:
-</span></span><span style=display:flex><span>      <span style=color:#f92672>nginx.ingress.kubernetes.io/backend-protocol</span>: <span style=color:#e6db74>&#34;HTTP&#34;</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>nginx.ingress.kubernetes.io/ssl-passthrough</span>: <span style=color:#e6db74>&#34;true&#34;</span>
-</span></span><span style=display:flex><span>      <span style=color:#f92672>cert-manager.io/cluster-issuer</span>: <span style=color:#e6db74>&#34;selfsigned-cluster-issuer&#34;</span>
-</span></span></code></pre></div><blockquote><p>꼭 <code>env</code>로 <code>GOOGLE_APPLICATION_CREDENTIALS</code> 설정을 해줘야 <strong>권한 인증</strong> 가능</p></blockquote><h2 id=6-flink-sql-client로-데이터-삽입>6. Flink SQL Client로 데이터 삽입
-<a class=anchor href=#6-flink-sql-client%eb%a1%9c-%eb%8d%b0%ec%9d%b4%ed%84%b0-%ec%82%bd%ec%9e%85>#</a></h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>kubectl exec -it -n flink deploy/<span style=color:#f92672>{</span>cluster-name<span style=color:#f92672>}</span>-jobmanager -- /opt/flink/bin/sql-client.sh embedded
-</span></span></code></pre></div><p>로 접속 후, 테스트 용도로</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#66d9ef>DROP</span> <span style=color:#66d9ef>TABLE</span> <span style=color:#66d9ef>IF</span> <span style=color:#66d9ef>EXISTS</span> <span style=color:#960050;background-color:#1e0010>{</span><span style=color:#66d9ef>TABLE_NAME</span><span style=color:#960050;background-color:#1e0010>}</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>TABLE</span> <span style=color:#960050;background-color:#1e0010>{</span><span style=color:#66d9ef>TABLE_NAME</span><span style=color:#960050;background-color:#1e0010>}</span> (
-</span></span><span style=display:flex><span>  id INT,
-</span></span><span style=display:flex><span>  name STRING
-</span></span><span style=display:flex><span>) <span style=color:#66d9ef>WITH</span> (
-</span></span><span style=display:flex><span>  <span style=color:#e6db74>&#39;connector&#39;</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;filesystem&#39;</span>,
-</span></span><span style=display:flex><span>  <span style=color:#e6db74>&#39;path&#39;</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;gs://{bucket-name}/{folder-name}/&#39;</span>,
-</span></span><span style=display:flex><span>  <span style=color:#e6db74>&#39;format&#39;</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;csv&#39;</span>,
-</span></span><span style=display:flex><span>  <span style=color:#e6db74>&#39;sink.partition-commit.policy.kind&#39;</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;success-file&#39;</span>
-</span></span><span style=display:flex><span>);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>INSERT</span> <span style=color:#66d9ef>INTO</span> <span style=color:#960050;background-color:#1e0010>{</span><span style=color:#66d9ef>TABLE_NAME</span><span style=color:#960050;background-color:#1e0010>}</span> <span style=color:#66d9ef>VALUES</span>
-</span></span><span style=display:flex><span>  (<span style=color:#ae81ff>1</span>, <span style=color:#e6db74>&#39;steve&#39;</span>),
-</span></span><span style=display:flex><span>  (<span style=color:#ae81ff>2</span>, <span style=color:#e6db74>&#39;chatgpt&#39;</span>),
-</span></span><span style=display:flex><span>  (<span style=color:#ae81ff>3</span>, <span style=color:#e6db74>&#39;gpt4o&#39;</span>);
-</span></span></code></pre></div><p>위를 실행한다.</p></article><footer class=book-footer><div class="flex flex-wrap justify-between"></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#1-gcp-준비>1. GCP 준비</a></li><li><a href=#2-k8s-secret-생성>2. K8s Secret 생성</a></li><li><a href=#3-gcs-connector-준비>3. GCS Connector 준비</a><ul><li><a href=#필요-jar-목록>필요 JAR 목록</a></li></ul></li><li><a href=#4-custom-flink-docker-image-만들기>4. Custom Flink Docker image 만들기</a><ul><li><a href=#dockerfile-작성>Dockerfile 작성</a></li><li><a href=#이미지-빌드-및-업로드>이미지 빌드 및 업로드</a></li></ul></li><li><a href=#5-flinkdeployment-yaml-작성>5. FlinkDeployment YAML 작성</a></li><li><a href=#6-flink-sql-client로-데이터-삽입>6. Flink SQL Client로 데이터 삽입</a></li></ul></nav></div></aside></main></body></html>
+단, 여전히 “gcs-connector-hadoop&#34;은 별도 필요함 (GCP 라이브러리).">
+  <meta property="og:locale" content="ko">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>Flink to GCS | LogLee&#39;s Training Ground</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/docs/data-processing/flink/flink-to-gcs/">
+<link rel="stylesheet" href="/book.min.9adb8ebbd2b7c0d066fb01527510676c64916f6b7ba373f7d0ab4abe97ed4ae8.css" integrity="sha256-mtuOu9K3wNBm&#43;wFSdRBnbGSRb2t7o3P30KtKvpftSug=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/kr.search.min.a6a135180603ac50023a4d59d06d9857356b4e280890b7d6a369fc6950f3e528.js" integrity="sha256-pqE1GAYDrFACOk1Z0G2YVzVrTigIkLfWo2n8aVDz5Sg=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>LogLee&#39;s Training Ground</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="" aria-label="" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-79150fdf9dbf158df9c917a93d39407f" class="toggle"  />
+    <label for="section-79150fdf9dbf158df9c917a93d39407f" class="flex">
+      <a role="button" class="flex-auto ">Infra</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-afa7bc76ec3321dc3793f4204885e0ab" class="toggle"  />
+    <label for="section-afa7bc76ec3321dc3793f4204885e0ab" class="flex">
+      <a role="button" class="flex-auto ">KVM</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3f41a0b8f3b7286a296b17538ec448af" class="toggle"  />
+    <label for="section-3f41a0b8f3b7286a296b17538ec448af" class="flex">
+      <a role="button" class="flex-auto ">Kubernetes</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d4754ecbc33cae4a97284c5e5fb94d54" class="toggle"  />
+    <label for="section-d4754ecbc33cae4a97284c5e5fb94d54" class="flex">
+      <a role="button" class="flex-auto ">Data Engineering</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-641462dde2c25fe744d467e801495669" class="toggle"  />
+    <label for="section-641462dde2c25fe744d467e801495669" class="flex">
+      <a role="button" class="flex-auto ">Hadoop</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f83ca8c7296ad5011fcbbaeba0329ca2" class="toggle"  />
+    <label for="section-f83ca8c7296ad5011fcbbaeba0329ca2" class="flex">
+      <a role="button" class="flex-auto ">Modeling</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8ff501dd10e04dc7d58e4fa05c590467" class="toggle"  />
+    <label for="section-8ff501dd10e04dc7d58e4fa05c590467" class="flex">
+      <a role="button" class="flex-auto ">Data Integration</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-dfa9aef9d6d1d14a26805d019ab993d7" class="toggle"  />
+    <label for="section-dfa9aef9d6d1d14a26805d019ab993d7" class="flex">
+      <a role="button" class="flex-auto ">Kafka</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-basic/" class="">Kafka 심화 개념</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-troubleshooting-optimization/" class="">Kafka 운영 요소</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-data-structure/" class="">Kafka의 데이터 구조</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-storage-performance-test/" class="">Kafka의 성능 측정 (Block storage vs NFS)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-storage/" class="">Kafka의 저장소</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d5d55849c0cd749a3de3a547305dd4b1" class="toggle"  />
+    <label for="section-d5d55849c0cd749a3de3a547305dd4b1" class="flex">
+      <a role="button" class="flex-auto ">Data Lake Platform</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-7e667220fef74178cc1de6a791b2f882" class="toggle"  />
+    <label for="section-7e667220fef74178cc1de6a791b2f882" class="flex">
+      <a role="button" class="flex-auto ">Ceph</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2ded06cba2240a952325fd742ea5255f" class="toggle" checked />
+    <label for="section-2ded06cba2240a952325fd742ea5255f" class="flex">
+      <a role="button" class="flex-auto ">Data Processing</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-61862c92f7adb593e694b832ef32779a" class="toggle" checked />
+    <label for="section-61862c92f7adb593e694b832ef32779a" class="flex">
+      <a role="button" class="flex-auto ">Flink</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-5cdf1754fdf767f4d7e6b8fb75b850fb" class="toggle"  />
+    <label for="section-5cdf1754fdf767f4d7e6b8fb75b850fb" class="flex">
+      <a role="button" class="flex-auto ">Language</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8bff7ae517186b2d376a0661467cef2d" class="toggle"  />
+    <label for="section-8bff7ae517186b2d376a0661467cef2d" class="flex">
+      <a role="button" class="flex-auto ">Observability</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8bd6aac4580b36d82077704ed5049b20" class="toggle"  />
+    <label for="section-8bd6aac4580b36d82077704ed5049b20" class="flex">
+      <a role="button" class="flex-auto ">Logs</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3820b01d8d343a30aa49f2bd3d0ac76c" class="toggle"  />
+    <label for="section-3820b01d8d343a30aa49f2bd3d0ac76c" class="flex">
+      <a role="button" class="flex-auto ">Metrics</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-27eb68f1910975dd7e21ea458d19f57f" class="toggle"  />
+    <label for="section-27eb68f1910975dd7e21ea458d19f57f" class="flex">
+      <a role="button" class="flex-auto ">Traces</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-78891673ccb2c2d2b66a96ea50ab1361" class="toggle"  />
+    <label for="section-78891673ccb2c2d2b66a96ea50ab1361" class="flex">
+      <a role="button" class="flex-auto ">Others</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d7f1d1be3855e072724de9475cdfbfc3" class="toggle"  />
+    <label for="section-d7f1d1be3855e072724de9475cdfbfc3" class="flex">
+      <a role="button" class="flex-auto ">알고리즘</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-747d8ad5c3c7f33d6e58ddfb67dea44e" class="toggle"  />
+    <label for="section-747d8ad5c3c7f33d6e58ddfb67dea44e" class="flex">
+      <a role="button" class="flex-auto ">a-really-important</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-7e15309ad0b085600c1f239bb8c8eb2e" class="toggle"  />
+    <label for="section-7e15309ad0b085600c1f239bb8c8eb2e" class="flex">
+      <a role="button" class="flex-auto ">dp</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-534e71b0d21d0db126610564d17c9a8c" class="toggle"  />
+    <label for="section-534e71b0d21d0db126610564d17c9a8c" class="flex">
+      <a role="button" class="flex-auto ">sorting</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-a47eb3a03ca7a90c2669be5223712fab" class="toggle"  />
+    <label for="section-a47eb3a03ca7a90c2669be5223712fab" class="flex">
+      <a role="button" class="flex-auto ">완전탐색</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d7e1497bbb4a05194486c8bb2b0ea79a" class="toggle"  />
+    <label for="section-d7e1497bbb4a05194486c8bb2b0ea79a" class="flex">
+      <a role="button" class="flex-auto ">컴퓨터이론</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-a1c99ab2d40536151b21eb12a5041410" class="toggle"  />
+    <label for="section-a1c99ab2d40536151b21eb12a5041410" class="flex">
+      <a role="button" class="flex-auto ">네트워크</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2268fd08902c3bcc533339d8cbf128ef" class="toggle"  />
+    <label for="section-2268fd08902c3bcc533339d8cbf128ef" class="flex">
+      <a role="button" class="flex-auto ">데이터베이스</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2998a9560058ec62c67d1a55ea134d38" class="toggle"  />
+    <label for="section-2998a9560058ec62c67d1a55ea134d38" class="flex">
+      <a role="button" class="flex-auto ">디자인패턴</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-055d0164778e6e1df37e6d55c5d9cf85" class="toggle"  />
+    <label for="section-055d0164778e6e1df37e6d55c5d9cf85" class="flex">
+      <a role="button" class="flex-auto ">운영체제</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3a909f63114456639d5607c0ecf991ab" class="toggle"  />
+    <label for="section-3a909f63114456639d5607c0ecf991ab" class="flex">
+      <a role="button" class="flex-auto ">자료구조</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-4fdec2fe2003d2cde62ccb52c0009bfc" class="toggle"  />
+    <label for="section-4fdec2fe2003d2cde62ccb52c0009bfc" class="flex">
+      <a role="button" class="flex-auto ">트러블슈팅</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Flink to GCS</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-gcp-준비">1. GCP 준비</a></li>
+    <li><a href="#2-k8s-secret-생성">2. K8s Secret 생성</a></li>
+    <li><a href="#3-gcs-connector-준비">3. GCS Connector 준비</a>
+      <ul>
+        <li><a href="#필요-jar-목록">필요 JAR 목록</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-custom-flink-docker-image-만들기">4. Custom Flink Docker image 만들기</a>
+      <ul>
+        <li><a href="#dockerfile-작성">Dockerfile 작성</a></li>
+        <li><a href="#이미지-빌드-및-업로드">이미지 빌드 및 업로드</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-flinkdeployment-yaml-작성">5. FlinkDeployment YAML 작성</a></li>
+    <li><a href="#6-flink-sql-client로-데이터-삽입">6. Flink SQL Client로 데이터 삽입</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h2 id="1-gcp-준비">
+  1. GCP 준비
+  <a class="anchor" href="#1-gcp-%ec%a4%80%eb%b9%84">#</a>
+</h2>
+<ul>
+<li>Bucket 생성</li>
+<li>Service account 생성 (최소 권한)
+<ul>
+<li>Storage Object Admin</li>
+<li>Storage Object Creator</li>
+</ul>
+</li>
+<li>Service account key(Json file) 생성 후 다운로드</li>
+</ul>
+<h2 id="2-k8s-secret-생성">
+  2. K8s Secret 생성
+  <a class="anchor" href="#2-k8s-secret-%ec%83%9d%ec%84%b1">#</a>
+</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>kubectl create secret generic <span style="color:#f92672">{</span>secret_key_name<span style="color:#f92672">}</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --from-file<span style="color:#f92672">={</span>1번에서 발급받은 json파일<span style="color:#f92672">}={</span>/path/to/your/keyfile.json<span style="color:#f92672">}</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -n flink
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># e.g.</span>
+</span></span><span style="display:flex;"><span>kubectl create secret generic gcp-steve-account-key <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --from-file<span style="color:#f92672">=</span>squidengineer-25d36a46ab7f.json<span style="color:#f92672">=</span>/path/to/your/keyfile.json <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -n flink
+</span></span></code></pre></div><h2 id="3-gcs-connector-준비">
+  3. GCS Connector 준비
+  <a class="anchor" href="#3-gcs-connector-%ec%a4%80%eb%b9%84">#</a>
+</h2>
+<h3 id="필요-jar-목록">
+  필요 JAR 목록
+  <a class="anchor" href="#%ed%95%84%ec%9a%94-jar-%eb%aa%a9%eb%a1%9d">#</a>
+</h3>
+<ul>
+<li>flink-gs-fs-hadoop-1.20.1.jar : Flink가 GCS를 지원하는 플러그인</li>
+<li>gcs-connector-hadoop2-latest.jar : GCS와 HDFS 인터페이스를 연결하는 Google 제공 connector</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>wget https://repo1.maven.org/maven2/org/apache/flink/flink-gs-fs-hadoop/1.20.1/flink-gs-fs-hadoop-1.20.1.jar
+</span></span><span style="display:flex;"><span>wget https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-hadoop2-latest.jar
+</span></span></code></pre></div><blockquote>
+<p>참고:<br>
+flink-gs-fs-hadoop은 Flink 1.20 공식 릴리스부터 기본 지원.<br>
+단, 여전히 &ldquo;gcs-connector-hadoop&quot;은 별도 필요함 (GCP 라이브러리).</p></blockquote>
+<h2 id="4-custom-flink-docker-image-만들기">
+  4. Custom Flink Docker image 만들기
+  <a class="anchor" href="#4-custom-flink-docker-image-%eb%a7%8c%eb%93%a4%ea%b8%b0">#</a>
+</h2>
+<h3 id="dockerfile-작성">
+  Dockerfile 작성
+  <a class="anchor" href="#dockerfile-%ec%9e%91%ec%84%b1">#</a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-dockerfile" data-lang="dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> flink:1.20.1-scala_2.12</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># GCS connector 플러그인 및 라이브러리 추가</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> mkdir -p /opt/flink/plugins/flink-gs-fs-hadoop<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> flink-gs-fs-hadoop-1.20.1.jar /opt/flink/plugins/flink-gs-fs-hadoop/<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> gcs-connector-hadoop2-latest.jar /opt/flink/lib/<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 플러그인 활성화</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> echo <span style="color:#e6db74">&#34;plugins.enable: flink-gs-fs-hadoop&#34;</span> &gt;&gt; /opt/flink/conf/flink-conf.yaml<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> chmod -R <span style="color:#ae81ff">755</span> /opt/flink/plugins/flink-gs-fs-hadoop<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><h3 id="이미지-빌드-및-업로드">
+  이미지 빌드 및 업로드
+  <a class="anchor" href="#%ec%9d%b4%eb%af%b8%ec%a7%80-%eb%b9%8c%eb%93%9c-%eb%b0%8f-%ec%97%85%eb%a1%9c%eb%93%9c">#</a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker build -t <span style="color:#f92672">{</span>dockerhub-username<span style="color:#f92672">}</span>/steve-flink-gcs:1.20.1 .
+</span></span><span style="display:flex;"><span>docker push <span style="color:#f92672">{</span>dockerhub-username<span style="color:#f92672">}</span>/steve-flink-gcs:1.20.1
+</span></span></code></pre></div><h2 id="5-flinkdeployment-yaml-작성">
+  5. FlinkDeployment YAML 작성
+  <a class="anchor" href="#5-flinkdeployment-yaml-%ec%9e%91%ec%84%b1">#</a>
+</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">flink.apache.org/v1beta1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">FlinkDeployment</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: {<span style="color:#ae81ff">cluster-name}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">flink</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">image</span>: {<span style="color:#ae81ff">dockerhub-username}/steve-flink-gcs:1.20.1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">flinkVersion</span>: <span style="color:#ae81ff">v1_20</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">serviceAccount</span>: <span style="color:#ae81ff">flink</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">mode</span>: <span style="color:#ae81ff">standalone</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">flinkConfiguration</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">taskmanager.numberOfTaskSlots</span>: <span style="color:#e6db74">&#34;2&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">jobmanager.memory.process.size</span>: <span style="color:#e6db74">&#34;1024m&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">taskmanager.memory.process.size</span>: <span style="color:#e6db74">&#34;2048m&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">kubernetes.rest-service.exposed.type</span>: <span style="color:#ae81ff">ClusterIP</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">kubernetes.deployment.target</span>: <span style="color:#ae81ff">standalone</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">fs.gs.project.id</span>: {<span style="color:#ae81ff">gcp-project-id}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">fs.gs.system.bucket</span>: {<span style="color:#ae81ff">bucket-name}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">fs.gs.auth.service.account.json.keyfile</span>: <span style="color:#ae81ff">/opt/flink/custom-config/{gcp-secret-key}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">fs.gs.impl</span>: <span style="color:#ae81ff">com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">fs.AbstractFileSystem.gs.impl</span>: <span style="color:#ae81ff">com.google.cloud.hadoop.fs.gcs.GoogleHadoopFS</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">plugins.enable</span>: <span style="color:#ae81ff">flink-gs-fs-hadoop</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">jobManager</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">resource</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">memory</span>: <span style="color:#e6db74">&#34;2048m&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">cpu</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">podTemplate</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">gcp-sa-key</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">secret</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">secretName</span>: {<span style="color:#ae81ff">secret-name}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">flink-main-container</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>              - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">GOOGLE_APPLICATION_CREDENTIALS</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">value</span>: <span style="color:#ae81ff">/opt/flink/custom-config/{gcp-secret-key}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">volumeMounts</span>:
+</span></span><span style="display:flex;"><span>              - <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/opt/flink/custom-config/{gcp-secret-key}</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">name</span>: <span style="color:#ae81ff">gcp-sa-key</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">subPath</span>: {<span style="color:#ae81ff">gcp-secret-key}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">taskManager</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">resource</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">memory</span>: <span style="color:#e6db74">&#34;2048m&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">cpu</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">podTemplate</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">gcp-sa-key</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">secret</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">secretName</span>: {<span style="color:#ae81ff">secret-name}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">flink-main-container</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">volumeMounts</span>:
+</span></span><span style="display:flex;"><span>              - <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/opt/flink/custom-config/{gcp-secret-key}</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">name</span>: <span style="color:#ae81ff">gcp-sa-key</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">subPath</span>: {<span style="color:#ae81ff">gcp-secret-key}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>              - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">GOOGLE_APPLICATION_CREDENTIALS</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">value</span>: <span style="color:#ae81ff">/opt/flink/custom-config/squidengineer-25d36a46ab7f.json</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ingress</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">template</span>: <span style="color:#e6db74">&#34;{ingress-name}&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">className</span>: <span style="color:#ae81ff">nginx</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">annotations</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">nginx.ingress.kubernetes.io/backend-protocol</span>: <span style="color:#e6db74">&#34;HTTP&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">nginx.ingress.kubernetes.io/ssl-passthrough</span>: <span style="color:#e6db74">&#34;true&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">cert-manager.io/cluster-issuer</span>: <span style="color:#e6db74">&#34;selfsigned-cluster-issuer&#34;</span>
+</span></span></code></pre></div><blockquote>
+<p>꼭 <code>env</code>로 <code>GOOGLE_APPLICATION_CREDENTIALS</code> 설정을 해줘야 <strong>권한 인증</strong> 가능</p></blockquote>
+<h2 id="6-flink-sql-client로-데이터-삽입">
+  6. Flink SQL Client로 데이터 삽입
+  <a class="anchor" href="#6-flink-sql-client%eb%a1%9c-%eb%8d%b0%ec%9d%b4%ed%84%b0-%ec%82%bd%ec%9e%85">#</a>
+</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>kubectl exec -it -n flink deploy/<span style="color:#f92672">{</span>cluster-name<span style="color:#f92672">}</span>-jobmanager -- /opt/flink/bin/sql-client.sh embedded
+</span></span></code></pre></div><p>로 접속 후, 테스트 용도로</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#66d9ef">IF</span> <span style="color:#66d9ef">EXISTS</span> <span style="color:#960050;background-color:#1e0010">{</span><span style="color:#66d9ef">TABLE_NAME</span><span style="color:#960050;background-color:#1e0010">}</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#960050;background-color:#1e0010">{</span><span style="color:#66d9ef">TABLE_NAME</span><span style="color:#960050;background-color:#1e0010">}</span> (
+</span></span><span style="display:flex;"><span>  id INT,
+</span></span><span style="display:flex;"><span>  name STRING
+</span></span><span style="display:flex;"><span>) <span style="color:#66d9ef">WITH</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#39;connector&#39;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;filesystem&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#39;path&#39;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;gs://{bucket-name}/{folder-name}/&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#39;format&#39;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;csv&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#39;sink.partition-commit.policy.kind&#39;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;success-file&#39;</span>
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> <span style="color:#960050;background-color:#1e0010">{</span><span style="color:#66d9ef">TABLE_NAME</span><span style="color:#960050;background-color:#1e0010">}</span> <span style="color:#66d9ef">VALUES</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#39;steve&#39;</span>),
+</span></span><span style="display:flex;"><span>  (<span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#39;chatgpt&#39;</span>),
+</span></span><span style="display:flex;"><span>  (<span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#39;gpt4o&#39;</span>);
+</span></span></code></pre></div><p>위를 실행한다.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-gcp-준비">1. GCP 준비</a></li>
+    <li><a href="#2-k8s-secret-생성">2. K8s Secret 생성</a></li>
+    <li><a href="#3-gcs-connector-준비">3. GCS Connector 준비</a>
+      <ul>
+        <li><a href="#필요-jar-목록">필요 JAR 목록</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-custom-flink-docker-image-만들기">4. Custom Flink Docker image 만들기</a>
+      <ul>
+        <li><a href="#dockerfile-작성">Dockerfile 작성</a></li>
+        <li><a href="#이미지-빌드-및-업로드">이미지 빌드 및 업로드</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-flinkdeployment-yaml-작성">5. FlinkDeployment YAML 작성</a></li>
+    <li><a href="#6-flink-sql-client로-데이터-삽입">6. Flink SQL Client로 데이터 삽입</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
