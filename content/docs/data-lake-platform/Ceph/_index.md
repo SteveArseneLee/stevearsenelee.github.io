@@ -1,7 +1,6 @@
 +++
-title = "Data Lake Platform"
+title = "Ceph"
 bookCollapseSection = true
 author = "LogLee"
 +++
 
-{{< section >}}

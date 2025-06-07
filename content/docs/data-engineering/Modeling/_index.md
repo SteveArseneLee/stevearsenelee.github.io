@@ -1,7 +1,6 @@
 +++
-title = "트러블슈팅"
+title = "Modeling"
 bookCollapseSection = true
 author = "LogLee"
 +++
 
-{{< section >}}

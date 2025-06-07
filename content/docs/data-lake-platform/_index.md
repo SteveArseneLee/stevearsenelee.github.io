@@ -1,7 +1,6 @@
 +++
-title = "완전탐색"
+title = "Data Lake Platform"
 bookCollapseSection = true
 author = "LogLee"
 +++
 
-{{< section >}}

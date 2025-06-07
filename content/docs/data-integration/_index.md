@@ -1,7 +1,6 @@
 +++
-title = "a-really-important"
+title = "Data Integration"
 bookCollapseSection = true
 author = "LogLee"
 +++
 
-{{< section >}}

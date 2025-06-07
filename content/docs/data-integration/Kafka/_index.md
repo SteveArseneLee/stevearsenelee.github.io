@@ -1,7 +1,6 @@
 +++
-title = "알고리즘"
+title = "Kafka"
 bookCollapseSection = true
 author = "LogLee"
 +++
 
-{{< section >}}

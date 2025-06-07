@@ -15,7 +15,6 @@ bookCollapseSection = true
 author = "$AUTHOR"
 +++
 
-{{< section >}}
 EOF
 
   echo "📁 생성됨: $dir"
