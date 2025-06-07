@@ -1,0 +1,27 @@
+name: Deploy Hugo site to GitHub Pages
+
+on:
+  push:
+    branches: [ master ]  # 또는 main 브랜치를 쓰면 'master' → 'main'으로 수정
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.121.1'  # 원하는 Hugo 버전
+
+      - name: Build site
+        run: hugo --minify
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
