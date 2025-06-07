@@ -2,7 +2,7 @@ name: Deploy Hugo site to GitHub Pages
 
 on:
   push:
-    branches: [ master ]  # 또는 main 브랜치를 쓰면 'master' → 'main'으로 수정
+    branches: [ master ]
 
 jobs:
   build:
@@ -15,7 +15,7 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.121.1'  # 원하는 Hugo 버전
+          hugo-version: '0.121.1'
 
       - name: Build site
         run: hugo --minify
