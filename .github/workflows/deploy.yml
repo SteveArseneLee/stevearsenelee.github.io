@@ -24,6 +24,9 @@ jobs:
       - name: List book theme contents
         run: ls -R themes/book
 
+      - name: Clean previous public directory
+        run: rm -rf public
+
       - name: Build site
         run: hugo --minify
 
