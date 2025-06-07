@@ -1,1 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Data Processing on LogLee's Training Ground</title><link>http://stevearsenelee.iptime.org/docs/data-processing/</link><description>Recent content in Data Processing on LogLee's Training Ground</description><generator>Hugo</generator><language>ko</language><atom:link href="http://stevearsenelee.iptime.org/docs/data-processing/index.xml" rel="self" type="application/rss+xml"/></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Data Processing on LogLee&#39;s Training Ground</title>
+    <link>http://stevearsenelee.iptime.org/docs/data-processing/</link>
+    <description>Recent content in Data Processing on LogLee&#39;s Training Ground</description>
+    <generator>Hugo</generator>
+    <language>ko</language>
+    <atom:link href="http://stevearsenelee.iptime.org/docs/data-processing/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>

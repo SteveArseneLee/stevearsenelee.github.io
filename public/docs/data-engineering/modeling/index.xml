@@ -1,6 +1,25 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Modeling on LogLee's Training Ground</title><link>http://stevearsenelee.iptime.org/docs/data-engineering/modeling/</link><description>Recent content in Modeling on LogLee's Training Ground</description><generator>Hugo</generator><language>ko</language><atom:link href="http://stevearsenelee.iptime.org/docs/data-engineering/modeling/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://stevearsenelee.iptime.org/docs/data-engineering/modeling/normalization-vs-denomralization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/data-engineering/modeling/normalization-vs-denomralization/</guid><description/></item><item><title>Dimensional Modeling: 분석을 위한 데이터 설계의 본질</title><link>http://stevearsenelee.iptime.org/docs/data-engineering/modeling/dimensional-modeling/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/data-engineering/modeling/dimensional-modeling/</guid><description>&lt;h3 id="fact와-dimension의-개념">
- Fact와 Dimension의 개념
- &lt;a class="anchor" href="#fact%ec%99%80-dimension%ec%9d%98-%ea%b0%9c%eb%85%90">#&lt;/a>
-&lt;/h3>
-&lt;blockquote>
-&lt;p>Fact : &amp;ldquo;&lt;strong>측정값 / 수치 중심의 이벤트 데이터&lt;/strong>&amp;rdquo;&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Modeling on LogLee&#39;s Training Ground</title>
+    <link>http://stevearsenelee.iptime.org/docs/data-engineering/modeling/</link>
+    <description>Recent content in Modeling on LogLee&#39;s Training Ground</description>
+    <generator>Hugo</generator>
+    <language>ko</language>
+    <atom:link href="http://stevearsenelee.iptime.org/docs/data-engineering/modeling/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>http://stevearsenelee.iptime.org/docs/data-engineering/modeling/normalization-vs-denomralization/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://stevearsenelee.iptime.org/docs/data-engineering/modeling/normalization-vs-denomralization/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Dimensional Modeling: 분석을 위한 데이터 설계의 본질</title>
+      <link>http://stevearsenelee.iptime.org/docs/data-engineering/modeling/dimensional-modeling/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://stevearsenelee.iptime.org/docs/data-engineering/modeling/dimensional-modeling/</guid>
+      <description>&lt;h3 id=&#34;fact와-dimension의-개념&#34;&gt;&#xA;  Fact와 Dimension의 개념&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#fact%ec%99%80-dimension%ec%9d%98-%ea%b0%9c%eb%85%90&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h3&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Fact : &amp;ldquo;&lt;strong&gt;측정값 / 수치 중심의 이벤트 데이터&lt;/strong&gt;&amp;rdquo;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

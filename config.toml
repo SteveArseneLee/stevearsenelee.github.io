@@ -1,4 +1,4 @@
-baseURL = "http://stevearsenelee.iptime.org"
+baseURL = "https://stevearsenelee.github.io"
 languageCode = "ko"
 title = "LogLee's Training Ground"
 theme = "book"  # 주의: book 테마는 submodule 경로 기준이 아니라 이름 기준
