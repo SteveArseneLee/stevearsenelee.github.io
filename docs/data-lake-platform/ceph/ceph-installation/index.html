@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+  Ceph이란?
+  #
+
+
+완전히 분산되고, 확장성과 고가용성을 지향하는 storage platform">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://stevearsenelee.iptime.org/docs/data-lake-platform/ceph/ceph-installation/">
+  <meta property="og:site_name" content="LogLee&#39;s Training Ground">
+  <meta property="og:title" content="Ceph 개요 및 구축하기">
+  <meta property="og:description" content="Ceph이란? # 완전히 분산되고, 확장성과 고가용성을 지향하는 storage platform">
+  <meta property="og:locale" content="ko">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>Ceph 개요 및 구축하기 | LogLee&#39;s Training Ground</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://stevearsenelee.iptime.org/docs/data-lake-platform/ceph/ceph-installation/">
+<link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/kr.search.min.a137a1fa7ffc8a7c0b9c41e294e33bd53d785a720c9210f8de8eeb1dd1f0a177.js" integrity="sha256-oTeh&#43;n/8inwLnEHilOM71T14WnIMkhD43o7rHdHwoXc=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>LogLee&#39;s Training Ground</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="" aria-label="" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-79150fdf9dbf158df9c917a93d39407f" class="toggle"  />
+    <label for="section-79150fdf9dbf158df9c917a93d39407f" class="flex justify-between">
+      <a href="/docs/infra/" class="">Infra</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-afa7bc76ec3321dc3793f4204885e0ab" class="toggle"  />
+    <label for="section-afa7bc76ec3321dc3793f4204885e0ab" class="flex justify-between">
+      <a href="/docs/infra/kvm/" class="">KVM</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3f41a0b8f3b7286a296b17538ec448af" class="toggle"  />
+    <label for="section-3f41a0b8f3b7286a296b17538ec448af" class="flex justify-between">
+      <a href="/docs/infra/kubernetes/" class="">Kubernetes</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8b1ecbff7b9f24569532f1fb1f37fd97" class="toggle"  />
+    <label for="section-8b1ecbff7b9f24569532f1fb1f37fd97" class="flex justify-between">
+      <a href="/docs/data-engineering/" class="">Data Engineering</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-284624ec7b613288f08ca4735aa73b9b" class="toggle"  />
+    <label for="section-284624ec7b613288f08ca4735aa73b9b" class="flex justify-between">
+      <a href="/docs/data-engineering/hadoop/" class="">Hadoop</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-c91f99bd61bd7a25ae2813b87d79c33a" class="toggle"  />
+    <label for="section-c91f99bd61bd7a25ae2813b87d79c33a" class="flex justify-between">
+      <a href="/docs/data-engineering/modeling/" class="">Modeling</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-86d5be1a8f57012d1ea9e463f571db7f" class="toggle"  />
+    <label for="section-86d5be1a8f57012d1ea9e463f571db7f" class="flex justify-between">
+      <a href="/docs/data-integration/" class="">Data Integration</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-b2cd59148ccf9b8d3a917d917ae2a406" class="toggle"  />
+    <label for="section-b2cd59148ccf9b8d3a917d917ae2a406" class="flex justify-between">
+      <a href="/docs/data-integration/kafka/" class="">Kafka</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-4a316c2f6a0a797b8405c6d80cc14382" class="toggle" checked />
+    <label for="section-4a316c2f6a0a797b8405c6d80cc14382" class="flex justify-between">
+      <a href="/docs/data-lake-platform/" class="">Data Lake Platform</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-5dcab46997e9d19d75a2822ca5e743f9" class="toggle" checked />
+    <label for="section-5dcab46997e9d19d75a2822ca5e743f9" class="flex justify-between">
+      <a href="/docs/data-lake-platform/ceph/" class="">Ceph</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ba927d26d986ad406ba7c1c000fff87c" class="toggle"  />
+    <label for="section-ba927d26d986ad406ba7c1c000fff87c" class="flex justify-between">
+      <a href="/docs/data-processing/" class="">Data Processing</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ab37952be8fe534502230c818e8b611b" class="toggle"  />
+    <label for="section-ab37952be8fe534502230c818e8b611b" class="flex justify-between">
+      <a href="/docs/data-processing/flink/" class="">Flink</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-5cdf1754fdf767f4d7e6b8fb75b850fb" class="toggle"  />
+    <label for="section-5cdf1754fdf767f4d7e6b8fb75b850fb" class="flex justify-between">
+      <a href="/docs/language/" class="">Language</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8bff7ae517186b2d376a0661467cef2d" class="toggle"  />
+    <label for="section-8bff7ae517186b2d376a0661467cef2d" class="flex justify-between">
+      <a href="/docs/observability/" class="">Observability</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8bd6aac4580b36d82077704ed5049b20" class="toggle"  />
+    <label for="section-8bd6aac4580b36d82077704ed5049b20" class="flex justify-between">
+      <a href="/docs/observability/logs/" class="">Logs</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3820b01d8d343a30aa49f2bd3d0ac76c" class="toggle"  />
+    <label for="section-3820b01d8d343a30aa49f2bd3d0ac76c" class="flex justify-between">
+      <a href="/docs/observability/metrics/" class="">Metrics</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-27eb68f1910975dd7e21ea458d19f57f" class="toggle"  />
+    <label for="section-27eb68f1910975dd7e21ea458d19f57f" class="flex justify-between">
+      <a href="/docs/observability/traces/" class="">Traces</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-78891673ccb2c2d2b66a96ea50ab1361" class="toggle"  />
+    <label for="section-78891673ccb2c2d2b66a96ea50ab1361" class="flex justify-between">
+      <a href="/docs/others/" class="">Others</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-6604ba009ff4797e1d1b8afddb383f03" class="toggle"  />
+    <label for="section-6604ba009ff4797e1d1b8afddb383f03" class="flex justify-between">
+      <a href="/docs/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" class="">알고리즘</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-024768ea14361a69ff0996148c6f4523" class="toggle"  />
+    <label for="section-024768ea14361a69ff0996148c6f4523" class="flex justify-between">
+      <a href="/docs/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/a-really-important/" class="">a-really-important</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-be397912fe8ba62b06f588cc48b4f0f2" class="toggle"  />
+    <label for="section-be397912fe8ba62b06f588cc48b4f0f2" class="flex justify-between">
+      <a href="/docs/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/dp/" class="">dp</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-6d3eec73dbffc1409d9c27d08f2594eb" class="toggle"  />
+    <label for="section-6d3eec73dbffc1409d9c27d08f2594eb" class="flex justify-between">
+      <a href="/docs/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/sorting/" class="">sorting</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-e543a726dbcf386b40ea0cb3c4a59f1d" class="toggle"  />
+    <label for="section-e543a726dbcf386b40ea0cb3c4a59f1d" class="flex justify-between">
+      <a href="/docs/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%EC%99%84%EC%A0%84%ED%83%90%EC%83%89/" class="">완전탐색</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d7e1497bbb4a05194486c8bb2b0ea79a" class="toggle"  />
+    <label for="section-d7e1497bbb4a05194486c8bb2b0ea79a" class="flex justify-between">
+      <a href="/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/" class="">컴퓨터이론</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-a1c99ab2d40536151b21eb12a5041410" class="toggle"  />
+    <label for="section-a1c99ab2d40536151b21eb12a5041410" class="flex justify-between">
+      <a href="/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/" class="">네트워크</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2268fd08902c3bcc533339d8cbf128ef" class="toggle"  />
+    <label for="section-2268fd08902c3bcc533339d8cbf128ef" class="flex justify-between">
+      <a href="/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/" class="">데이터베이스</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2998a9560058ec62c67d1a55ea134d38" class="toggle"  />
+    <label for="section-2998a9560058ec62c67d1a55ea134d38" class="flex justify-between">
+      <a href="/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EB%94%94%EC%9E%90%EC%9D%B8%ED%8C%A8%ED%84%B4/" class="">디자인패턴</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-055d0164778e6e1df37e6d55c5d9cf85" class="toggle"  />
+    <label for="section-055d0164778e6e1df37e6d55c5d9cf85" class="flex justify-between">
+      <a href="/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/" class="">운영체제</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3a909f63114456639d5607c0ecf991ab" class="toggle"  />
+    <label for="section-3a909f63114456639d5607c0ecf991ab" class="flex justify-between">
+      <a href="/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/" class="">자료구조</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-62d25428b0c6e0c722ae043a75c5de50" class="toggle"  />
+    <label for="section-62d25428b0c6e0c722ae043a75c5de50" class="flex justify-between">
+      <a href="/docs/%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/" class="">트러블슈팅</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Ceph 개요 및 구축하기</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#ceph이란">Ceph이란?</a>
+      <ul>
+        <li><a href="#ceph의-구성요소">Ceph의 구성요소</a></li>
+      </ul>
+    </li>
+    <li><a href="#ceph-구축하기">Ceph 구축하기</a>
+      <ul>
+        <li><a href="#적용-포인트">적용 포인트</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h2 id="ceph이란">
+  Ceph이란?
+  <a class="anchor" href="#ceph%ec%9d%b4%eb%9e%80">#</a>
+</h2>
+<blockquote>
+<p>완전히 분산되고, 확장성과 고가용성을 지향하는 storage platform</p></blockquote>
+<p>핵심 목표</p>
+<ul>
+<li>단일 클러스터에서 Object Storage, Block Storage, File System 모두 제공</li>
+<li>분산성, Self-Healing, 무중단 확장을 기본 설계 철학으로 둠</li>
+<li>하드웨어에 종속되지 않고 x86 서버 + disk 조합으로 대규모 스토리지 시스템 구축 가능</li>
+</ul>
+<p>주요 특징</p>
+<ul>
+<li>CRUSH 알고리즘(Controlled Replication Under Scalable Hashing) 기반 분산 데이터 맵핑.</li>
+<li>별도의 중앙 메타데이터 서버 없이 데이터 위치 결정 (Object Storage).</li>
+<li>장애 발생 시 자동 복구(Self Healing).</li>
+<li>수평 확장(linear scalability) 가능 (노드 추가만으로 확장).</li>
+<li>다양한 인터페이스 제공: S3 호환(Object), RBD(Block), CephFS(File System).</li>
+</ul>
+<hr>
+<h3 id="ceph의-구성요소">
+  Ceph의 구성요소
+  <a class="anchor" href="#ceph%ec%9d%98-%ea%b5%ac%ec%84%b1%ec%9a%94%ec%86%8c">#</a>
+</h3>
+<table>
+  <thead>
+      <tr>
+          <th>컴포넌트</th>
+          <th>설명</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>MON (Monitor)</td>
+          <td>Ceph 클러스터의 맵 관리와 Quorum(합의)을 담당.<br>- 모든 클러스터 상태(MAP) 저장<br>- 3개 이상 추천 (항상 홀수)</td>
+      </tr>
+      <tr>
+          <td>MGR (Manager)</td>
+          <td>Ceph의 상태 모니터링, 모듈 관리 담당.<br>- 대시보드, 모니터링 통합, Prometheus Exporter 제공<br>- 1 active + 1 standby 형태로 구성 추천</td>
+      </tr>
+      <tr>
+          <td>OSD (Object Storage Daemon)</td>
+          <td>실제 데이터 저장.<br>- 물리 디스크 하나당 1 OSD 프로세스<br>- Ceph Pool 복제(replication), 데이터 복구, 리밸런싱 담당</td>
+      </tr>
+      <tr>
+          <td>MDS (Metadata Server)</td>
+          <td>CephFS(파일시스템) 메타데이터 관리.<br>- 블록/오브젝트는 필요 없음. CephFS 쓸 때만 필요</td>
+      </tr>
+      <tr>
+          <td>RGW (Rados Gateway)</td>
+          <td>S3, Swift API를 제공하는 게이트웨이.<br>- 오브젝트 스토리지 접속용 서비스</td>
+      </tr>
+      <tr>
+          <td>CSI Driver</td>
+          <td>Kubernetes PVC를 Ceph RBD, CephFS와 연결하는 역할.<br>- Rook Operator가 자동으로 설치</td>
+      </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+      <tr>
+          <th>저장 방식</th>
+          <th>필요한 컴포넌트</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Block Storage (RBD)</td>
+          <td>MON, MGR, OSD</td>
+      </tr>
+      <tr>
+          <td>Object Storage (S3)</td>
+          <td>MON, MGR, OSD, RGW</td>
+      </tr>
+      <tr>
+          <td>File Storage (CephFS)</td>
+          <td>MON, MGR, OSD, MDS</td>
+      </tr>
+  </tbody>
+</table>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>helm repo add <span style="color:#f92672">{</span>rook_repo명<span style="color:#f92672">}</span> https://charts.rook.io/release
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>helm install <span style="color:#f92672">{</span>rook-ceph_chart명<span style="color:#f92672">}</span> rook/rook-ceph --version 1.17.0
+</span></span></code></pre></div><hr>
+<h2 id="ceph-구축하기">
+  Ceph 구축하기
+  <a class="anchor" href="#ceph-%ea%b5%ac%ec%b6%95%ed%95%98%ea%b8%b0">#</a>
+</h2>
+<details markdown="1">
+  <summary>ceph-cluster.yaml</summary>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">ceph.rook.io/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">CephCluster</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">rook-ceph</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">rook-ceph</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">cephVersion</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">quay.io/ceph/ceph:v19.2.2</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">allowUnsupported</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">dataDirHostPath</span>: <span style="color:#ae81ff">/var/lib/rook</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">skipUpgradeChecks</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">continueUpgradeAfterChecksEvenIfNotHealthy</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">mon</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">count</span>: <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">allowMultiplePerNode</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">mgr</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">count</span>: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">allowMultiplePerNode</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">dashboard</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ssl</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">monitoring</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">network</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">connections</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">encryption</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">compression</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">requireMsgr2</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">crashCollector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">disable</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">logCollector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">periodicity</span>: <span style="color:#ae81ff">daily</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">maxLogSize</span>: <span style="color:#ae81ff">500M</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">cleanupPolicy</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">confirmation</span>: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">sanitizeDisks</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">method</span>: <span style="color:#ae81ff">quick</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">dataSource</span>: <span style="color:#ae81ff">zero</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">iteration</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">allowUninstallWithVolumes</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">removeOSDsIfOutAndSafeToRemove</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">priorityClassNames</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">mon</span>: <span style="color:#ae81ff">system-node-critical</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">osd</span>: <span style="color:#ae81ff">system-node-critical</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">mgr</span>: <span style="color:#ae81ff">system-cluster-critical</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">storage</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">useAllNodes</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">useAllDevices</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">config</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># 필요한 경우 여기에 추가 설정 가능 (ex. databaseSizeMB)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">allowDeviceClassUpdate</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">allowOsdCrushWeightUpdate</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">scheduleAlways</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">onlyApplyOSDPlacement</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">disruptionManagement</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">managePodBudgets</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">osdMaintenanceTimeout</span>: <span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">csi</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">readAffinity</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">cephfs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># fuseMountOptions, kernelMountOptions 설정 가능 (기본은 비워둠)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">healthCheck</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">daemonHealth</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">mon</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">disabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">interval</span>: <span style="color:#ae81ff">45s</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">osd</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">disabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">interval</span>: <span style="color:#ae81ff">60s</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">status</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">disabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">interval</span>: <span style="color:#ae81ff">60s</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">livenessProbe</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">mon</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">disabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">mgr</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">disabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">osd</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">disabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">startupProbe</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">mon</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">disabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">mgr</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">disabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">osd</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">disabled</span>: <span style="color:#66d9ef">false</span>
+</span></span></code></pre></div></details>
+<p>좀 더 간단하게 하고싶다면,</p>
+<details markdown="1">
+  <summary>ceph-cluster-short.yaml</summary>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">ceph.rook.io/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">CephCluster</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">rook-ceph</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">rook-ceph</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">cephVersion</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">quay.io/ceph/ceph:v19.2.2</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">dataDirHostPath</span>: <span style="color:#ae81ff">/var/lib/rook</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">mon</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">count</span>: <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">allowMultiplePerNode</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">dashboard</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ssl</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">storage</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">useAllNodes</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">useAllDevices</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">config</span>: {}
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">disruptionManagement</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">managePodBudgets</span>: <span style="color:#66d9ef">true</span>
+</span></span></code></pre></div></details>
+<p>하지만 현재 상황에서 리소스가 여유롭진 않으니,</p>
+<details markdown="1">
+  <summary>ceph-cluster-limit.yaml</summary>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">ceph.rook.io/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">CephCluster</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">rook-ceph</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">rook-ceph</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">cephVersion</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">quay.io/ceph/ceph:v18.2.2</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">allowUnsupported</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">dataDirHostPath</span>: <span style="color:#ae81ff">/var/lib/rook</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">mon</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">count</span>: <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">allowMultiplePerNode</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">mgr</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">count</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">allowMultiplePerNode</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">dashboard</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ssl</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">crashCollector</span>:  <span style="color:#75715e"># 🔻 비활성화</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">disable</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">logCollector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">periodicity</span>: <span style="color:#ae81ff">daily</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">maxLogSize</span>: <span style="color:#ae81ff">500M</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">storage</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">useAllNodes</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">useAllDevices</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">deviceFilter</span>: <span style="color:#e6db74">&#34;vdb&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">config</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">osdsPerDevice</span>: <span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">disruptionManagement</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">managePodBudgets</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">osdMaintenanceTimeout</span>: <span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">priorityClassNames</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">mon</span>: <span style="color:#ae81ff">system-node-critical</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">osd</span>: <span style="color:#ae81ff">system-node-critical</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">mgr</span>: <span style="color:#ae81ff">system-cluster-critical</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">healthCheck</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">daemonHealth</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">mon</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">disabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">interval</span>: <span style="color:#ae81ff">45s</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">osd</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">disabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">interval</span>: <span style="color:#ae81ff">60s</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">status</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">disabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">interval</span>: <span style="color:#ae81ff">60s</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">resources</span>:  <span style="color:#75715e"># 🔧 각 데몬별 리소스 제한</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">mgr</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">limits</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cpu</span>: <span style="color:#e6db74">&#34;250m&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">memory</span>: <span style="color:#e6db74">&#34;256Mi&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">requests</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cpu</span>: <span style="color:#e6db74">&#34;100m&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">memory</span>: <span style="color:#e6db74">&#34;128Mi&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">mon</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">limits</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cpu</span>: <span style="color:#e6db74">&#34;500m&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">memory</span>: <span style="color:#e6db74">&#34;512Mi&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">requests</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cpu</span>: <span style="color:#e6db74">&#34;250m&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">memory</span>: <span style="color:#e6db74">&#34;256Mi&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">osd</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">limits</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cpu</span>: <span style="color:#e6db74">&#34;1000m&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">memory</span>: <span style="color:#e6db74">&#34;2Gi&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">requests</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cpu</span>: <span style="color:#e6db74">&#34;500m&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">memory</span>: <span style="color:#e6db74">&#34;1Gi&#34;</span>
+</span></span></code></pre></div></details>
+<h3 id="적용-포인트">
+  적용 포인트
+  <a class="anchor" href="#%ec%a0%81%ec%9a%a9-%ed%8f%ac%ec%9d%b8%ed%8a%b8">#</a>
+</h3>
+<table>
+  <thead>
+      <tr>
+          <th>항목</th>
+          <th>설정 내용</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Namespace</td>
+          <td>rook-ceph</td>
+      </tr>
+      <tr>
+          <td>Ceph Version</td>
+          <td>v19.2.2 (Squid 최신 안정판)</td>
+      </tr>
+      <tr>
+          <td>Mon Count</td>
+          <td>3개</td>
+      </tr>
+      <tr>
+          <td>Mgr Count</td>
+          <td>2개 (Active + Standby)</td>
+      </tr>
+      <tr>
+          <td>OSD 구성</td>
+          <td>useAllDevices: true (vdb 자동 인식)</td>
+      </tr>
+      <tr>
+          <td>Dashboard</td>
+          <td>활성화, SSL 끄기 (HTTP)</td>
+      </tr>
+      <tr>
+          <td>Disk Encryption</td>
+          <td>사용 안 함 (내부망 고려)</td>
+      </tr>
+      <tr>
+          <td>Monitoring</td>
+          <td>비활성화 (Prometheus 아직 설치 안 되어 있음)</td>
+      </tr>
+      <tr>
+          <td>CrashCollector/LogCollector</td>
+          <td>활성화</td>
+      </tr>
+      <tr>
+          <td>Disruption Management</td>
+          <td>활성화 (PodDisruptionBudget 적용)</td>
+      </tr>
+      <tr>
+          <td>CleanUp Policy</td>
+          <td>기본값 (데이터 보존)</td>
+      </tr>
+      <tr>
+          <td>Future Expansion</td>
+          <td>Worker, OSD 추가 용이하게 설정</td>
+      </tr>
+  </tbody>
+</table>
+<blockquote>
+<p>&ldquo;If you want all nodes and all available devices to be used automatically, set useAllNodes: true and useAllDevices: true. Specifying nodes: list is only necessary when you want <strong>fine-grained control</strong> over device selection.&rdquo;&quot;</p></blockquote>
+<ul>
+<li>현재 worker 3,4,5만 vdb가 추가되어있어서 자동으로 w3,w4,w5에만 OSD가 생성됨</li>
+<li>추가로 w6, w7에 vdb 추가하면 자동으로 OSD도 확장됨</li>
+</ul>
+<table>
+  <thead>
+      <tr>
+          <th>항목</th>
+          <th>일반 설정 이유</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>skipUpgradeChecks: false</td>
+          <td>업그레이드 시 cluster health 체크함 (안정성)</td>
+      </tr>
+      <tr>
+          <td>allowMultiplePerNode: false</td>
+          <td>같은 노드에 MON 2개 생성 방지 (HA 보장)</td>
+      </tr>
+      <tr>
+          <td>dashboard.ssl: false</td>
+          <td>내부망이면 SSL 불필요, 운영 편의성</td>
+      </tr>
+      <tr>
+          <td>useAllDevices: true</td>
+          <td>자동 디바이스 인식, 디스크 추가시 확장성</td>
+      </tr>
+      <tr>
+          <td>managePodBudgets: true</td>
+          <td>PodDisruptionBudget 적용, 장애/노드Drain 시 안정성</td>
+      </tr>
+      <tr>
+          <td>logCollector: enabled: true</td>
+          <td>장애 분석 위해 daemon 로그 파일 저장</td>
+      </tr>
+      <tr>
+          <td>crashCollector: disable: false</td>
+          <td>crash 발생 시 crash report 수집</td>
+      </tr>
+      <tr>
+          <td>healthCheck: 활성화</td>
+          <td>MON, OSD, MGR 주기적으로 상태 점검</td>
+      </tr>
+  </tbody>
+</table>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#ceph이란">Ceph이란?</a>
+      <ul>
+        <li><a href="#ceph의-구성요소">Ceph의 구성요소</a></li>
+      </ul>
+    </li>
+    <li><a href="#ceph-구축하기">Ceph 구축하기</a>
+      <ul>
+        <li><a href="#적용-포인트">적용 포인트</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

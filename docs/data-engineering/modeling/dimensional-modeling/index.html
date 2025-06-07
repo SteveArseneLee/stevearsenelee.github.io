@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+  Fact와 Dimension의 개념
+  #
+
+
+Fact : &ldquo;측정값 / 수치 중심의 이벤트 데이터&rdquo;">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://stevearsenelee.iptime.org/docs/data-engineering/modeling/dimensional-modeling/">
+  <meta property="og:site_name" content="LogLee&#39;s Training Ground">
+  <meta property="og:title" content="Dimensional Modeling: 분석을 위한 데이터 설계의 본질">
+  <meta property="og:description" content="Fact와 Dimension의 개념 # Fact : “측정값 / 수치 중심의 이벤트 데이터”">
+  <meta property="og:locale" content="ko">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>Dimensional Modeling: 분석을 위한 데이터 설계의 본질 | LogLee&#39;s Training Ground</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://stevearsenelee.iptime.org/docs/data-engineering/modeling/dimensional-modeling/">
+<link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/kr.search.min.a137a1fa7ffc8a7c0b9c41e294e33bd53d785a720c9210f8de8eeb1dd1f0a177.js" integrity="sha256-oTeh&#43;n/8inwLnEHilOM71T14WnIMkhD43o7rHdHwoXc=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>LogLee&#39;s Training Ground</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="" aria-label="" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-79150fdf9dbf158df9c917a93d39407f" class="toggle"  />
+    <label for="section-79150fdf9dbf158df9c917a93d39407f" class="flex justify-between">
+      <a href="/docs/infra/" class="">Infra</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-afa7bc76ec3321dc3793f4204885e0ab" class="toggle"  />
+    <label for="section-afa7bc76ec3321dc3793f4204885e0ab" class="flex justify-between">
+      <a href="/docs/infra/kvm/" class="">KVM</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3f41a0b8f3b7286a296b17538ec448af" class="toggle"  />
+    <label for="section-3f41a0b8f3b7286a296b17538ec448af" class="flex justify-between">
+      <a href="/docs/infra/kubernetes/" class="">Kubernetes</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8b1ecbff7b9f24569532f1fb1f37fd97" class="toggle" checked />
+    <label for="section-8b1ecbff7b9f24569532f1fb1f37fd97" class="flex justify-between">
+      <a href="/docs/data-engineering/" class="">Data Engineering</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-284624ec7b613288f08ca4735aa73b9b" class="toggle"  />
+    <label for="section-284624ec7b613288f08ca4735aa73b9b" class="flex justify-between">
+      <a href="/docs/data-engineering/hadoop/" class="">Hadoop</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-c91f99bd61bd7a25ae2813b87d79c33a" class="toggle" checked />
+    <label for="section-c91f99bd61bd7a25ae2813b87d79c33a" class="flex justify-between">
+      <a href="/docs/data-engineering/modeling/" class="">Modeling</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-86d5be1a8f57012d1ea9e463f571db7f" class="toggle"  />
+    <label for="section-86d5be1a8f57012d1ea9e463f571db7f" class="flex justify-between">
+      <a href="/docs/data-integration/" class="">Data Integration</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-b2cd59148ccf9b8d3a917d917ae2a406" class="toggle"  />
+    <label for="section-b2cd59148ccf9b8d3a917d917ae2a406" class="flex justify-between">
+      <a href="/docs/data-integration/kafka/" class="">Kafka</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-4a316c2f6a0a797b8405c6d80cc14382" class="toggle"  />
+    <label for="section-4a316c2f6a0a797b8405c6d80cc14382" class="flex justify-between">
+      <a href="/docs/data-lake-platform/" class="">Data Lake Platform</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-5dcab46997e9d19d75a2822ca5e743f9" class="toggle"  />
+    <label for="section-5dcab46997e9d19d75a2822ca5e743f9" class="flex justify-between">
+      <a href="/docs/data-lake-platform/ceph/" class="">Ceph</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ba927d26d986ad406ba7c1c000fff87c" class="toggle"  />
+    <label for="section-ba927d26d986ad406ba7c1c000fff87c" class="flex justify-between">
+      <a href="/docs/data-processing/" class="">Data Processing</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ab37952be8fe534502230c818e8b611b" class="toggle"  />
+    <label for="section-ab37952be8fe534502230c818e8b611b" class="flex justify-between">
+      <a href="/docs/data-processing/flink/" class="">Flink</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-5cdf1754fdf767f4d7e6b8fb75b850fb" class="toggle"  />
+    <label for="section-5cdf1754fdf767f4d7e6b8fb75b850fb" class="flex justify-between">
+      <a href="/docs/language/" class="">Language</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8bff7ae517186b2d376a0661467cef2d" class="toggle"  />
+    <label for="section-8bff7ae517186b2d376a0661467cef2d" class="flex justify-between">
+      <a href="/docs/observability/" class="">Observability</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8bd6aac4580b36d82077704ed5049b20" class="toggle"  />
+    <label for="section-8bd6aac4580b36d82077704ed5049b20" class="flex justify-between">
+      <a href="/docs/observability/logs/" class="">Logs</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3820b01d8d343a30aa49f2bd3d0ac76c" class="toggle"  />
+    <label for="section-3820b01d8d343a30aa49f2bd3d0ac76c" class="flex justify-between">
+      <a href="/docs/observability/metrics/" class="">Metrics</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-27eb68f1910975dd7e21ea458d19f57f" class="toggle"  />
+    <label for="section-27eb68f1910975dd7e21ea458d19f57f" class="flex justify-between">
+      <a href="/docs/observability/traces/" class="">Traces</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-78891673ccb2c2d2b66a96ea50ab1361" class="toggle"  />
+    <label for="section-78891673ccb2c2d2b66a96ea50ab1361" class="flex justify-between">
+      <a href="/docs/others/" class="">Others</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-6604ba009ff4797e1d1b8afddb383f03" class="toggle"  />
+    <label for="section-6604ba009ff4797e1d1b8afddb383f03" class="flex justify-between">
+      <a href="/docs/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" class="">알고리즘</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-024768ea14361a69ff0996148c6f4523" class="toggle"  />
+    <label for="section-024768ea14361a69ff0996148c6f4523" class="flex justify-between">
+      <a href="/docs/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/a-really-important/" class="">a-really-important</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-be397912fe8ba62b06f588cc48b4f0f2" class="toggle"  />
+    <label for="section-be397912fe8ba62b06f588cc48b4f0f2" class="flex justify-between">
+      <a href="/docs/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/dp/" class="">dp</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-6d3eec73dbffc1409d9c27d08f2594eb" class="toggle"  />
+    <label for="section-6d3eec73dbffc1409d9c27d08f2594eb" class="flex justify-between">
+      <a href="/docs/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/sorting/" class="">sorting</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-e543a726dbcf386b40ea0cb3c4a59f1d" class="toggle"  />
+    <label for="section-e543a726dbcf386b40ea0cb3c4a59f1d" class="flex justify-between">
+      <a href="/docs/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%EC%99%84%EC%A0%84%ED%83%90%EC%83%89/" class="">완전탐색</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d7e1497bbb4a05194486c8bb2b0ea79a" class="toggle"  />
+    <label for="section-d7e1497bbb4a05194486c8bb2b0ea79a" class="flex justify-between">
+      <a href="/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/" class="">컴퓨터이론</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-a1c99ab2d40536151b21eb12a5041410" class="toggle"  />
+    <label for="section-a1c99ab2d40536151b21eb12a5041410" class="flex justify-between">
+      <a href="/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/" class="">네트워크</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2268fd08902c3bcc533339d8cbf128ef" class="toggle"  />
+    <label for="section-2268fd08902c3bcc533339d8cbf128ef" class="flex justify-between">
+      <a href="/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/" class="">데이터베이스</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2998a9560058ec62c67d1a55ea134d38" class="toggle"  />
+    <label for="section-2998a9560058ec62c67d1a55ea134d38" class="flex justify-between">
+      <a href="/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EB%94%94%EC%9E%90%EC%9D%B8%ED%8C%A8%ED%84%B4/" class="">디자인패턴</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-055d0164778e6e1df37e6d55c5d9cf85" class="toggle"  />
+    <label for="section-055d0164778e6e1df37e6d55c5d9cf85" class="flex justify-between">
+      <a href="/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/" class="">운영체제</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3a909f63114456639d5607c0ecf991ab" class="toggle"  />
+    <label for="section-3a909f63114456639d5607c0ecf991ab" class="flex justify-between">
+      <a href="/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/" class="">자료구조</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-62d25428b0c6e0c722ae043a75c5de50" class="toggle"  />
+    <label for="section-62d25428b0c6e0c722ae043a75c5de50" class="flex justify-between">
+      <a href="/docs/%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/" class="">트러블슈팅</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Dimensional Modeling: 분석을 위한 데이터 설계의 본질</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#fact와-dimension의-개념">Fact와 Dimension의 개념</a></li>
+        <li><a href="#dimensional-modeling이란">Dimensional Modeling이란?</a></li>
+        <li><a href="#multidimensional-modeing">Multidimensional Modeing</a></li>
+        <li><a href="#multidimensional-modeling과의-관계">Multidimensional Modeling과의 관계</a></li>
+        <li><a href="#star-snowflake-schema">Star, Snowflake Schema</a></li>
+        <li><a href="#스키마-선택-기준">스키마 선택 기준</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h3 id="fact와-dimension의-개념">
+  Fact와 Dimension의 개념
+  <a class="anchor" href="#fact%ec%99%80-dimension%ec%9d%98-%ea%b0%9c%eb%85%90">#</a>
+</h3>
+<blockquote>
+<p>Fact : &ldquo;<strong>측정값 / 수치 중심의 이벤트 데이터</strong>&rdquo;</p></blockquote>
+<ul>
+<li>일반적으로는 <strong>집계(Aggregation)</strong> 가 가능한 값들</li>
+<li>대부분 시간에 따라 변화하며, 특정 기준으로 분류하여 분석하는 대상</li>
+<li>항상 하나 이상의 Dimension과 연결되어 있으며, 분석 쿼리에서는 집계 함수(SUM, COUNT, AVG 등)의 대상이 됨</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sales_fact
+</span></span><span style="display:flex;"><span>├── date_id <span style="color:#f92672">(</span>FK<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>├── product_id <span style="color:#f92672">(</span>FK<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>├── store_id <span style="color:#f92672">(</span>FK<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>├── quantity_sold <span style="color:#f92672">(</span>Fact<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>├── total_revenue <span style="color:#f92672">(</span>Fact<span style="color:#f92672">)</span>
+</span></span></code></pre></div><blockquote>
+<p>Dimension : &ldquo;<strong>Fact를 설명하거나 분석 기준이 되는 범주형 데이터</strong>&rdquo;</p></blockquote>
+<ul>
+<li>일반적으로 분석자가 데이터를 &ldquo;어떤 기준으로 보고 싶은가&quot;를 정의하는 기준</li>
+<li>WHERE, GROUP BY, ORDER BY 절에서 자주 사용됨</li>
+<li>각 Dimension은 여러 속성(attribute)를 가질 수 있고, 이 속성 간에는 종종 계층(Hierarchy)이 존재함</li>
+<li>예를 들어, <em>시간 Dimesion</em>은 연도 -&gt; 분기 -&gt; 월 -&gt; 일, <em>지역 Dimension</em>은 대륙 -&gt; 국가 -&gt; 도시 순으로 계층화할 수 있음</li>
+<li>e.g. 카테고리, 지역, 시간 고객, 상품 등의 범주적(categorical) 데이터</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>product_dim
+</span></span><span style="display:flex;"><span>├── product_id <span style="color:#f92672">(</span>PK<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>├── product_name
+</span></span><span style="display:flex;"><span>├── category
+</span></span><span style="display:flex;"><span>├── brand
+</span></span></code></pre></div><blockquote>
+<p>Fact는 수치 결과, Dimension은 분석 기준</p></blockquote>
+<h3 id="dimensional-modeling이란">
+  Dimensional Modeling이란?
+  <a class="anchor" href="#dimensional-modeling%ec%9d%b4%eb%9e%80">#</a>
+</h3>
+<blockquote>
+<p>분석을 위해 데이터를 Fact + Dimension 구조로 설계하는 방법론</p></blockquote>
+<ul>
+<li>RDB 기반 DW 구조 설계에 최적화됨</li>
+<li>Star / Snowflake / Galaxy 구조로 구현됨</li>
+<li>분석 쿼리를 효율적으로 처리하기 위한 구조적 기반</li>
+</ul>
+<h4 id="구성-요소">
+  구성 요소
+  <a class="anchor" href="#%ea%b5%ac%ec%84%b1-%ec%9a%94%ec%86%8c">#</a>
+</h4>
+<ul>
+<li>Fact Table: 수치 중심, 여러 Dimension에 연결됨</li>
+<li>Dimension Table: 분석 기준 제공, 계층 포함 가능</li>
+<li>Grain: 하나의 Fact가 의미하는 단위 (ex. 1건의 주문? 1일 매출?)</li>
+</ul>
+<h3 id="multidimensional-modeing">
+  Multidimensional Modeing
+  <a class="anchor" href="#multidimensional-modeing">#</a>
+</h3>
+<ul>
+<li>Multidimensional Modeling은 데이터를 다양한 분석 축(Dimension)으로 나누어 보고, 각 축의 조합에 따라 하나의 측정값(Fact)를 도출하는 방식임.</li>
+<li>OLAP의 기본 모델링 방식으로, 사용자는 다양한 축을 기준으로 데이터를 Slice, Dice, Drill-down, Roll-up 등의 방식으로 분석 가능.</li>
+<li>이 모델은 특히 OLAP Cube라는 개념으로 시각화되며, X, Y, Z 축에 Dimension이 위치하고, 교차점(Cell)에 하나의 Fact 값이 존재.</li>
+<li>분석 중심으로 최적화되어 있으며, 빠른 응답 성능과 사용자의 직관적인 이해를 위해 설계됨.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-perl" data-lang="perl"><span style="display:flex;"><span>    시간 차원
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">^</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">|</span>     <span style="color:#960050;background-color:#1e0010">●</span> (제품A, <span style="color:#ae81ff">2023</span>년, 서울, <span style="color:#ae81ff">100</span>만원)
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">|</span>    <span style="color:#f92672">/</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">|</span>   <span style="color:#f92672">/</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">|</span>  <span style="color:#f92672">/</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">|</span> <span style="color:#f92672">/</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">|/</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">+------------&gt;</span> 제품 차원
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">/|</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">/</span> <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">/</span>  <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">/</span>   <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">/</span>    <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span> v     v
+</span></span><span style="display:flex;"><span>지역 차원  측정값(판매액)
+</span></span></code></pre></div><h3 id="multidimensional-modeling과의-관계">
+  Multidimensional Modeling과의 관계
+  <a class="anchor" href="#multidimensional-modeling%ea%b3%bc%ec%9d%98-%ea%b4%80%ea%b3%84">#</a>
+</h3>
+<table>
+  <thead>
+      <tr>
+          <th>항목</th>
+          <th>Dimensional Modeling</th>
+          <th>Multidimensional Modeling</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>관점</td>
+          <td>구조적 설계 방법론</td>
+          <td>개념적 분석 모델링</td>
+      </tr>
+      <tr>
+          <td>구현</td>
+          <td>Star/Snowflake Schema</td>
+          <td>OLAP Cube 기반 축 해석</td>
+      </tr>
+      <tr>
+          <td>사용</td>
+          <td>RDB 기반 DW 설계</td>
+          <td>BI/OLAP 분석 툴 설계</td>
+      </tr>
+  </tbody>
+</table>
+<ul>
+<li>둘은 목적이 다르지만 실무에서는 거의 연동되어 사용된다고 함</li>
+<li>Cube로 보는 시각은 Multidimensional, 테이블 설계는 Dimensional</li>
+</ul>
+<h3 id="star-snowflake-schema">
+  Star, Snowflake Schema
+  <a class="anchor" href="#star-snowflake-schema">#</a>
+</h3>
+<h4 id="-star-schema">
+  ⭐ Star Schema
+  <a class="anchor" href="#-star-schema">#</a>
+</h4>
+<ul>
+<li>비정규화된 Dimension 테이블 + 중심 Fact 테이블</li>
+<li>쿼리 단순, JOIN 적음</li>
+<li>BI 도구에서 선호됨</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>            <span style="color:#f92672">[</span>product_dim<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>                  ↑
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>store_dim<span style="color:#f92672">]</span> ← <span style="color:#f92672">[</span>sales_fact<span style="color:#f92672">]</span> → <span style="color:#f92672">[</span>date_dim<span style="color:#f92672">]</span>
+</span></span></code></pre></div><h4 id="-snowflake-schema">
+  ❄️ Snowflake Schema
+  <a class="anchor" href="#-snowflake-schema">#</a>
+</h4>
+<ul>
+<li>Dimension을 정규화하여 계층 구조 표현</li>
+<li>중복 적고, 정합성 높음</li>
+<li>JOIN이 많아져 성능 저하 가능</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>category_dim ← subcategory_dim ← product_dim ← sales_fact
+</span></span></code></pre></div><h4 id="-galaxy-schema">
+  🌌 Galaxy Schema
+  <a class="anchor" href="#-galaxy-schema">#</a>
+</h4>
+<ul>
+<li>여러 Fact 테이블 존재</li>
+<li>공통 Dimension을 공유 (통합 분석용)</li>
+<li>구조 복잡하고 설계 난이도 높음</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>        <span style="color:#f92672">[</span>product_dim<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>          ↑       ↑
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">[</span>sales_fact<span style="color:#f92672">]</span>  <span style="color:#f92672">[</span>refund_fact<span style="color:#f92672">]</span><span style="color:#e6db74">`</span>
+</span></span></code></pre></div><table>
+  <thead>
+      <tr>
+          <th>스키마</th>
+          <th>구조 복잡도</th>
+          <th>성능</th>
+          <th>정합성</th>
+          <th>특징</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Star</td>
+          <td>낮음</td>
+          <td>빠름</td>
+          <td>중간</td>
+          <td>단순 분석에 최적화</td>
+      </tr>
+      <tr>
+          <td>Snowflake</td>
+          <td>중간</td>
+          <td>느릴 수 있음</td>
+          <td>높음</td>
+          <td>계층 표현에 유리</td>
+      </tr>
+      <tr>
+          <td>Galaxy</td>
+          <td>높음</td>
+          <td>복합</td>
+          <td>높음</td>
+          <td>통합 분석 + 확장성</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="스키마-선택-기준">
+  스키마 선택 기준
+  <a class="anchor" href="#%ec%8a%a4%ed%82%a4%eb%a7%88-%ec%84%a0%ed%83%9d-%ea%b8%b0%ec%a4%80">#</a>
+</h3>
+<ul>
+<li>데이터 중복을 감수하더라도 분석 편의성/속도가 우선 → ⭐ Star</li>
+<li>계층 구조 표현, 정합성 유지가 중요 → ❄️ Snowflake</li>
+<li>여러 이벤트 테이블(주문, 반품, 배송 등)을 함께 분석 → 🌌 Galaxy</li>
+</ul>
+<blockquote>
+<p>💬 핵심: 구조는 도메인보다 &ldquo;분석 목적 + 유지 전략&rdquo; 기준으로 선택함</p></blockquote>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#fact와-dimension의-개념">Fact와 Dimension의 개념</a></li>
+        <li><a href="#dimensional-modeling이란">Dimensional Modeling이란?</a></li>
+        <li><a href="#multidimensional-modeing">Multidimensional Modeing</a></li>
+        <li><a href="#multidimensional-modeling과의-관계">Multidimensional Modeling과의 관계</a></li>
+        <li><a href="#star-snowflake-schema">Star, Snowflake Schema</a></li>
+        <li><a href="#스키마-선택-기준">스키마 선택 기준</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

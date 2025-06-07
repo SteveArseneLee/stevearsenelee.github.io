@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+  정규화란?
+  #
+
+
+데이터를 효율적으로 관리하기 위해 데이터를 여러 테이블로 나누고, 데이터 중복과 이상 현상을 최소화해 데이터의 일관성을 유지하는 과정">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/normalization/">
+  <meta property="og:site_name" content="LogLee&#39;s Training Ground">
+  <meta property="og:title" content="정규화 - 1NF, 2NF, 3NF, BCNF">
+  <meta property="og:description" content="정규화란? # 데이터를 효율적으로 관리하기 위해 데이터를 여러 테이블로 나누고, 데이터 중복과 이상 현상을 최소화해 데이터의 일관성을 유지하는 과정">
+  <meta property="og:locale" content="ko">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>정규화 - 1NF, 2NF, 3NF, BCNF | LogLee&#39;s Training Ground</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/normalization/">
+<link rel="stylesheet" href="/book.min.e9f68c3fff3d8236a489d16a9caf6de5e4d1a29c20eb4b5524e42cd30be4d319.css" integrity="sha256-6faMP/89gjakidFqnK9t5eTRopwg60tVJOQs0wvk0xk=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/kr.search.min.a137a1fa7ffc8a7c0b9c41e294e33bd53d785a720c9210f8de8eeb1dd1f0a177.js" integrity="sha256-oTeh&#43;n/8inwLnEHilOM71T14WnIMkhD43o7rHdHwoXc=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>LogLee&#39;s Training Ground</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="" aria-label="" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-79150fdf9dbf158df9c917a93d39407f" class="toggle"  />
+    <label for="section-79150fdf9dbf158df9c917a93d39407f" class="flex justify-between">
+      <a href="/docs/infra/" class="">Infra</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-afa7bc76ec3321dc3793f4204885e0ab" class="toggle"  />
+    <label for="section-afa7bc76ec3321dc3793f4204885e0ab" class="flex justify-between">
+      <a href="/docs/infra/kvm/" class="">KVM</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3f41a0b8f3b7286a296b17538ec448af" class="toggle"  />
+    <label for="section-3f41a0b8f3b7286a296b17538ec448af" class="flex justify-between">
+      <a href="/docs/infra/kubernetes/" class="">Kubernetes</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8b1ecbff7b9f24569532f1fb1f37fd97" class="toggle"  />
+    <label for="section-8b1ecbff7b9f24569532f1fb1f37fd97" class="flex justify-between">
+      <a href="/docs/data-engineering/" class="">Data Engineering</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-284624ec7b613288f08ca4735aa73b9b" class="toggle"  />
+    <label for="section-284624ec7b613288f08ca4735aa73b9b" class="flex justify-between">
+      <a href="/docs/data-engineering/hadoop/" class="">Hadoop</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-c91f99bd61bd7a25ae2813b87d79c33a" class="toggle"  />
+    <label for="section-c91f99bd61bd7a25ae2813b87d79c33a" class="flex justify-between">
+      <a href="/docs/data-engineering/modeling/" class="">Modeling</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-86d5be1a8f57012d1ea9e463f571db7f" class="toggle"  />
+    <label for="section-86d5be1a8f57012d1ea9e463f571db7f" class="flex justify-between">
+      <a href="/docs/data-integration/" class="">Data Integration</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-b2cd59148ccf9b8d3a917d917ae2a406" class="toggle"  />
+    <label for="section-b2cd59148ccf9b8d3a917d917ae2a406" class="flex justify-between">
+      <a href="/docs/data-integration/kafka/" class="">Kafka</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-4a316c2f6a0a797b8405c6d80cc14382" class="toggle"  />
+    <label for="section-4a316c2f6a0a797b8405c6d80cc14382" class="flex justify-between">
+      <a href="/docs/data-lake-platform/" class="">Data Lake Platform</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-5dcab46997e9d19d75a2822ca5e743f9" class="toggle"  />
+    <label for="section-5dcab46997e9d19d75a2822ca5e743f9" class="flex justify-between">
+      <a href="/docs/data-lake-platform/ceph/" class="">Ceph</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ba927d26d986ad406ba7c1c000fff87c" class="toggle"  />
+    <label for="section-ba927d26d986ad406ba7c1c000fff87c" class="flex justify-between">
+      <a href="/docs/data-processing/" class="">Data Processing</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ab37952be8fe534502230c818e8b611b" class="toggle"  />
+    <label for="section-ab37952be8fe534502230c818e8b611b" class="flex justify-between">
+      <a href="/docs/data-processing/flink/" class="">Flink</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-5cdf1754fdf767f4d7e6b8fb75b850fb" class="toggle"  />
+    <label for="section-5cdf1754fdf767f4d7e6b8fb75b850fb" class="flex justify-between">
+      <a href="/docs/language/" class="">Language</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8bff7ae517186b2d376a0661467cef2d" class="toggle"  />
+    <label for="section-8bff7ae517186b2d376a0661467cef2d" class="flex justify-between">
+      <a href="/docs/observability/" class="">Observability</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8bd6aac4580b36d82077704ed5049b20" class="toggle"  />
+    <label for="section-8bd6aac4580b36d82077704ed5049b20" class="flex justify-between">
+      <a href="/docs/observability/logs/" class="">Logs</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3820b01d8d343a30aa49f2bd3d0ac76c" class="toggle"  />
+    <label for="section-3820b01d8d343a30aa49f2bd3d0ac76c" class="flex justify-between">
+      <a href="/docs/observability/metrics/" class="">Metrics</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-27eb68f1910975dd7e21ea458d19f57f" class="toggle"  />
+    <label for="section-27eb68f1910975dd7e21ea458d19f57f" class="flex justify-between">
+      <a href="/docs/observability/traces/" class="">Traces</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-78891673ccb2c2d2b66a96ea50ab1361" class="toggle"  />
+    <label for="section-78891673ccb2c2d2b66a96ea50ab1361" class="flex justify-between">
+      <a href="/docs/others/" class="">Others</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-6604ba009ff4797e1d1b8afddb383f03" class="toggle"  />
+    <label for="section-6604ba009ff4797e1d1b8afddb383f03" class="flex justify-between">
+      <a href="/docs/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" class="">알고리즘</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-024768ea14361a69ff0996148c6f4523" class="toggle"  />
+    <label for="section-024768ea14361a69ff0996148c6f4523" class="flex justify-between">
+      <a href="/docs/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/a-really-important/" class="">a-really-important</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-be397912fe8ba62b06f588cc48b4f0f2" class="toggle"  />
+    <label for="section-be397912fe8ba62b06f588cc48b4f0f2" class="flex justify-between">
+      <a href="/docs/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/dp/" class="">dp</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-6d3eec73dbffc1409d9c27d08f2594eb" class="toggle"  />
+    <label for="section-6d3eec73dbffc1409d9c27d08f2594eb" class="flex justify-between">
+      <a href="/docs/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/sorting/" class="">sorting</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-e543a726dbcf386b40ea0cb3c4a59f1d" class="toggle"  />
+    <label for="section-e543a726dbcf386b40ea0cb3c4a59f1d" class="flex justify-between">
+      <a href="/docs/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%EC%99%84%EC%A0%84%ED%83%90%EC%83%89/" class="">완전탐색</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d7e1497bbb4a05194486c8bb2b0ea79a" class="toggle" checked />
+    <label for="section-d7e1497bbb4a05194486c8bb2b0ea79a" class="flex justify-between">
+      <a href="/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/" class="">컴퓨터이론</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-a1c99ab2d40536151b21eb12a5041410" class="toggle"  />
+    <label for="section-a1c99ab2d40536151b21eb12a5041410" class="flex justify-between">
+      <a href="/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/" class="">네트워크</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2268fd08902c3bcc533339d8cbf128ef" class="toggle" checked />
+    <label for="section-2268fd08902c3bcc533339d8cbf128ef" class="flex justify-between">
+      <a href="/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/" class="">데이터베이스</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2998a9560058ec62c67d1a55ea134d38" class="toggle"  />
+    <label for="section-2998a9560058ec62c67d1a55ea134d38" class="flex justify-between">
+      <a href="/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EB%94%94%EC%9E%90%EC%9D%B8%ED%8C%A8%ED%84%B4/" class="">디자인패턴</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-055d0164778e6e1df37e6d55c5d9cf85" class="toggle"  />
+    <label for="section-055d0164778e6e1df37e6d55c5d9cf85" class="flex justify-between">
+      <a href="/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/" class="">운영체제</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3a909f63114456639d5607c0ecf991ab" class="toggle"  />
+    <label for="section-3a909f63114456639d5607c0ecf991ab" class="flex justify-between">
+      <a href="/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/" class="">자료구조</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-62d25428b0c6e0c722ae043a75c5de50" class="toggle"  />
+    <label for="section-62d25428b0c6e0c722ae043a75c5de50" class="flex justify-between">
+      <a href="/docs/%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/" class="">트러블슈팅</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>정규화 - 1NF, 2NF, 3NF, BCNF</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#정규화란">정규화란?</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#정규형">정규형</a>
+      <ul>
+        <li><a href="#1nf---반복되는-속성-및-그룹-속성-제거">1NF - &lt;반복되는 속성 및 그룹 속성 제거&gt;</a></li>
+        <li><a href="#2nf---부분-함수-종속성-제거">2NF - &lt;부분 함수 종속성 제거&gt;</a></li>
+        <li><a href="#3nf---이행-함수-종속성-제거">3NF - &lt;이행 함수 종속성 제거&gt;</a></li>
+        <li><a href="#bcnf---결정자가-후보키가-아닌-함수-종속성fd-제거">BCNF - &lt;결정자가 후보키가 아닌 함수 종속성(FD) 제거&gt;</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h2 id="정규화란">
+  정규화란?
+  <a class="anchor" href="#%ec%a0%95%ea%b7%9c%ed%99%94%eb%9e%80">#</a>
+</h2>
+<blockquote>
+<p>데이터를 효율적으로 관리하기 위해 데이터를 여러 테이블로 나누고, 데이터 중복과 이상 현상을 최소화해 데이터의 일관성을 유지하는 과정</p></blockquote>
+<p>정규화의 목표를 정리하자면 다음과 같다.</p>
+<ul>
+<li><strong>데이터 중복 줄이기</strong> : 불필요하게 반복해서 저장하지 않게 함</li>
+<li><strong>데이터 무결성 유지</strong> : 삽입, 삭제, 갱신 시 일관성 있게 데이터가 유지됨</li>
+<li><strong>이상 현상 방지</strong> : 삽입, 삭제, 갱신 시 발생 가능한 Anomalies 방지</li>
+<li><strong>DB 성능 최적화</strong> : 필요한 데이터만 저장하고, 데이터를 효율적으로 검색하고 수정 가능함</li>
+</ul>
+<h4 id="이상-현상이란">
+  이상 현상이란..?
+  <a class="anchor" href="#%ec%9d%b4%ec%83%81-%ed%98%84%ec%83%81%ec%9d%b4%eb%9e%80">#</a>
+</h4>
+<p>정규화를 통해 방지하려는 주요 이상 현상들이다.</p>
+<ul>
+<li><strong>삽입 이상(Insertion Anomaly)</strong> : 데이터 삽입 시 불필요한 데이터를 함께 삽입해야 하는 문제</li>
+<li><strong>갱신 이상(Update Anomaly)</strong> : 데이터의 일부만 갱신해 데이터 불일치가 발생 가능한 문제</li>
+<li><strong>삭제 이상(Deletion Anomaly)</strong> : 데이터를 삭제할 때 의도치 않은 정보도 함께 삭제되는 문제</li>
+</ul>
+<h2 id="정규형">
+  정규형
+  <a class="anchor" href="#%ec%a0%95%ea%b7%9c%ed%98%95">#</a>
+</h2>
+<h3 id="1nf---반복되는-속성-및-그룹-속성-제거">
+  1NF - &lt;반복되는 속성 및 그룹 속성 제거&gt;
+  <a class="anchor" href="#1nf---%eb%b0%98%eb%b3%b5%eb%90%98%eb%8a%94-%ec%86%8d%ec%84%b1-%eb%b0%8f-%ea%b7%b8%eb%a3%b9-%ec%86%8d%ec%84%b1-%ec%a0%9c%ea%b1%b0">#</a>
+</h3>
+<ul>
+<li>목적 : 각 컬럼이 _Atomic Value_만을 가지도록 하여, 컬럼에 여러 값이 들어가는 것을 방지한다.</li>
+<li>조건
+<ul>
+<li>모든 컬럼 값이 <strong>원자값</strong>이어야 하며, 각 셀에 <strong>단일 값</strong>만 포함되어야 한다.</li>
+<li><strong>반복 그룹</strong>(한 컬럼에 여러 개의 값이 있는 경우)이나 중첩된 집합이 없어야 한다.</li>
+</ul>
+</li>
+</ul>
+<table>
+  <thead>
+      <tr>
+          <th>학생ID</th>
+          <th>이름</th>
+          <th>전화번호</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>김철수</td>
+          <td>010-111-222, 010-333-444</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>이영희</td>
+          <td>010-555-666</td>
+      </tr>
+  </tbody>
+</table>
+<p>전화번호 컬럼에 여러 값이 포함되어 있으므로 다음과 같이 변경한다.</p>
+<table>
+  <thead>
+      <tr>
+          <th>학생ID</th>
+          <th>이름</th>
+          <th>전화번호</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>김철수</td>
+          <td>010-111-222</td>
+      </tr>
+      <tr>
+          <td>1</td>
+          <td>김철수</td>
+          <td>010-333-444</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>이영희</td>
+          <td>010-555-666</td>
+      </tr>
+  </tbody>
+</table>
+<p>전화번호 컬럼을 여러 행으로 나눠 각 행이 하나의 전화번호만 포함하도록 해 원자값을 갖도록 한다.</p>
+<hr>
+<h3 id="2nf---부분-함수-종속성-제거">
+  2NF - &lt;부분 함수 종속성 제거&gt;
+  <a class="anchor" href="#2nf---%eb%b6%80%eb%b6%84-%ed%95%a8%ec%88%98-%ec%a2%85%ec%86%8d%ec%84%b1-%ec%a0%9c%ea%b1%b0">#</a>
+</h3>
+<ul>
+<li>목적 : 부분 함수 종속성을 제거해 데이터의 중복을 줄이고, 데이터의 일관성을 유지한다. 기본 키의 일부가 아닌 전체에 종속되도록 해 데이터 변경 시 일관성을 높인다.</li>
+<li>조건
+<ul>
+<li>1NF를 만족한다.</li>
+<li>기본 키가 복합 키인 경우, 부분 함수 종속성이 없어야 한다.</li>
+<li>즉, 비기본 키 속성이 기본 키 전체에 종속되어야 한다.</li>
+</ul>
+</li>
+</ul>
+<p><strong>1NF만 만족한 Table</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>학생ID</th>
+          <th>과목ID</th>
+          <th>과목명</th>
+          <th>교수명</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>A101</td>
+          <td>수학</td>
+          <td>김교수</td>
+      </tr>
+      <tr>
+          <td>1</td>
+          <td>B202</td>
+          <td>영어</td>
+          <td>박교수</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>A101</td>
+          <td>수학</td>
+          <td>김교수</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>B202</td>
+          <td>영어</td>
+          <td>박교수</td>
+      </tr>
+  </tbody>
+</table>
+<p>과목명과 교수명은 과목ID에 종속되며, 학생ID와는 무관하다.</p>
+<p>즉, 부분 함수 종속이 발생해 2NF를 만족하지 않으므로 다음과 같이 변경한다.</p>
+<p><strong>학생-과목 관계 Table</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>학생ID</th>
+          <th>과목ID</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>A101</td>
+      </tr>
+      <tr>
+          <td>1</td>
+          <td>B202</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>A101</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>B202</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>과목 Table</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>과목ID</th>
+          <th>과목명</th>
+          <th>교수명</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>A101</td>
+          <td>수학</td>
+          <td>김교수</td>
+      </tr>
+      <tr>
+          <td>B202</td>
+          <td>영어</td>
+          <td>박교수</td>
+      </tr>
+  </tbody>
+</table>
+<p>과목ID가 과목명과 교수명을 결정하도록 테이블을 분리해 부분 함수 종속성을 제거했다. 과목명과 교수명 정보가 중복되지 않음으로써 변경 시 한 곳에서만 수정할 수 있다.</p>
+<hr>
+<h3 id="3nf---이행-함수-종속성-제거">
+  3NF - &lt;이행 함수 종속성 제거&gt;
+  <a class="anchor" href="#3nf---%ec%9d%b4%ed%96%89-%ed%95%a8%ec%88%98-%ec%a2%85%ec%86%8d%ec%84%b1-%ec%a0%9c%ea%b1%b0">#</a>
+</h3>
+<ul>
+<li>목적 : 이행적 종속성을 제거해 데이터의 일관성을 높이고, 데이터 중복을 줄인다. 비기본 키 속성이 다른 비기본 키 속성에 의존하지 않도록 한다.</li>
+<li>조건
+<ul>
+<li>2NF를 만족한다.</li>
+<li>비기본 키 속성이 다른 비기본 키 속성에 이행적 종속성을 가지면 안된다.</li>
+</ul>
+</li>
+</ul>
+<table>
+  <thead>
+      <tr>
+          <th>과목ID</th>
+          <th>교수명</th>
+          <th>교수연락처</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>A101</td>
+          <td>김교수</td>
+          <td>010-111-222</td>
+      </tr>
+      <tr>
+          <td>B202</td>
+          <td>박교수</td>
+          <td>010-333-444</td>
+      </tr>
+  </tbody>
+</table>
+<p>교수연락처는 교수명에 종속되어 있으며, 과목ID를 통해 간접적으로 결정된다.</p>
+<p>즉, 이행적 종속이 발생했으므로 다음과 같이 변경한다.</p>
+<p><strong>과목 Table</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>과목ID</th>
+          <th>교수명</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>A101</td>
+          <td>김교수</td>
+      </tr>
+      <tr>
+          <td>B202</td>
+          <td>박교수</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>교수 Table</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>교수명</th>
+          <th>교수연락처</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>김교수</td>
+          <td>010-111-222</td>
+      </tr>
+      <tr>
+          <td>박교수</td>
+          <td>010-333-444</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h3 id="bcnf---결정자가-후보키가-아닌-함수-종속성fd-제거">
+  BCNF - &lt;결정자가 후보키가 아닌 함수 종속성(FD) 제거&gt;
+  <a class="anchor" href="#bcnf---%ea%b2%b0%ec%a0%95%ec%9e%90%ea%b0%80-%ed%9b%84%eb%b3%b4%ed%82%a4%ea%b0%80-%ec%95%84%eb%8b%8c-%ed%95%a8%ec%88%98-%ec%a2%85%ec%86%8d%ec%84%b1fd-%ec%a0%9c%ea%b1%b0">#</a>
+</h3>
+<ul>
+<li>목적 : 후보 키가 아닌 속성의 의해 결정되는 문제를 제거해 데이터 무결성을 보장한다.</li>
+<li>조건
+<ul>
+<li>3NF를 만족한다.</li>
+<li>모든 결정자가 후보 키가 되도록 만든다.
+<ul>
+<li>비후보 키가 결정자 역할을 하는 상황을 방지한다.</li>
+</ul>
+</li>
+<li>복합키를 사용하는 테이블에서 발생하는 문제를 해결하는 데 활용된다</li>
+</ul>
+</li>
+</ul>
+<table>
+  <thead>
+      <tr>
+          <th>강의ID</th>
+          <th>교수ID</th>
+          <th>학생ID</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>L101</td>
+          <td>P01</td>
+          <td>S01</td>
+      </tr>
+      <tr>
+          <td>L102</td>
+          <td>P02</td>
+          <td>S01</td>
+      </tr>
+      <tr>
+          <td>L101</td>
+          <td>P01</td>
+          <td>S02</td>
+      </tr>
+      <tr>
+          <td>L103</td>
+          <td>P03</td>
+          <td>S03</td>
+      </tr>
+  </tbody>
+</table>
+<p>강의ID가 교수ID를 결정하지만, 강의ID와 학생ID의 조합이 기본 키로 사용되고 있다.</p>
+<p>따라서 비후보 키인 강의ID가 교수ID를 결정하는 종속성이 발생해 다음과 같이 변경한다.</p>
+<p><strong>강의-교수 Table</strong> [각 강의에 대한 고정된 교수 정보를 저장]</p>
+<table>
+  <thead>
+      <tr>
+          <th>강의ID</th>
+          <th>교수ID</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>L101</td>
+          <td>P01</td>
+      </tr>
+      <tr>
+          <td>L102</td>
+          <td>P02</td>
+      </tr>
+      <tr>
+          <td>L103</td>
+          <td>P03</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>강의-학생 Table</strong> [각 학생이 수강하는 강의 정보를 저장]</p>
+<table>
+  <thead>
+      <tr>
+          <th>강의ID</th>
+          <th>학생ID</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>L101</td>
+          <td>S01</td>
+      </tr>
+      <tr>
+          <td>L101</td>
+          <td>S02</td>
+      </tr>
+      <tr>
+          <td>L102</td>
+          <td>S01</td>
+      </tr>
+      <tr>
+          <td>L103</td>
+          <td>S03</td>
+      </tr>
+  </tbody>
+</table>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#정규화란">정규화란?</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#정규형">정규형</a>
+      <ul>
+        <li><a href="#1nf---반복되는-속성-및-그룹-속성-제거">1NF - &lt;반복되는 속성 및 그룹 속성 제거&gt;</a></li>
+        <li><a href="#2nf---부분-함수-종속성-제거">2NF - &lt;부분 함수 종속성 제거&gt;</a></li>
+        <li><a href="#3nf---이행-함수-종속성-제거">3NF - &lt;이행 함수 종속성 제거&gt;</a></li>
+        <li><a href="#bcnf---결정자가-후보키가-아닌-함수-종속성fd-제거">BCNF - &lt;결정자가 후보키가 아닌 함수 종속성(FD) 제거&gt;</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
