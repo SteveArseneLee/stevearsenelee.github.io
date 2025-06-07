@@ -19,7 +19,7 @@ description = "Where code meets craft, and logs tell stories."
 Data Pipeline    → Kafka • Spark • Iceberg
 Infrastructure   → Kubernetes • Vector • Prometheus
 
-Languages        → Python • Scala • Go
+Languages        → Python • Scala Java
 
 복사
 
