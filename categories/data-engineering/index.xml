@@ -1,2 +1,30 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Data Engineering on LogLee's Training Ground</title><link>https://stevearsenelee.github.io/categories/data-engineering/</link><description>Recent content in Data Engineering on LogLee's Training Ground</description><generator>Hugo -- gohugo.io</generator><language>ko</language><atom:link href="https://stevearsenelee.github.io/categories/data-engineering/index.xml" rel="self" type="application/rss+xml"/><item><title>CephFS 구축하기</title><link>https://stevearsenelee.github.io/docs/data-lake-platform/ceph/ceph-fs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://stevearsenelee.github.io/docs/data-lake-platform/ceph/ceph-fs/</guid><description>1. CephFS Filesystem 생성 rook-ceph-filesystem.yaml
-apiVersion: ceph.rook.io/v1 kind: CephFilesystem metadata: name: rook-ceph-fs namespace: rook-ceph spec: metadataPool: replicated: size: 3 dataPools: - replicated: size: 3 preserveFilesystemOnDelete: true metadataServer: activeCount: 1 activeStandby: true metadataPool, dataPools 모두 replication 3개로 설정(3 OSD) MDS(Metadata Server)는 1 active + 1 standby (HA) 2.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Data Engineering on LogLee's Training Ground</title><link>https://stevearsenelee.github.io/categories/data-engineering/</link><description>Recent content in Data Engineering on LogLee's Training Ground</description><generator>Hugo</generator><language>ko</language><atom:link href="https://stevearsenelee.github.io/categories/data-engineering/index.xml" rel="self" type="application/rss+xml"/><item><title>CephFS 구축하기</title><link>https://stevearsenelee.github.io/docs/data-lake-platform/ceph/ceph-fs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://stevearsenelee.github.io/docs/data-lake-platform/ceph/ceph-fs/</guid><description>&lt;h3 id="1-cephfs-filesystem-생성">
+ 1. CephFS Filesystem 생성
+ &lt;a class="anchor" href="#1-cephfs-filesystem-%ec%83%9d%ec%84%b1">#&lt;/a>
+&lt;/h3>
+&lt;p>rook-ceph-filesystem.yaml&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">ceph.rook.io/v1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">CephFilesystem&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">rook-ceph-fs&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">rook-ceph&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">metadataPool&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">replicated&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">size&lt;/span>: &lt;span style="color:#ae81ff">3&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">dataPools&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#f92672">replicated&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">size&lt;/span>: &lt;span style="color:#ae81ff">3&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">preserveFilesystemOnDelete&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">metadataServer&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">activeCount&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">activeStandby&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>metadataPool, dataPools 모두 replication 3개로 설정(3 OSD)&lt;/li>
+&lt;li>MDS(Metadata Server)는 1 active + 1 standby (HA)&lt;/li>
+&lt;/ul>
+&lt;h3 id="2-cephfs용-storageclass-생성">
+ 2. CephFS용 StorageClass 생성
+ &lt;a class="anchor" href="#2-cephfs%ec%9a%a9-storageclass-%ec%83%9d%ec%84%b1">#&lt;/a>
+&lt;/h3>
+&lt;p>rook-cephfs-sc.yaml&lt;/p></description></item></channel></rss>

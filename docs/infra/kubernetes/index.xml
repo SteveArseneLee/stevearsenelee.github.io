@@ -1,2 +1,19 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Kubernetes on LogLee's Training Ground</title><link>https://stevearsenelee.github.io/docs/infra/kubernetes/</link><description>Recent content in Kubernetes on LogLee's Training Ground</description><generator>Hugo -- gohugo.io</generator><language>ko</language><atom:link href="https://stevearsenelee.github.io/docs/infra/kubernetes/index.xml" rel="self" type="application/rss+xml"/><item><title>Kubespray로 쉽게 구축하기</title><link>https://stevearsenelee.github.io/docs/infra/kubernetes/install-with-kubespray/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://stevearsenelee.github.io/docs/infra/kubernetes/install-with-kubespray/</guid><description>🕒 작성일: 2025-04-15T17:35:26+09:00 ✍️ 작성자: SteveArseneLee
-모든 인스턴스에 접근할 수 있는 곳에서 다음과 같은 작업을 실행한다.</description></item><item><title>여러 환경의 클러스터를 손쉽게 관리하기</title><link>https://stevearsenelee.github.io/docs/infra/kubernetes/context-switch/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://stevearsenelee.github.io/docs/infra/kubernetes/context-switch/</guid><description>1. 원격 클러스터의 kubeconfig 받아오기 sudo cat /etc/kubernetes/admin.conf 2. 로컬 파일에 저장 내 경우 ~/kubeconfig |- kubeconfig-cluster1 |- kubeconfig-cluster2 |- .</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Kubernetes on LogLee's Training Ground</title><link>https://stevearsenelee.github.io/docs/infra/kubernetes/</link><description>Recent content in Kubernetes on LogLee's Training Ground</description><generator>Hugo</generator><language>ko</language><atom:link href="https://stevearsenelee.github.io/docs/infra/kubernetes/index.xml" rel="self" type="application/rss+xml"/><item><title>Kubespray로 쉽게 구축하기</title><link>https://stevearsenelee.github.io/docs/infra/kubernetes/install-with-kubespray/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://stevearsenelee.github.io/docs/infra/kubernetes/install-with-kubespray/</guid><description>&lt;blockquote>
+&lt;p>🕒 작성일: 2025-04-15T17:35:26+09:00
+✍️ 작성자: SteveArseneLee&lt;/p>&lt;/blockquote>
+&lt;hr>
+&lt;p>모든 인스턴스에 접근할 수 있는 곳에서 다음과 같은 작업을 실행한다.
+In my case, it&amp;rsquo;s control node.&lt;/p></description></item><item><title>여러 환경의 클러스터를 손쉽게 관리하기</title><link>https://stevearsenelee.github.io/docs/infra/kubernetes/context-switch/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://stevearsenelee.github.io/docs/infra/kubernetes/context-switch/</guid><description>&lt;h3 id="1-원격-클러스터의-kubeconfig-받아오기">
+ 1. 원격 클러스터의 kubeconfig 받아오기
+ &lt;a class="anchor" href="#1-%ec%9b%90%ea%b2%a9-%ed%81%b4%eb%9f%ac%ec%8a%a4%ed%84%b0%ec%9d%98-kubeconfig-%eb%b0%9b%ec%95%84%ec%98%a4%ea%b8%b0">#&lt;/a>
+&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>sudo cat /etc/kubernetes/admin.conf
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="2-로컬-파일에-저장-내-경우">
+ 2. 로컬 파일에 저장 내 경우
+ &lt;a class="anchor" href="#2-%eb%a1%9c%ec%bb%ac-%ed%8c%8c%ec%9d%bc%ec%97%90-%ec%a0%80%ec%9e%a5-%eb%82%b4-%ea%b2%bd%ec%9a%b0">#&lt;/a>
+&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>~/kubeconfig
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>|- kubeconfig-cluster1
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>|- kubeconfig-cluster2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>|- ...
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>이런식으로 저장했음.&lt;/p></description></item></channel></rss>

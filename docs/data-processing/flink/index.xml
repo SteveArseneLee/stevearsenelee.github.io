@@ -1,1 +1,44 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Flink on LogLee's Training Ground</title><link>https://stevearsenelee.github.io/docs/data-processing/flink/</link><description>Recent content in Flink on LogLee's Training Ground</description><generator>Hugo -- gohugo.io</generator><language>ko</language><atom:link href="https://stevearsenelee.github.io/docs/data-processing/flink/index.xml" rel="self" type="application/rss+xml"/><item><title>Flink to GCS</title><link>https://stevearsenelee.github.io/docs/data-processing/flink/flink-to-gcs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://stevearsenelee.github.io/docs/data-processing/flink/flink-to-gcs/</guid><description>1. GCP 준비 Bucket 생성 Service account 생성 (최소 권한) Storage Object Admin Storage Object Creator Service account key(Json file) 생성 후 다운로드 2.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Flink on LogLee's Training Ground</title><link>https://stevearsenelee.github.io/docs/data-processing/flink/</link><description>Recent content in Flink on LogLee's Training Ground</description><generator>Hugo</generator><language>ko</language><atom:link href="https://stevearsenelee.github.io/docs/data-processing/flink/index.xml" rel="self" type="application/rss+xml"/><item><title>Flink to GCS</title><link>https://stevearsenelee.github.io/docs/data-processing/flink/flink-to-gcs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://stevearsenelee.github.io/docs/data-processing/flink/flink-to-gcs/</guid><description>&lt;h2 id="1-gcp-준비">
+ 1. GCP 준비
+ &lt;a class="anchor" href="#1-gcp-%ec%a4%80%eb%b9%84">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>Bucket 생성&lt;/li>
+&lt;li>Service account 생성 (최소 권한)
+&lt;ul>
+&lt;li>Storage Object Admin&lt;/li>
+&lt;li>Storage Object Creator&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Service account key(Json file) 생성 후 다운로드&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-k8s-secret-생성">
+ 2. K8s Secret 생성
+ &lt;a class="anchor" href="#2-k8s-secret-%ec%83%9d%ec%84%b1">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>kubectl create secret generic &lt;span style="color:#f92672">{&lt;/span>secret_key_name&lt;span style="color:#f92672">}&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> --from-file&lt;span style="color:#f92672">={&lt;/span>1번에서 발급받은 json파일&lt;span style="color:#f92672">}={&lt;/span>/path/to/your/keyfile.json&lt;span style="color:#f92672">}&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> -n flink
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># e.g.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>kubectl create secret generic gcp-steve-account-key &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> --from-file&lt;span style="color:#f92672">=&lt;/span>squidengineer-25d36a46ab7f.json&lt;span style="color:#f92672">=&lt;/span>/path/to/your/keyfile.json &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> -n flink
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="3-gcs-connector-준비">
+ 3. GCS Connector 준비
+ &lt;a class="anchor" href="#3-gcs-connector-%ec%a4%80%eb%b9%84">#&lt;/a>
+&lt;/h2>
+&lt;h3 id="필요-jar-목록">
+ 필요 JAR 목록
+ &lt;a class="anchor" href="#%ed%95%84%ec%9a%94-jar-%eb%aa%a9%eb%a1%9d">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>flink-gs-fs-hadoop-1.20.1.jar : Flink가 GCS를 지원하는 플러그인&lt;/li>
+&lt;li>gcs-connector-hadoop2-latest.jar : GCS와 HDFS 인터페이스를 연결하는 Google 제공 connector&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>wget https://repo1.maven.org/maven2/org/apache/flink/flink-gs-fs-hadoop/1.20.1/flink-gs-fs-hadoop-1.20.1.jar
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>wget https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-hadoop2-latest.jar
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>참고:&lt;br>
+flink-gs-fs-hadoop은 Flink 1.20 공식 릴리스부터 기본 지원.&lt;br>
+단, 여전히 &amp;ldquo;gcs-connector-hadoop&amp;quot;은 별도 필요함 (GCP 라이브러리).&lt;/p></description></item></channel></rss>

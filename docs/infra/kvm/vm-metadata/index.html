@@ -1,0 +1,293 @@
+<!doctype html><html lang=ko dir=ltr><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="인프라 구성은 다음과 같다.
+
+  Home(192.168.0.19)
+  #
+
+
+  
+      
+          VM명
+          Disk
+          CPU
+          RAM
+          Disk 사이즈
+      
+  
+  
+      
+          ctrl-node
+          /mnt/kvm-pool/ctrl-node.qcow2
+          2
+          2GB
+          40GB
+      
+      
+          k8s-m1
+          /mnt/kvm-pool/k8s-m1.qcow2
+          3
+          8GB
+          30GB
+      
+      
+          k8s-m2
+          /mnt/kvm-pool/k8s-m2.qcow2
+          3
+          8GB
+          30GB
+      
+      
+          k8s-w1
+          /mnt/kvm-pool/k8s-w1.qcow2
+          3
+          16GB
+          50GB + Ceph 100GB
+      
+      
+          k8s-w2
+          /mnt/kvm-pool/k8s-w2.qcow2
+          4
+          16GB
+          50GB + Ceph 100GB
+      
+      
+          총합
+          
+          15
+          50GB
+          
+      
+  
+
+
+  Test(192.168.0.18)
+  #
+
+
+  
+      
+          VM명
+          Disk
+          CPU
+          RAM
+          Disk 사이즈
+      
+  
+  
+      
+          k8s-m3
+          /mnt/kvm-pool/k8s-m3.qcow2
+          4
+          8GB
+          30GB
+      
+      
+          k8s-w3
+          /mnt/kvm-pool/k8s-w3.qcow2
+          4
+          16GB
+          50GB + Ceph 100GB
+      
+      
+          k8s-w4
+          /mnt/kvm-pool/k8s-w4.qcow2
+          4
+          16GB
+          50GB + Ceph 100GB
+      
+      
+          k8s-w5
+          /mnt/kvm-pool/k8s-w5.qcow2
+          4
+          16GB
+          50GB + Ceph 100GB
+      
+      
+          nfs-server
+          /mnt/kvm-pool/nfs.qcow2
+          1
+          2GB
+          30GB + NFS 300GB
+      
+      
+          총합
+          
+          17
+          58GB
+          
+      
+  
+
+
+  IP
+  #
+
+
+  
+      
+          Key
+          Value
+      
+  
+  
+      
+          Subnet
+          192.168.0.0/24
+      
+      
+          Gateway
+          192.168.0.1
+      
+      
+          Name Servers
+          8.8.8.8, 1.1.1.1
+      
+      
+          Search Domains
+          (비워도 무방)
+      
+  
+
+
+  
+      
+          VM 이름
+          Address 입력값(고정 IP)
+          생성 여부
+      
+  
+  
+      
+          ctrl-node
+          192.168.0.100/24
+          O
+      
+      
+          k8s-m1
+          192.168.0.101/24
+          O
+      
+      
+          k8s-m2
+          192.168.0.102/24
+          O
+      
+      
+          k8s-m3
+          192.168.0.103/24
+          O
+      
+      
+          worker
+          
+          
+      
+      
+          k8s-w1
+          192.168.0.111/24
+          O
+      
+      
+          k8s-w2
+          192.168.0.112/24
+          O
+      
+      
+          k8s-w3
+          192.168.0.113/24
+          O
+      
+      
+          k8s-w4
+          192.168.0.114/24
+          O
+      
+      
+          k8s-w5
+          192.168.0.115/24
+          O
+      
+      
+          nfs-server
+          192.168.0.200/24
+          O
+      
+  
+
+
+
+  GPU있는 서버(192.168.0.19)
+  #
+
+
+  
+      
+          VM명
+          Disk
+          CPU
+          RAM
+          Disk 사이즈
+      
+  
+  
+      
+          k8s-w3
+          
+          4
+          20
+          
+      
+      
+          k8s-w4
+          
+          4
+          18
+          
+      
+      
+          k8w-w5
+          
+          4
+          18
+          
+      
+  
+
+총합||16vcpu|62gb|"><meta name=theme-color media="(prefers-color-scheme: light)" content="#ffffff"><meta name=theme-color media="(prefers-color-scheme: dark)" content="#343a40"><meta name=color-scheme content="light dark"><meta property="og:url" content="https://stevearsenelee.github.io/docs/infra/kvm/vm-metadata/"><meta property="og:site_name" content="LogLee's Training Ground"><meta property="og:title" content="Hello"><meta property="og:description" content="인프라 구성은 다음과 같다.
+Home(192.168.0.19) # VM명 Disk CPU RAM Disk 사이즈 ctrl-node /mnt/kvm-pool/ctrl-node.qcow2 2 2GB 40GB k8s-m1 /mnt/kvm-pool/k8s-m1.qcow2 3 8GB 30GB k8s-m2 /mnt/kvm-pool/k8s-m2.qcow2 3 8GB 30GB k8s-w1 /mnt/kvm-pool/k8s-w1.qcow2 3 16GB 50GB + Ceph 100GB k8s-w2 /mnt/kvm-pool/k8s-w2.qcow2 4 16GB 50GB + Ceph 100GB 총합 15 50GB Test(192.168.0.18) # VM명 Disk CPU RAM Disk 사이즈 k8s-m3 /mnt/kvm-pool/k8s-m3.qcow2 4 8GB 30GB k8s-w3 /mnt/kvm-pool/k8s-w3.qcow2 4 16GB 50GB + Ceph 100GB k8s-w4 /mnt/kvm-pool/k8s-w4.qcow2 4 16GB 50GB + Ceph 100GB k8s-w5 /mnt/kvm-pool/k8s-w5.qcow2 4 16GB 50GB + Ceph 100GB nfs-server /mnt/kvm-pool/nfs.qcow2 1 2GB 30GB + NFS 300GB 총합 17 58GB IP # Key Value Subnet 192.168.0.0/24 Gateway 192.168.0.1 Name Servers 8.8.8.8, 1.1.1.1 Search Domains (비워도 무방) VM 이름 Address 입력값(고정 IP) 생성 여부 ctrl-node 192.168.0.100/24 O k8s-m1 192.168.0.101/24 O k8s-m2 192.168.0.102/24 O k8s-m3 192.168.0.103/24 O worker k8s-w1 192.168.0.111/24 O k8s-w2 192.168.0.112/24 O k8s-w3 192.168.0.113/24 O k8s-w4 192.168.0.114/24 O k8s-w5 192.168.0.115/24 O nfs-server 192.168.0.200/24 O GPU있는 서버(192.168.0.19) # VM명 Disk CPU RAM Disk 사이즈 k8s-w3 4 20 k8s-w4 4 18 k8w-w5 4 18 총합||16vcpu|62gb|"><meta property="og:locale" content="ko"><meta property="og:type" content="article"><meta property="article:section" content="docs"><title>Hello | LogLee's Training Ground</title><link rel=icon href=/favicon.png><link rel=manifest href=/manifest.json><link rel=canonical href=https://stevearsenelee.github.io/docs/infra/kvm/vm-metadata/><link rel=stylesheet href=/book.min.27c601ff251cc5c9796bb272aace960013cf351d0c28a7e1301487b32d4800ee.css integrity="sha256-J8YB/yUcxcl5a7Jyqs6WABPPNR0MKKfhMBSHsy1IAO4=" crossorigin=anonymous><script defer src=/fuse.min.js></script><script defer src=/kr.search.min.7140dbbb3a31e44e7a6d32b36e5e961c59c96d72c81702be5d3a5c3914f978f5.js integrity="sha256-cUDbuzox5E56bTKzbl6WHFnJbXLIFwK+XTpcORT5ePU=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/><span>LogLee's Training Ground</span></a></h2><div class="book-search hidden"><input type=text id=book-search-input placeholder aria-label maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><script>document.querySelector(".book-search").classList.remove("hidden")</script><ul><li><input type=checkbox id=section-5483b15f013aff715756b245a63c7416 class=toggle checked>
+<label for=section-5483b15f013aff715756b245a63c7416 class=flex><a role=button class=flex-auto>Infra</a></label><ul><li><input type=checkbox id=section-5731ac0fef6f7099454b909b742e9e58 class=toggle checked>
+<label for=section-5731ac0fef6f7099454b909b742e9e58 class=flex><a role=button class=flex-auto>KVM</a></label><ul></ul></li><li><input type=checkbox id=section-d5cf43c73ccb6d5a17addc2f62e91177 class=toggle>
+<label for=section-d5cf43c73ccb6d5a17addc2f62e91177 class=flex><a role=button class=flex-auto>Kubernetes</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-ea596a8207f484b2fd9fbd72e2e1bf1c class=toggle>
+<label for=section-ea596a8207f484b2fd9fbd72e2e1bf1c class=flex><a role=button class=flex-auto>Data Engineering</a></label><ul><li><input type=checkbox id=section-1183ce6d8f2be334fdc03108c0a2cfba class=toggle>
+<label for=section-1183ce6d8f2be334fdc03108c0a2cfba class=flex><a role=button class=flex-auto>Hadoop</a></label><ul></ul></li><li><input type=checkbox id=section-5caac678f90544e24b016b4a7539e24b class=toggle>
+<label for=section-5caac678f90544e24b016b4a7539e24b class=flex><a role=button class=flex-auto>Modeling</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-3c8f086c067344f708928fa06169d1bc class=toggle>
+<label for=section-3c8f086c067344f708928fa06169d1bc class=flex><a role=button class=flex-auto>Data Integration</a></label><ul><li><input type=checkbox id=section-34f3e6e2651eb10a1adf97d378f3301d class=toggle>
+<label for=section-34f3e6e2651eb10a1adf97d378f3301d class=flex><a role=button class=flex-auto>Kafka</a></label><ul><li><a href=/docs/data-integration/kafka/kafka-basic/>Kafka 심화 개념</a></li><li><a href=/docs/data-integration/kafka/kafka-troubleshooting-optimization/>Kafka 운영 요소</a></li><li><a href=/docs/data-integration/kafka/kafka-data-structure/>Kafka의 데이터 구조</a></li><li><a href=/docs/data-integration/kafka/kafka-storage-performance-test/>Kafka의 성능 측정 (Block storage vs NFS)</a></li><li><a href=/docs/data-integration/kafka/kafka-storage/>Kafka의 저장소</a></li></ul></li></ul></li><li><input type=checkbox id=section-9a063d16261d4e0fadd983de802148cb class=toggle>
+<label for=section-9a063d16261d4e0fadd983de802148cb class=flex><a role=button class=flex-auto>Data Lake Platform</a></label><ul><li><input type=checkbox id=section-bdba02e7c2fcf1deeb1d489b11cef568 class=toggle>
+<label for=section-bdba02e7c2fcf1deeb1d489b11cef568 class=flex><a role=button class=flex-auto>Ceph</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-f26275ca90c448bdc1df6882cd4eea47 class=toggle>
+<label for=section-f26275ca90c448bdc1df6882cd4eea47 class=flex><a role=button class=flex-auto>Data Processing</a></label><ul><li><input type=checkbox id=section-8e97227683411a447eec47bda44d4b6f class=toggle>
+<label for=section-8e97227683411a447eec47bda44d4b6f class=flex><a role=button class=flex-auto>Flink</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-152872188ed3317b43f452df5e4226c1 class=toggle>
+<label for=section-152872188ed3317b43f452df5e4226c1 class=flex><a role=button class=flex-auto>Language</a></label><ul></ul></li><li><input type=checkbox id=section-389cb6c9b7c501207fd2583629e0ccd2 class=toggle>
+<label for=section-389cb6c9b7c501207fd2583629e0ccd2 class=flex><a role=button class=flex-auto>Observability</a></label><ul><li><input type=checkbox id=section-60a993602967a1cbe229ddc8e7ec295a class=toggle>
+<label for=section-60a993602967a1cbe229ddc8e7ec295a class=flex><a role=button class=flex-auto>Logs</a></label><ul></ul></li><li><input type=checkbox id=section-41269a08c1c1fe2e2bccf42f23c8f6a3 class=toggle>
+<label for=section-41269a08c1c1fe2e2bccf42f23c8f6a3 class=flex><a role=button class=flex-auto>Metrics</a></label><ul></ul></li><li><input type=checkbox id=section-b39699ede298acd82fdfad896e4737f8 class=toggle>
+<label for=section-b39699ede298acd82fdfad896e4737f8 class=flex><a role=button class=flex-auto>Traces</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-22b25fbc4326cdf914cf9ef79a9c66d8 class=toggle>
+<label for=section-22b25fbc4326cdf914cf9ef79a9c66d8 class=flex><a role=button class=flex-auto>Others</a></label><ul></ul></li><li><input type=checkbox id=section-b2a2dfe0b9f2adbf2a660ee05ebd19f3 class=toggle>
+<label for=section-b2a2dfe0b9f2adbf2a660ee05ebd19f3 class=flex><a role=button class=flex-auto>알고리즘</a></label><ul><li><input type=checkbox id=section-f132dab283954250d9c6f2c3bc7d8efc class=toggle>
+<label for=section-f132dab283954250d9c6f2c3bc7d8efc class=flex><a role=button class=flex-auto>a-really-important</a></label><ul></ul></li><li><input type=checkbox id=section-7756ae862820220543521857e0c201a9 class=toggle>
+<label for=section-7756ae862820220543521857e0c201a9 class=flex><a role=button class=flex-auto>dp</a></label><ul></ul></li><li><input type=checkbox id=section-8cac082e0c99d75bfee50e46d54330f8 class=toggle>
+<label for=section-8cac082e0c99d75bfee50e46d54330f8 class=flex><a role=button class=flex-auto>sorting</a></label><ul></ul></li><li><input type=checkbox id=section-5feea9f565f463e0491491df523e17a9 class=toggle>
+<label for=section-5feea9f565f463e0491491df523e17a9 class=flex><a role=button class=flex-auto>완전탐색</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-9393384abbb49dd45f8779442b77ef81 class=toggle>
+<label for=section-9393384abbb49dd45f8779442b77ef81 class=flex><a role=button class=flex-auto>컴퓨터이론</a></label><ul><li><input type=checkbox id=section-5305ca2a996441437cc51233a545a831 class=toggle>
+<label for=section-5305ca2a996441437cc51233a545a831 class=flex><a role=button class=flex-auto>네트워크</a></label><ul></ul></li><li><input type=checkbox id=section-fd71069d43979bf6833947a5cfc46d6c class=toggle>
+<label for=section-fd71069d43979bf6833947a5cfc46d6c class=flex><a role=button class=flex-auto>데이터베이스</a></label><ul></ul></li><li><input type=checkbox id=section-630373672b50c72d18fb62b902a77e06 class=toggle>
+<label for=section-630373672b50c72d18fb62b902a77e06 class=flex><a role=button class=flex-auto>디자인패턴</a></label><ul></ul></li><li><input type=checkbox id=section-1566a0f4404fc1aeb9cb72d4c7738fc0 class=toggle>
+<label for=section-1566a0f4404fc1aeb9cb72d4c7738fc0 class=flex><a role=button class=flex-auto>운영체제</a></label><ul></ul></li><li><input type=checkbox id=section-c56a6d7705ad1f75b9cca0be08f5b011 class=toggle>
+<label for=section-c56a6d7705ad1f75b9cca0be08f5b011 class=flex><a role=button class=flex-auto>자료구조</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-403d0567e1e97f27284355de587210ee class=toggle>
+<label for=section-403d0567e1e97f27284355de587210ee class=flex><a role=button class=flex-auto>트러블슈팅</a></label><ul></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label><h3>Hello</h3><label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><ul><li><a href=#home192168019>Home(192.168.0.19)</a></li><li><a href=#test192168018>Test(192.168.0.18)</a></li><li><a href=#ip>IP</a></li><li><a href=#gpu있는-서버192168019>GPU있는 서버(192.168.0.19)</a></li><li><a href=#main192168062>Main(192.168.0.62)</a></li><li><a href=#ip-1>IP</a></li></ul></li></ul></nav></aside></header><article class="markdown book-article"><p>인프라 구성은 다음과 같다.</p><h3 id=home192168019>Home(192.168.0.19)
+<a class=anchor href=#home192168019>#</a></h3><table><thead><tr><th>VM명</th><th>Disk</th><th>CPU</th><th>RAM</th><th>Disk 사이즈</th></tr></thead><tbody><tr><td>ctrl-node</td><td>/mnt/kvm-pool/ctrl-node.qcow2</td><td>2</td><td>2GB</td><td>40GB</td></tr><tr><td>k8s-m1</td><td>/mnt/kvm-pool/k8s-m1.qcow2</td><td>3</td><td>8GB</td><td>30GB</td></tr><tr><td>k8s-m2</td><td>/mnt/kvm-pool/k8s-m2.qcow2</td><td>3</td><td>8GB</td><td>30GB</td></tr><tr><td>k8s-w1</td><td>/mnt/kvm-pool/k8s-w1.qcow2</td><td>3</td><td>16GB</td><td>50GB + Ceph 100GB</td></tr><tr><td>k8s-w2</td><td>/mnt/kvm-pool/k8s-w2.qcow2</td><td>4</td><td>16GB</td><td>50GB + Ceph 100GB</td></tr><tr><td>총합</td><td></td><td>15</td><td>50GB</td><td></td></tr></tbody></table><h3 id=test192168018>Test(192.168.0.18)
+<a class=anchor href=#test192168018>#</a></h3><table><thead><tr><th>VM명</th><th>Disk</th><th>CPU</th><th>RAM</th><th>Disk 사이즈</th></tr></thead><tbody><tr><td>k8s-m3</td><td>/mnt/kvm-pool/k8s-m3.qcow2</td><td>4</td><td>8GB</td><td>30GB</td></tr><tr><td>k8s-w3</td><td>/mnt/kvm-pool/k8s-w3.qcow2</td><td>4</td><td>16GB</td><td>50GB + Ceph 100GB</td></tr><tr><td>k8s-w4</td><td>/mnt/kvm-pool/k8s-w4.qcow2</td><td>4</td><td>16GB</td><td>50GB + Ceph 100GB</td></tr><tr><td>k8s-w5</td><td>/mnt/kvm-pool/k8s-w5.qcow2</td><td>4</td><td>16GB</td><td>50GB + Ceph 100GB</td></tr><tr><td>nfs-server</td><td>/mnt/kvm-pool/nfs.qcow2</td><td>1</td><td>2GB</td><td>30GB + NFS 300GB</td></tr><tr><td>총합</td><td></td><td>17</td><td>58GB</td><td></td></tr></tbody></table><h3 id=ip>IP
+<a class=anchor href=#ip>#</a></h3><table><thead><tr><th>Key</th><th>Value</th></tr></thead><tbody><tr><td>Subnet</td><td>192.168.0.0/24</td></tr><tr><td>Gateway</td><td>192.168.0.1</td></tr><tr><td>Name Servers</td><td>8.8.8.8, 1.1.1.1</td></tr><tr><td>Search Domains</td><td>(비워도 무방)</td></tr></tbody></table><table><thead><tr><th>VM 이름</th><th>Address 입력값(고정 IP)</th><th>생성 여부</th></tr></thead><tbody><tr><td>ctrl-node</td><td>192.168.0.100/24</td><td>O</td></tr><tr><td>k8s-m1</td><td>192.168.0.101/24</td><td>O</td></tr><tr><td>k8s-m2</td><td>192.168.0.102/24</td><td>O</td></tr><tr><td>k8s-m3</td><td>192.168.0.103/24</td><td>O</td></tr><tr><td>worker</td><td></td><td></td></tr><tr><td>k8s-w1</td><td>192.168.0.111/24</td><td>O</td></tr><tr><td>k8s-w2</td><td>192.168.0.112/24</td><td>O</td></tr><tr><td>k8s-w3</td><td>192.168.0.113/24</td><td>O</td></tr><tr><td>k8s-w4</td><td>192.168.0.114/24</td><td>O</td></tr><tr><td>k8s-w5</td><td>192.168.0.115/24</td><td>O</td></tr><tr><td>nfs-server</td><td>192.168.0.200/24</td><td>O</td></tr></tbody></table><hr><h3 id=gpu있는-서버192168019>GPU있는 서버(192.168.0.19)
+<a class=anchor href=#gpu%ec%9e%88%eb%8a%94-%ec%84%9c%eb%b2%84192168019>#</a></h3><table><thead><tr><th>VM명</th><th>Disk</th><th>CPU</th><th>RAM</th><th>Disk 사이즈</th></tr></thead><tbody><tr><td>k8s-w3</td><td></td><td>4</td><td>20</td><td></td></tr><tr><td>k8s-w4</td><td></td><td>4</td><td>18</td><td></td></tr><tr><td>k8w-w5</td><td></td><td>4</td><td>18</td><td></td></tr></tbody></table><p>총합||16vcpu|62gb|</p><h3 id=main192168062>Main(192.168.0.62)
+<a class=anchor href=#main192168062>#</a></h3><table><thead><tr><th>VM명</th><th>Disk</th><th>CPU</th><th>RAM</th><th>Disk 사이즈</th></tr></thead><tbody><tr><td>k8s-m1</td><td></td><td>6</td><td>12GB</td><td>50GB</td></tr><tr><td>k8s-w1</td><td></td><td>6</td><td>20GB</td><td></td></tr><tr><td>k8s-w2</td><td></td><td>6</td><td>20GB</td><td></td></tr></tbody></table><h3 id=ip-1>IP
+<a class=anchor href=#ip-1>#</a></h3><table><thead><tr><th>Key</th><th>Value</th></tr></thead><tbody><tr><td>Subnet</td><td>192.168.0.0/24</td></tr><tr><td>Gateway</td><td>192.168.0.1</td></tr><tr><td>Name Servers</td><td>8.8.8.8, 1.1.1.1</td></tr><tr><td>Search Domains</td><td>(비워도 무방)</td></tr></tbody></table><table><thead><tr><th>VM 이름</th><th>Address 입력값(고정 IP)</th><th>생성 여부</th></tr></thead><tbody><tr><td>ctrl-node</td><td>192.168.0.100/24</td><td>O</td></tr><tr><td>k8s-m1</td><td>192.168.0.101/24</td><td>O</td></tr><tr><td>k8s-m2</td><td>192.168.0.102/24</td><td>O</td></tr><tr><td>k8s-m3</td><td>192.168.0.103/24</td><td>O</td></tr><tr><td>worker</td><td></td><td></td></tr><tr><td>k8s-w1</td><td>192.168.0.111/24</td><td>O</td></tr><tr><td>k8s-w2</td><td>192.168.0.112/24</td><td>O</td></tr><tr><td>k8s-w3</td><td>192.168.0.113/24</td><td>O</td></tr><tr><td>k8s-w4</td><td>192.168.0.114/24</td><td>O</td></tr><tr><td>k8s-w5</td><td>192.168.0.115/24</td><td>O</td></tr><tr><td>nfs-server</td><td>192.168.0.200/24</td><td>O</td></tr></tbody></table></article><footer class=book-footer><div class="flex flex-wrap justify-between"></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><ul><li><a href=#home192168019>Home(192.168.0.19)</a></li><li><a href=#test192168018>Test(192.168.0.18)</a></li><li><a href=#ip>IP</a></li><li><a href=#gpu있는-서버192168019>GPU있는 서버(192.168.0.19)</a></li><li><a href=#main192168062>Main(192.168.0.62)</a></li><li><a href=#ip-1>IP</a></li></ul></li></ul></nav></div></aside></main></body></html>

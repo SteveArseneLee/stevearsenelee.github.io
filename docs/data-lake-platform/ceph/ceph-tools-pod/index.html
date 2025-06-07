@@ -1,0 +1,111 @@
+<!doctype html><html lang=ko dir=ltr><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="ceph가 정상적으로 설치됐다면 다음의 설정들을 추가해준다.
+ceph-tools는 운영자가 다루는 pod라서 따로 추가해줘야한다."><meta name=theme-color media="(prefers-color-scheme: light)" content="#ffffff"><meta name=theme-color media="(prefers-color-scheme: dark)" content="#343a40"><meta name=color-scheme content="light dark"><meta property="og:url" content="https://stevearsenelee.github.io/docs/data-lake-platform/ceph/ceph-tools-pod/"><meta property="og:site_name" content="LogLee's Training Ground"><meta property="og:title" content="Ceph 초기 설정하기"><meta property="og:description" content="ceph가 정상적으로 설치됐다면 다음의 설정들을 추가해준다. ceph-tools는 운영자가 다루는 pod라서 따로 추가해줘야한다."><meta property="og:locale" content="ko"><meta property="og:type" content="article"><meta property="article:section" content="docs"><title>Ceph 초기 설정하기 | LogLee's Training Ground</title><link rel=icon href=/favicon.png><link rel=manifest href=/manifest.json><link rel=canonical href=https://stevearsenelee.github.io/docs/data-lake-platform/ceph/ceph-tools-pod/><link rel=stylesheet href=/book.min.27c601ff251cc5c9796bb272aace960013cf351d0c28a7e1301487b32d4800ee.css integrity="sha256-J8YB/yUcxcl5a7Jyqs6WABPPNR0MKKfhMBSHsy1IAO4=" crossorigin=anonymous><script defer src=/fuse.min.js></script><script defer src=/kr.search.min.7140dbbb3a31e44e7a6d32b36e5e961c59c96d72c81702be5d3a5c3914f978f5.js integrity="sha256-cUDbuzox5E56bTKzbl6WHFnJbXLIFwK+XTpcORT5ePU=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/><span>LogLee's Training Ground</span></a></h2><div class="book-search hidden"><input type=text id=book-search-input placeholder aria-label maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><script>document.querySelector(".book-search").classList.remove("hidden")</script><ul><li><input type=checkbox id=section-5483b15f013aff715756b245a63c7416 class=toggle>
+<label for=section-5483b15f013aff715756b245a63c7416 class=flex><a role=button class=flex-auto>Infra</a></label><ul><li><input type=checkbox id=section-5731ac0fef6f7099454b909b742e9e58 class=toggle>
+<label for=section-5731ac0fef6f7099454b909b742e9e58 class=flex><a role=button class=flex-auto>KVM</a></label><ul></ul></li><li><input type=checkbox id=section-d5cf43c73ccb6d5a17addc2f62e91177 class=toggle>
+<label for=section-d5cf43c73ccb6d5a17addc2f62e91177 class=flex><a role=button class=flex-auto>Kubernetes</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-ea596a8207f484b2fd9fbd72e2e1bf1c class=toggle>
+<label for=section-ea596a8207f484b2fd9fbd72e2e1bf1c class=flex><a role=button class=flex-auto>Data Engineering</a></label><ul><li><input type=checkbox id=section-1183ce6d8f2be334fdc03108c0a2cfba class=toggle>
+<label for=section-1183ce6d8f2be334fdc03108c0a2cfba class=flex><a role=button class=flex-auto>Hadoop</a></label><ul></ul></li><li><input type=checkbox id=section-5caac678f90544e24b016b4a7539e24b class=toggle>
+<label for=section-5caac678f90544e24b016b4a7539e24b class=flex><a role=button class=flex-auto>Modeling</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-3c8f086c067344f708928fa06169d1bc class=toggle>
+<label for=section-3c8f086c067344f708928fa06169d1bc class=flex><a role=button class=flex-auto>Data Integration</a></label><ul><li><input type=checkbox id=section-34f3e6e2651eb10a1adf97d378f3301d class=toggle>
+<label for=section-34f3e6e2651eb10a1adf97d378f3301d class=flex><a role=button class=flex-auto>Kafka</a></label><ul><li><a href=/docs/data-integration/kafka/kafka-basic/>Kafka 심화 개념</a></li><li><a href=/docs/data-integration/kafka/kafka-troubleshooting-optimization/>Kafka 운영 요소</a></li><li><a href=/docs/data-integration/kafka/kafka-data-structure/>Kafka의 데이터 구조</a></li><li><a href=/docs/data-integration/kafka/kafka-storage-performance-test/>Kafka의 성능 측정 (Block storage vs NFS)</a></li><li><a href=/docs/data-integration/kafka/kafka-storage/>Kafka의 저장소</a></li></ul></li></ul></li><li><input type=checkbox id=section-9a063d16261d4e0fadd983de802148cb class=toggle checked>
+<label for=section-9a063d16261d4e0fadd983de802148cb class=flex><a role=button class=flex-auto>Data Lake Platform</a></label><ul><li><input type=checkbox id=section-bdba02e7c2fcf1deeb1d489b11cef568 class=toggle checked>
+<label for=section-bdba02e7c2fcf1deeb1d489b11cef568 class=flex><a role=button class=flex-auto>Ceph</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-f26275ca90c448bdc1df6882cd4eea47 class=toggle>
+<label for=section-f26275ca90c448bdc1df6882cd4eea47 class=flex><a role=button class=flex-auto>Data Processing</a></label><ul><li><input type=checkbox id=section-8e97227683411a447eec47bda44d4b6f class=toggle>
+<label for=section-8e97227683411a447eec47bda44d4b6f class=flex><a role=button class=flex-auto>Flink</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-152872188ed3317b43f452df5e4226c1 class=toggle>
+<label for=section-152872188ed3317b43f452df5e4226c1 class=flex><a role=button class=flex-auto>Language</a></label><ul></ul></li><li><input type=checkbox id=section-389cb6c9b7c501207fd2583629e0ccd2 class=toggle>
+<label for=section-389cb6c9b7c501207fd2583629e0ccd2 class=flex><a role=button class=flex-auto>Observability</a></label><ul><li><input type=checkbox id=section-60a993602967a1cbe229ddc8e7ec295a class=toggle>
+<label for=section-60a993602967a1cbe229ddc8e7ec295a class=flex><a role=button class=flex-auto>Logs</a></label><ul></ul></li><li><input type=checkbox id=section-41269a08c1c1fe2e2bccf42f23c8f6a3 class=toggle>
+<label for=section-41269a08c1c1fe2e2bccf42f23c8f6a3 class=flex><a role=button class=flex-auto>Metrics</a></label><ul></ul></li><li><input type=checkbox id=section-b39699ede298acd82fdfad896e4737f8 class=toggle>
+<label for=section-b39699ede298acd82fdfad896e4737f8 class=flex><a role=button class=flex-auto>Traces</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-22b25fbc4326cdf914cf9ef79a9c66d8 class=toggle>
+<label for=section-22b25fbc4326cdf914cf9ef79a9c66d8 class=flex><a role=button class=flex-auto>Others</a></label><ul></ul></li><li><input type=checkbox id=section-b2a2dfe0b9f2adbf2a660ee05ebd19f3 class=toggle>
+<label for=section-b2a2dfe0b9f2adbf2a660ee05ebd19f3 class=flex><a role=button class=flex-auto>알고리즘</a></label><ul><li><input type=checkbox id=section-f132dab283954250d9c6f2c3bc7d8efc class=toggle>
+<label for=section-f132dab283954250d9c6f2c3bc7d8efc class=flex><a role=button class=flex-auto>a-really-important</a></label><ul></ul></li><li><input type=checkbox id=section-7756ae862820220543521857e0c201a9 class=toggle>
+<label for=section-7756ae862820220543521857e0c201a9 class=flex><a role=button class=flex-auto>dp</a></label><ul></ul></li><li><input type=checkbox id=section-8cac082e0c99d75bfee50e46d54330f8 class=toggle>
+<label for=section-8cac082e0c99d75bfee50e46d54330f8 class=flex><a role=button class=flex-auto>sorting</a></label><ul></ul></li><li><input type=checkbox id=section-5feea9f565f463e0491491df523e17a9 class=toggle>
+<label for=section-5feea9f565f463e0491491df523e17a9 class=flex><a role=button class=flex-auto>완전탐색</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-9393384abbb49dd45f8779442b77ef81 class=toggle>
+<label for=section-9393384abbb49dd45f8779442b77ef81 class=flex><a role=button class=flex-auto>컴퓨터이론</a></label><ul><li><input type=checkbox id=section-5305ca2a996441437cc51233a545a831 class=toggle>
+<label for=section-5305ca2a996441437cc51233a545a831 class=flex><a role=button class=flex-auto>네트워크</a></label><ul></ul></li><li><input type=checkbox id=section-fd71069d43979bf6833947a5cfc46d6c class=toggle>
+<label for=section-fd71069d43979bf6833947a5cfc46d6c class=flex><a role=button class=flex-auto>데이터베이스</a></label><ul></ul></li><li><input type=checkbox id=section-630373672b50c72d18fb62b902a77e06 class=toggle>
+<label for=section-630373672b50c72d18fb62b902a77e06 class=flex><a role=button class=flex-auto>디자인패턴</a></label><ul></ul></li><li><input type=checkbox id=section-1566a0f4404fc1aeb9cb72d4c7738fc0 class=toggle>
+<label for=section-1566a0f4404fc1aeb9cb72d4c7738fc0 class=flex><a role=button class=flex-auto>운영체제</a></label><ul></ul></li><li><input type=checkbox id=section-c56a6d7705ad1f75b9cca0be08f5b011 class=toggle>
+<label for=section-c56a6d7705ad1f75b9cca0be08f5b011 class=flex><a role=button class=flex-auto>자료구조</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-403d0567e1e97f27284355de587210ee class=toggle>
+<label for=section-403d0567e1e97f27284355de587210ee class=flex><a role=button class=flex-auto>트러블슈팅</a></label><ul></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label><h3>Ceph 초기 설정하기</h3><label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><ul><li><a href=#troubleshooting>Troubleshooting</a></li></ul></li></ul></nav></aside></header><article class="markdown book-article"><p>ceph가 정상적으로 설치됐다면 다음의 설정들을 추가해준다.
+ceph-tools는 운영자가 다루는 pod라서 따로 추가해줘야한다.</p><p>rook-ceph-config.yaml</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>ConfigMap</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>rook-ceph-config</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>namespace</span>: <span style=color:#ae81ff>rook-ceph</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>data</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>ceph.conf</span>: |<span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    [global]
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    fsid = cb669020-44b5-4528-bdf8-5f7e082cbf71
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    mon_host = 10.233.41.119,10.233.10.62,10.233.45.253
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    mon_initial_members = a,b,c
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    auth_cluster_required = cephx
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    auth_service_required = cephx
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    auth_client_required = cephx
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    log_to_stderr = false
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    err_to_stderr = false
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    log_to_syslog = false
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    log_to_monitors = true</span>
+</span></span></code></pre></div><ul><li>fsid 값과 mon_host IP는 각 클러스터 환경에 맞게 수정 필요.</li></ul><p>rook-ceph-admin-keyring.yaml</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Secret</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>rook-ceph-admin-keyring</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>namespace</span>: <span style=color:#ae81ff>rook-ceph</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>type</span>: <span style=color:#ae81ff>Opaque</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>stringData</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>ceph.client.admin.keyring</span>: |<span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    [client.admin]
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      key = AQAH+wFonT6EHhAAgGph5NeWPyTTO41HkFOpDg==
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      caps mds = &#34;allow *&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      caps mgr = &#34;allow *&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      caps mon = &#34;allow *&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      caps osd = &#34;allow *&#34;</span>
+</span></span></code></pre></div><ul><li>key = ~ 값은 Ceph Dashboard → Admin 계정 Export로 가져온 값 사용.</li><li>주의: stringData를 써야 Base64 인코딩 없이 바로 적용할 수 있음.<br>=> key 이름 주의: ceph.client.admin.keyring 이 정확히 필요함.</li></ul><details markdown=1><summary>rook-ceph-tools.yaml</summary><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Deployment</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>rook-ceph-tools</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>namespace</span>: <span style=color:#ae81ff>rook-ceph</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>replicas</span>: <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>matchLabels</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>app</span>: <span style=color:#ae81ff>rook-ceph-tools</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>template</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>labels</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>app</span>: <span style=color:#ae81ff>rook-ceph-tools</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>rook-ceph-tools</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>image</span>: <span style=color:#ae81ff>rook/ceph:v1.12.10</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>command</span>: [<span style=color:#e6db74>&#34;/usr/bin/bash&#34;</span>]
+</span></span><span style=display:flex><span>        <span style=color:#f92672>args</span>: [<span style=color:#e6db74>&#34;-c&#34;</span>, <span style=color:#e6db74>&#34;sleep infinity&#34;</span>]
+</span></span><span style=display:flex><span>        <span style=color:#f92672>imagePullPolicy</span>: <span style=color:#ae81ff>IfNotPresent</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>securityContext</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>privileged</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>volumeMounts</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>ceph-conf</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>mountPath</span>: <span style=color:#ae81ff>/etc/ceph</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>volumes</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>ceph-conf</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>projected</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>sources</span>:
+</span></span><span style=display:flex><span>          - <span style=color:#f92672>configMap</span>:
+</span></span><span style=display:flex><span>              <span style=color:#f92672>name</span>: <span style=color:#ae81ff>rook-ceph-config</span>
+</span></span><span style=display:flex><span>              <span style=color:#f92672>items</span>:
+</span></span><span style=display:flex><span>              - <span style=color:#f92672>key</span>: <span style=color:#ae81ff>ceph.conf</span>
+</span></span><span style=display:flex><span>                <span style=color:#f92672>path</span>: <span style=color:#ae81ff>ceph.conf</span>
+</span></span><span style=display:flex><span>          - <span style=color:#f92672>secret</span>:
+</span></span><span style=display:flex><span>              <span style=color:#f92672>name</span>: <span style=color:#ae81ff>rook-ceph-admin-keyring</span>
+</span></span><span style=display:flex><span>              <span style=color:#f92672>items</span>:
+</span></span><span style=display:flex><span>              - <span style=color:#f92672>key</span>: <span style=color:#ae81ff>ceph.client.admin.keyring</span>
+</span></span><span style=display:flex><span>                <span style=color:#f92672>path</span>: <span style=color:#ae81ff>ceph.client.admin.keyring</span>
+</span></span></code></pre></div></details><p>정상 동작 확인 방법</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#ae81ff>kubectl -n rook-ceph exec -it deploy/rook-ceph-tools -- bash</span>
+</span></span></code></pre></div><p>에 들어가서</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>cat /etc/ceph/ceph.conf
+</span></span><span style=display:flex><span>cat /etc/ceph/ceph.client.admin.keyring
+</span></span><span style=display:flex><span>ceph status
+</span></span></code></pre></div><table><thead><tr><th>항목</th><th>설명</th></tr></thead><tbody><tr><td>ConfigMap</td><td>/etc/ceph/ceph.conf 파일을 주입하기 위함</td></tr><tr><td>Secret</td><td>/etc/ceph/ceph.client.admin.keyring 파일을 주입하기 위함</td></tr><tr><td>rook-ceph-tools Deployment</td><td>Toolbox Pod 자체, 위 ConfigMap/Secret을 /etc/ceph에 mount</td></tr></tbody></table><h3 id=troubleshooting>Troubleshooting
+<a class=anchor href=#troubleshooting>#</a></h3><table><thead><tr><th>문제</th><th>원인</th><th>해결 방법</th></tr></thead><tbody><tr><td>RADOS object not found</td><td>ceph.conf, keyring 둘 다 없었음</td><td>ConfigMap, Secret 주입</td></tr><tr><td>Malformed input</td><td>keyring 포맷 문제 (key 값 틀림)</td><td>Dashboard에서 client.admin 내보내기로 key 추출 후 적용</td></tr><tr><td>FailedMount 에러</td><td>key 이름 mismatch (key 대신 ceph.client.admin.keyring)</td><td>Secret 안에 key 이름 수정</td></tr><tr><td>Toolbox ceph status 실패</td><td>config, keyring 둘 중 하나라도 잘못 mount됨</td><td>둘 다 제대로 적용 후 성공</td></tr></tbody></table></article><footer class=book-footer><div class="flex flex-wrap justify-between"></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><ul><li><a href=#troubleshooting>Troubleshooting</a></li></ul></li></ul></nav></div></aside></main></body></html>

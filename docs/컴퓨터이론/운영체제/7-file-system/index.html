@@ -1,0 +1,97 @@
+<!doctype html><html lang=ko dir=ltr><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="
+  1. 파일 시스템의 역할
+  #
+
+
+데이터를 저장하고, 탐색하고, 보호하는 계층
+저장 장치(HDD, SSD 등)의 추상화 계층을 제공
+운영체제는 파일 시스템을 통해 파일/디렉토리를 관리함
+
+
+  2. inode와 디렉터리 구조
+  #
+
+
+  inode (Index Node)
+  #
+
+
+파일의 metadata를 저장하는 구조체
+각 파일은 고유한 inode 번호를 가짐 (inode table에 저장)
+
+
+  
+      
+          포함 정보
+          예시
+      
+  
+  
+      
+          파일 크기
+          512KB
+      
+      
+          생성/수정/접근 시간
+          stat 명령으로 확인
+      
+      
+          접근 권한
+          rwxr-xr–
+      
+      
+          링크 수
+          hard link 개수
+      
+      
+          디스크 블록 위치 정보
+          직접/간접 블록 주소 포함
+      
+  
+
+=> inode는 filename은 저장하지 않음 -> directory entry가 filename과 inode 번호를 매핑"><meta name=theme-color media="(prefers-color-scheme: light)" content="#ffffff"><meta name=theme-color media="(prefers-color-scheme: dark)" content="#343a40"><meta name=color-scheme content="light dark"><meta property="og:url" content="https://stevearsenelee.github.io/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/7-file-system/"><meta property="og:site_name" content="LogLee's Training Ground"><meta property="og:title" content="7. File System"><meta property="og:description" content="1. 파일 시스템의 역할 # 데이터를 저장하고, 탐색하고, 보호하는 계층 저장 장치(HDD, SSD 등)의 추상화 계층을 제공 운영체제는 파일 시스템을 통해 파일/디렉토리를 관리함 2. inode와 디렉터리 구조 # inode (Index Node) # 파일의 metadata를 저장하는 구조체 각 파일은 고유한 inode 번호를 가짐 (inode table에 저장) 포함 정보 예시 파일 크기 512KB 생성/수정/접근 시간 stat 명령으로 확인 접근 권한 rwxr-xr– 링크 수 hard link 개수 디스크 블록 위치 정보 직접/간접 블록 주소 포함 => inode는 filename은 저장하지 않음 -> directory entry가 filename과 inode 번호를 매핑"><meta property="og:locale" content="ko"><meta property="og:type" content="article"><meta property="article:section" content="docs"><title>7. File System | LogLee's Training Ground</title><link rel=icon href=/favicon.png><link rel=manifest href=/manifest.json><link rel=canonical href=https://stevearsenelee.github.io/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/7-file-system/><link rel=stylesheet href=/book.min.27c601ff251cc5c9796bb272aace960013cf351d0c28a7e1301487b32d4800ee.css integrity="sha256-J8YB/yUcxcl5a7Jyqs6WABPPNR0MKKfhMBSHsy1IAO4=" crossorigin=anonymous><script defer src=/fuse.min.js></script><script defer src=/kr.search.min.7140dbbb3a31e44e7a6d32b36e5e961c59c96d72c81702be5d3a5c3914f978f5.js integrity="sha256-cUDbuzox5E56bTKzbl6WHFnJbXLIFwK+XTpcORT5ePU=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/><span>LogLee's Training Ground</span></a></h2><div class="book-search hidden"><input type=text id=book-search-input placeholder aria-label maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><script>document.querySelector(".book-search").classList.remove("hidden")</script><ul><li><input type=checkbox id=section-5483b15f013aff715756b245a63c7416 class=toggle>
+<label for=section-5483b15f013aff715756b245a63c7416 class=flex><a role=button class=flex-auto>Infra</a></label><ul><li><input type=checkbox id=section-5731ac0fef6f7099454b909b742e9e58 class=toggle>
+<label for=section-5731ac0fef6f7099454b909b742e9e58 class=flex><a role=button class=flex-auto>KVM</a></label><ul></ul></li><li><input type=checkbox id=section-d5cf43c73ccb6d5a17addc2f62e91177 class=toggle>
+<label for=section-d5cf43c73ccb6d5a17addc2f62e91177 class=flex><a role=button class=flex-auto>Kubernetes</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-ea596a8207f484b2fd9fbd72e2e1bf1c class=toggle>
+<label for=section-ea596a8207f484b2fd9fbd72e2e1bf1c class=flex><a role=button class=flex-auto>Data Engineering</a></label><ul><li><input type=checkbox id=section-1183ce6d8f2be334fdc03108c0a2cfba class=toggle>
+<label for=section-1183ce6d8f2be334fdc03108c0a2cfba class=flex><a role=button class=flex-auto>Hadoop</a></label><ul></ul></li><li><input type=checkbox id=section-5caac678f90544e24b016b4a7539e24b class=toggle>
+<label for=section-5caac678f90544e24b016b4a7539e24b class=flex><a role=button class=flex-auto>Modeling</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-3c8f086c067344f708928fa06169d1bc class=toggle>
+<label for=section-3c8f086c067344f708928fa06169d1bc class=flex><a role=button class=flex-auto>Data Integration</a></label><ul><li><input type=checkbox id=section-34f3e6e2651eb10a1adf97d378f3301d class=toggle>
+<label for=section-34f3e6e2651eb10a1adf97d378f3301d class=flex><a role=button class=flex-auto>Kafka</a></label><ul><li><a href=/docs/data-integration/kafka/kafka-basic/>Kafka 심화 개념</a></li><li><a href=/docs/data-integration/kafka/kafka-troubleshooting-optimization/>Kafka 운영 요소</a></li><li><a href=/docs/data-integration/kafka/kafka-data-structure/>Kafka의 데이터 구조</a></li><li><a href=/docs/data-integration/kafka/kafka-storage-performance-test/>Kafka의 성능 측정 (Block storage vs NFS)</a></li><li><a href=/docs/data-integration/kafka/kafka-storage/>Kafka의 저장소</a></li></ul></li></ul></li><li><input type=checkbox id=section-9a063d16261d4e0fadd983de802148cb class=toggle>
+<label for=section-9a063d16261d4e0fadd983de802148cb class=flex><a role=button class=flex-auto>Data Lake Platform</a></label><ul><li><input type=checkbox id=section-bdba02e7c2fcf1deeb1d489b11cef568 class=toggle>
+<label for=section-bdba02e7c2fcf1deeb1d489b11cef568 class=flex><a role=button class=flex-auto>Ceph</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-f26275ca90c448bdc1df6882cd4eea47 class=toggle>
+<label for=section-f26275ca90c448bdc1df6882cd4eea47 class=flex><a role=button class=flex-auto>Data Processing</a></label><ul><li><input type=checkbox id=section-8e97227683411a447eec47bda44d4b6f class=toggle>
+<label for=section-8e97227683411a447eec47bda44d4b6f class=flex><a role=button class=flex-auto>Flink</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-152872188ed3317b43f452df5e4226c1 class=toggle>
+<label for=section-152872188ed3317b43f452df5e4226c1 class=flex><a role=button class=flex-auto>Language</a></label><ul></ul></li><li><input type=checkbox id=section-389cb6c9b7c501207fd2583629e0ccd2 class=toggle>
+<label for=section-389cb6c9b7c501207fd2583629e0ccd2 class=flex><a role=button class=flex-auto>Observability</a></label><ul><li><input type=checkbox id=section-60a993602967a1cbe229ddc8e7ec295a class=toggle>
+<label for=section-60a993602967a1cbe229ddc8e7ec295a class=flex><a role=button class=flex-auto>Logs</a></label><ul></ul></li><li><input type=checkbox id=section-41269a08c1c1fe2e2bccf42f23c8f6a3 class=toggle>
+<label for=section-41269a08c1c1fe2e2bccf42f23c8f6a3 class=flex><a role=button class=flex-auto>Metrics</a></label><ul></ul></li><li><input type=checkbox id=section-b39699ede298acd82fdfad896e4737f8 class=toggle>
+<label for=section-b39699ede298acd82fdfad896e4737f8 class=flex><a role=button class=flex-auto>Traces</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-22b25fbc4326cdf914cf9ef79a9c66d8 class=toggle>
+<label for=section-22b25fbc4326cdf914cf9ef79a9c66d8 class=flex><a role=button class=flex-auto>Others</a></label><ul></ul></li><li><input type=checkbox id=section-b2a2dfe0b9f2adbf2a660ee05ebd19f3 class=toggle>
+<label for=section-b2a2dfe0b9f2adbf2a660ee05ebd19f3 class=flex><a role=button class=flex-auto>알고리즘</a></label><ul><li><input type=checkbox id=section-f132dab283954250d9c6f2c3bc7d8efc class=toggle>
+<label for=section-f132dab283954250d9c6f2c3bc7d8efc class=flex><a role=button class=flex-auto>a-really-important</a></label><ul></ul></li><li><input type=checkbox id=section-7756ae862820220543521857e0c201a9 class=toggle>
+<label for=section-7756ae862820220543521857e0c201a9 class=flex><a role=button class=flex-auto>dp</a></label><ul></ul></li><li><input type=checkbox id=section-8cac082e0c99d75bfee50e46d54330f8 class=toggle>
+<label for=section-8cac082e0c99d75bfee50e46d54330f8 class=flex><a role=button class=flex-auto>sorting</a></label><ul></ul></li><li><input type=checkbox id=section-5feea9f565f463e0491491df523e17a9 class=toggle>
+<label for=section-5feea9f565f463e0491491df523e17a9 class=flex><a role=button class=flex-auto>완전탐색</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-9393384abbb49dd45f8779442b77ef81 class=toggle checked>
+<label for=section-9393384abbb49dd45f8779442b77ef81 class=flex><a role=button class=flex-auto>컴퓨터이론</a></label><ul><li><input type=checkbox id=section-5305ca2a996441437cc51233a545a831 class=toggle>
+<label for=section-5305ca2a996441437cc51233a545a831 class=flex><a role=button class=flex-auto>네트워크</a></label><ul></ul></li><li><input type=checkbox id=section-fd71069d43979bf6833947a5cfc46d6c class=toggle>
+<label for=section-fd71069d43979bf6833947a5cfc46d6c class=flex><a role=button class=flex-auto>데이터베이스</a></label><ul></ul></li><li><input type=checkbox id=section-630373672b50c72d18fb62b902a77e06 class=toggle>
+<label for=section-630373672b50c72d18fb62b902a77e06 class=flex><a role=button class=flex-auto>디자인패턴</a></label><ul></ul></li><li><input type=checkbox id=section-1566a0f4404fc1aeb9cb72d4c7738fc0 class=toggle checked>
+<label for=section-1566a0f4404fc1aeb9cb72d4c7738fc0 class=flex><a role=button class=flex-auto>운영체제</a></label><ul></ul></li><li><input type=checkbox id=section-c56a6d7705ad1f75b9cca0be08f5b011 class=toggle>
+<label for=section-c56a6d7705ad1f75b9cca0be08f5b011 class=flex><a role=button class=flex-auto>자료구조</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-403d0567e1e97f27284355de587210ee class=toggle>
+<label for=section-403d0567e1e97f27284355de587210ee class=flex><a role=button class=flex-auto>트러블슈팅</a></label><ul></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label><h3>7. File System</h3><label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#1-파일-시스템의-역할>1. 파일 시스템의 역할</a></li><li><a href=#2-inode와-디렉터리-구조>2. inode와 디렉터리 구조</a><ul><li><a href=#inode-index-node>inode (Index Node)</a></li><li><a href=#디렉터리-구조>디렉터리 구조</a></li></ul></li><li><a href=#3-파일-할당-방식>3. 파일 할당 방식</a><ul><li><a href=#1-연속-할당-continguous-allocation>1) 연속 할당 (Continguous Allocation)</a></li><li><a href=#2-연결-할당-linked-allocation>2) 연결 할당 (Linked Allocation)</a></li><li><a href=#3-인덱스-할당-indexed-allocation>3) 인덱스 할당 (Indexed Allocation)</a></li><li><a href=#unix-inode-구조---직접간접-블록>Unix inode 구조 - 직접/간접 블록</a></li></ul></li><li><a href=#4-파일-접근-권한-및-접근-제어>4. 파일 접근 권한 및 접근 제어</a><ul><li><a href=#unix-퍼미션-구조-rwx>Unix 퍼미션 구조 (rwx)</a></li><li><a href=#접근-제어-확장-acl-capability>접근 제어 확장 (ACL, Capability)</a></li></ul></li><li><a href=#5-실무-예시>5. 실무 예시</a></li><li><a href=#6-자주-묻는-면접-질문>6. 자주 묻는 면접 질문</a></li></ul></nav></aside></header><article class="markdown book-article"><h2 id=1-파일-시스템의-역할>1. 파일 시스템의 역할
+<a class=anchor href=#1-%ed%8c%8c%ec%9d%bc-%ec%8b%9c%ec%8a%a4%ed%85%9c%ec%9d%98-%ec%97%ad%ed%95%a0>#</a></h2><ul><li>데이터를 저장하고, 탐색하고, 보호하는 계층</li><li>저장 장치(HDD, SSD 등)의 추상화 계층을 제공</li><li>운영체제는 파일 시스템을 통해 파일/디렉토리를 관리함</li></ul><h2 id=2-inode와-디렉터리-구조>2. inode와 디렉터리 구조
+<a class=anchor href=#2-inode%ec%99%80-%eb%94%94%eb%a0%89%ed%84%b0%eb%a6%ac-%ea%b5%ac%ec%a1%b0>#</a></h2><h3 id=inode-index-node>inode (Index Node)
+<a class=anchor href=#inode-index-node>#</a></h3><ul><li>파일의 metadata를 저장하는 구조체</li><li>각 파일은 고유한 inode 번호를 가짐 (inode table에 저장)</li></ul><table><thead><tr><th>포함 정보</th><th>예시</th></tr></thead><tbody><tr><td>파일 크기</td><td>512KB</td></tr><tr><td>생성/수정/접근 시간</td><td>stat 명령으로 확인</td></tr><tr><td>접근 권한</td><td>rwxr-xr–</td></tr><tr><td>링크 수</td><td>hard link 개수</td></tr><tr><td>디스크 블록 위치 정보</td><td>직접/간접 블록 주소 포함</td></tr></tbody></table><p>=> inode는 filename은 저장하지 않음 -> directory entry가 filename과 inode 번호를 매핑</p><h3 id=디렉터리-구조>디렉터리 구조
+<a class=anchor href=#%eb%94%94%eb%a0%89%ed%84%b0%eb%a6%ac-%ea%b5%ac%ec%a1%b0>#</a></h3><ul><li>디렉터리 = (파일명 &lt;-> inode 번호)의 목록</li><li>계층적 트리 구조 (/, /home, /home/user/file.txt)</li></ul><h2 id=3-파일-할당-방식>3. 파일 할당 방식
+<a class=anchor href=#3-%ed%8c%8c%ec%9d%bc-%ed%95%a0%eb%8b%b9-%eb%b0%a9%ec%8b%9d>#</a></h2><h3 id=1-연속-할당-continguous-allocation>1) 연속 할당 (Continguous Allocation)
+<a class=anchor href=#1-%ec%97%b0%ec%86%8d-%ed%95%a0%eb%8b%b9-continguous-allocation>#</a></h3><p>연속된 디스크 블록에 파일 저장</p><table><thead><tr><th>장점</th><th>단점</th></tr></thead><tbody><tr><td>빠른 접근</td><td>파일 크기 변경 어려움, 외부 단편화</td></tr></tbody></table><p>-> CD-ROM 등 읽기 전용 미디어에 적합</p><h3 id=2-연결-할당-linked-allocation>2) 연결 할당 (Linked Allocation)
+<a class=anchor href=#2-%ec%97%b0%ea%b2%b0-%ed%95%a0%eb%8b%b9-linked-allocation>#</a></h3><ul><li>각 블록이 다음 블록의 포인터를 포함<table><thead><tr><th>장점</th><th>단점</th></tr></thead><tbody><tr><td>파일 크기 동적 변경 가능</td><td>임의 접근 속도 느림 (랜덤 액세스 불가)</td></tr></tbody></table></li></ul><p>-> FAT (File Allocation Table)이 대표적인 예</p><h3 id=3-인덱스-할당-indexed-allocation>3) 인덱스 할당 (Indexed Allocation)
+<a class=anchor href=#3-%ec%9d%b8%eb%8d%b1%ec%8a%a4-%ed%95%a0%eb%8b%b9-indexed-allocation>#</a></h3><ul><li>별도의 인덱스 블록에 모든 데이터 블록 주소 저장<table><thead><tr><th>장점</th><th>단점</th></tr></thead><tbody><tr><td>빠른 임의 접근</td><td>인덱스 블록의 크기 제한 있음</td></tr></tbody></table></li></ul><p>-> Unix 파일 시스템이 대표적 (inode 내부가 인덱스 역할)</p><h3 id=unix-inode-구조---직접간접-블록>Unix inode 구조 - 직접/간접 블록
+<a class=anchor href=#unix-inode-%ea%b5%ac%ec%a1%b0---%ec%a7%81%ec%a0%91%ea%b0%84%ec%a0%91-%eb%b8%94%eb%a1%9d>#</a></h3><table><thead><tr><th>블록</th><th>설명</th></tr></thead><tbody><tr><td>직접 블록 (0~11)</td><td>바로 데이터 블록 주소</td></tr><tr><td>단일 간접 블록</td><td>포인터 → 데이터 블록 주소들</td></tr><tr><td>이중 간접 블록</td><td>포인터 → 포인터 → 데이터 블록</td></tr><tr><td>삼중 간접 블록</td><td>포인터 ×3 → 매우 큰 파일 지원</td></tr></tbody></table><p>📌 수백 MB ~ 수십 GB 크기 파일도 확장 가능</p><h2 id=4-파일-접근-권한-및-접근-제어>4. 파일 접근 권한 및 접근 제어
+<a class=anchor href=#4-%ed%8c%8c%ec%9d%bc-%ec%a0%91%ea%b7%bc-%ea%b6%8c%ed%95%9c-%eb%b0%8f-%ec%a0%91%ea%b7%bc-%ec%a0%9c%ec%96%b4>#</a></h2><h3 id=unix-퍼미션-구조-rwx>Unix 퍼미션 구조 (rwx)
+<a class=anchor href=#unix-%ed%8d%bc%eb%af%b8%ec%85%98-%ea%b5%ac%ec%a1%b0-rwx>#</a></h3><ul><li>세 그룹으로 분리: 소유자 / 그룹 / 기타 사용자</li><li>각 그룹에 대해 read(r), write(w), execute(x) 권한 부여<table><thead><tr><th>예시</th><th>의미</th></tr></thead><tbody><tr><td>-rwxr-xr&ndash;</td><td>소유자: rwx, 그룹: r-x, 기타: r–</td></tr><tr><td>chmod 755 file</td><td>rwxr-xr-x 권한 설정</td></tr></tbody></table></li></ul><h3 id=접근-제어-확장-acl-capability>접근 제어 확장 (ACL, Capability)
+<a class=anchor href=#%ec%a0%91%ea%b7%bc-%ec%a0%9c%ec%96%b4-%ed%99%95%ec%9e%a5-acl-capability>#</a></h3><ul><li>ACL: 파일별로 사용자마다 세밀한 권한 설정</li><li>Capabilities: 커널에서 수행할 수 있는 동작 단위 권한화</li></ul><h2 id=5-실무-예시>5. 실무 예시
+<a class=anchor href=#5-%ec%8b%a4%eb%ac%b4-%ec%98%88%ec%8b%9c>#</a></h2><table><thead><tr><th>시스템</th><th>특징</th></tr></thead><tbody><tr><td>ext4 (Linux)</td><td>inode 기반, 저널링 지원, 성숙한 안정성</td></tr><tr><td>FAT32 (USB 등)</td><td>연결 할당 방식, 단순하지만 한계 있음</td></tr><tr><td>NTFS (Windows)</td><td>인덱스 + ACL 기반, 대용량/보안 지원</td></tr><tr><td>ZFS / Btrfs</td><td>Copy-on-Write, 스냅샷, 체크섬 포함</td></tr></tbody></table><h2 id=6-자주-묻는-면접-질문>6. 자주 묻는 면접 질문
+<a class=anchor href=#6-%ec%9e%90%ec%a3%bc-%eb%ac%bb%eb%8a%94-%eb%a9%b4%ec%a0%91-%ec%a7%88%eb%ac%b8>#</a></h2><blockquote><p>Q1. inode는 어떤 정보를 가지고 있나요?</p></blockquote><p>A.</p><ul><li>파일의 메타데이터(크기, 생성/수정 시각, 권한, 링크 수, 디스크 블록 위치)를 저장하며, 파일명은 포함되지 않습니다. 파일명은 디렉토리 엔트리에서 inode 번호와 매핑됩니다.</li></ul><blockquote><p>Q2. 연속/연결/인덱스 할당의 차이를 설명해주세요.</p></blockquote><p>A.</p><table><thead><tr><th>방식</th><th>접근 성능</th><th>파일 크기 유연성</th><th>단편화</th></tr></thead><tbody><tr><td>연속</td><td>빠름 (임의 접근 가능)</td><td>낮음</td><td>외부 단편화</td></tr><tr><td>연결</td><td>느림 (순차 접근만)</td><td>높음</td><td>없음</td></tr><tr><td>인덱스</td><td>빠름 (임의 접근 가능)</td><td>높음</td><td>거의 없음</td></tr></tbody></table><blockquote><p>Q3. 대용량 파일을 inode로 어떻게 저장하나요?</p></blockquote><p>A.</p><ul><li>Unix inode는 직접 블록으로 시작하여, 단일 → 이중 → 삼중 간접 블록으로 확장할 수 있으며, 이를 통해 수십 GB까지의 대용량 파일을 관리할 수 있습니다.</li></ul><blockquote><p>Q4. 파일 시스템에서 ‘파일명’은 어디에 저장되나요?</p></blockquote><p>A.</p><ul><li>디렉토리 엔트리에 저장됩니다. 디렉토리는 (파일명 → inode 번호) 매핑 테이블이며, 실제 파일 정보는 해당 inode에 있음.</li></ul></article><footer class=book-footer><div class="flex flex-wrap justify-between"></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#1-파일-시스템의-역할>1. 파일 시스템의 역할</a></li><li><a href=#2-inode와-디렉터리-구조>2. inode와 디렉터리 구조</a><ul><li><a href=#inode-index-node>inode (Index Node)</a></li><li><a href=#디렉터리-구조>디렉터리 구조</a></li></ul></li><li><a href=#3-파일-할당-방식>3. 파일 할당 방식</a><ul><li><a href=#1-연속-할당-continguous-allocation>1) 연속 할당 (Continguous Allocation)</a></li><li><a href=#2-연결-할당-linked-allocation>2) 연결 할당 (Linked Allocation)</a></li><li><a href=#3-인덱스-할당-indexed-allocation>3) 인덱스 할당 (Indexed Allocation)</a></li><li><a href=#unix-inode-구조---직접간접-블록>Unix inode 구조 - 직접/간접 블록</a></li></ul></li><li><a href=#4-파일-접근-권한-및-접근-제어>4. 파일 접근 권한 및 접근 제어</a><ul><li><a href=#unix-퍼미션-구조-rwx>Unix 퍼미션 구조 (rwx)</a></li><li><a href=#접근-제어-확장-acl-capability>접근 제어 확장 (ACL, Capability)</a></li></ul></li><li><a href=#5-실무-예시>5. 실무 예시</a></li><li><a href=#6-자주-묻는-면접-질문>6. 자주 묻는 면접 질문</a></li></ul></nav></div></aside></main></body></html>

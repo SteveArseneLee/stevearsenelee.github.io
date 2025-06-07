@@ -1,0 +1,193 @@
+<!doctype html><html lang=ko dir=ltr><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="
+  1. 정의
+  #
+
+
+  프로세스 (Process)
+  #
+
+
+실행 중인 프로그램의 인스턴스
+운영체제로부터 독립된 메모리 공간, 자원을 할당받음
+자체 주소 공간, 코드 영역, 데이터, 힙, 스택을 가짐
+각 프로세스는 **PCB(Process Control Block)**로 커널이 관리
+
+
+  스레드 (Thread)
+  #
+
+
+프로세스 내부에서 실행되는 작업의 흐름 단위
+코드, 데이터, 힙, 파일 디스크립터 등을 프로세스 내 다른 스레드와 공유
+스택과 레지스터는 독립적으로 가짐
+**TCB(Thread Control Block)**로 커널/라이브러리가 관리
+
+
+  2. 구조 및 차이점
+  #
+
+
+  
+      
+          항목
+          프로세스
+          스레드
+      
+  
+  
+      
+          정의
+          실행 중인 프로그램의 인스턴스
+          프로세스 내 작업 흐름 단위
+      
+      
+          메모리 구조
+          코드, 데이터, 힙, 스택 모두 독립
+          스택만 독립, 나머지 공유
+      
+      
+          자원 공유
+          없음 (IPC 필요)
+          있음 (공유 메모리 기반)
+      
+      
+          생성 비용
+          큼 (fork)
+          작음 (pthread_create)
+      
+      
+          컨텍스트 스위칭
+          주소 공간 전환 포함 → 비용 큼
+          주소 공간 공유 → 비용 적음
+      
+      
+          안정성
+          다른 프로세스에 영향 없음
+          하나의 오류가 전체에 영향 가능
+      
+  
+
+
+  3. Context Switching
+  #
+
+
+CPU가 실행 중인 작업을 중단하고 다른 실행 단위로 전환하는 과정
+필요한 정보: PC, 레지스터, 스택 포인터 등
+스레드 간 전환은 주소 공간이 같아 빠르지만, 동기화 문제 발생 가능
+프로세스 간 전환은 보호는 뛰어나지만, 오버헤드 큼
+
+
+  4. 실무 활용 예시
+  #
+
+
+  
+      
+          분야
+          설명
+      
+  
+  
+      
+          웹 서버
+          Nginx, Tomcat 등은 클라이언트 요청을 스레드 단위로 분리 처리 (스레드 풀 기반)
+      
+      
+          브라우저
+          Chrome: 탭은 프로세스, 탭 내 동작은 스레드로 분리 (안정성과 병렬성 모두 확보)
+      
+      
+          멀티코어 CPU 활용
+          Python은 GIL로 멀티 스레딩 성능 한계 → 멀티프로세싱 사용 (예: multiprocessing 모듈)
+      
+      
+          게임 엔진
+          렌더링/네트워크/물리 계산을 개별 스레드로 병렬 처리
+      
+  
+
+
+  5. 관련 명령어 및 실습
+  #
+
+
+  
+      
+          명령어
+          설명
+      
+  
+  
+      
+          ps -ef, top
+          현재 실행 중인 프로세스 확인
+      
+      
+          htop
+          F2 → Threads 표시 옵션으로 스레드 확인
+      
+      
+          strace -p 
+          해당 프로세스의 시스템 콜 흐름 추적
+      
+      
+          pthread_create()
+          POSIX 스레드 생성 (C/C++)
+      
+      
+          java.lang.Thread, Runnable
+          Java에서의 스레드 작성 방식
+      
+  
+
+
+  6. 자주 묻는 면접 질문
+  #
+
+
+Q1. 프로세스와 스레드의 차이를 설명해주세요."><meta name=theme-color media="(prefers-color-scheme: light)" content="#ffffff"><meta name=theme-color media="(prefers-color-scheme: dark)" content="#343a40"><meta name=color-scheme content="light dark"><meta property="og:url" content="https://stevearsenelee.github.io/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/1-process-thread/"><meta property="og:site_name" content="LogLee's Training Ground"><meta property="og:title" content="1. Process & Thread"><meta property="og:description" content="1. 정의 # 프로세스 (Process) # 실행 중인 프로그램의 인스턴스 운영체제로부터 독립된 메모리 공간, 자원을 할당받음 자체 주소 공간, 코드 영역, 데이터, 힙, 스택을 가짐 각 프로세스는 **PCB(Process Control Block)**로 커널이 관리 스레드 (Thread) # 프로세스 내부에서 실행되는 작업의 흐름 단위 코드, 데이터, 힙, 파일 디스크립터 등을 프로세스 내 다른 스레드와 공유 스택과 레지스터는 독립적으로 가짐 **TCB(Thread Control Block)**로 커널/라이브러리가 관리 2. 구조 및 차이점 # 항목 프로세스 스레드 정의 실행 중인 프로그램의 인스턴스 프로세스 내 작업 흐름 단위 메모리 구조 코드, 데이터, 힙, 스택 모두 독립 스택만 독립, 나머지 공유 자원 공유 없음 (IPC 필요) 있음 (공유 메모리 기반) 생성 비용 큼 (fork) 작음 (pthread_create) 컨텍스트 스위칭 주소 공간 전환 포함 → 비용 큼 주소 공간 공유 → 비용 적음 안정성 다른 프로세스에 영향 없음 하나의 오류가 전체에 영향 가능 3. Context Switching # CPU가 실행 중인 작업을 중단하고 다른 실행 단위로 전환하는 과정 필요한 정보: PC, 레지스터, 스택 포인터 등 스레드 간 전환은 주소 공간이 같아 빠르지만, 동기화 문제 발생 가능 프로세스 간 전환은 보호는 뛰어나지만, 오버헤드 큼 4. 실무 활용 예시 # 분야 설명 웹 서버 Nginx, Tomcat 등은 클라이언트 요청을 스레드 단위로 분리 처리 (스레드 풀 기반) 브라우저 Chrome: 탭은 프로세스, 탭 내 동작은 스레드로 분리 (안정성과 병렬성 모두 확보) 멀티코어 CPU 활용 Python은 GIL로 멀티 스레딩 성능 한계 → 멀티프로세싱 사용 (예: multiprocessing 모듈) 게임 엔진 렌더링/네트워크/물리 계산을 개별 스레드로 병렬 처리 5. 관련 명령어 및 실습 # 명령어 설명 ps -ef, top 현재 실행 중인 프로세스 확인 htop F2 → Threads 표시 옵션으로 스레드 확인 strace -p 해당 프로세스의 시스템 콜 흐름 추적 pthread_create() POSIX 스레드 생성 (C/C++) java.lang.Thread, Runnable Java에서의 스레드 작성 방식 6. 자주 묻는 면접 질문 # Q1. 프로세스와 스레드의 차이를 설명해주세요."><meta property="og:locale" content="ko"><meta property="og:type" content="article"><meta property="article:section" content="docs"><title>1. Process & Thread | LogLee's Training Ground</title><link rel=icon href=/favicon.png><link rel=manifest href=/manifest.json><link rel=canonical href=https://stevearsenelee.github.io/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/1-process-thread/><link rel=stylesheet href=/book.min.27c601ff251cc5c9796bb272aace960013cf351d0c28a7e1301487b32d4800ee.css integrity="sha256-J8YB/yUcxcl5a7Jyqs6WABPPNR0MKKfhMBSHsy1IAO4=" crossorigin=anonymous><script defer src=/fuse.min.js></script><script defer src=/kr.search.min.7140dbbb3a31e44e7a6d32b36e5e961c59c96d72c81702be5d3a5c3914f978f5.js integrity="sha256-cUDbuzox5E56bTKzbl6WHFnJbXLIFwK+XTpcORT5ePU=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/><span>LogLee's Training Ground</span></a></h2><div class="book-search hidden"><input type=text id=book-search-input placeholder aria-label maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><script>document.querySelector(".book-search").classList.remove("hidden")</script><ul><li><input type=checkbox id=section-5483b15f013aff715756b245a63c7416 class=toggle>
+<label for=section-5483b15f013aff715756b245a63c7416 class=flex><a role=button class=flex-auto>Infra</a></label><ul><li><input type=checkbox id=section-5731ac0fef6f7099454b909b742e9e58 class=toggle>
+<label for=section-5731ac0fef6f7099454b909b742e9e58 class=flex><a role=button class=flex-auto>KVM</a></label><ul></ul></li><li><input type=checkbox id=section-d5cf43c73ccb6d5a17addc2f62e91177 class=toggle>
+<label for=section-d5cf43c73ccb6d5a17addc2f62e91177 class=flex><a role=button class=flex-auto>Kubernetes</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-ea596a8207f484b2fd9fbd72e2e1bf1c class=toggle>
+<label for=section-ea596a8207f484b2fd9fbd72e2e1bf1c class=flex><a role=button class=flex-auto>Data Engineering</a></label><ul><li><input type=checkbox id=section-1183ce6d8f2be334fdc03108c0a2cfba class=toggle>
+<label for=section-1183ce6d8f2be334fdc03108c0a2cfba class=flex><a role=button class=flex-auto>Hadoop</a></label><ul></ul></li><li><input type=checkbox id=section-5caac678f90544e24b016b4a7539e24b class=toggle>
+<label for=section-5caac678f90544e24b016b4a7539e24b class=flex><a role=button class=flex-auto>Modeling</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-3c8f086c067344f708928fa06169d1bc class=toggle>
+<label for=section-3c8f086c067344f708928fa06169d1bc class=flex><a role=button class=flex-auto>Data Integration</a></label><ul><li><input type=checkbox id=section-34f3e6e2651eb10a1adf97d378f3301d class=toggle>
+<label for=section-34f3e6e2651eb10a1adf97d378f3301d class=flex><a role=button class=flex-auto>Kafka</a></label><ul><li><a href=/docs/data-integration/kafka/kafka-basic/>Kafka 심화 개념</a></li><li><a href=/docs/data-integration/kafka/kafka-troubleshooting-optimization/>Kafka 운영 요소</a></li><li><a href=/docs/data-integration/kafka/kafka-data-structure/>Kafka의 데이터 구조</a></li><li><a href=/docs/data-integration/kafka/kafka-storage-performance-test/>Kafka의 성능 측정 (Block storage vs NFS)</a></li><li><a href=/docs/data-integration/kafka/kafka-storage/>Kafka의 저장소</a></li></ul></li></ul></li><li><input type=checkbox id=section-9a063d16261d4e0fadd983de802148cb class=toggle>
+<label for=section-9a063d16261d4e0fadd983de802148cb class=flex><a role=button class=flex-auto>Data Lake Platform</a></label><ul><li><input type=checkbox id=section-bdba02e7c2fcf1deeb1d489b11cef568 class=toggle>
+<label for=section-bdba02e7c2fcf1deeb1d489b11cef568 class=flex><a role=button class=flex-auto>Ceph</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-f26275ca90c448bdc1df6882cd4eea47 class=toggle>
+<label for=section-f26275ca90c448bdc1df6882cd4eea47 class=flex><a role=button class=flex-auto>Data Processing</a></label><ul><li><input type=checkbox id=section-8e97227683411a447eec47bda44d4b6f class=toggle>
+<label for=section-8e97227683411a447eec47bda44d4b6f class=flex><a role=button class=flex-auto>Flink</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-152872188ed3317b43f452df5e4226c1 class=toggle>
+<label for=section-152872188ed3317b43f452df5e4226c1 class=flex><a role=button class=flex-auto>Language</a></label><ul></ul></li><li><input type=checkbox id=section-389cb6c9b7c501207fd2583629e0ccd2 class=toggle>
+<label for=section-389cb6c9b7c501207fd2583629e0ccd2 class=flex><a role=button class=flex-auto>Observability</a></label><ul><li><input type=checkbox id=section-60a993602967a1cbe229ddc8e7ec295a class=toggle>
+<label for=section-60a993602967a1cbe229ddc8e7ec295a class=flex><a role=button class=flex-auto>Logs</a></label><ul></ul></li><li><input type=checkbox id=section-41269a08c1c1fe2e2bccf42f23c8f6a3 class=toggle>
+<label for=section-41269a08c1c1fe2e2bccf42f23c8f6a3 class=flex><a role=button class=flex-auto>Metrics</a></label><ul></ul></li><li><input type=checkbox id=section-b39699ede298acd82fdfad896e4737f8 class=toggle>
+<label for=section-b39699ede298acd82fdfad896e4737f8 class=flex><a role=button class=flex-auto>Traces</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-22b25fbc4326cdf914cf9ef79a9c66d8 class=toggle>
+<label for=section-22b25fbc4326cdf914cf9ef79a9c66d8 class=flex><a role=button class=flex-auto>Others</a></label><ul></ul></li><li><input type=checkbox id=section-b2a2dfe0b9f2adbf2a660ee05ebd19f3 class=toggle>
+<label for=section-b2a2dfe0b9f2adbf2a660ee05ebd19f3 class=flex><a role=button class=flex-auto>알고리즘</a></label><ul><li><input type=checkbox id=section-f132dab283954250d9c6f2c3bc7d8efc class=toggle>
+<label for=section-f132dab283954250d9c6f2c3bc7d8efc class=flex><a role=button class=flex-auto>a-really-important</a></label><ul></ul></li><li><input type=checkbox id=section-7756ae862820220543521857e0c201a9 class=toggle>
+<label for=section-7756ae862820220543521857e0c201a9 class=flex><a role=button class=flex-auto>dp</a></label><ul></ul></li><li><input type=checkbox id=section-8cac082e0c99d75bfee50e46d54330f8 class=toggle>
+<label for=section-8cac082e0c99d75bfee50e46d54330f8 class=flex><a role=button class=flex-auto>sorting</a></label><ul></ul></li><li><input type=checkbox id=section-5feea9f565f463e0491491df523e17a9 class=toggle>
+<label for=section-5feea9f565f463e0491491df523e17a9 class=flex><a role=button class=flex-auto>완전탐색</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-9393384abbb49dd45f8779442b77ef81 class=toggle checked>
+<label for=section-9393384abbb49dd45f8779442b77ef81 class=flex><a role=button class=flex-auto>컴퓨터이론</a></label><ul><li><input type=checkbox id=section-5305ca2a996441437cc51233a545a831 class=toggle>
+<label for=section-5305ca2a996441437cc51233a545a831 class=flex><a role=button class=flex-auto>네트워크</a></label><ul></ul></li><li><input type=checkbox id=section-fd71069d43979bf6833947a5cfc46d6c class=toggle>
+<label for=section-fd71069d43979bf6833947a5cfc46d6c class=flex><a role=button class=flex-auto>데이터베이스</a></label><ul></ul></li><li><input type=checkbox id=section-630373672b50c72d18fb62b902a77e06 class=toggle>
+<label for=section-630373672b50c72d18fb62b902a77e06 class=flex><a role=button class=flex-auto>디자인패턴</a></label><ul></ul></li><li><input type=checkbox id=section-1566a0f4404fc1aeb9cb72d4c7738fc0 class=toggle checked>
+<label for=section-1566a0f4404fc1aeb9cb72d4c7738fc0 class=flex><a role=button class=flex-auto>운영체제</a></label><ul></ul></li><li><input type=checkbox id=section-c56a6d7705ad1f75b9cca0be08f5b011 class=toggle>
+<label for=section-c56a6d7705ad1f75b9cca0be08f5b011 class=flex><a role=button class=flex-auto>자료구조</a></label><ul></ul></li></ul></li><li><input type=checkbox id=section-403d0567e1e97f27284355de587210ee class=toggle>
+<label for=section-403d0567e1e97f27284355de587210ee class=flex><a role=button class=flex-auto>트러블슈팅</a></label><ul></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label><h3>1. Process & Thread</h3><label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#1-정의>1. 정의</a><ul><li><a href=#프로세스-process>프로세스 (Process)</a></li><li><a href=#스레드-thread>스레드 (Thread)</a></li></ul></li><li><a href=#2-구조-및-차이점>2. 구조 및 차이점</a></li><li><a href=#3-context-switching>3. Context Switching</a></li><li><a href=#4-실무-활용-예시>4. 실무 활용 예시</a></li><li><a href=#5-관련-명령어-및-실습>5. 관련 명령어 및 실습</a></li><li><a href=#6-자주-묻는-면접-질문>6. 자주 묻는 면접 질문</a></li></ul></nav></aside></header><article class="markdown book-article"><h2 id=1-정의>1. 정의
+<a class=anchor href=#1-%ec%a0%95%ec%9d%98>#</a></h2><h3 id=프로세스-process>프로세스 (Process)
+<a class=anchor href=#%ed%94%84%eb%a1%9c%ec%84%b8%ec%8a%a4-process>#</a></h3><ul><li>실행 중인 프로그램의 인스턴스</li><li>운영체제로부터 독립된 메모리 공간, 자원을 할당받음</li><li>자체 주소 공간, 코드 영역, 데이터, 힙, 스택을 가짐</li><li>각 프로세스는 **PCB(Process Control Block)**로 커널이 관리</li></ul><h3 id=스레드-thread>스레드 (Thread)
+<a class=anchor href=#%ec%8a%a4%eb%a0%88%eb%93%9c-thread>#</a></h3><ul><li>프로세스 내부에서 실행되는 작업의 흐름 단위</li><li>코드, 데이터, 힙, 파일 디스크립터 등을 프로세스 내 다른 스레드와 공유</li><li>스택과 레지스터는 독립적으로 가짐</li><li>**TCB(Thread Control Block)**로 커널/라이브러리가 관리</li></ul><h2 id=2-구조-및-차이점>2. 구조 및 차이점
+<a class=anchor href=#2-%ea%b5%ac%ec%a1%b0-%eb%b0%8f-%ec%b0%a8%ec%9d%b4%ec%a0%90>#</a></h2><table><thead><tr><th>항목</th><th>프로세스</th><th>스레드</th></tr></thead><tbody><tr><td>정의</td><td>실행 중인 프로그램의 인스턴스</td><td>프로세스 내 작업 흐름 단위</td></tr><tr><td>메모리 구조</td><td>코드, 데이터, 힙, 스택 모두 독립</td><td>스택만 독립, 나머지 공유</td></tr><tr><td>자원 공유</td><td>없음 (IPC 필요)</td><td>있음 (공유 메모리 기반)</td></tr><tr><td>생성 비용</td><td>큼 (fork)</td><td>작음 (pthread_create)</td></tr><tr><td>컨텍스트 스위칭</td><td>주소 공간 전환 포함 → 비용 큼</td><td>주소 공간 공유 → 비용 적음</td></tr><tr><td>안정성</td><td>다른 프로세스에 영향 없음</td><td>하나의 오류가 전체에 영향 가능</td></tr></tbody></table><h2 id=3-context-switching>3. Context Switching
+<a class=anchor href=#3-context-switching>#</a></h2><ul><li>CPU가 실행 중인 작업을 중단하고 다른 실행 단위로 전환하는 과정</li><li>필요한 정보: PC, 레지스터, 스택 포인터 등</li><li>스레드 간 전환은 주소 공간이 같아 빠르지만, 동기화 문제 발생 가능</li><li>프로세스 간 전환은 보호는 뛰어나지만, 오버헤드 큼</li></ul><h2 id=4-실무-활용-예시>4. 실무 활용 예시
+<a class=anchor href=#4-%ec%8b%a4%eb%ac%b4-%ed%99%9c%ec%9a%a9-%ec%98%88%ec%8b%9c>#</a></h2><table><thead><tr><th>분야</th><th>설명</th></tr></thead><tbody><tr><td>웹 서버</td><td>Nginx, Tomcat 등은 클라이언트 요청을 스레드 단위로 분리 처리 (스레드 풀 기반)</td></tr><tr><td>브라우저</td><td>Chrome: 탭은 프로세스, 탭 내 동작은 스레드로 분리 (안정성과 병렬성 모두 확보)</td></tr><tr><td>멀티코어 CPU 활용</td><td>Python은 GIL로 멀티 스레딩 성능 한계 → 멀티프로세싱 사용 (예: multiprocessing 모듈)</td></tr><tr><td>게임 엔진</td><td>렌더링/네트워크/물리 계산을 개별 스레드로 병렬 처리</td></tr></tbody></table><h2 id=5-관련-명령어-및-실습>5. 관련 명령어 및 실습
+<a class=anchor href=#5-%ea%b4%80%eb%a0%a8-%eb%aa%85%eb%a0%b9%ec%96%b4-%eb%b0%8f-%ec%8b%a4%ec%8a%b5>#</a></h2><table><thead><tr><th>명령어</th><th>설명</th></tr></thead><tbody><tr><td>ps -ef, top</td><td>현재 실행 중인 프로세스 확인</td></tr><tr><td>htop</td><td>F2 → Threads 표시 옵션으로 스레드 확인</td></tr><tr><td>strace -p <pid></td><td>해당 프로세스의 시스템 콜 흐름 추적</td></tr><tr><td>pthread_create()</td><td>POSIX 스레드 생성 (C/C++)</td></tr><tr><td>java.lang.Thread, Runnable</td><td>Java에서의 스레드 작성 방식</td></tr></tbody></table><h2 id=6-자주-묻는-면접-질문>6. 자주 묻는 면접 질문
+<a class=anchor href=#6-%ec%9e%90%ec%a3%bc-%eb%ac%bb%eb%8a%94-%eb%a9%b4%ec%a0%91-%ec%a7%88%eb%ac%b8>#</a></h2><blockquote><p>Q1. 프로세스와 스레드의 차이를 설명해주세요.</p></blockquote><p>A.
+프로세스는 실행 중인 프로그램의 독립적인 단위로, 운영체제로부터 별도의 메모리 공간을 할당받는다. 반면, 스레드는 프로세스 내부에서 실행되는 흐름 단위로, 같은 프로세스의 다른 스레드들과 메모리 공간을 공유한다.</p><table><thead><tr><th>항목</th><th>프로세스</th><th>스레드</th></tr></thead><tbody><tr><td>메모리 공간</td><td>독립 (코드, 데이터, 힙, 스택)</td><td>스택만 독립, 나머지 공유</td></tr><tr><td>생성 비용</td><td>상대적으로 높음</td><td>가벼움 (빠른 생성, 스위칭)</td></tr><tr><td>통신 방식</td><td>IPC 필요</td><td>공유 메모리로 빠름</td></tr></tbody></table><p>-> 스레드는 비용이 적고 통신이 빠르지만, 하나가 문제를 일으키면 전체 프로세스에 영향을 줄 수 있어 동기화와 예외 처리가 중요합니다.</p><blockquote><p>Q2. 하나의 스레드가 죽으면 전체 프로세스에 어떤 영향을 주나요?</p></blockquote><p>A.
+스레드는 동일한 프로세스 공간 내에서 자원을 공유하기 때문에, 하나의 스레드에서 예외가 발생하거나 메모리를 오염시키면, 전체 프로세스가 비정상적으로 종료될 수 있다.
+예를 들어, Java에서 한 스레드가 NullPointerException으로 죽을 경우, 예외 처리를 하지 않으면 전체 애플리케이션이 종료된다.
+이를 방지하기 위해 try-catch, uncaughtExceptionHandler, 또는 서킷 브레이커 같은 전략을 사용한다.</p><blockquote><p>Q3. 멀티 프로세싱과 멀티 스레딩 중 언제 어떤 것을 선택할 건가요?</p></blockquote><p>A.</p><ul><li>멀티 스레딩: I/O 중심 작업, 웹 서버 등 빠른 응답이 중요하고, 자원 공유가 필요한 경우</li><li>멀티 프로세싱: 계산 집약적(CPU-bound) 작업, 병렬 처리에 적합. 예: 이미지 처리, 머신러닝 학습</li></ul><p>특히 Python은 GIL(Global Interpreter Lock) 때문에 CPU-bound 작업은 멀티 프로세싱이 더 적합히다.
+반대로 Java나 Go 같은 언어는 멀티 스레딩이 강력하게 지원된다.</p></article><footer class=book-footer><div class="flex flex-wrap justify-between"></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#1-정의>1. 정의</a><ul><li><a href=#프로세스-process>프로세스 (Process)</a></li><li><a href=#스레드-thread>스레드 (Thread)</a></li></ul></li><li><a href=#2-구조-및-차이점>2. 구조 및 차이점</a></li><li><a href=#3-context-switching>3. Context Switching</a></li><li><a href=#4-실무-활용-예시>4. 실무 활용 예시</a></li><li><a href=#5-관련-명령어-및-실습>5. 관련 명령어 및 실습</a></li><li><a href=#6-자주-묻는-면접-질문>6. 자주 묻는 면접 질문</a></li></ul></nav></div></aside></main></body></html>

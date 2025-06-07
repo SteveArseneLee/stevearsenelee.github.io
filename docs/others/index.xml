@@ -1,1 +1,17 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Others on LogLee's Training Ground</title><link>https://stevearsenelee.github.io/docs/others/</link><description>Recent content in Others on LogLee's Training Ground</description><generator>Hugo -- gohugo.io</generator><language>ko</language><atom:link href="https://stevearsenelee.github.io/docs/others/index.xml" rel="self" type="application/rss+xml"/><item><title>Todo List</title><link>https://stevearsenelee.github.io/docs/others/todolist/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://stevearsenelee.github.io/docs/others/todolist/</guid><description>Todo&amp;hellip; Ingress 설정 Test Kafka 올리기 Done Ceph 올리기</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Others on LogLee's Training Ground</title><link>https://stevearsenelee.github.io/docs/others/</link><description>Recent content in Others on LogLee's Training Ground</description><generator>Hugo</generator><language>ko</language><atom:link href="https://stevearsenelee.github.io/docs/others/index.xml" rel="self" type="application/rss+xml"/><item><title>Todo List</title><link>https://stevearsenelee.github.io/docs/others/todolist/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://stevearsenelee.github.io/docs/others/todolist/</guid><description>&lt;h2 id="todo">
+ Todo&amp;hellip;
+ &lt;a class="anchor" href="#todo">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;input disabled="" type="checkbox"> Ingress 설정&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Test&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Kafka 올리기&lt;/li>
+&lt;/ul>
+&lt;h2 id="done">
+ Done
+ &lt;a class="anchor" href="#done">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Ceph 올리기&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> &lt;/li>
+&lt;/ul></description></item></channel></rss>
