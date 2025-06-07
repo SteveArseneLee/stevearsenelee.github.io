@@ -10,7 +10,7 @@ theme = "book"
 
 [params]
   BookTheme = "auto"
-  BookSection = ""
+  BookSection = "docs"
   BookSearch = true
   BookToC = true
 
