@@ -1,4 +1,3 @@
-복사
 +++
 title = "LogLee's Tech Hub"
 description = "Where code meets craft, and logs tell stories."
