@@ -101,7 +101,7 @@
   </url><url>
     <loc>http://localhost:1313/docs/infra/kvm/storage-settings/</loc>
   </url><url>
-    <loc>http://localhost:1313/docs/language/</loc>
+    <loc>http://localhost:1313/docs/programming-languages/</loc>
   </url><url>
     <loc>http://localhost:1313/docs/observability/logs/</loc>
   </url><url>
@@ -110,8 +110,6 @@
     <loc>http://localhost:1313/docs/data-engineering/modeling/</loc>
   </url><url>
     <loc>http://localhost:1313/docs/observability/</loc>
-  </url><url>
-    <loc>http://localhost:1313/docs/others/</loc>
   </url><url>
     <loc>http://localhost:1313/docs/observability/metrics/prom-test/</loc>
   </url><url>
@@ -122,8 +120,6 @@
     <loc>http://localhost:1313/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/test/</loc>
   </url><url>
     <loc>http://localhost:1313/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EB%94%94%EC%9E%90%EC%9D%B8%ED%8C%A8%ED%84%B4/test/</loc>
-  </url><url>
-    <loc>http://localhost:1313/docs/others/todolist/</loc>
   </url><url>
     <loc>http://localhost:1313/docs/observability/traces/</loc>
   </url><url>

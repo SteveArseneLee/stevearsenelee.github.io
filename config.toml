@@ -13,6 +13,8 @@ theme = "book"
   BookSection = "docs"
   BookSearch = true
   BookToC = true
+  BookLogo = '/images/de-landscape.png'
+  BookLogoText = 'LogLee.dev'
 
 [markup]
   [markup.goldmark.renderer]
