@@ -1,7 +1,6 @@
 +++
 title = "Ceph RBD 설정하기(Block Storage)"
 draft = false
-bookHidden = true
 +++
 
 

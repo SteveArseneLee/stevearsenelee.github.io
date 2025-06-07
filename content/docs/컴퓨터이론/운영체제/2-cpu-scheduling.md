@@ -1,7 +1,6 @@
 +++
 title = "2. CPU Scheduling"
 draft = false
-bookHidden = true
 +++
 ## 1. 정의
 - CPU 스케줄링은 Ready Queue에 있는 프로세스들 중 어떤 프로세스에게 CPU를 할당할지 결정하는 정책.

@@ -2,7 +2,6 @@
 title = "VM 생성"
 draft = false
 tags = ["infra", "kvm"]
-bookHidden = true
 +++
 
 [준비 단계]

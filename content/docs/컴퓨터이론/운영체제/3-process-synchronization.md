@@ -1,7 +1,6 @@
 +++
 title = "3. 프로세스 동기화(Process Synchronization)"
 draft = false
-bookHidden = true
 +++
 ## 1. 정의
 - 프로세스 동기화란 둘 이상의 프로세스(또는 스레드)가 공유 자원에 접근할 때 충돌 없이 안전하게 작업할 수 있도록 보장하는 방법.

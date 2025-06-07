@@ -1,7 +1,6 @@
 +++
 title = "Ceph 구축하기 - 요약본"
 draft = false
-bookHidden = true
 +++
 
 ### 1. Rook Operator 배포

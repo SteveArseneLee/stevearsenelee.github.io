@@ -1,7 +1,6 @@
 +++
 title = "Hello"
 draft = false
-bookHidden = true
 +++
 
 

@@ -1,7 +1,6 @@
 +++
 title = "CephFS 구축하기"
 categories = ["Data Engineering", "Ceph"]
-bookHidden = true
 +++
 
 ### 1. CephFS Filesystem 생성

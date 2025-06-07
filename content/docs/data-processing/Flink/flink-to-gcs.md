@@ -1,7 +1,6 @@
 +++
 title = "Flink to GCS"
 draft = false
-bookHidden = true
 +++
 ## 1. GCP 준비
 - Bucket 생성

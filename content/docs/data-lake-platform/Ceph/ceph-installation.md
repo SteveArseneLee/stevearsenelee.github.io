@@ -1,7 +1,6 @@
 +++
 title = "Ceph 개요 및 구축하기"
 draft = false
-bookHidden = true
 +++
 ## Ceph이란?
 > 완전히 분산되고, 확장성과 고가용성을 지향하는 storage platform

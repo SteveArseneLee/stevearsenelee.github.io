@@ -1,7 +1,6 @@
 +++
 title = "6. 가상 메모리"
 draft = false
-bookHidden = true
 +++
 ## 1. 정의
 

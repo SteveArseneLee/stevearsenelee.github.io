@@ -1,7 +1,6 @@
 +++
 title = "7. File System"
 draft = false
-bookHidden = true
 +++
 ## 1. 파일 시스템의 역할
 - 데이터를 저장하고, 탐색하고, 보호하는 계층

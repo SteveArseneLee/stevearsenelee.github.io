@@ -1,14 +1,7 @@
 +++
 title = "Kubespray로 쉽게 구축하기"
 draft = false
-bookHidden = true
 +++
-
-> 🕒 작성일: 2025-04-15T17:35:26+09:00
-> ✍️ 작성자: SteveArseneLee
-
----
-
 모든 인스턴스에 접근할 수 있는 곳에서 다음과 같은 작업을 실행한다.
 In my case, it's control node.
 

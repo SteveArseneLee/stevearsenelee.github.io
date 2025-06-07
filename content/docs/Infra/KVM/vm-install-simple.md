@@ -2,7 +2,6 @@
 title = "VM 생성 간단"
 draft = false
 tags = ["infra", "kvm"]
-bookHidden = true
 +++
 
 Home에는

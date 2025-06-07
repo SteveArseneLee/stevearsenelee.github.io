@@ -1,7 +1,6 @@
 +++
 title = "KVM에서 사용할 Storage 설정"
 draft = false
-bookHidden = true
 +++
 
 ### 1. Logical Volume 생성

@@ -1,7 +1,6 @@
 +++
 title = "Dimensional Modeling: 분석을 위한 데이터 설계의 본질"
 draft = false
-bookHidden = true
 +++
 
 ### Fact와 Dimension의 개념

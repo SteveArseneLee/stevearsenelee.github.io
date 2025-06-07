@@ -1,7 +1,6 @@
 +++
 title = "5. 메모리 관리"
 draft = false
-bookHidden = true
 +++
 ## 1. 메모리의 계층 구조 및 주소 체계
 ### 메모리 계층 구조

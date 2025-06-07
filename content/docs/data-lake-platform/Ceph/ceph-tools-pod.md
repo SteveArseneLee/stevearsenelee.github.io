@@ -1,7 +1,6 @@
 +++
 title = "Ceph 초기 설정하기"
 categories = ["dataengineering", "ceph"]
-bookHidden = true
 +++
 
 

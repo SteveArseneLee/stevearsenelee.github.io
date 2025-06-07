@@ -1,7 +1,6 @@
 +++
 title = "여러 환경의 클러스터를 손쉽게 관리하기"
 draft = false
-bookHidden = true
 +++
 ### 1. 원격 클러스터의 kubeconfig 받아오기
 ```sh

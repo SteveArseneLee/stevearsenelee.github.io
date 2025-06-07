@@ -3,7 +3,6 @@ author = "SteveArseneLee"
 title = "이걸 해볼까요"
 date = "2025-04-15T14:56:52+09:00"
 draft = false
-bookHidden = true
 +++
 
 

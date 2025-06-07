@@ -1,7 +1,6 @@
 +++
 title = "정규화 - 1NF, 2NF, 3NF, BCNF"
 draft = false
-bookHidden = true
 +++
 ## 정규화란?
 
