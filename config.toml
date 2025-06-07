@@ -1,7 +1,6 @@
 baseURL = "https://stevearsenelee.github.io"
 languageCode = "ko"
 title = "LogLee's Training Ground"
-theme = "book"
 
 defaultContentLanguage = "kr"
 defaultContentLanguageInSubdir = false
