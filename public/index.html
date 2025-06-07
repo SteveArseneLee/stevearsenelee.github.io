@@ -1147,10 +1147,22 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#-logleedev">🔧 LogLee.dev</a></li>
-    <li><a href="#-current-focus">🚀 Current Focus</a></li>
-    <li><a href="#-repository-stats">📊 Repository Stats</a></li>
-    <li><a href="#-navigation-tip">💡 Navigation Tip</a></li>
+    <li><a href="#-what-im-building">🎯 What I&rsquo;m Building</a>
+      <ul>
+        <li><a href="#-core-stack">🔥 Core Stack</a></li>
+        <li><a href="#-focus-areas">🧠 Focus Areas</a></li>
+      </ul>
+    </li>
+    <li><a href="#-data-engineering-landscape">🗺️ Data Engineering Landscape</a></li>
+    <li><a href="#-journey-metrics">📊 Journey Metrics</a></li>
+    <li><a href="#-quick-navigation">🚀 Quick Navigation</a>
+      <ul>
+        <li><a href="#-data-engineering">📚 <a href="/categories/data-engineering/">Data Engineering</a></a></li>
+        <li><a href="#-infrastructure">🏗️ <a href="/categories/infrastructure/">Infrastructure</a></a></li>
+        <li><a href="#-languages">💻 <a href="/categories/language/">Languages</a></a></li>
+        <li><a href="#-troubleshooting">🔍 <a href="/categories/troubleshooting/">Troubleshooting</a></a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
@@ -1165,51 +1177,118 @@ https://github.com/alex-shpak/hugo-book
       
 <main class="book-content">
   <article class="markdown">
-    <h2 id="-logleedev">
-  🔧 LogLee.dev
-  <a class="anchor" href="#-logleedev">#</a>
+    <div class="hero-section">
+<h1 id="-welcome-to-loglees-training-ground">
+  👋 Welcome to LogLee&rsquo;s Training Ground
+  <a class="anchor" href="#-welcome-to-loglees-training-ground">#</a>
+</h1>
+<p>안녕하세요! 저는 <strong>LogLee</strong>, 끝없는 학습을 추구하는 데이터 엔지니어입니다.</p>
+<div class="profile-intro">
+이 공간은 제가 공부하고 기록한 인프라, 데이터 엔지니어링, 알고리즘, 트러블슈팅 등의 내용을 정리한 **실전 성장형 기술 문서 저장소**입니다.
+</div>
+<blockquote>
+<p><em>&ldquo;Logs are not just data — they are the system&rsquo;s story.&rdquo;</em></p></blockquote>
+</div>
+<hr>
+<h2 id="-what-im-building">
+  🎯 What I&rsquo;m Building
+  <a class="anchor" href="#-what-im-building">#</a>
 </h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ whoami
-</span></span><span style="display:flex;"><span>data_engineer | pipeline_architect | system_optimizer
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$ cat /proc/expertise
-</span></span><span style="display:flex;"><span>├── Data Pipeline Engineering
-</span></span><span style="display:flex;"><span>├── Distributed Systems Design  
-</span></span><span style="display:flex;"><span>├── Production Infrastructure
-</span></span><span style="display:flex;"><span>└── Real-time Stream Processing
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$ echo $MOTTO
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;In logs we trust, in data we scale.&#34;</span>
-</span></span></code></pre></div><h2 id="-current-focus">
-  🚀 Current Focus
-  <a class="anchor" href="#-current-focus">#</a>
+<div class="tech-grid">
+<h3 id="-core-stack">
+  🔥 Core Stack
+  <a class="anchor" href="#-core-stack">#</a>
+</h3>
+<ul>
+<li><strong>Streaming</strong>: Kafka, Spark, Flink</li>
+<li><strong>Storage</strong>: Iceberg, Delta Lake, Parquet</li>
+<li><strong>Infrastructure</strong>: Kubernetes, Vector, Prometheus</li>
+<li><strong>Languages</strong>: Python, Scala, Go, SQL</li>
+</ul>
+<h3 id="-focus-areas">
+  🧠 Focus Areas
+  <a class="anchor" href="#-focus-areas">#</a>
+</h3>
+<ul>
+<li>파이프라인 최적화 &amp; 성능 튜닝</li>
+<li>무손실 데이터 아키텍처 설계</li>
+<li>분산 시스템 실전 운영 노하우</li>
+<li>프로덕션 트러블슈팅 &amp; 모니터링</li>
+</ul>
+</div>
+<hr>
+<h2 id="-data-engineering-landscape">
+  🗺️ Data Engineering Landscape
+  <a class="anchor" href="#-data-engineering-landscape">#</a>
 </h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DataEngineer</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self):
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>stack <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;streaming&#39;</span>: [<span style="color:#e6db74">&#39;Kafka&#39;</span>, <span style="color:#e6db74">&#39;Spark&#39;</span>, <span style="color:#e6db74">&#39;Flink&#39;</span>],
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;storage&#39;</span>: [<span style="color:#e6db74">&#39;Iceberg&#39;</span>, <span style="color:#e6db74">&#39;Delta Lake&#39;</span>, <span style="color:#e6db74">&#39;Parquet&#39;</span>],
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;infra&#39;</span>: [<span style="color:#e6db74">&#39;Kubernetes&#39;</span>, <span style="color:#e6db74">&#39;Vector&#39;</span>, <span style="color:#e6db74">&#39;Prometheus&#39;</span>],
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;languages&#39;</span>: [<span style="color:#e6db74">&#39;Python&#39;</span>, <span style="color:#e6db74">&#39;Scala&#39;</span>, <span style="color:#e6db74">&#39;Go&#39;</span>, <span style="color:#e6db74">&#39;SQL&#39;</span>]
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">solve</span>(self, problem):
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>experience <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>research <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>test()
-</span></span></code></pre></div><h2 id="-repository-stats">
-  📊 Repository Stats
-  <a class="anchor" href="#-repository-stats">#</a>
+<div class="landscape-container">
+<img src="/images/de-landscape.png" alt="Data Engineering Landscape" class="landscape-image">
+<p class="image-caption">현재 데이터 엔지니어링 생태계 - 제가 경험하고 학습 중인 기술들</p>
+</div>
+<hr>
+<h2 id="-journey-metrics">
+  📊 Journey Metrics
+  <a class="anchor" href="#-journey-metrics">#</a>
 </h2>
-<p>Total Solutions: 200+
-Production Fixes: 50+
-Pipeline Uptime: 99.9%
-Coffee Consumed: ∞</p>
-<h2 id="-navigation-tip">
-  💡 Navigation Tip
-  <a class="anchor" href="#-navigation-tip">#</a>
+<div class="stats-grid">
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">📈 <strong>Learning Stats</strong></th>
+          <th style="text-align: left">🔧 <strong>Production Impact</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><strong>Solutions Documented</strong>: 200+</td>
+          <td style="text-align: left"><strong>Pipeline Uptime</strong>: 99.9%</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Tech Stack Explored</strong>: 50+</td>
+          <td style="text-align: left"><strong>Performance Improvements</strong>: 300%+</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Study Hours</strong>: 1000+</td>
+          <td style="text-align: left"><strong>Issues Resolved</strong>: 150+</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Coffee Consumed</strong>: ∞</td>
+          <td style="text-align: left"><strong>Team Knowledge Shared</strong>: ♾️</td>
+      </tr>
+  </tbody>
+</table>
+</div>
+<hr>
+<h2 id="-quick-navigation">
+  🚀 Quick Navigation
+  <a class="anchor" href="#-quick-navigation">#</a>
 </h2>
-<p>각 카테고리를 클릭하여 실전 검증된 솔루션들을 탐색해보세요.
-이곳의 모든 내용은 프로덕션 환경에서 직접 경험한 것들입니다!~!
-Ready to debug the world? Let&rsquo;s dive in. 🐛→✨</p>
+<div class="nav-cards">
+<h3 id="-data-engineering">
+  📚 <a href="/categories/data-engineering/">Data Engineering</a>
+  <a class="anchor" href="#-data-engineering">#</a>
+</h3>
+<p>실전 파이프라인 구축부터 최적화까지</p>
+<h3 id="-infrastructure">
+  🏗️ <a href="/categories/infrastructure/">Infrastructure</a>
+  <a class="anchor" href="#-infrastructure">#</a>
+</h3>
+<p>Kubernetes, 모니터링, 분산 시스템 운영</p>
+<h3 id="-languages">
+  💻 <a href="/categories/language/">Languages</a>
+  <a class="anchor" href="#-languages">#</a>
+</h3>
+<p>Python, Scala, Go 실전 활용법</p>
+<h3 id="-troubleshooting">
+  🔍 <a href="/categories/troubleshooting/">Troubleshooting</a>
+  <a class="anchor" href="#-troubleshooting">#</a>
+</h3>
+<p>프로덕션 이슈 해결 사례집</p>
+</div>
+<hr>
+<div class="footer-message">
+<p><strong>Ready to debug the world? Let&rsquo;s dive in.</strong> 🐛→✨</p>
+</div>
 
   </article>
 </main>
@@ -1253,10 +1332,22 @@ Ready to debug the world? Let&rsquo;s dive in. 🐛→✨</p>
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#-logleedev">🔧 LogLee.dev</a></li>
-    <li><a href="#-current-focus">🚀 Current Focus</a></li>
-    <li><a href="#-repository-stats">📊 Repository Stats</a></li>
-    <li><a href="#-navigation-tip">💡 Navigation Tip</a></li>
+    <li><a href="#-what-im-building">🎯 What I&rsquo;m Building</a>
+      <ul>
+        <li><a href="#-core-stack">🔥 Core Stack</a></li>
+        <li><a href="#-focus-areas">🧠 Focus Areas</a></li>
+      </ul>
+    </li>
+    <li><a href="#-data-engineering-landscape">🗺️ Data Engineering Landscape</a></li>
+    <li><a href="#-journey-metrics">📊 Journey Metrics</a></li>
+    <li><a href="#-quick-navigation">🚀 Quick Navigation</a>
+      <ul>
+        <li><a href="#-data-engineering">📚 <a href="/categories/data-engineering/">Data Engineering</a></a></li>
+        <li><a href="#-infrastructure">🏗️ <a href="/categories/infrastructure/">Infrastructure</a></a></li>
+        <li><a href="#-languages">💻 <a href="/categories/language/">Languages</a></a></li>
+        <li><a href="#-troubleshooting">🔍 <a href="/categories/troubleshooting/">Troubleshooting</a></a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
