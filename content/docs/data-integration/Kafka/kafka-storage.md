@@ -1,7 +1,6 @@
 +++
 title = "Kafka의 저장소"
 draft = false
-bookHidden = true
 +++
 
 Kubernetes에서 kafka를 사용할때 kafka의 데이터 저장소는 어떤 것이 적절한지에 대한 글이다.

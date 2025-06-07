@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+  상황
+  #
+
+
+Strimzi Kafka Operator를 하나만 설치한 뒤, 여러 namespace에 Kafka 클러스터를 각각 배포하려는 구조로 운영하고자 했음.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/troubleshooting/kafka-one-operator-multi-kafka/">
+  <meta property="og:site_name" content="LogLee&#39;s Training Ground">
+  <meta property="og:title" content="하나의 operator와 여러 namespace의 여러 kafka cluster">
+  <meta property="og:description" content="상황 # Strimzi Kafka Operator를 하나만 설치한 뒤, 여러 namespace에 Kafka 클러스터를 각각 배포하려는 구조로 운영하고자 했음.">
+  <meta property="og:locale" content="ko">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>하나의 operator와 여러 namespace의 여러 kafka cluster | LogLee&#39;s Training Ground</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/docs/troubleshooting/kafka-one-operator-multi-kafka/">
+<link rel="stylesheet" href="/book.min.9adb8ebbd2b7c0d066fb01527510676c64916f6b7ba373f7d0ab4abe97ed4ae8.css" integrity="sha256-mtuOu9K3wNBm&#43;wFSdRBnbGSRb2t7o3P30KtKvpftSug=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/kr.search.min.a6a135180603ac50023a4d59d06d9857356b4e280890b7d6a369fc6950f3e528.js" integrity="sha256-pqE1GAYDrFACOk1Z0G2YVzVrTigIkLfWo2n8aVDz5Sg=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>LogLee&#39;s Training Ground</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="" aria-label="" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-79150fdf9dbf158df9c917a93d39407f" class="toggle"  />
+    <label for="section-79150fdf9dbf158df9c917a93d39407f" class="flex">
+      <a role="button" class="flex-auto ">Infra</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-afa7bc76ec3321dc3793f4204885e0ab" class="toggle"  />
+    <label for="section-afa7bc76ec3321dc3793f4204885e0ab" class="flex">
+      <a role="button" class="flex-auto ">KVM</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3f41a0b8f3b7286a296b17538ec448af" class="toggle"  />
+    <label for="section-3f41a0b8f3b7286a296b17538ec448af" class="flex">
+      <a role="button" class="flex-auto ">Kubernetes</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d4754ecbc33cae4a97284c5e5fb94d54" class="toggle"  />
+    <label for="section-d4754ecbc33cae4a97284c5e5fb94d54" class="flex">
+      <a role="button" class="flex-auto ">Data Engineering</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-641462dde2c25fe744d467e801495669" class="toggle"  />
+    <label for="section-641462dde2c25fe744d467e801495669" class="flex">
+      <a role="button" class="flex-auto ">Hadoop</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f83ca8c7296ad5011fcbbaeba0329ca2" class="toggle"  />
+    <label for="section-f83ca8c7296ad5011fcbbaeba0329ca2" class="flex">
+      <a role="button" class="flex-auto ">Modeling</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8ff501dd10e04dc7d58e4fa05c590467" class="toggle"  />
+    <label for="section-8ff501dd10e04dc7d58e4fa05c590467" class="flex">
+      <a role="button" class="flex-auto ">Data Integration</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-dfa9aef9d6d1d14a26805d019ab993d7" class="toggle"  />
+    <label for="section-dfa9aef9d6d1d14a26805d019ab993d7" class="flex">
+      <a role="button" class="flex-auto ">Kafka</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-basic/" class="">Kafka 심화 개념</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-troubleshooting-optimization/" class="">Kafka 운영 요소</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-data-structure/" class="">Kafka의 데이터 구조</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-storage-performance-test/" class="">Kafka의 성능 측정 (Block storage vs NFS)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/data-integration/kafka/kafka-storage/" class="">Kafka의 저장소</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d5d55849c0cd749a3de3a547305dd4b1" class="toggle"  />
+    <label for="section-d5d55849c0cd749a3de3a547305dd4b1" class="flex">
+      <a role="button" class="flex-auto ">Data Lake Platform</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-7e667220fef74178cc1de6a791b2f882" class="toggle"  />
+    <label for="section-7e667220fef74178cc1de6a791b2f882" class="flex">
+      <a role="button" class="flex-auto ">Ceph</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2ded06cba2240a952325fd742ea5255f" class="toggle"  />
+    <label for="section-2ded06cba2240a952325fd742ea5255f" class="flex">
+      <a role="button" class="flex-auto ">Data Processing</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-61862c92f7adb593e694b832ef32779a" class="toggle"  />
+    <label for="section-61862c92f7adb593e694b832ef32779a" class="flex">
+      <a role="button" class="flex-auto ">Flink</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-5cdf1754fdf767f4d7e6b8fb75b850fb" class="toggle"  />
+    <label for="section-5cdf1754fdf767f4d7e6b8fb75b850fb" class="flex">
+      <a role="button" class="flex-auto ">Language</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8bff7ae517186b2d376a0661467cef2d" class="toggle"  />
+    <label for="section-8bff7ae517186b2d376a0661467cef2d" class="flex">
+      <a role="button" class="flex-auto ">Observability</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8bd6aac4580b36d82077704ed5049b20" class="toggle"  />
+    <label for="section-8bd6aac4580b36d82077704ed5049b20" class="flex">
+      <a role="button" class="flex-auto ">Logs</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3820b01d8d343a30aa49f2bd3d0ac76c" class="toggle"  />
+    <label for="section-3820b01d8d343a30aa49f2bd3d0ac76c" class="flex">
+      <a role="button" class="flex-auto ">Metrics</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-27eb68f1910975dd7e21ea458d19f57f" class="toggle"  />
+    <label for="section-27eb68f1910975dd7e21ea458d19f57f" class="flex">
+      <a role="button" class="flex-auto ">Traces</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-78891673ccb2c2d2b66a96ea50ab1361" class="toggle"  />
+    <label for="section-78891673ccb2c2d2b66a96ea50ab1361" class="flex">
+      <a role="button" class="flex-auto ">Others</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d7f1d1be3855e072724de9475cdfbfc3" class="toggle"  />
+    <label for="section-d7f1d1be3855e072724de9475cdfbfc3" class="flex">
+      <a role="button" class="flex-auto ">알고리즘</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-747d8ad5c3c7f33d6e58ddfb67dea44e" class="toggle"  />
+    <label for="section-747d8ad5c3c7f33d6e58ddfb67dea44e" class="flex">
+      <a role="button" class="flex-auto ">a-really-important</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-7e15309ad0b085600c1f239bb8c8eb2e" class="toggle"  />
+    <label for="section-7e15309ad0b085600c1f239bb8c8eb2e" class="flex">
+      <a role="button" class="flex-auto ">dp</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-534e71b0d21d0db126610564d17c9a8c" class="toggle"  />
+    <label for="section-534e71b0d21d0db126610564d17c9a8c" class="flex">
+      <a role="button" class="flex-auto ">sorting</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-a47eb3a03ca7a90c2669be5223712fab" class="toggle"  />
+    <label for="section-a47eb3a03ca7a90c2669be5223712fab" class="flex">
+      <a role="button" class="flex-auto ">완전탐색</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d7e1497bbb4a05194486c8bb2b0ea79a" class="toggle"  />
+    <label for="section-d7e1497bbb4a05194486c8bb2b0ea79a" class="flex">
+      <a role="button" class="flex-auto ">컴퓨터이론</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-a1c99ab2d40536151b21eb12a5041410" class="toggle"  />
+    <label for="section-a1c99ab2d40536151b21eb12a5041410" class="flex">
+      <a role="button" class="flex-auto ">네트워크</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2268fd08902c3bcc533339d8cbf128ef" class="toggle"  />
+    <label for="section-2268fd08902c3bcc533339d8cbf128ef" class="flex">
+      <a role="button" class="flex-auto ">데이터베이스</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2998a9560058ec62c67d1a55ea134d38" class="toggle"  />
+    <label for="section-2998a9560058ec62c67d1a55ea134d38" class="flex">
+      <a role="button" class="flex-auto ">디자인패턴</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-055d0164778e6e1df37e6d55c5d9cf85" class="toggle"  />
+    <label for="section-055d0164778e6e1df37e6d55c5d9cf85" class="flex">
+      <a role="button" class="flex-auto ">운영체제</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3a909f63114456639d5607c0ecf991ab" class="toggle"  />
+    <label for="section-3a909f63114456639d5607c0ecf991ab" class="flex">
+      <a role="button" class="flex-auto ">자료구조</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-4fdec2fe2003d2cde62ccb52c0009bfc" class="toggle" checked />
+    <label for="section-4fdec2fe2003d2cde62ccb52c0009bfc" class="flex">
+      <a role="button" class="flex-auto ">트러블슈팅</a>
+    </label>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>하나의 operator와 여러 namespace의 여러 kafka cluster</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#상황">상황</a></li>
+        <li><a href="#문제-원인">문제 원인</a></li>
+        <li><a href="#해결-방법">해결 방법</a></li>
+        <li><a href="#요약된-스크립트">요약된 스크립트</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h3 id="상황">
+  상황
+  <a class="anchor" href="#%ec%83%81%ed%99%a9">#</a>
+</h3>
+<blockquote>
+<p>Strimzi Kafka Operator를 하나만 설치한 뒤, 여러 namespace에 Kafka 클러스터를 각각 배포하려는 구조로 운영하고자 했음.</p>
+<ul>
+<li>Operator는 kafka 네임스페이스에 설치됨</li>
+<li>새 Kafka 클러스터는 kafka2 네임스페이스에 배포됨</li>
+<li>KafkaNodePool + Kafka CR (KRaft 모드) 사용</li>
+<li>Kafka UI도 네임스페이스별로 함께 배포</li>
+</ul></blockquote>
+<h3 id="문제-원인">
+  문제 원인
+  <a class="anchor" href="#%eb%ac%b8%ec%a0%9c-%ec%9b%90%ec%9d%b8">#</a>
+</h3>
+<p>KafkaNodePool 기반 배포를 시도했을 때 다음과 같은 오류가 발생:</p>
+<ol>
+<li>KafkaNodePool이 Kafka 리소스와 연결되지 않음</li>
+<li>strimzipodsets 리소스 접근 실패 (list/create 권한 없음)</li>
+<li>Kafka 및 KafkaNodePool의 status 필드 업데이트 실패 (403 Forbidden)</li>
+</ol>
+<p>이유는 다음과 같음:</p>
+<ol>
+<li>ClusterRole <code>strimzi-cluster-operator-namespaced</code>가 기본적으로 kafka2의 리소스에 대한 권한을 가지지 않음</li>
+<li>kafka2 네임스페이스에는 RoleBinding만 생성되어 있고, ClusterRole에는 필요한 리소스 권한이 빠져 있음</li>
+<li>Kafka와 KafkaNodePool의 이름 불일치로 연결 실패</li>
+</ol>
+<h3 id="해결-방법">
+  해결 방법
+  <a class="anchor" href="#%ed%95%b4%ea%b2%b0-%eb%b0%a9%eb%b2%95">#</a>
+</h3>
+<p>다음과 같은 조치를 통해 문제를 해결함:</p>
+<ol>
+<li><code>KafkaNodePool.labels.strimzi.io/cluster</code> 값과 <code>Kafka.metadata.name</code> 값을 일치시킴</li>
+<li><code>ClusterRole(strimzi-cluster-operator-namespaced)</code>에 다음 권한을 추가:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">-</span> <span style="color:#960050;background-color:#1e0010">apiGroups:</span> [<span style="color:#e6db74">&#34;kafka.strimzi.io&#34;</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">resources:</span> [<span style="color:#e6db74">&#34;kafkas/status&#34;</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">verbs:</span> [<span style="color:#e6db74">&#34;update&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">-</span> <span style="color:#960050;background-color:#1e0010">apiGroups:</span> [<span style="color:#e6db74">&#34;kafka.strimzi.io&#34;</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">resources:</span> [<span style="color:#e6db74">&#34;kafkanodepools/status&#34;</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">verbs:</span> [<span style="color:#e6db74">&#34;update&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">-</span> <span style="color:#960050;background-color:#1e0010">apiGroups:</span> [<span style="color:#e6db74">&#34;core.strimzi.io&#34;</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">resources:</span> [<span style="color:#e6db74">&#34;strimzipodsets&#34;</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">verbs:</span> [<span style="color:#e6db74">&#34;get&#34;</span>, <span style="color:#e6db74">&#34;list&#34;</span>, <span style="color:#e6db74">&#34;watch&#34;</span>, <span style="color:#e6db74">&#34;create&#34;</span>, <span style="color:#e6db74">&#34;update&#34;</span>, <span style="color:#e6db74">&#34;patch&#34;</span>, <span style="color:#e6db74">&#34;delete&#34;</span>]
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>kubectl patch clusterrole strimzi-cluster-operator-namespaced --type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;json&#39;</span> -p<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">[</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;op&#34;</span>: <span style="color:#e6db74">&#34;add&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;path&#34;</span>: <span style="color:#e6db74">&#34;/rules/-&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;value&#34;</span>: <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;apiGroups&#34;</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;kafka.strimzi.io&#34;</span><span style="color:#f92672">]</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;resources&#34;</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;kafkas/status&#34;</span><span style="color:#f92672">]</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;verbs&#34;</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;update&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;op&#34;</span>: <span style="color:#e6db74">&#34;add&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;path&#34;</span>: <span style="color:#e6db74">&#34;/rules/-&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;value&#34;</span>: <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;apiGroups&#34;</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;kafka.strimzi.io&#34;</span><span style="color:#f92672">]</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;resources&#34;</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;kafkanodepools/status&#34;</span><span style="color:#f92672">]</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;verbs&#34;</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;update&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;op&#34;</span>: <span style="color:#e6db74">&#34;add&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;path&#34;</span>: <span style="color:#e6db74">&#34;/rules/-&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;value&#34;</span>: <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;apiGroups&#34;</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;core.strimzi.io&#34;</span><span style="color:#f92672">]</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;resources&#34;</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;strimzipodsets&#34;</span><span style="color:#f92672">]</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;verbs&#34;</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;get&#34;</span>, <span style="color:#e6db74">&#34;list&#34;</span>, <span style="color:#e6db74">&#34;watch&#34;</span>, <span style="color:#e6db74">&#34;create&#34;</span>, <span style="color:#e6db74">&#34;update&#34;</span>, <span style="color:#e6db74">&#34;patch&#34;</span>, <span style="color:#e6db74">&#34;delete&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">]</span>
+</span></span></code></pre></div><ol start="3">
+<li>kafka 네임스페이스의 strimzi-cluster-operator 서비스 계정이 kafka2 네임스페이스 리소스에 접근할 수 있도록 RoleBinding 구성:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">RoleBinding</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">strimzi-cluster-operator-binding</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">kafka2</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">subjects</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ServiceAccount</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">strimzi-cluster-operator</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">kafka</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">roleRef</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ClusterRole</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">strimzi-cluster-operator-namespaced</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">apiGroup</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io</span>
+</span></span></code></pre></div><ol start="4">
+<li>STRIMZI_NAMESPACE 환경변수에 kafka2 추가</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>kubectl set env deployment/strimzi-cluster-operator -n kafka STRIMZI_NAMESPACE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;kafka,kafka2&#34;</span>
+</span></span></code></pre></div><hr>
+<h3 id="요약된-스크립트">
+  요약된 스크립트
+  <a class="anchor" href="#%ec%9a%94%ec%95%bd%eb%90%9c-%ec%8a%a4%ed%81%ac%eb%a6%bd%ed%8a%b8">#</a>
+</h3>
+<details markdown="1">
+  <summary>install-kafka-on-new-ns.sh</summary>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">set -e</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 기존 Operator 네임스페이스</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">OPERATOR_NS=&#34;kafka&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 새로 배포할 네임스페이스</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">TARGET_NS=&#34;$1&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Kafka 클러스터 이름</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">KAFKA_CLUSTER=&#34;$2&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Kafka UI 정보</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">KAFKA_UI_DEPLOYMENT=&#34;kafka-ui-${KAFKA_CLUSTER}&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">KAFKA_UI_SERVICE=&#34;kafka-ui-${KAFKA_CLUSTER}&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">KAFKA_UI_PORT=30640</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">KAFKA_TIMEOUT=300s</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">UI_TIMEOUT=60s</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">if [[ -z &#34;$TARGET_NS&#34; || -z &#34;$KAFKA_CLUSTER&#34; ]]; then</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">echo &#34;[ERROR] Usage: $0 &lt;target-namespace&gt; &lt;kafka-cluster-name&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">exit 1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">echo &#34;🚀 Deploying Kafka cluster &#39;${KAFKA_CLUSTER}&#39; in namespace &#39;${TARGET_NS}&#39;...&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">### [1] 네임스페이스 생성 ###</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">kubectl get namespace ${TARGET_NS} &gt; /dev/null 2&gt;&amp;1 || kubectl create namespace ${TARGET_NS}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">### [2] 기존 STRIMZI_NAMESPACE 환경변수에 target NS 추가 ###</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">CURRENT_NAMESPACES=$(kubectl get deployment strimzi-cluster-operator -n ${OPERATOR_NS} -o jsonpath=&#39;{.spec.template.spec.containers[0].env[?(@.name==&#34;STRIMZI_NAMESPACE&#34;)].value}&#39;)</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">if [[ &#34;$CURRENT_NAMESPACES&#34; != *&#34;$TARGET_NS&#34;* ]]; then</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">echo &#34;🔧 Adding ${TARGET_NS} to STRIMZI_NAMESPACE&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">kubectl set env deployment/strimzi-cluster-operator -n ${OPERATOR_NS} STRIMZI_NAMESPACE=&#34;${CURRENT_NAMESPACES},${TARGET_NS}&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">else</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">echo &#34;✅ STRIMZI_NAMESPACE already includes ${TARGET_NS}&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">### [3] 기존 ClusterRoleBinding 규칙 확인 및 복사 적용 ###</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">echo &#34;🔑 Creating RoleBindings from existing ones in ${OPERATOR_NS}&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">for role in strimzi-cluster-operator-namespaced strimzi-entity-operator strimzi-kafka-broker; do</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">kubectl create rolebinding strimzi-${role}-binding \</span>
+</span></span><span style="display:flex;"><span>    --<span style="color:#ae81ff">namespace ${TARGET_NS} \</span>
+</span></span><span style="display:flex;"><span>    --<span style="color:#ae81ff">clusterrole ${role} \</span>
+</span></span><span style="display:flex;"><span>    --<span style="color:#ae81ff">serviceaccount ${OPERATOR_NS}:strimzi-cluster-operator \</span>
+</span></span><span style="display:flex;"><span>    --<span style="color:#ae81ff">dry-run=client -o yaml | kubectl apply -f -</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">done</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">### [4] Kafka 클러스터 배포 ###</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">cat &lt;&lt;EOF | kubectl apply -f -</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">kafka.strimzi.io/v1beta2</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">KafkaNodePool</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">dual-role</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">${TARGET_NS}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">strimzi.io/cluster</span>: <span style="color:#ae81ff">${KAFKA_CLUSTER}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">roles</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">controller</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">broker</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">storage</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">type</span>: <span style="color:#ae81ff">jbod</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">id</span>: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">type</span>: <span style="color:#ae81ff">persistent-claim</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">size</span>: <span style="color:#ae81ff">100Gi</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">deleteClaim</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">class</span>: <span style="color:#ae81ff">nfs-client</span>
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">kafka.strimzi.io/v1beta2</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Kafka</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">${KAFKA_CLUSTER}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">${TARGET_NS}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">annotations</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">strimzi.io/node-pools</span>: <span style="color:#ae81ff">enabled</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">strimzi.io/kraft</span>: <span style="color:#ae81ff">enabled</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">kafka</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">version</span>: <span style="color:#ae81ff">3.7.0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">metadataVersion</span>: <span style="color:#ae81ff">3.7</span>-<span style="color:#ae81ff">IV4</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">listeners</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">plain</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">port</span>: <span style="color:#ae81ff">9092</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">type</span>: <span style="color:#ae81ff">internal</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">tls</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">tls</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">port</span>: <span style="color:#ae81ff">9093</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">type</span>: <span style="color:#ae81ff">internal</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">tls</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">external</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">port</span>: <span style="color:#ae81ff">9094</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">type</span>: <span style="color:#ae81ff">nodeport</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">tls</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">configuration</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">bootstrap</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">nodePort</span>: <span style="color:#ae81ff">31000</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">brokers</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">broker</span>: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">nodePort</span>: <span style="color:#ae81ff">31001</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">broker</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">nodePort</span>: <span style="color:#ae81ff">31002</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">broker</span>: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">nodePort</span>: <span style="color:#ae81ff">31003</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">config</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">offsets.topic.replication.factor</span>: <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">transaction.state.log.replication.factor</span>: <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">transaction.state.log.min.isr</span>: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">default.replication.factor</span>: <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">min.insync.replicas</span>: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entityOperator</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">topicOperator</span>: {}
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">userOperator</span>: {}
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">kafkaExporter</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">groupRegex</span>: <span style="color:#e6db74">&#34;.*&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">topicRegex</span>: <span style="color:#e6db74">&#34;.*&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">EOF</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">### [5] Kafka 준비 대기 ###</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">echo &#34;⏳ Waiting for Kafka cluster to be ready...&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">kubectl wait --for=condition=ready kafka/${KAFKA_CLUSTER} -n ${TARGET_NS} --timeout=${KAFKA_TIMEOUT} || echo &#34;⚠️ Kafka cluster wait timed out.&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">### [6] Kafka UI 배포 ###</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">cat &lt;&lt;EOF | kubectl apply -f -</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apps/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Deployment</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">${KAFKA_UI_DEPLOYMENT}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">${TARGET_NS}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">matchLabels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">app</span>: <span style="color:#ae81ff">${KAFKA_UI_DEPLOYMENT}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">template</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">app</span>: <span style="color:#ae81ff">${KAFKA_UI_DEPLOYMENT}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">kafka-ui</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">provectuslabs/kafka-ui:latest</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">8080</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">KAFKA_CLUSTERS_0_NAME</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;${KAFKA_CLUSTER}&#34;</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;${KAFKA_CLUSTER}-kafka-bootstrap.${TARGET_NS}:9092&#34;</span>
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Service</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">${KAFKA_UI_SERVICE}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">${TARGET_NS}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">type</span>: <span style="color:#ae81ff">NodePort</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">port</span>: <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">8080</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">nodePort</span>: <span style="color:#ae81ff">${KAFKA_UI_PORT}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">${KAFKA_UI_DEPLOYMENT}</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">EOF</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">### [7] Kafka UI 준비 대기 및 접속 정보 출력 ###</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">kubectl wait --for=condition=ready pod -l app=${KAFKA_UI_DEPLOYMENT} -n ${TARGET_NS} --timeout=${UI_TIMEOUT} || echo &#34;⚠️ Kafka UI wait timed out.&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">NODE_IP=$(kubectl get nodes -o jsonpath=&#39;{.items[0].status.addresses[?(@.type==&#34;InternalIP&#34;)].address}&#39;)</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">echo &#34;============================================================&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">echo &#34;✅ Kafka cluster &#39;${KAFKA_CLUSTER}&#39; deployed in &#39;${TARGET_NS}&#39;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">echo &#34;🌐 Kafka UI URL: http://$NODE_IP:$KAFKA_UI_PORT&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">echo &#34;============================================================&#34;</span>
+</span></span></code></pre></div></details>
+<p>위 스크립트는 <code>./install-kafka-on-new-ns.sh kafka-new-ns new-kafka-cluster-name</code>처럼 사용하면 된다.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#상황">상황</a></li>
+        <li><a href="#문제-원인">문제 원인</a></li>
+        <li><a href="#해결-방법">해결 방법</a></li>
+        <li><a href="#요약된-스크립트">요약된 스크립트</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

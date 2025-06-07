@@ -2,7 +2,6 @@
 title = "Kafka의 성능 측정 (Block storage vs NFS)"
 draft = false
 categories = ["Kafka"]
-bookHidden = true
 +++
 ## 개요
 [Kafka docs](https://kafka.apache.org/documentation/)에는 어디에 데이터를 저장해야한다는 글이 없지만, Kafka를 k8s에 올릴 때 사용하는 [strimzi operator](https://strimzi.io/docs/operators/latest/deploying#considerations-for-data-storage-str)에는 다음과 같은 문구가 있다.

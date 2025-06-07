@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Kafka on LogLee&#39;s Training Ground</title>
-    <link>http://stevearsenelee.iptime.org/categories/kafka/</link>
+    <link>http://localhost:1313/categories/kafka/</link>
     <description>Recent content in Kafka on LogLee&#39;s Training Ground</description>
     <generator>Hugo</generator>
     <language>ko</language>
-    <atom:link href="http://stevearsenelee.iptime.org/categories/kafka/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/categories/kafka/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Kafka의 성능 측정 (Block storage vs NFS)</title>
-      <link>http://stevearsenelee.iptime.org/docs/data-integration/kafka/kafka-storage-performance-test/</link>
+      <link>http://localhost:1313/docs/data-integration/kafka/kafka-storage-performance-test/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://stevearsenelee.iptime.org/docs/data-integration/kafka/kafka-storage-performance-test/</guid>
+      <guid>http://localhost:1313/docs/data-integration/kafka/kafka-storage-performance-test/</guid>
       <description>&lt;h2 id=&#34;개요&#34;&gt;&#xA;  개요&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#%ea%b0%9c%ec%9a%94&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://kafka.apache.org/documentation/&#34;&gt;Kafka docs&lt;/a&gt;에는 어디에 데이터를 저장해야한다는 글이 없지만, Kafka를 k8s에 올릴 때 사용하는 &lt;a href=&#34;https://strimzi.io/docs/operators/latest/deploying#considerations-for-data-storage-str&#34;&gt;strimzi operator&lt;/a&gt;에는 다음과 같은 문구가 있다.&lt;/p&gt;</description>
     </item>
   </channel>

@@ -2,44 +2,44 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Kafka on LogLee&#39;s Training Ground</title>
-    <link>http://stevearsenelee.iptime.org/docs/data-integration/kafka/</link>
+    <link>http://localhost:1313/docs/data-integration/kafka/</link>
     <description>Recent content in Kafka on LogLee&#39;s Training Ground</description>
     <generator>Hugo</generator>
     <language>ko</language>
-    <atom:link href="http://stevearsenelee.iptime.org/docs/data-integration/kafka/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/docs/data-integration/kafka/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Kafka 심화 개념</title>
-      <link>http://stevearsenelee.iptime.org/docs/data-integration/kafka/kafka-basic/</link>
+      <link>http://localhost:1313/docs/data-integration/kafka/kafka-basic/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://stevearsenelee.iptime.org/docs/data-integration/kafka/kafka-basic/</guid>
+      <guid>http://localhost:1313/docs/data-integration/kafka/kafka-basic/</guid>
       <description>&lt;h2 id=&#34;producer-acks-batch-page-cache-and-flush&#34;&gt;&#xA;  Producer Acks, Batch, Page Cache and Flush&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#producer-acks-batch-page-cache-and-flush&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;acks 설정은 요청이 성공할 때를 정의하는 데 사용되는 &lt;strong&gt;Producer&lt;/strong&gt;에 설정하는 Parameter&lt;/p&gt;</description>
     </item>
     <item>
       <title>Kafka 운영 요소</title>
-      <link>http://stevearsenelee.iptime.org/docs/data-integration/kafka/kafka-troubleshooting-optimization/</link>
+      <link>http://localhost:1313/docs/data-integration/kafka/kafka-troubleshooting-optimization/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://stevearsenelee.iptime.org/docs/data-integration/kafka/kafka-troubleshooting-optimization/</guid>
+      <guid>http://localhost:1313/docs/data-integration/kafka/kafka-troubleshooting-optimization/</guid>
       <description>&lt;h3 id=&#34;kafka-monitoring&#34;&gt;&#xA;  Kafka Monitoring&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#kafka-monitoring&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h3&gt;&#xA;&lt;h3 id=&#34;troubleshooting-zookeeper&#34;&gt;&#xA;  Troubleshooting Zookeeper&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#troubleshooting-zookeeper&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h3&gt;&#xA;&lt;h3 id=&#34;troubleshooting-broker&#34;&gt;&#xA;  Troubleshooting Broker&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#troubleshooting-broker&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h3&gt;&#xA;&lt;h3 id=&#34;troubleshooting-producer&#34;&gt;&#xA;  Troubleshooting Producer&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#troubleshooting-producer&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h3&gt;&#xA;&lt;h3 id=&#34;troubleshooting-consumer&#34;&gt;&#xA;  Troubleshooting Consumer&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#troubleshooting-consumer&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h3&gt;&#xA;&lt;h3 id=&#34;tuning-broker&#34;&gt;&#xA;  Tuning Broker&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#tuning-broker&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h3&gt;&#xA;&lt;h3 id=&#34;tuning-producer&#34;&gt;&#xA;  Tuning Producer&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#tuning-producer&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h3&gt;&#xA;&lt;h3 id=&#34;tuning-consumer&#34;&gt;&#xA;  Tuning Consumer&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#tuning-consumer&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h3&gt;</description>
     </item>
     <item>
       <title>Kafka의 데이터 구조</title>
-      <link>http://stevearsenelee.iptime.org/docs/data-integration/kafka/kafka-data-structure/</link>
+      <link>http://localhost:1313/docs/data-integration/kafka/kafka-data-structure/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://stevearsenelee.iptime.org/docs/data-integration/kafka/kafka-data-structure/</guid>
+      <guid>http://localhost:1313/docs/data-integration/kafka/kafka-data-structure/</guid>
       <description>&lt;p&gt;Kafka의 메세지 저장 구조는 &lt;strong&gt;논리적 구조&lt;/strong&gt;와 &lt;strong&gt;물리적 구조&lt;/strong&gt;로 나눠서 생각하는 것이 좋다. Kafka는 단순한 message queue를 넘어서 &lt;em&gt;&lt;strong&gt;Log-structured Storage&lt;/strong&gt;&lt;/em&gt;로 설계되어, 메세지의 저장 및 조회 방식이 일반적인 RDBMS나 단순 queueing system과는 다르다.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Kafka의 성능 측정 (Block storage vs NFS)</title>
-      <link>http://stevearsenelee.iptime.org/docs/data-integration/kafka/kafka-storage-performance-test/</link>
+      <link>http://localhost:1313/docs/data-integration/kafka/kafka-storage-performance-test/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://stevearsenelee.iptime.org/docs/data-integration/kafka/kafka-storage-performance-test/</guid>
+      <guid>http://localhost:1313/docs/data-integration/kafka/kafka-storage-performance-test/</guid>
       <description>&lt;h2 id=&#34;개요&#34;&gt;&#xA;  개요&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#%ea%b0%9c%ec%9a%94&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://kafka.apache.org/documentation/&#34;&gt;Kafka docs&lt;/a&gt;에는 어디에 데이터를 저장해야한다는 글이 없지만, Kafka를 k8s에 올릴 때 사용하는 &lt;a href=&#34;https://strimzi.io/docs/operators/latest/deploying#considerations-for-data-storage-str&#34;&gt;strimzi operator&lt;/a&gt;에는 다음과 같은 문구가 있다.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Kafka의 저장소</title>
-      <link>http://stevearsenelee.iptime.org/docs/data-integration/kafka/kafka-storage/</link>
+      <link>http://localhost:1313/docs/data-integration/kafka/kafka-storage/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://stevearsenelee.iptime.org/docs/data-integration/kafka/kafka-storage/</guid>
+      <guid>http://localhost:1313/docs/data-integration/kafka/kafka-storage/</guid>
       <description>&lt;p&gt;Kubernetes에서 kafka를 사용할때 kafka의 데이터 저장소는 어떤 것이 적절한지에 대한 글이다.&lt;/p&gt;</description>
     </item>
   </channel>

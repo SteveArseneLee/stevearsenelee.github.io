@@ -2,37 +2,37 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on LogLee&#39;s Training Ground</title>
-    <link>http://stevearsenelee.iptime.org/categories/</link>
+    <link>http://localhost:1313/categories/</link>
     <description>Recent content in Categories on LogLee&#39;s Training Ground</description>
     <generator>Hugo</generator>
     <language>ko</language>
-    <atom:link href="http://stevearsenelee.iptime.org/categories/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Ceph</title>
-      <link>http://stevearsenelee.iptime.org/categories/ceph/</link>
+      <link>http://localhost:1313/categories/ceph/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://stevearsenelee.iptime.org/categories/ceph/</guid>
+      <guid>http://localhost:1313/categories/ceph/</guid>
       <description></description>
     </item>
     <item>
       <title>Data Engineering</title>
-      <link>http://stevearsenelee.iptime.org/categories/data-engineering/</link>
+      <link>http://localhost:1313/categories/data-engineering/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://stevearsenelee.iptime.org/categories/data-engineering/</guid>
+      <guid>http://localhost:1313/categories/data-engineering/</guid>
       <description></description>
     </item>
     <item>
       <title>Dataengineering</title>
-      <link>http://stevearsenelee.iptime.org/categories/dataengineering/</link>
+      <link>http://localhost:1313/categories/dataengineering/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://stevearsenelee.iptime.org/categories/dataengineering/</guid>
+      <guid>http://localhost:1313/categories/dataengineering/</guid>
       <description></description>
     </item>
     <item>
       <title>Kafka</title>
-      <link>http://stevearsenelee.iptime.org/categories/kafka/</link>
+      <link>http://localhost:1313/categories/kafka/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://stevearsenelee.iptime.org/categories/kafka/</guid>
+      <guid>http://localhost:1313/categories/kafka/</guid>
       <description></description>
     </item>
   </channel>

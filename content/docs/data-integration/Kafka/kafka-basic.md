@@ -1,7 +1,6 @@
 +++
 title = "Kafka 심화 개념"
 draft = false
-bookHidden = true
 +++
 
 ## Producer Acks, Batch, Page Cache and Flush

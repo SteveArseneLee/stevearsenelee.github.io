@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>완전탐색 on LogLee&#39;s Training Ground</title>
+    <link>http://localhost:1313/docs/algorithm/%EC%99%84%EC%A0%84%ED%83%90%EC%83%89/</link>
+    <description>Recent content in 완전탐색 on LogLee&#39;s Training Ground</description>
+    <generator>Hugo</generator>
+    <language>ko</language>
+    <atom:link href="http://localhost:1313/docs/algorithm/%EC%99%84%EC%A0%84%ED%83%90%EC%83%89/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>

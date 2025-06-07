@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Data Integration on LogLee&#39;s Training Ground</title>
-    <link>http://stevearsenelee.iptime.org/docs/data-integration/</link>
+    <link>http://localhost:1313/docs/data-integration/</link>
     <description>Recent content in Data Integration on LogLee&#39;s Training Ground</description>
     <generator>Hugo</generator>
     <language>ko</language>
-    <atom:link href="http://stevearsenelee.iptime.org/docs/data-integration/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/docs/data-integration/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

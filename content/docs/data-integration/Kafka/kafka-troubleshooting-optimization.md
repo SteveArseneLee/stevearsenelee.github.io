@@ -1,7 +1,6 @@
 +++
 title = "Kafka 운영 요소"
 draft = false
-bookHidden = true
 +++
 ### Kafka Monitoring
 
