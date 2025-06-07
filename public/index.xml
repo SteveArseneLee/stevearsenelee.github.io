@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>LogLee&#39;s Tech Hub on LogLee&#39;s Training Ground</title>
+    <title>LogLee&#39;s Training Ground</title>
     <link>http://localhost:1313/</link>
-    <description>Recent content in LogLee&#39;s Tech Hub on LogLee&#39;s Training Ground</description>
+    <description>Recent content on LogLee&#39;s Training Ground</description>
     <generator>Hugo</generator>
     <language>ko</language>
     <lastBuildDate>Tue, 15 Apr 2025 14:56:52 +0900</lastBuildDate>

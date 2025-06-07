@@ -1,34 +1,48 @@
+복사
 +++
 title = "LogLee's Tech Hub"
 description = "Where code meets craft, and logs tell stories."
 +++
 
-# ⚡ LogLee's Tech Hub
+# 🔧 LogLee.dev
 
-**Data Engineer** | **System Architect** | **Pipeline Craftsman**
+```bash
+$ whoami
+data_engineer | pipeline_architect | system_optimizer
 
----
+$ cat /proc/expertise
+├── Data Pipeline Engineering
+├── Distributed Systems Design  
+├── Production Infrastructure
+└── Real-time Stream Processing
 
-## 🎯 Mission
-> *"Building bulletproof data pipelines, one log at a time."*
+$ echo $MOTTO
+"In logs we trust, in data we scale."
+```
 
-실전에서 검증된 데이터 엔지니어링 노하우와 인프라 운영 경험을 기록하는 공간입니다.  
-이론보다는 **실무**, 개념보다는 **구현**, 문제보다는 **해결책**에 집중합니다.
+🚀 Current Focus
+```py
+class DataEngineer:
+    def __init__(self):
+        self.stack = {
+            'streaming': ['Kafka', 'Spark', 'Flink'],
+            'storage': ['Iceberg', 'Delta Lake', 'Parquet'],
+            'infra': ['Kubernetes', 'Vector', 'Prometheus'],
+            'languages': ['Python', 'Scala', 'Go', 'SQL']
+        }
+    
+    def solve(self, problem):
+        return self.experience + self.research + self.test()
+```
+📊 Repository Stats
+Total Solutions: 200+
+Production Fixes: 50+
+Pipeline Uptime: 99.9%
+Coffee Consumed: ∞
+💡 Navigation Tip
 
-## 🛠️ Core Stack
-Data Pipeline    → Kafka • Spark • Iceberg
-Infrastructure   → Kubernetes • Vector • Prometheus
+각 카테고리를 클릭하여 실전 검증된 솔루션들을 탐색해보세요.
 
-Languages        → Python • Scala Java
+이곳의 모든 내용은 프로덕션 환경에서 직접 경험한 것들입니다.
 
-복사
-
-## 🚀 Focus Areas
-- **Zero-Loss Pipeline Design** — 무손실 데이터 파이프라인 설계
-- **Real-time Processing** — 실시간 스트림 처리 최적화  
-- **Production Debugging** — 프로덕션 환경 트러블슈팅
-- **System Observability** — 시스템 가시성 및 모니터링
-
----
-
-*Ready to dive deep? 각 섹션에서 실전 경험과 검증된 솔루션을 확인하세요.*
+Ready to debug the world? Let's dive in. 🐛→✨
