@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>트러블슈팅 on LogLee's Training Ground</title><link>http://stevearsenelee.iptime.org/docs/%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/</link><description>Recent content in 트러블슈팅 on LogLee's Training Ground</description><generator>Hugo</generator><language>ko</language><atom:link href="http://stevearsenelee.iptime.org/docs/%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/index.xml" rel="self" type="application/rss+xml"/><item><title>Ceph를 구축하며 발생한 cpu 이슈..</title><link>http://stevearsenelee.iptime.org/docs/%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/ceph-issue1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/ceph-issue1/</guid><description>&lt;h3 id="상황">
+ 상황
+ &lt;a class="anchor" href="#%ec%83%81%ed%99%a9">#&lt;/a>
+&lt;/h3>
+&lt;blockquote>
+&lt;p>Ceph 클러스터를 Kubernetes에 구축하는 과정 중,
+csi-rbdplugin, csi-cephfsplugin, csi-snapshotter 등의 csi-* 계열 Pod들이 CrashLoopBackOff 또는 Error 상태로 지속적으로 실패함.&lt;/p></description></item><item><title>리소스 이슈 인한 인프라 재구축</title><link>http://stevearsenelee.iptime.org/docs/%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/resource-issue/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/resource-issue/</guid><description>&lt;h3 id="상황">
+ 상황
+ &lt;a class="anchor" href="#%ec%83%81%ed%99%a9">#&lt;/a>
+&lt;/h3>
+&lt;p>&lt;img src="http://stevearsenelee.iptime.org/troubleshooting/resource-request.png" alt="resource issue" />&lt;/p>
+&lt;p>다음과 같은 이슈가 발생했다. 현재 구축된 스택은 ceph, minio, kafka, kafka-ui뿐인데, request&amp;amp;limit을 최적화했음에도 내 환경에서는 다소 버거운 것으로 보인다.
+따라서 다음과 같은 결정을 하게됐다.&lt;/p></description></item><item><title>하나의 operator와 여러 namespace의 여러 kafka cluster</title><link>http://stevearsenelee.iptime.org/docs/%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/kafka-one-operator-multi-kafka/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/kafka-one-operator-multi-kafka/</guid><description>&lt;h3 id="상황">
+ 상황
+ &lt;a class="anchor" href="#%ec%83%81%ed%99%a9">#&lt;/a>
+&lt;/h3>
+&lt;blockquote>
+&lt;p>Strimzi Kafka Operator를 하나만 설치한 뒤, 여러 namespace에 Kafka 클러스터를 각각 배포하려는 구조로 운영하고자 했음.&lt;/p></description></item></channel></rss>

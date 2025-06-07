@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>운영체제 on LogLee's Training Ground</title><link>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/</link><description>Recent content in 운영체제 on LogLee's Training Ground</description><generator>Hugo</generator><language>ko</language><atom:link href="http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/index.xml" rel="self" type="application/rss+xml"/><item><title>1. Process &amp; Thread</title><link>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/1-process-thread/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/1-process-thread/</guid><description>&lt;h2 id="1-정의">
+ 1. 정의
+ &lt;a class="anchor" href="#1-%ec%a0%95%ec%9d%98">#&lt;/a>
+&lt;/h2>
+&lt;h3 id="프로세스-process">
+ 프로세스 (Process)
+ &lt;a class="anchor" href="#%ed%94%84%eb%a1%9c%ec%84%b8%ec%8a%a4-process">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>실행 중인 프로그램의 인스턴스&lt;/li>
+&lt;li>운영체제로부터 독립된 메모리 공간, 자원을 할당받음&lt;/li>
+&lt;li>자체 주소 공간, 코드 영역, 데이터, 힙, 스택을 가짐&lt;/li>
+&lt;li>각 프로세스는 **PCB(Process Control Block)**로 커널이 관리&lt;/li>
+&lt;/ul>
+&lt;h3 id="스레드-thread">
+ 스레드 (Thread)
+ &lt;a class="anchor" href="#%ec%8a%a4%eb%a0%88%eb%93%9c-thread">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>프로세스 내부에서 실행되는 작업의 흐름 단위&lt;/li>
+&lt;li>코드, 데이터, 힙, 파일 디스크립터 등을 프로세스 내 다른 스레드와 공유&lt;/li>
+&lt;li>스택과 레지스터는 독립적으로 가짐&lt;/li>
+&lt;li>**TCB(Thread Control Block)**로 커널/라이브러리가 관리&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-구조-및-차이점">
+ 2. 구조 및 차이점
+ &lt;a class="anchor" href="#2-%ea%b5%ac%ec%a1%b0-%eb%b0%8f-%ec%b0%a8%ec%9d%b4%ec%a0%90">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>항목&lt;/th>
+ &lt;th>프로세스&lt;/th>
+ &lt;th>스레드&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>정의&lt;/td>
+ &lt;td>실행 중인 프로그램의 인스턴스&lt;/td>
+ &lt;td>프로세스 내 작업 흐름 단위&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>메모리 구조&lt;/td>
+ &lt;td>코드, 데이터, 힙, 스택 모두 독립&lt;/td>
+ &lt;td>스택만 독립, 나머지 공유&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>자원 공유&lt;/td>
+ &lt;td>없음 (IPC 필요)&lt;/td>
+ &lt;td>있음 (공유 메모리 기반)&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>생성 비용&lt;/td>
+ &lt;td>큼 (fork)&lt;/td>
+ &lt;td>작음 (pthread_create)&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>컨텍스트 스위칭&lt;/td>
+ &lt;td>주소 공간 전환 포함 → 비용 큼&lt;/td>
+ &lt;td>주소 공간 공유 → 비용 적음&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>안정성&lt;/td>
+ &lt;td>다른 프로세스에 영향 없음&lt;/td>
+ &lt;td>하나의 오류가 전체에 영향 가능&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="3-context-switching">
+ 3. Context Switching
+ &lt;a class="anchor" href="#3-context-switching">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>CPU가 실행 중인 작업을 중단하고 다른 실행 단위로 전환하는 과정&lt;/li>
+&lt;li>필요한 정보: PC, 레지스터, 스택 포인터 등&lt;/li>
+&lt;li>스레드 간 전환은 주소 공간이 같아 빠르지만, 동기화 문제 발생 가능&lt;/li>
+&lt;li>프로세스 간 전환은 보호는 뛰어나지만, 오버헤드 큼&lt;/li>
+&lt;/ul>
+&lt;h2 id="4-실무-활용-예시">
+ 4. 실무 활용 예시
+ &lt;a class="anchor" href="#4-%ec%8b%a4%eb%ac%b4-%ed%99%9c%ec%9a%a9-%ec%98%88%ec%8b%9c">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>분야&lt;/th>
+ &lt;th>설명&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>웹 서버&lt;/td>
+ &lt;td>Nginx, Tomcat 등은 클라이언트 요청을 스레드 단위로 분리 처리 (스레드 풀 기반)&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>브라우저&lt;/td>
+ &lt;td>Chrome: 탭은 프로세스, 탭 내 동작은 스레드로 분리 (안정성과 병렬성 모두 확보)&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>멀티코어 CPU 활용&lt;/td>
+ &lt;td>Python은 GIL로 멀티 스레딩 성능 한계 → 멀티프로세싱 사용 (예: multiprocessing 모듈)&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>게임 엔진&lt;/td>
+ &lt;td>렌더링/네트워크/물리 계산을 개별 스레드로 병렬 처리&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="5-관련-명령어-및-실습">
+ 5. 관련 명령어 및 실습
+ &lt;a class="anchor" href="#5-%ea%b4%80%eb%a0%a8-%eb%aa%85%eb%a0%b9%ec%96%b4-%eb%b0%8f-%ec%8b%a4%ec%8a%b5">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>명령어&lt;/th>
+ &lt;th>설명&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>ps -ef, top&lt;/td>
+ &lt;td>현재 실행 중인 프로세스 확인&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>htop&lt;/td>
+ &lt;td>F2 → Threads 표시 옵션으로 스레드 확인&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>strace -p &lt;PID>&lt;/td>
+ &lt;td>해당 프로세스의 시스템 콜 흐름 추적&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>pthread_create()&lt;/td>
+ &lt;td>POSIX 스레드 생성 (C/C++)&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>java.lang.Thread, Runnable&lt;/td>
+ &lt;td>Java에서의 스레드 작성 방식&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="6-자주-묻는-면접-질문">
+ 6. 자주 묻는 면접 질문
+ &lt;a class="anchor" href="#6-%ec%9e%90%ec%a3%bc-%eb%ac%bb%eb%8a%94-%eb%a9%b4%ec%a0%91-%ec%a7%88%eb%ac%b8">#&lt;/a>
+&lt;/h2>
+&lt;blockquote>
+&lt;p>Q1. 프로세스와 스레드의 차이를 설명해주세요.&lt;/p></description></item><item><title>2. CPU Scheduling</title><link>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/2-cpu-scheduling/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/2-cpu-scheduling/</guid><description>&lt;h2 id="1-정의">
+ 1. 정의
+ &lt;a class="anchor" href="#1-%ec%a0%95%ec%9d%98">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>CPU 스케줄링은 Ready Queue에 있는 프로세스들 중 어떤 프로세스에게 CPU를 할당할지 결정하는 정책.&lt;/li>
+&lt;li>멀티태스킹 OS에서 프로세스 간 CPU를 공유하기 위한 핵심 메커니즘.&lt;/li>
+&lt;li>OS의 핵심 기능 중 하나로, 스케줄러는 다양한 정책에 따라 프로세스를 선택함.&lt;/li>
+&lt;/ul>
+&lt;h3 id="주요-목적">
+ 주요 목적
+ &lt;a class="anchor" href="#%ec%a3%bc%ec%9a%94-%eb%aa%a9%ec%a0%81">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>시스템 자원의 공정한 분배&lt;/li>
+&lt;li>CPU 사용률(Throughput) 극대화&lt;/li>
+&lt;li>대기 시간, 응답 시간 최소화&lt;/li>
+&lt;li>전반적인 시스템 반응성 향상&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-스케쥴링이-필요한-시점">
+ 2. 스케쥴링이 필요한 시점
+ &lt;a class="anchor" href="#2-%ec%8a%a4%ec%bc%80%ec%a5%b4%eb%a7%81%ec%9d%b4-%ed%95%84%ec%9a%94%ed%95%9c-%ec%8b%9c%ec%a0%90">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>프로세스가 CPU burst를 마치고 I/O 요청 → CPU 반환&lt;/li>
+&lt;li>프로세스가 종료됨&lt;/li>
+&lt;li>선점형 스케줄러의 경우, 더 높은 우선순위의 프로세스가 도착&lt;/li>
+&lt;li>sleep(), wait() 호출 후 wake up될 때&lt;/li>
+&lt;/ul>
+&lt;h2 id="3-주요-스케쥴링-기준">
+ 3. 주요 스케쥴링 기준
+ &lt;a class="anchor" href="#3-%ec%a3%bc%ec%9a%94-%ec%8a%a4%ec%bc%80%ec%a5%b4%eb%a7%81-%ea%b8%b0%ec%a4%80">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>기준&lt;/th>
+ &lt;th>설명&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>CPU burst time&lt;/td>
+ &lt;td>얼마나 짧게 CPU를 점유할지&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>우선순위 (Priority)&lt;/td>
+ &lt;td>사용자/시스템 지정&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>도착 시간 (Arrival Time)&lt;/td>
+ &lt;td>먼저 온 순서&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>대기 시간 / 응답 시간&lt;/td>
+ &lt;td>유저가 체감하는 반응 속도&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Aging&lt;/td>
+ &lt;td>기아(Starvation) 방지 목적&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="4-스케쥴링-알고리즘">
+ 4. 스케쥴링 알고리즘
+ &lt;a class="anchor" href="#4-%ec%8a%a4%ec%bc%80%ec%a5%b4%eb%a7%81-%ec%95%8c%ea%b3%a0%eb%a6%ac%ec%a6%98">#&lt;/a>
+&lt;/h2>
+&lt;ol>
+&lt;li>FCFS (First-Come, First-Served)&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>먼저 온 순서대로 처리 (Queue 기반)&lt;/li>
+&lt;li>단순하지만 Convoy 현상 발생 가능 (긴 작업이 짧은 작업을 막음)&lt;/li>
+&lt;/ul>
+&lt;ol start="2">
+&lt;li>SJF (Shortest Job First)&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>CPU burst가 가장 짧은 작업 우선&lt;/li>
+&lt;li>이론상 가장 효율적 (대기시간 최소), 하지만 예측이 어렵다&lt;/li>
+&lt;li>비선점형(기본) 또는 **선점형(SRTF)**으로 구현 가능&lt;/li>
+&lt;/ul>
+&lt;ol start="3">
+&lt;li>Round Robin (RR)&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>각 프로세스에 Time Quantum 부여&lt;/li>
+&lt;li>시간 할당이 끝나면 선점 발생 → 공정성 ↑&lt;/li>
+&lt;li>응답성이 중요할 때 유용 (인터랙티브 시스템)&lt;/li>
+&lt;/ul>
+&lt;ol start="4">
+&lt;li>Priority Scheduling&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>우선순위 높은 작업부터 실행&lt;/li>
+&lt;li>Starvation 발생 가능 → Aging 기법으로 완화&lt;/li>
+&lt;/ul>
+&lt;ol start="5">
+&lt;li>Multi-Level Queue (MLQ)&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>프로세스를 성격에 따라 여러 큐로 분류 (ex. interactive, batch)&lt;/li>
+&lt;li>큐마다 별도 알고리즘 사용&lt;/li>
+&lt;li>큐 간 우선순위 존재 (low queue는 starvation 가능)&lt;/li>
+&lt;/ul>
+&lt;ol start="6">
+&lt;li>Multi-Level Feedback Queue (MLFQ)&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>MLQ 확장형, 프로세스가 다른 큐로 이동 가능&lt;/li>
+&lt;li>초기엔 높은 우선순위에서 시작, CPU 오래 쓰면 점점 낮은 우선순위로 이동&lt;/li>
+&lt;li>현대 OS가 채택하는 현실적인 정책&lt;/li>
+&lt;/ul>
+&lt;h2 id="5-선점형-vs-비선점형">
+ 5. 선점형 vs 비선점형
+ &lt;a class="anchor" href="#5-%ec%84%a0%ec%a0%90%ed%98%95-vs-%eb%b9%84%ec%84%a0%ec%a0%90%ed%98%95">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>구분&lt;/th>
+ &lt;th>비선점형&lt;/th>
+ &lt;th>선점형&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>설명&lt;/td>
+ &lt;td>CPU를 할당받으면 자발적으로 반환할 때까지 유지&lt;/td>
+ &lt;td>우선순위 등 조건에 따라 중간에 선점 가능&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>예시 알고리즘&lt;/td>
+ &lt;td>FCFS, SJF&lt;/td>
+ &lt;td>RR, Priority(선점형), SRTF&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>특징&lt;/td>
+ &lt;td>단순, context switch 적음&lt;/td>
+ &lt;td>응답성 우수, 복잡도 ↑&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="6-성능-지표">
+ 6. 성능 지표
+ &lt;a class="anchor" href="#6-%ec%84%b1%eb%8a%a5-%ec%a7%80%ed%91%9c">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>지표&lt;/th>
+ &lt;th>설명&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>CPU 사용률&lt;/td>
+ &lt;td>CPU가 놀지 않고 일하는 비율&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Throughput&lt;/td>
+ &lt;td>단위 시간당 완료된 프로세스 수&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Turnaround Time&lt;/td>
+ &lt;td>프로세스 시작 ~ 종료까지 걸린 시간&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Waiting Time&lt;/td>
+ &lt;td>Ready Queue에서 기다린 시간&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Response Time&lt;/td>
+ &lt;td>요청 후 첫 반응까지 걸린 시간&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="7-실무-예시">
+ 7. 실무 예시
+ &lt;a class="anchor" href="#7-%ec%8b%a4%eb%ac%b4-%ec%98%88%ec%8b%9c">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>OS&lt;/th>
+ &lt;th>스케줄러&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>Linux (CFS)&lt;/td>
+ &lt;td>Completely Fair Scheduler – 시간 단위를 Weight로 변환해 공정하게 분배&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Windows&lt;/td>
+ &lt;td>Multilevel Feedback Queue 기반 선점형&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>RTOS&lt;/td>
+ &lt;td>Priority-based preemptive scheduling (실시간성 강조)&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>=&amp;gt; 📌 Linux CFS는 가상 런타임(VRuntime) 기반으로, 각 태스크의 실행 시간을 추적하며 가장 “덜 사용한” 프로세스에게 CPU를 할당.&lt;/p></description></item><item><title>3. 프로세스 동기화(Process Synchronization)</title><link>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/3-process-synchronization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/3-process-synchronization/</guid><description>&lt;h2 id="1-정의">
+ 1. 정의
+ &lt;a class="anchor" href="#1-%ec%a0%95%ec%9d%98">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>프로세스 동기화란 둘 이상의 프로세스(또는 스레드)가 공유 자원에 접근할 때 충돌 없이 안전하게 작업할 수 있도록 보장하는 방법.&lt;/li>
+&lt;li>주로 임계 구역(Critical Section) 문제를 해결하기 위한 동기화 메커니즘을 의미.&lt;/li>
+&lt;/ul>
+&lt;h3 id="-임계-구역-critical-section">
+ 🔹 임계 구역 (Critical Section)
+ &lt;a class="anchor" href="#-%ec%9e%84%ea%b3%84-%ea%b5%ac%ec%97%ad-critical-section">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>동시에 하나의 프로세스만 접근해야 하는 공유 자원 처리 구간.&lt;/li>
+&lt;li>예: 전역 변수, 공유된 파일, 네트워크 소켓 등&lt;/li>
+&lt;/ul>
+&lt;h3 id="-동기화의-목적">
+ 🔹 동기화의 목적
+ &lt;a class="anchor" href="#-%eb%8f%99%ea%b8%b0%ed%99%94%ec%9d%98-%eb%aa%a9%ec%a0%81">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>Race Condition 방지: 둘 이상의 프로세스가 데이터를 동시에 읽고 쓰면 비정상적인 결과 발생&lt;/li>
+&lt;li>일관성 유지: 데이터 무결성 보장&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-동기화의-3가지-요구-조건임계-구역-문제-해결-조건">
+ 2. 동기화의 3가지 요구 조건(임계 구역 문제 해결 조건)
+ &lt;a class="anchor" href="#2-%eb%8f%99%ea%b8%b0%ed%99%94%ec%9d%98-3%ea%b0%80%ec%a7%80-%ec%9a%94%ea%b5%ac-%ec%a1%b0%ea%b1%b4%ec%9e%84%ea%b3%84-%ea%b5%ac%ec%97%ad-%eb%ac%b8%ec%a0%9c-%ed%95%b4%ea%b2%b0-%ec%a1%b0%ea%b1%b4">#&lt;/a>
+&lt;/h2>
+&lt;ol>
+&lt;li>상호 배제 (Mutual Exclusion): 하나의 프로세스만 임계 구역 실행 가능&lt;/li>
+&lt;li>진행 (Progress): 임계 구역에 진입하지 않은 프로세스는 진입 여부 결정에 관여 X&lt;/li>
+&lt;li>한정 대기 (Bounded Waiting): 무한정 대기 없이 순차적으로 기회 부여&lt;/li>
+&lt;/ol>
+&lt;h2 id="3-동기화-주요-기법">
+ 3. 동기화 주요 기법
+ &lt;a class="anchor" href="#3-%eb%8f%99%ea%b8%b0%ed%99%94-%ec%a3%bc%ec%9a%94-%ea%b8%b0%eb%b2%95">#&lt;/a>
+&lt;/h2>
+&lt;ol>
+&lt;li>뮤텍스(Mutex, Mutual Exclusion Lock)&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>한 번에 하나의 스레드만 락을 획득 가능&lt;/li>
+&lt;li>획득한 스레드만 임계 구역 진입 → 완료 후 unlock&lt;/li>
+&lt;li>소유 개념 있음: 락을 걸고 해제할 수 있는 주체는 동일해야 함&lt;/li>
+&lt;li>사용 예시: pthread_mutex, Java synchronized, C++ std::mutex&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">pthread_mutex_t&lt;/span> lock;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">pthread_mutex_lock&lt;/span>(&lt;span style="color:#f92672">&amp;amp;&lt;/span>lock);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// 임계 구역
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#a6e22e">pthread_mutex_unlock&lt;/span>(&lt;span style="color:#f92672">&amp;amp;&lt;/span>lock);
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>세마포어(Semaphore)&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>카운팅 가능한 동기화 도구&lt;/li>
+&lt;li>두 가지 연산:
+&lt;ul>
+&lt;li>P() 또는 wait() → 자원 요청 (count–)&lt;/li>
+&lt;li>V() 또는 signal() → 자원 반납 (count++)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>음수가 되면 대기 큐에 블록됨&lt;/li>
+&lt;li>소유 개념 없음 → 다른 스레드가 해제 가능
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>종류&lt;/th>
+ &lt;th>설명&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>Binary Semaphore&lt;/td>
+ &lt;td>0 or 1 (뮤텍스와 유사)&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Counting Semaphore&lt;/td>
+ &lt;td>특정 수 이상의 동시 접근 허용 가능&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;/li>
+&lt;/ul>
+&lt;ol start="3">
+&lt;li>스핀락(Spinlock)&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>락을 획득할 때까지 CPU를 점유한 채 무한 루프(바쁜 대기).&lt;/li>
+&lt;li>컨텍스트 스위치가 비싼 커널 공간이나 짧은 락 소유 시 유리&lt;/li>
+&lt;li>주의: 멀티코어 환경에서만 유효하며, 싱글코어에서 사용하면 CPU 낭비&lt;/li>
+&lt;/ul>
+&lt;ol start="4">
+&lt;li>모니터(Monitor)&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>언어 수준의 동기화 추상화&lt;/li>
+&lt;li>내부에 Lock + Condition Variable 포함&lt;/li>
+&lt;li>Java, C#, Go 등에서 사용 (synchronized, wait/notify, etc.)&lt;/li>
+&lt;/ul>
+&lt;ol start="5">
+&lt;li>조건 변수 (Condition Variable)&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>어떤 조건이 만족될 때까지 기다리는 데 사용&lt;/li>
+&lt;li>주로 뮤텍스와 함께 사용&lt;/li>
+&lt;li>예시:
+&lt;ul>
+&lt;li>pthread_cond_wait()&lt;/li>
+&lt;li>Java Object.wait() / Object.notify()&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="4-race-condition-예제와-해결-방법">
+ 4. Race COndition 예제와 해결 방법
+ &lt;a class="anchor" href="#4-race-condition-%ec%98%88%ec%a0%9c%ec%99%80-%ed%95%b4%ea%b2%b0-%eb%b0%a9%eb%b2%95">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">int&lt;/span> counter &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">void&lt;/span>&lt;span style="color:#f92672">*&lt;/span> &lt;span style="color:#a6e22e">increment&lt;/span>(&lt;span style="color:#66d9ef">void&lt;/span>&lt;span style="color:#f92672">*&lt;/span> arg) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> (&lt;span style="color:#66d9ef">int&lt;/span> i &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>; i &lt;span style="color:#f92672">&amp;lt;&lt;/span> &lt;span style="color:#ae81ff">1000000&lt;/span>; i&lt;span style="color:#f92672">++&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> counter&lt;span style="color:#f92672">++&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>위 코드에서 두 개의 스레드가 동시에 counter++를 수행하면 Race Condition 발생&lt;/li>
+&lt;li>해결책: mutex 사용&lt;/li>
+&lt;/ul>
+&lt;h2 id="5-실무-예시">
+ 5. 실무 예시
+ &lt;a class="anchor" href="#5-%ec%8b%a4%eb%ac%b4-%ec%98%88%ec%8b%9c">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>분야&lt;/th>
+ &lt;th>동기화 방식&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>다중 요청 처리 서버 (ex. Tomcat)&lt;/td>
+ &lt;td>Thread Pool + 뮤텍스 / 세마포어&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>생산자-소비자 패턴&lt;/td>
+ &lt;td>Circular Buffer + 조건 변수&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>DB connection pool&lt;/td>
+ &lt;td>Counting Semaphore&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>커널 영역 (락 없는 프로그래밍 포함)&lt;/td>
+ &lt;td>Spinlock, 원자 연산, CAS(Compare-And-Swap)&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="6-자주-묻는-면접-질문">
+ 6. 자주 묻는 면접 질문
+ &lt;a class="anchor" href="#6-%ec%9e%90%ec%a3%bc-%eb%ac%bb%eb%8a%94-%eb%a9%b4%ec%a0%91-%ec%a7%88%eb%ac%b8">#&lt;/a>
+&lt;/h2>
+&lt;blockquote>
+&lt;p>Q1. 세마포어와 뮤텍스의 차이는?
+A.&lt;/p></description></item><item><title>4. Deadlock</title><link>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/4-deadlock/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/4-deadlock/</guid><description>&lt;h2 id="1-정의">
+ 1. 정의
+ &lt;a class="anchor" href="#1-%ec%a0%95%ec%9d%98">#&lt;/a>
+&lt;/h2>
+&lt;p>데드락(교착 상태, Deadlock) 이란 여러 프로세스(또는 스레드)가 서로 자원이 풀리기를 기다리며 무한히 블로킹되어, 더 이상 진행되지 못하는 상태를 의미한다.&lt;/p></description></item><item><title>5. 메모리 관리</title><link>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/5-memory-manage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/5-memory-manage/</guid><description>&lt;h2 id="1-메모리의-계층-구조-및-주소-체계">
+ 1. 메모리의 계층 구조 및 주소 체계
+ &lt;a class="anchor" href="#1-%eb%a9%94%eb%aa%a8%eb%a6%ac%ec%9d%98-%ea%b3%84%ec%b8%b5-%ea%b5%ac%ec%a1%b0-%eb%b0%8f-%ec%a3%bc%ec%86%8c-%ec%b2%b4%ea%b3%84">#&lt;/a>
+&lt;/h2>
+&lt;h3 id="메모리-계층-구조">
+ 메모리 계층 구조
+ &lt;a class="anchor" href="#%eb%a9%94%eb%aa%a8%eb%a6%ac-%ea%b3%84%ec%b8%b5-%ea%b5%ac%ec%a1%b0">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>CPU -&amp;gt; register -&amp;gt; cache -&amp;gt; main memory(RAM) -&amp;gt; SSD/HDD&lt;/li>
+&lt;li>OS 입장에서는 **main memory(RAM)**을 관리하는 게 핵심&lt;/li>
+&lt;/ul>
+&lt;h3 id="주소-체계">
+ 주소 체계
+ &lt;a class="anchor" href="#%ec%a3%bc%ec%86%8c-%ec%b2%b4%ea%b3%84">#&lt;/a>
+&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>구분&lt;/th>
+ &lt;th>설명&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>논리 주소(Logical Address)&lt;/td>
+ &lt;td>CPU가 생성한 주소 (프로세스 입장에서의 주소)&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>물리 주소(Physical Address)&lt;/td>
+ &lt;td>실제 메모리 하드웨어 상의 주소&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>가상 주소(Virtual Address)&lt;/td>
+ &lt;td>논리 주소와 같으며, MMU가 물리 주소로 변환&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>=&amp;gt; MMU (Memory Management Unit): 논리 주소를 물리 주소로 변환하는 하드웨어. 페이징 기반 시스템에서 핵심 역할.&lt;/p></description></item><item><title>6. 가상 메모리</title><link>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/6-virtual-memory/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/6-virtual-memory/</guid><description>&lt;h2 id="1-정의">
+ 1. 정의
+ &lt;a class="anchor" href="#1-%ec%a0%95%ec%9d%98">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;strong>가상 메모리(Virtual Memory)&lt;/strong> 는 프로세스가 실제 물리 메모리보다 더 큰 주소 공간을 사용할 수 있도록 지원하는 메커니즘&lt;/p></description></item><item><title>7. File System</title><link>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/7-file-system/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/7-file-system/</guid><description>&lt;h2 id="1-파일-시스템의-역할">
+ 1. 파일 시스템의 역할
+ &lt;a class="anchor" href="#1-%ed%8c%8c%ec%9d%bc-%ec%8b%9c%ec%8a%a4%ed%85%9c%ec%9d%98-%ec%97%ad%ed%95%a0">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>데이터를 저장하고, 탐색하고, 보호하는 계층&lt;/li>
+&lt;li>저장 장치(HDD, SSD 등)의 추상화 계층을 제공&lt;/li>
+&lt;li>운영체제는 파일 시스템을 통해 파일/디렉토리를 관리함&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-inode와-디렉터리-구조">
+ 2. inode와 디렉터리 구조
+ &lt;a class="anchor" href="#2-inode%ec%99%80-%eb%94%94%eb%a0%89%ed%84%b0%eb%a6%ac-%ea%b5%ac%ec%a1%b0">#&lt;/a>
+&lt;/h2>
+&lt;h3 id="inode-index-node">
+ inode (Index Node)
+ &lt;a class="anchor" href="#inode-index-node">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>파일의 metadata를 저장하는 구조체&lt;/li>
+&lt;li>각 파일은 고유한 inode 번호를 가짐 (inode table에 저장)&lt;/li>
+&lt;/ul>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>포함 정보&lt;/th>
+ &lt;th>예시&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>파일 크기&lt;/td>
+ &lt;td>512KB&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>생성/수정/접근 시간&lt;/td>
+ &lt;td>stat 명령으로 확인&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>접근 권한&lt;/td>
+ &lt;td>rwxr-xr–&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>링크 수&lt;/td>
+ &lt;td>hard link 개수&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>디스크 블록 위치 정보&lt;/td>
+ &lt;td>직접/간접 블록 주소 포함&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>=&amp;gt; inode는 filename은 저장하지 않음 -&amp;gt; directory entry가 filename과 inode 번호를 매핑&lt;/p></description></item></channel></rss>

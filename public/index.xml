@@ -1,0 +1,1193 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>LogLee's Training Ground</title><link>http://stevearsenelee.iptime.org/</link><description>Recent content on LogLee's Training Ground</description><generator>Hugo</generator><language>ko</language><lastBuildDate>Tue, 15 Apr 2025 14:56:52 +0900</lastBuildDate><atom:link href="http://stevearsenelee.iptime.org/index.xml" rel="self" type="application/rss+xml"/><item><title>이걸 해볼까요</title><link>http://stevearsenelee.iptime.org/docs/infra/kvm/whatswrong/</link><pubDate>Tue, 15 Apr 2025 14:56:52 +0900</pubDate><guid>http://stevearsenelee.iptime.org/docs/infra/kvm/whatswrong/</guid><description>&lt;h3 id="worker-node에-role-부여하기">
+ Worker Node에 Role 부여하기
+ &lt;a class="anchor" href="#worker-node%ec%97%90-role-%eb%b6%80%ec%97%ac%ed%95%98%ea%b8%b0">#&lt;/a>
+&lt;/h3>
+&lt;pre tabindex="0">&lt;code>kubectl label node {node명} node-role.kubernetes.io/worker=worker
+&lt;/code>&lt;/pre>&lt;h3 id="nfs-서버-연결-및-persistentvolume-storageclass-설정">
+ NFS 서버 연결 및 PersistentVolume, StorageClass 설정
+ &lt;a class="anchor" href="#nfs-%ec%84%9c%eb%b2%84-%ec%97%b0%ea%b2%b0-%eb%b0%8f-persistentvolume-storageclass-%ec%84%a4%ec%a0%95">#&lt;/a>
+&lt;/h3>
+&lt;ol>
+&lt;li>NFS 서버 확인&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>IP 확인&lt;/li>
+&lt;li>공유 디렉토리 : e.g. &lt;code>/srv/nfs/k8s&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>NFS 서버 설치하기&lt;/p></description></item><item><title/><link>http://stevearsenelee.iptime.org/docs/data-engineering/modeling/normalization-vs-denomralization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/data-engineering/modeling/normalization-vs-denomralization/</guid><description/></item><item><title>1. Process &amp; Thread</title><link>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/1-process-thread/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/1-process-thread/</guid><description>&lt;h2 id="1-정의">
+ 1. 정의
+ &lt;a class="anchor" href="#1-%ec%a0%95%ec%9d%98">#&lt;/a>
+&lt;/h2>
+&lt;h3 id="프로세스-process">
+ 프로세스 (Process)
+ &lt;a class="anchor" href="#%ed%94%84%eb%a1%9c%ec%84%b8%ec%8a%a4-process">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>실행 중인 프로그램의 인스턴스&lt;/li>
+&lt;li>운영체제로부터 독립된 메모리 공간, 자원을 할당받음&lt;/li>
+&lt;li>자체 주소 공간, 코드 영역, 데이터, 힙, 스택을 가짐&lt;/li>
+&lt;li>각 프로세스는 **PCB(Process Control Block)**로 커널이 관리&lt;/li>
+&lt;/ul>
+&lt;h3 id="스레드-thread">
+ 스레드 (Thread)
+ &lt;a class="anchor" href="#%ec%8a%a4%eb%a0%88%eb%93%9c-thread">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>프로세스 내부에서 실행되는 작업의 흐름 단위&lt;/li>
+&lt;li>코드, 데이터, 힙, 파일 디스크립터 등을 프로세스 내 다른 스레드와 공유&lt;/li>
+&lt;li>스택과 레지스터는 독립적으로 가짐&lt;/li>
+&lt;li>**TCB(Thread Control Block)**로 커널/라이브러리가 관리&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-구조-및-차이점">
+ 2. 구조 및 차이점
+ &lt;a class="anchor" href="#2-%ea%b5%ac%ec%a1%b0-%eb%b0%8f-%ec%b0%a8%ec%9d%b4%ec%a0%90">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>항목&lt;/th>
+ &lt;th>프로세스&lt;/th>
+ &lt;th>스레드&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>정의&lt;/td>
+ &lt;td>실행 중인 프로그램의 인스턴스&lt;/td>
+ &lt;td>프로세스 내 작업 흐름 단위&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>메모리 구조&lt;/td>
+ &lt;td>코드, 데이터, 힙, 스택 모두 독립&lt;/td>
+ &lt;td>스택만 독립, 나머지 공유&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>자원 공유&lt;/td>
+ &lt;td>없음 (IPC 필요)&lt;/td>
+ &lt;td>있음 (공유 메모리 기반)&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>생성 비용&lt;/td>
+ &lt;td>큼 (fork)&lt;/td>
+ &lt;td>작음 (pthread_create)&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>컨텍스트 스위칭&lt;/td>
+ &lt;td>주소 공간 전환 포함 → 비용 큼&lt;/td>
+ &lt;td>주소 공간 공유 → 비용 적음&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>안정성&lt;/td>
+ &lt;td>다른 프로세스에 영향 없음&lt;/td>
+ &lt;td>하나의 오류가 전체에 영향 가능&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="3-context-switching">
+ 3. Context Switching
+ &lt;a class="anchor" href="#3-context-switching">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>CPU가 실행 중인 작업을 중단하고 다른 실행 단위로 전환하는 과정&lt;/li>
+&lt;li>필요한 정보: PC, 레지스터, 스택 포인터 등&lt;/li>
+&lt;li>스레드 간 전환은 주소 공간이 같아 빠르지만, 동기화 문제 발생 가능&lt;/li>
+&lt;li>프로세스 간 전환은 보호는 뛰어나지만, 오버헤드 큼&lt;/li>
+&lt;/ul>
+&lt;h2 id="4-실무-활용-예시">
+ 4. 실무 활용 예시
+ &lt;a class="anchor" href="#4-%ec%8b%a4%eb%ac%b4-%ed%99%9c%ec%9a%a9-%ec%98%88%ec%8b%9c">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>분야&lt;/th>
+ &lt;th>설명&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>웹 서버&lt;/td>
+ &lt;td>Nginx, Tomcat 등은 클라이언트 요청을 스레드 단위로 분리 처리 (스레드 풀 기반)&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>브라우저&lt;/td>
+ &lt;td>Chrome: 탭은 프로세스, 탭 내 동작은 스레드로 분리 (안정성과 병렬성 모두 확보)&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>멀티코어 CPU 활용&lt;/td>
+ &lt;td>Python은 GIL로 멀티 스레딩 성능 한계 → 멀티프로세싱 사용 (예: multiprocessing 모듈)&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>게임 엔진&lt;/td>
+ &lt;td>렌더링/네트워크/물리 계산을 개별 스레드로 병렬 처리&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="5-관련-명령어-및-실습">
+ 5. 관련 명령어 및 실습
+ &lt;a class="anchor" href="#5-%ea%b4%80%eb%a0%a8-%eb%aa%85%eb%a0%b9%ec%96%b4-%eb%b0%8f-%ec%8b%a4%ec%8a%b5">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>명령어&lt;/th>
+ &lt;th>설명&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>ps -ef, top&lt;/td>
+ &lt;td>현재 실행 중인 프로세스 확인&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>htop&lt;/td>
+ &lt;td>F2 → Threads 표시 옵션으로 스레드 확인&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>strace -p &lt;PID>&lt;/td>
+ &lt;td>해당 프로세스의 시스템 콜 흐름 추적&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>pthread_create()&lt;/td>
+ &lt;td>POSIX 스레드 생성 (C/C++)&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>java.lang.Thread, Runnable&lt;/td>
+ &lt;td>Java에서의 스레드 작성 방식&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="6-자주-묻는-면접-질문">
+ 6. 자주 묻는 면접 질문
+ &lt;a class="anchor" href="#6-%ec%9e%90%ec%a3%bc-%eb%ac%bb%eb%8a%94-%eb%a9%b4%ec%a0%91-%ec%a7%88%eb%ac%b8">#&lt;/a>
+&lt;/h2>
+&lt;blockquote>
+&lt;p>Q1. 프로세스와 스레드의 차이를 설명해주세요.&lt;/p></description></item><item><title>2. CPU Scheduling</title><link>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/2-cpu-scheduling/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/2-cpu-scheduling/</guid><description>&lt;h2 id="1-정의">
+ 1. 정의
+ &lt;a class="anchor" href="#1-%ec%a0%95%ec%9d%98">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>CPU 스케줄링은 Ready Queue에 있는 프로세스들 중 어떤 프로세스에게 CPU를 할당할지 결정하는 정책.&lt;/li>
+&lt;li>멀티태스킹 OS에서 프로세스 간 CPU를 공유하기 위한 핵심 메커니즘.&lt;/li>
+&lt;li>OS의 핵심 기능 중 하나로, 스케줄러는 다양한 정책에 따라 프로세스를 선택함.&lt;/li>
+&lt;/ul>
+&lt;h3 id="주요-목적">
+ 주요 목적
+ &lt;a class="anchor" href="#%ec%a3%bc%ec%9a%94-%eb%aa%a9%ec%a0%81">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>시스템 자원의 공정한 분배&lt;/li>
+&lt;li>CPU 사용률(Throughput) 극대화&lt;/li>
+&lt;li>대기 시간, 응답 시간 최소화&lt;/li>
+&lt;li>전반적인 시스템 반응성 향상&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-스케쥴링이-필요한-시점">
+ 2. 스케쥴링이 필요한 시점
+ &lt;a class="anchor" href="#2-%ec%8a%a4%ec%bc%80%ec%a5%b4%eb%a7%81%ec%9d%b4-%ed%95%84%ec%9a%94%ed%95%9c-%ec%8b%9c%ec%a0%90">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>프로세스가 CPU burst를 마치고 I/O 요청 → CPU 반환&lt;/li>
+&lt;li>프로세스가 종료됨&lt;/li>
+&lt;li>선점형 스케줄러의 경우, 더 높은 우선순위의 프로세스가 도착&lt;/li>
+&lt;li>sleep(), wait() 호출 후 wake up될 때&lt;/li>
+&lt;/ul>
+&lt;h2 id="3-주요-스케쥴링-기준">
+ 3. 주요 스케쥴링 기준
+ &lt;a class="anchor" href="#3-%ec%a3%bc%ec%9a%94-%ec%8a%a4%ec%bc%80%ec%a5%b4%eb%a7%81-%ea%b8%b0%ec%a4%80">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>기준&lt;/th>
+ &lt;th>설명&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>CPU burst time&lt;/td>
+ &lt;td>얼마나 짧게 CPU를 점유할지&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>우선순위 (Priority)&lt;/td>
+ &lt;td>사용자/시스템 지정&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>도착 시간 (Arrival Time)&lt;/td>
+ &lt;td>먼저 온 순서&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>대기 시간 / 응답 시간&lt;/td>
+ &lt;td>유저가 체감하는 반응 속도&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Aging&lt;/td>
+ &lt;td>기아(Starvation) 방지 목적&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="4-스케쥴링-알고리즘">
+ 4. 스케쥴링 알고리즘
+ &lt;a class="anchor" href="#4-%ec%8a%a4%ec%bc%80%ec%a5%b4%eb%a7%81-%ec%95%8c%ea%b3%a0%eb%a6%ac%ec%a6%98">#&lt;/a>
+&lt;/h2>
+&lt;ol>
+&lt;li>FCFS (First-Come, First-Served)&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>먼저 온 순서대로 처리 (Queue 기반)&lt;/li>
+&lt;li>단순하지만 Convoy 현상 발생 가능 (긴 작업이 짧은 작업을 막음)&lt;/li>
+&lt;/ul>
+&lt;ol start="2">
+&lt;li>SJF (Shortest Job First)&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>CPU burst가 가장 짧은 작업 우선&lt;/li>
+&lt;li>이론상 가장 효율적 (대기시간 최소), 하지만 예측이 어렵다&lt;/li>
+&lt;li>비선점형(기본) 또는 **선점형(SRTF)**으로 구현 가능&lt;/li>
+&lt;/ul>
+&lt;ol start="3">
+&lt;li>Round Robin (RR)&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>각 프로세스에 Time Quantum 부여&lt;/li>
+&lt;li>시간 할당이 끝나면 선점 발생 → 공정성 ↑&lt;/li>
+&lt;li>응답성이 중요할 때 유용 (인터랙티브 시스템)&lt;/li>
+&lt;/ul>
+&lt;ol start="4">
+&lt;li>Priority Scheduling&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>우선순위 높은 작업부터 실행&lt;/li>
+&lt;li>Starvation 발생 가능 → Aging 기법으로 완화&lt;/li>
+&lt;/ul>
+&lt;ol start="5">
+&lt;li>Multi-Level Queue (MLQ)&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>프로세스를 성격에 따라 여러 큐로 분류 (ex. interactive, batch)&lt;/li>
+&lt;li>큐마다 별도 알고리즘 사용&lt;/li>
+&lt;li>큐 간 우선순위 존재 (low queue는 starvation 가능)&lt;/li>
+&lt;/ul>
+&lt;ol start="6">
+&lt;li>Multi-Level Feedback Queue (MLFQ)&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>MLQ 확장형, 프로세스가 다른 큐로 이동 가능&lt;/li>
+&lt;li>초기엔 높은 우선순위에서 시작, CPU 오래 쓰면 점점 낮은 우선순위로 이동&lt;/li>
+&lt;li>현대 OS가 채택하는 현실적인 정책&lt;/li>
+&lt;/ul>
+&lt;h2 id="5-선점형-vs-비선점형">
+ 5. 선점형 vs 비선점형
+ &lt;a class="anchor" href="#5-%ec%84%a0%ec%a0%90%ed%98%95-vs-%eb%b9%84%ec%84%a0%ec%a0%90%ed%98%95">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>구분&lt;/th>
+ &lt;th>비선점형&lt;/th>
+ &lt;th>선점형&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>설명&lt;/td>
+ &lt;td>CPU를 할당받으면 자발적으로 반환할 때까지 유지&lt;/td>
+ &lt;td>우선순위 등 조건에 따라 중간에 선점 가능&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>예시 알고리즘&lt;/td>
+ &lt;td>FCFS, SJF&lt;/td>
+ &lt;td>RR, Priority(선점형), SRTF&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>특징&lt;/td>
+ &lt;td>단순, context switch 적음&lt;/td>
+ &lt;td>응답성 우수, 복잡도 ↑&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="6-성능-지표">
+ 6. 성능 지표
+ &lt;a class="anchor" href="#6-%ec%84%b1%eb%8a%a5-%ec%a7%80%ed%91%9c">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>지표&lt;/th>
+ &lt;th>설명&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>CPU 사용률&lt;/td>
+ &lt;td>CPU가 놀지 않고 일하는 비율&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Throughput&lt;/td>
+ &lt;td>단위 시간당 완료된 프로세스 수&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Turnaround Time&lt;/td>
+ &lt;td>프로세스 시작 ~ 종료까지 걸린 시간&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Waiting Time&lt;/td>
+ &lt;td>Ready Queue에서 기다린 시간&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Response Time&lt;/td>
+ &lt;td>요청 후 첫 반응까지 걸린 시간&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="7-실무-예시">
+ 7. 실무 예시
+ &lt;a class="anchor" href="#7-%ec%8b%a4%eb%ac%b4-%ec%98%88%ec%8b%9c">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>OS&lt;/th>
+ &lt;th>스케줄러&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>Linux (CFS)&lt;/td>
+ &lt;td>Completely Fair Scheduler – 시간 단위를 Weight로 변환해 공정하게 분배&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Windows&lt;/td>
+ &lt;td>Multilevel Feedback Queue 기반 선점형&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>RTOS&lt;/td>
+ &lt;td>Priority-based preemptive scheduling (실시간성 강조)&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>=&amp;gt; 📌 Linux CFS는 가상 런타임(VRuntime) 기반으로, 각 태스크의 실행 시간을 추적하며 가장 “덜 사용한” 프로세스에게 CPU를 할당.&lt;/p></description></item><item><title>3. 프로세스 동기화(Process Synchronization)</title><link>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/3-process-synchronization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/3-process-synchronization/</guid><description>&lt;h2 id="1-정의">
+ 1. 정의
+ &lt;a class="anchor" href="#1-%ec%a0%95%ec%9d%98">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>프로세스 동기화란 둘 이상의 프로세스(또는 스레드)가 공유 자원에 접근할 때 충돌 없이 안전하게 작업할 수 있도록 보장하는 방법.&lt;/li>
+&lt;li>주로 임계 구역(Critical Section) 문제를 해결하기 위한 동기화 메커니즘을 의미.&lt;/li>
+&lt;/ul>
+&lt;h3 id="-임계-구역-critical-section">
+ 🔹 임계 구역 (Critical Section)
+ &lt;a class="anchor" href="#-%ec%9e%84%ea%b3%84-%ea%b5%ac%ec%97%ad-critical-section">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>동시에 하나의 프로세스만 접근해야 하는 공유 자원 처리 구간.&lt;/li>
+&lt;li>예: 전역 변수, 공유된 파일, 네트워크 소켓 등&lt;/li>
+&lt;/ul>
+&lt;h3 id="-동기화의-목적">
+ 🔹 동기화의 목적
+ &lt;a class="anchor" href="#-%eb%8f%99%ea%b8%b0%ed%99%94%ec%9d%98-%eb%aa%a9%ec%a0%81">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>Race Condition 방지: 둘 이상의 프로세스가 데이터를 동시에 읽고 쓰면 비정상적인 결과 발생&lt;/li>
+&lt;li>일관성 유지: 데이터 무결성 보장&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-동기화의-3가지-요구-조건임계-구역-문제-해결-조건">
+ 2. 동기화의 3가지 요구 조건(임계 구역 문제 해결 조건)
+ &lt;a class="anchor" href="#2-%eb%8f%99%ea%b8%b0%ed%99%94%ec%9d%98-3%ea%b0%80%ec%a7%80-%ec%9a%94%ea%b5%ac-%ec%a1%b0%ea%b1%b4%ec%9e%84%ea%b3%84-%ea%b5%ac%ec%97%ad-%eb%ac%b8%ec%a0%9c-%ed%95%b4%ea%b2%b0-%ec%a1%b0%ea%b1%b4">#&lt;/a>
+&lt;/h2>
+&lt;ol>
+&lt;li>상호 배제 (Mutual Exclusion): 하나의 프로세스만 임계 구역 실행 가능&lt;/li>
+&lt;li>진행 (Progress): 임계 구역에 진입하지 않은 프로세스는 진입 여부 결정에 관여 X&lt;/li>
+&lt;li>한정 대기 (Bounded Waiting): 무한정 대기 없이 순차적으로 기회 부여&lt;/li>
+&lt;/ol>
+&lt;h2 id="3-동기화-주요-기법">
+ 3. 동기화 주요 기법
+ &lt;a class="anchor" href="#3-%eb%8f%99%ea%b8%b0%ed%99%94-%ec%a3%bc%ec%9a%94-%ea%b8%b0%eb%b2%95">#&lt;/a>
+&lt;/h2>
+&lt;ol>
+&lt;li>뮤텍스(Mutex, Mutual Exclusion Lock)&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>한 번에 하나의 스레드만 락을 획득 가능&lt;/li>
+&lt;li>획득한 스레드만 임계 구역 진입 → 완료 후 unlock&lt;/li>
+&lt;li>소유 개념 있음: 락을 걸고 해제할 수 있는 주체는 동일해야 함&lt;/li>
+&lt;li>사용 예시: pthread_mutex, Java synchronized, C++ std::mutex&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">pthread_mutex_t&lt;/span> lock;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">pthread_mutex_lock&lt;/span>(&lt;span style="color:#f92672">&amp;amp;&lt;/span>lock);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// 임계 구역
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#a6e22e">pthread_mutex_unlock&lt;/span>(&lt;span style="color:#f92672">&amp;amp;&lt;/span>lock);
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>세마포어(Semaphore)&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>카운팅 가능한 동기화 도구&lt;/li>
+&lt;li>두 가지 연산:
+&lt;ul>
+&lt;li>P() 또는 wait() → 자원 요청 (count–)&lt;/li>
+&lt;li>V() 또는 signal() → 자원 반납 (count++)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>음수가 되면 대기 큐에 블록됨&lt;/li>
+&lt;li>소유 개념 없음 → 다른 스레드가 해제 가능
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>종류&lt;/th>
+ &lt;th>설명&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>Binary Semaphore&lt;/td>
+ &lt;td>0 or 1 (뮤텍스와 유사)&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Counting Semaphore&lt;/td>
+ &lt;td>특정 수 이상의 동시 접근 허용 가능&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;/li>
+&lt;/ul>
+&lt;ol start="3">
+&lt;li>스핀락(Spinlock)&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>락을 획득할 때까지 CPU를 점유한 채 무한 루프(바쁜 대기).&lt;/li>
+&lt;li>컨텍스트 스위치가 비싼 커널 공간이나 짧은 락 소유 시 유리&lt;/li>
+&lt;li>주의: 멀티코어 환경에서만 유효하며, 싱글코어에서 사용하면 CPU 낭비&lt;/li>
+&lt;/ul>
+&lt;ol start="4">
+&lt;li>모니터(Monitor)&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>언어 수준의 동기화 추상화&lt;/li>
+&lt;li>내부에 Lock + Condition Variable 포함&lt;/li>
+&lt;li>Java, C#, Go 등에서 사용 (synchronized, wait/notify, etc.)&lt;/li>
+&lt;/ul>
+&lt;ol start="5">
+&lt;li>조건 변수 (Condition Variable)&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>어떤 조건이 만족될 때까지 기다리는 데 사용&lt;/li>
+&lt;li>주로 뮤텍스와 함께 사용&lt;/li>
+&lt;li>예시:
+&lt;ul>
+&lt;li>pthread_cond_wait()&lt;/li>
+&lt;li>Java Object.wait() / Object.notify()&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="4-race-condition-예제와-해결-방법">
+ 4. Race COndition 예제와 해결 방법
+ &lt;a class="anchor" href="#4-race-condition-%ec%98%88%ec%a0%9c%ec%99%80-%ed%95%b4%ea%b2%b0-%eb%b0%a9%eb%b2%95">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">int&lt;/span> counter &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">void&lt;/span>&lt;span style="color:#f92672">*&lt;/span> &lt;span style="color:#a6e22e">increment&lt;/span>(&lt;span style="color:#66d9ef">void&lt;/span>&lt;span style="color:#f92672">*&lt;/span> arg) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> (&lt;span style="color:#66d9ef">int&lt;/span> i &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>; i &lt;span style="color:#f92672">&amp;lt;&lt;/span> &lt;span style="color:#ae81ff">1000000&lt;/span>; i&lt;span style="color:#f92672">++&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> counter&lt;span style="color:#f92672">++&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>위 코드에서 두 개의 스레드가 동시에 counter++를 수행하면 Race Condition 발생&lt;/li>
+&lt;li>해결책: mutex 사용&lt;/li>
+&lt;/ul>
+&lt;h2 id="5-실무-예시">
+ 5. 실무 예시
+ &lt;a class="anchor" href="#5-%ec%8b%a4%eb%ac%b4-%ec%98%88%ec%8b%9c">#&lt;/a>
+&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>분야&lt;/th>
+ &lt;th>동기화 방식&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>다중 요청 처리 서버 (ex. Tomcat)&lt;/td>
+ &lt;td>Thread Pool + 뮤텍스 / 세마포어&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>생산자-소비자 패턴&lt;/td>
+ &lt;td>Circular Buffer + 조건 변수&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>DB connection pool&lt;/td>
+ &lt;td>Counting Semaphore&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>커널 영역 (락 없는 프로그래밍 포함)&lt;/td>
+ &lt;td>Spinlock, 원자 연산, CAS(Compare-And-Swap)&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="6-자주-묻는-면접-질문">
+ 6. 자주 묻는 면접 질문
+ &lt;a class="anchor" href="#6-%ec%9e%90%ec%a3%bc-%eb%ac%bb%eb%8a%94-%eb%a9%b4%ec%a0%91-%ec%a7%88%eb%ac%b8">#&lt;/a>
+&lt;/h2>
+&lt;blockquote>
+&lt;p>Q1. 세마포어와 뮤텍스의 차이는?
+A.&lt;/p></description></item><item><title>4. Deadlock</title><link>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/4-deadlock/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/4-deadlock/</guid><description>&lt;h2 id="1-정의">
+ 1. 정의
+ &lt;a class="anchor" href="#1-%ec%a0%95%ec%9d%98">#&lt;/a>
+&lt;/h2>
+&lt;p>데드락(교착 상태, Deadlock) 이란 여러 프로세스(또는 스레드)가 서로 자원이 풀리기를 기다리며 무한히 블로킹되어, 더 이상 진행되지 못하는 상태를 의미한다.&lt;/p></description></item><item><title>5. 메모리 관리</title><link>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/5-memory-manage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/5-memory-manage/</guid><description>&lt;h2 id="1-메모리의-계층-구조-및-주소-체계">
+ 1. 메모리의 계층 구조 및 주소 체계
+ &lt;a class="anchor" href="#1-%eb%a9%94%eb%aa%a8%eb%a6%ac%ec%9d%98-%ea%b3%84%ec%b8%b5-%ea%b5%ac%ec%a1%b0-%eb%b0%8f-%ec%a3%bc%ec%86%8c-%ec%b2%b4%ea%b3%84">#&lt;/a>
+&lt;/h2>
+&lt;h3 id="메모리-계층-구조">
+ 메모리 계층 구조
+ &lt;a class="anchor" href="#%eb%a9%94%eb%aa%a8%eb%a6%ac-%ea%b3%84%ec%b8%b5-%ea%b5%ac%ec%a1%b0">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>CPU -&amp;gt; register -&amp;gt; cache -&amp;gt; main memory(RAM) -&amp;gt; SSD/HDD&lt;/li>
+&lt;li>OS 입장에서는 **main memory(RAM)**을 관리하는 게 핵심&lt;/li>
+&lt;/ul>
+&lt;h3 id="주소-체계">
+ 주소 체계
+ &lt;a class="anchor" href="#%ec%a3%bc%ec%86%8c-%ec%b2%b4%ea%b3%84">#&lt;/a>
+&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>구분&lt;/th>
+ &lt;th>설명&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>논리 주소(Logical Address)&lt;/td>
+ &lt;td>CPU가 생성한 주소 (프로세스 입장에서의 주소)&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>물리 주소(Physical Address)&lt;/td>
+ &lt;td>실제 메모리 하드웨어 상의 주소&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>가상 주소(Virtual Address)&lt;/td>
+ &lt;td>논리 주소와 같으며, MMU가 물리 주소로 변환&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>=&amp;gt; MMU (Memory Management Unit): 논리 주소를 물리 주소로 변환하는 하드웨어. 페이징 기반 시스템에서 핵심 역할.&lt;/p></description></item><item><title>6. 가상 메모리</title><link>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/6-virtual-memory/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/6-virtual-memory/</guid><description>&lt;h2 id="1-정의">
+ 1. 정의
+ &lt;a class="anchor" href="#1-%ec%a0%95%ec%9d%98">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;strong>가상 메모리(Virtual Memory)&lt;/strong> 는 프로세스가 실제 물리 메모리보다 더 큰 주소 공간을 사용할 수 있도록 지원하는 메커니즘&lt;/p></description></item><item><title>7. File System</title><link>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/7-file-system/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/7-file-system/</guid><description>&lt;h2 id="1-파일-시스템의-역할">
+ 1. 파일 시스템의 역할
+ &lt;a class="anchor" href="#1-%ed%8c%8c%ec%9d%bc-%ec%8b%9c%ec%8a%a4%ed%85%9c%ec%9d%98-%ec%97%ad%ed%95%a0">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>데이터를 저장하고, 탐색하고, 보호하는 계층&lt;/li>
+&lt;li>저장 장치(HDD, SSD 등)의 추상화 계층을 제공&lt;/li>
+&lt;li>운영체제는 파일 시스템을 통해 파일/디렉토리를 관리함&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-inode와-디렉터리-구조">
+ 2. inode와 디렉터리 구조
+ &lt;a class="anchor" href="#2-inode%ec%99%80-%eb%94%94%eb%a0%89%ed%84%b0%eb%a6%ac-%ea%b5%ac%ec%a1%b0">#&lt;/a>
+&lt;/h2>
+&lt;h3 id="inode-index-node">
+ inode (Index Node)
+ &lt;a class="anchor" href="#inode-index-node">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>파일의 metadata를 저장하는 구조체&lt;/li>
+&lt;li>각 파일은 고유한 inode 번호를 가짐 (inode table에 저장)&lt;/li>
+&lt;/ul>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>포함 정보&lt;/th>
+ &lt;th>예시&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>파일 크기&lt;/td>
+ &lt;td>512KB&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>생성/수정/접근 시간&lt;/td>
+ &lt;td>stat 명령으로 확인&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>접근 권한&lt;/td>
+ &lt;td>rwxr-xr–&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>링크 수&lt;/td>
+ &lt;td>hard link 개수&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>디스크 블록 위치 정보&lt;/td>
+ &lt;td>직접/간접 블록 주소 포함&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>=&amp;gt; inode는 filename은 저장하지 않음 -&amp;gt; directory entry가 filename과 inode 번호를 매핑&lt;/p></description></item><item><title>Ceph RBD 설정하기(Block Storage)</title><link>http://stevearsenelee.iptime.org/docs/data-lake-platform/ceph/rbd-sc/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/data-lake-platform/ceph/rbd-sc/</guid><description>&lt;h2 id="ceph-rbd를-kubernetes-pvc로-연동하기">
+ Ceph RBD를 Kubernetes PVC로 연동하기
+ &lt;a class="anchor" href="#ceph-rbd%eb%a5%bc-kubernetes-pvc%eb%a1%9c-%ec%97%b0%eb%8f%99%ed%95%98%ea%b8%b0">#&lt;/a>
+&lt;/h2>
+&lt;p>순서는 다음과 같다.&lt;/p></description></item><item><title>Ceph 개요 및 구축하기</title><link>http://stevearsenelee.iptime.org/docs/data-lake-platform/ceph/ceph-installation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/data-lake-platform/ceph/ceph-installation/</guid><description>&lt;h2 id="ceph이란">
+ Ceph이란?
+ &lt;a class="anchor" href="#ceph%ec%9d%b4%eb%9e%80">#&lt;/a>
+&lt;/h2>
+&lt;blockquote>
+&lt;p>완전히 분산되고, 확장성과 고가용성을 지향하는 storage platform&lt;/p></description></item><item><title>Ceph 구축하기 - 요약본</title><link>http://stevearsenelee.iptime.org/docs/data-lake-platform/ceph/ceph-install-guide-short/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/data-lake-platform/ceph/ceph-install-guide-short/</guid><description>&lt;h3 id="1-rook-operator-배포">
+ 1. Rook Operator 배포
+ &lt;a class="anchor" href="#1-rook-operator-%eb%b0%b0%ed%8f%ac">#&lt;/a>
+&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># 공식 Helm 차트로 설치&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm repo add rook-release https://charts.rook.io/release
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm repo update
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># 네임스페이스 생성&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>kubectl create ns rook-ceph
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Operator 설치&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm install rook-ceph rook-release/rook-ceph --namespace rook-ceph
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="2-cephcluster-리소스-배포">
+ 2. CephCluster 리소스 배포
+ &lt;a class="anchor" href="#2-cephcluster-%eb%a6%ac%ec%86%8c%ec%8a%a4-%eb%b0%b0%ed%8f%ac">#&lt;/a>
+&lt;/h3>
+&lt;details markdown="1">
+ &lt;summary>ceph-cluster.yaml&lt;/summary>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">ceph.rook.io/v1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">CephCluster&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">rook-ceph&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">rook-ceph&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">cephVersion&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#ae81ff">quay.io/ceph/ceph:v18.2.2&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">allowUnsupported&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">dataDirHostPath&lt;/span>: &lt;span style="color:#ae81ff">/var/lib/rook&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">mon&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">count&lt;/span>: &lt;span style="color:#ae81ff">3&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">allowMultiplePerNode&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">mgr&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">count&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">allowMultiplePerNode&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">dashboard&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">enabled&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">ssl&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">crashCollector&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">disable&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">logCollector&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">enabled&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">periodicity&lt;/span>: &lt;span style="color:#ae81ff">daily&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">maxLogSize&lt;/span>: &lt;span style="color:#ae81ff">500M&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">storage&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">useAllNodes&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">useAllDevices&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">deviceFilter&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;vdb&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">config&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">osdsPerDevice&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">disruptionManagement&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">managePodBudgets&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">osdMaintenanceTimeout&lt;/span>: &lt;span style="color:#ae81ff">30&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">priorityClassNames&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">mon&lt;/span>: &lt;span style="color:#ae81ff">system-node-critical&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">osd&lt;/span>: &lt;span style="color:#ae81ff">system-node-critical&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">mgr&lt;/span>: &lt;span style="color:#ae81ff">system-cluster-critical&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">healthCheck&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">daemonHealth&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">mon&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">disabled&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">interval&lt;/span>: &lt;span style="color:#ae81ff">45s&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">osd&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">disabled&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">interval&lt;/span>: &lt;span style="color:#ae81ff">60s&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">status&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">disabled&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">interval&lt;/span>: &lt;span style="color:#ae81ff">60s&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">resources&lt;/span>: &lt;span style="color:#75715e"># 🔧 각 데몬별 리소스 제한&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">mgr&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">limits&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">cpu&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;250m&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">memory&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;256Mi&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">requests&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">cpu&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;100m&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">memory&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;128Mi&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">mon&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">limits&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">cpu&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;500m&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">memory&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;512Mi&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">requests&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">cpu&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;250m&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">memory&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;256Mi&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">osd&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">limits&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">cpu&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1000m&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">memory&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;2Gi&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">requests&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">cpu&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;500m&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">memory&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1Gi&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/details>
+&lt;p>&lt;code>k apply -f ceph-cluster.yaml&lt;/code>를 실행해 리소스를 배포한다.&lt;/p></description></item><item><title>Ceph 초기 설정하기</title><link>http://stevearsenelee.iptime.org/docs/data-lake-platform/ceph/ceph-tools-pod/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/data-lake-platform/ceph/ceph-tools-pod/</guid><description>&lt;p>ceph가 정상적으로 설치됐다면 다음의 설정들을 추가해준다.
+ceph-tools는 운영자가 다루는 pod라서 따로 추가해줘야한다.&lt;/p></description></item><item><title>CephFS 구축하기</title><link>http://stevearsenelee.iptime.org/docs/data-lake-platform/ceph/ceph-fs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/data-lake-platform/ceph/ceph-fs/</guid><description>&lt;h3 id="1-cephfs-filesystem-생성">
+ 1. CephFS Filesystem 생성
+ &lt;a class="anchor" href="#1-cephfs-filesystem-%ec%83%9d%ec%84%b1">#&lt;/a>
+&lt;/h3>
+&lt;p>rook-ceph-filesystem.yaml&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">ceph.rook.io/v1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">CephFilesystem&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">rook-ceph-fs&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">rook-ceph&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">metadataPool&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">replicated&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">size&lt;/span>: &lt;span style="color:#ae81ff">3&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">dataPools&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#f92672">replicated&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">size&lt;/span>: &lt;span style="color:#ae81ff">3&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">preserveFilesystemOnDelete&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">metadataServer&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">activeCount&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">activeStandby&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>metadataPool, dataPools 모두 replication 3개로 설정(3 OSD)&lt;/li>
+&lt;li>MDS(Metadata Server)는 1 active + 1 standby (HA)&lt;/li>
+&lt;/ul>
+&lt;h3 id="2-cephfs용-storageclass-생성">
+ 2. CephFS용 StorageClass 생성
+ &lt;a class="anchor" href="#2-cephfs%ec%9a%a9-storageclass-%ec%83%9d%ec%84%b1">#&lt;/a>
+&lt;/h3>
+&lt;p>rook-cephfs-sc.yaml&lt;/p></description></item><item><title>Ceph를 구축하며 발생한 cpu 이슈..</title><link>http://stevearsenelee.iptime.org/docs/%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/ceph-issue1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/ceph-issue1/</guid><description>&lt;h3 id="상황">
+ 상황
+ &lt;a class="anchor" href="#%ec%83%81%ed%99%a9">#&lt;/a>
+&lt;/h3>
+&lt;blockquote>
+&lt;p>Ceph 클러스터를 Kubernetes에 구축하는 과정 중,
+csi-rbdplugin, csi-cephfsplugin, csi-snapshotter 등의 csi-* 계열 Pod들이 CrashLoopBackOff 또는 Error 상태로 지속적으로 실패함.&lt;/p></description></item><item><title>Dimensional Modeling: 분석을 위한 데이터 설계의 본질</title><link>http://stevearsenelee.iptime.org/docs/data-engineering/modeling/dimensional-modeling/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/data-engineering/modeling/dimensional-modeling/</guid><description>&lt;h3 id="fact와-dimension의-개념">
+ Fact와 Dimension의 개념
+ &lt;a class="anchor" href="#fact%ec%99%80-dimension%ec%9d%98-%ea%b0%9c%eb%85%90">#&lt;/a>
+&lt;/h3>
+&lt;blockquote>
+&lt;p>Fact : &amp;ldquo;&lt;strong>측정값 / 수치 중심의 이벤트 데이터&lt;/strong>&amp;rdquo;&lt;/p></description></item><item><title>Flink to GCS</title><link>http://stevearsenelee.iptime.org/docs/data-processing/flink/flink-to-gcs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/data-processing/flink/flink-to-gcs/</guid><description>&lt;h2 id="1-gcp-준비">
+ 1. GCP 준비
+ &lt;a class="anchor" href="#1-gcp-%ec%a4%80%eb%b9%84">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>Bucket 생성&lt;/li>
+&lt;li>Service account 생성 (최소 권한)
+&lt;ul>
+&lt;li>Storage Object Admin&lt;/li>
+&lt;li>Storage Object Creator&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Service account key(Json file) 생성 후 다운로드&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-k8s-secret-생성">
+ 2. K8s Secret 생성
+ &lt;a class="anchor" href="#2-k8s-secret-%ec%83%9d%ec%84%b1">#&lt;/a>
+&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>kubectl create secret generic &lt;span style="color:#f92672">{&lt;/span>secret_key_name&lt;span style="color:#f92672">}&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> --from-file&lt;span style="color:#f92672">={&lt;/span>1번에서 발급받은 json파일&lt;span style="color:#f92672">}={&lt;/span>/path/to/your/keyfile.json&lt;span style="color:#f92672">}&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> -n flink
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># e.g.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>kubectl create secret generic gcp-steve-account-key &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> --from-file&lt;span style="color:#f92672">=&lt;/span>squidengineer-25d36a46ab7f.json&lt;span style="color:#f92672">=&lt;/span>/path/to/your/keyfile.json &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> -n flink
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="3-gcs-connector-준비">
+ 3. GCS Connector 준비
+ &lt;a class="anchor" href="#3-gcs-connector-%ec%a4%80%eb%b9%84">#&lt;/a>
+&lt;/h2>
+&lt;h3 id="필요-jar-목록">
+ 필요 JAR 목록
+ &lt;a class="anchor" href="#%ed%95%84%ec%9a%94-jar-%eb%aa%a9%eb%a1%9d">#&lt;/a>
+&lt;/h3>
+&lt;ul>
+&lt;li>flink-gs-fs-hadoop-1.20.1.jar : Flink가 GCS를 지원하는 플러그인&lt;/li>
+&lt;li>gcs-connector-hadoop2-latest.jar : GCS와 HDFS 인터페이스를 연결하는 Google 제공 connector&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>wget https://repo1.maven.org/maven2/org/apache/flink/flink-gs-fs-hadoop/1.20.1/flink-gs-fs-hadoop-1.20.1.jar
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>wget https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-hadoop2-latest.jar
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>참고:&lt;br>
+flink-gs-fs-hadoop은 Flink 1.20 공식 릴리스부터 기본 지원.&lt;br>
+단, 여전히 &amp;ldquo;gcs-connector-hadoop&amp;quot;은 별도 필요함 (GCP 라이브러리).&lt;/p></description></item><item><title>Hello</title><link>http://stevearsenelee.iptime.org/docs/infra/kvm/vm-metadata/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/infra/kvm/vm-metadata/</guid><description>&lt;p>인프라 구성은 다음과 같다.&lt;/p>
+&lt;h3 id="home192168019">
+ Home(192.168.0.19)
+ &lt;a class="anchor" href="#home192168019">#&lt;/a>
+&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>VM명&lt;/th>
+ &lt;th>Disk&lt;/th>
+ &lt;th>CPU&lt;/th>
+ &lt;th>RAM&lt;/th>
+ &lt;th>Disk 사이즈&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>ctrl-node&lt;/td>
+ &lt;td>/mnt/kvm-pool/ctrl-node.qcow2&lt;/td>
+ &lt;td>2&lt;/td>
+ &lt;td>2GB&lt;/td>
+ &lt;td>40GB&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>k8s-m1&lt;/td>
+ &lt;td>/mnt/kvm-pool/k8s-m1.qcow2&lt;/td>
+ &lt;td>3&lt;/td>
+ &lt;td>8GB&lt;/td>
+ &lt;td>30GB&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>k8s-m2&lt;/td>
+ &lt;td>/mnt/kvm-pool/k8s-m2.qcow2&lt;/td>
+ &lt;td>3&lt;/td>
+ &lt;td>8GB&lt;/td>
+ &lt;td>30GB&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>k8s-w1&lt;/td>
+ &lt;td>/mnt/kvm-pool/k8s-w1.qcow2&lt;/td>
+ &lt;td>3&lt;/td>
+ &lt;td>16GB&lt;/td>
+ &lt;td>50GB + Ceph 100GB&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>k8s-w2&lt;/td>
+ &lt;td>/mnt/kvm-pool/k8s-w2.qcow2&lt;/td>
+ &lt;td>4&lt;/td>
+ &lt;td>16GB&lt;/td>
+ &lt;td>50GB + Ceph 100GB&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>총합&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>15&lt;/td>
+ &lt;td>50GB&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h3 id="test192168018">
+ Test(192.168.0.18)
+ &lt;a class="anchor" href="#test192168018">#&lt;/a>
+&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>VM명&lt;/th>
+ &lt;th>Disk&lt;/th>
+ &lt;th>CPU&lt;/th>
+ &lt;th>RAM&lt;/th>
+ &lt;th>Disk 사이즈&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>k8s-m3&lt;/td>
+ &lt;td>/mnt/kvm-pool/k8s-m3.qcow2&lt;/td>
+ &lt;td>4&lt;/td>
+ &lt;td>8GB&lt;/td>
+ &lt;td>30GB&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>k8s-w3&lt;/td>
+ &lt;td>/mnt/kvm-pool/k8s-w3.qcow2&lt;/td>
+ &lt;td>4&lt;/td>
+ &lt;td>16GB&lt;/td>
+ &lt;td>50GB + Ceph 100GB&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>k8s-w4&lt;/td>
+ &lt;td>/mnt/kvm-pool/k8s-w4.qcow2&lt;/td>
+ &lt;td>4&lt;/td>
+ &lt;td>16GB&lt;/td>
+ &lt;td>50GB + Ceph 100GB&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>k8s-w5&lt;/td>
+ &lt;td>/mnt/kvm-pool/k8s-w5.qcow2&lt;/td>
+ &lt;td>4&lt;/td>
+ &lt;td>16GB&lt;/td>
+ &lt;td>50GB + Ceph 100GB&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>nfs-server&lt;/td>
+ &lt;td>/mnt/kvm-pool/nfs.qcow2&lt;/td>
+ &lt;td>1&lt;/td>
+ &lt;td>2GB&lt;/td>
+ &lt;td>30GB + NFS 300GB&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>총합&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>17&lt;/td>
+ &lt;td>58GB&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h3 id="ip">
+ IP
+ &lt;a class="anchor" href="#ip">#&lt;/a>
+&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Key&lt;/th>
+ &lt;th>Value&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>Subnet&lt;/td>
+ &lt;td>192.168.0.0/24&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Gateway&lt;/td>
+ &lt;td>192.168.0.1&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Name Servers&lt;/td>
+ &lt;td>8.8.8.8, 1.1.1.1&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Search Domains&lt;/td>
+ &lt;td>(비워도 무방)&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>VM 이름&lt;/th>
+ &lt;th>Address 입력값(고정 IP)&lt;/th>
+ &lt;th>생성 여부&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>ctrl-node&lt;/td>
+ &lt;td>192.168.0.100/24&lt;/td>
+ &lt;td>O&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>k8s-m1&lt;/td>
+ &lt;td>192.168.0.101/24&lt;/td>
+ &lt;td>O&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>k8s-m2&lt;/td>
+ &lt;td>192.168.0.102/24&lt;/td>
+ &lt;td>O&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>k8s-m3&lt;/td>
+ &lt;td>192.168.0.103/24&lt;/td>
+ &lt;td>O&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>worker&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>k8s-w1&lt;/td>
+ &lt;td>192.168.0.111/24&lt;/td>
+ &lt;td>O&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>k8s-w2&lt;/td>
+ &lt;td>192.168.0.112/24&lt;/td>
+ &lt;td>O&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>k8s-w3&lt;/td>
+ &lt;td>192.168.0.113/24&lt;/td>
+ &lt;td>O&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>k8s-w4&lt;/td>
+ &lt;td>192.168.0.114/24&lt;/td>
+ &lt;td>O&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>k8s-w5&lt;/td>
+ &lt;td>192.168.0.115/24&lt;/td>
+ &lt;td>O&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>nfs-server&lt;/td>
+ &lt;td>192.168.0.200/24&lt;/td>
+ &lt;td>O&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table></description></item><item><title>Kafka 심화 개념</title><link>http://stevearsenelee.iptime.org/docs/data-integration/kafka/kafka-basic/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/data-integration/kafka/kafka-basic/</guid><description>&lt;h2 id="producer-acks-batch-page-cache-and-flush">
+ Producer Acks, Batch, Page Cache and Flush
+ &lt;a class="anchor" href="#producer-acks-batch-page-cache-and-flush">#&lt;/a>
+&lt;/h2>
+&lt;p>acks 설정은 요청이 성공할 때를 정의하는 데 사용되는 &lt;strong>Producer&lt;/strong>에 설정하는 Parameter&lt;/p></description></item><item><title>Kafka 운영 요소</title><link>http://stevearsenelee.iptime.org/docs/data-integration/kafka/kafka-troubleshooting-optimization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/data-integration/kafka/kafka-troubleshooting-optimization/</guid><description>&lt;h3 id="kafka-monitoring">
+ Kafka Monitoring
+ &lt;a class="anchor" href="#kafka-monitoring">#&lt;/a>
+&lt;/h3>
+&lt;h3 id="troubleshooting-zookeeper">
+ Troubleshooting Zookeeper
+ &lt;a class="anchor" href="#troubleshooting-zookeeper">#&lt;/a>
+&lt;/h3>
+&lt;h3 id="troubleshooting-broker">
+ Troubleshooting Broker
+ &lt;a class="anchor" href="#troubleshooting-broker">#&lt;/a>
+&lt;/h3>
+&lt;h3 id="troubleshooting-producer">
+ Troubleshooting Producer
+ &lt;a class="anchor" href="#troubleshooting-producer">#&lt;/a>
+&lt;/h3>
+&lt;h3 id="troubleshooting-consumer">
+ Troubleshooting Consumer
+ &lt;a class="anchor" href="#troubleshooting-consumer">#&lt;/a>
+&lt;/h3>
+&lt;h3 id="tuning-broker">
+ Tuning Broker
+ &lt;a class="anchor" href="#tuning-broker">#&lt;/a>
+&lt;/h3>
+&lt;h3 id="tuning-producer">
+ Tuning Producer
+ &lt;a class="anchor" href="#tuning-producer">#&lt;/a>
+&lt;/h3>
+&lt;h3 id="tuning-consumer">
+ Tuning Consumer
+ &lt;a class="anchor" href="#tuning-consumer">#&lt;/a>
+&lt;/h3></description></item><item><title>Kafka의 데이터 구조</title><link>http://stevearsenelee.iptime.org/docs/data-integration/kafka/kafka-data-structure/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/data-integration/kafka/kafka-data-structure/</guid><description>&lt;p>Kafka의 메세지 저장 구조는 &lt;strong>논리적 구조&lt;/strong>와 &lt;strong>물리적 구조&lt;/strong>로 나눠서 생각하는 것이 좋다. Kafka는 단순한 message queue를 넘어서 &lt;em>&lt;strong>Log-structured Storage&lt;/strong>&lt;/em>로 설계되어, 메세지의 저장 및 조회 방식이 일반적인 RDBMS나 단순 queueing system과는 다르다.&lt;/p></description></item><item><title>Kafka의 성능 측정 (Block storage vs NFS)</title><link>http://stevearsenelee.iptime.org/docs/data-integration/kafka/kafka-storage-performance-test/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/data-integration/kafka/kafka-storage-performance-test/</guid><description>&lt;h2 id="개요">
+ 개요
+ &lt;a class="anchor" href="#%ea%b0%9c%ec%9a%94">#&lt;/a>
+&lt;/h2>
+&lt;p>&lt;a href="https://kafka.apache.org/documentation/">Kafka docs&lt;/a>에는 어디에 데이터를 저장해야한다는 글이 없지만, Kafka를 k8s에 올릴 때 사용하는 &lt;a href="https://strimzi.io/docs/operators/latest/deploying#considerations-for-data-storage-str">strimzi operator&lt;/a>에는 다음과 같은 문구가 있다.&lt;/p></description></item><item><title>Kafka의 저장소</title><link>http://stevearsenelee.iptime.org/docs/data-integration/kafka/kafka-storage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/data-integration/kafka/kafka-storage/</guid><description>&lt;p>Kubernetes에서 kafka를 사용할때 kafka의 데이터 저장소는 어떤 것이 적절한지에 대한 글이다.&lt;/p></description></item><item><title>Kubespray로 쉽게 구축하기</title><link>http://stevearsenelee.iptime.org/docs/infra/kubernetes/install-with-kubespray/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/infra/kubernetes/install-with-kubespray/</guid><description>&lt;blockquote>
+&lt;p>🕒 작성일: 2025-04-15T17:35:26+09:00
+✍️ 작성자: SteveArseneLee&lt;/p>&lt;/blockquote>
+&lt;hr>
+&lt;p>모든 인스턴스에 접근할 수 있는 곳에서 다음과 같은 작업을 실행한다.
+In my case, it&amp;rsquo;s control node.&lt;/p></description></item><item><title>KVM에서 사용할 Storage 설정</title><link>http://stevearsenelee.iptime.org/docs/infra/kvm/storage-settings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/infra/kvm/storage-settings/</guid><description>&lt;h3 id="1-logical-volume-생성">
+ 1. Logical Volume 생성
+ &lt;a class="anchor" href="#1-logical-volume-%ec%83%9d%ec%84%b1">#&lt;/a>
+&lt;/h3>
+&lt;p>물리 저장소에 논리 볼륨을 먼저 할당해준다&lt;/p></description></item><item><title>Prom</title><link>http://stevearsenelee.iptime.org/docs/observability/metrics/prom-test/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/observability/metrics/prom-test/</guid><description>&lt;h2 id="producer-acks-batch-page-cache-and-flush">
+ Producer Acks, Batch, Page Cache and Flush
+ &lt;a class="anchor" href="#producer-acks-batch-page-cache-and-flush">#&lt;/a>
+&lt;/h2>
+&lt;p>acks 설정은 요청이 성공할 때를 정의하는 데 사용되는 &lt;strong>Producer&lt;/strong>에 설정하는 Parameter&lt;/p></description></item><item><title>Test</title><link>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/test/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/test/</guid><description/></item><item><title>Test</title><link>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EB%94%94%EC%9E%90%EC%9D%B8%ED%8C%A8%ED%84%B4/test/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EB%94%94%EC%9E%90%EC%9D%B8%ED%8C%A8%ED%84%B4/test/</guid><description/></item><item><title>Todo List</title><link>http://stevearsenelee.iptime.org/docs/others/todolist/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/others/todolist/</guid><description>&lt;h2 id="todo">
+ Todo&amp;hellip;
+ &lt;a class="anchor" href="#todo">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;input disabled="" type="checkbox"> Ingress 설정&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Test&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Kafka 올리기&lt;/li>
+&lt;/ul>
+&lt;h2 id="done">
+ Done
+ &lt;a class="anchor" href="#done">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Ceph 올리기&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> &lt;/li>
+&lt;/ul></description></item><item><title>Tracing에 대해서...</title><link>http://stevearsenelee.iptime.org/docs/observability/traces/tracing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/observability/traces/tracing/</guid><description>&lt;h2 id="tracing이란">
+ Tracing이란?
+ &lt;a class="anchor" href="#tracing%ec%9d%b4%eb%9e%80">#&lt;/a>
+&lt;/h2>
+&lt;blockquote>
+&lt;p>microservice가 시스템을 경유하며 &lt;strong>transaction&lt;/strong> 을 처리하는 과정에서 발생하는 세부적인 정보
+또한, 트랜잭션이 이동한 경로, 트랜잭션을 처리하는 과정에서 발생하는 대기시간과 지연시간, 병목현상이나 에러를 일으키는 원인을 문맥(context)과 로그, 태그 등의 &lt;strong>metadata&lt;/strong>에 출력함&lt;/p></description></item><item><title>VM 사이즈 변경...</title><link>http://stevearsenelee.iptime.org/docs/infra/kvm/vm-calc/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/infra/kvm/vm-calc/</guid><description>&lt;p>vm들을 k8s로 올려놨는데, 너무 부하가 큰듯하다&amp;hellip; 모든걸 다시 계산해봐야겠다.&lt;/p>
+&lt;h3 id="main-server">
+ Main server
+ &lt;a class="anchor" href="#main-server">#&lt;/a>
+&lt;/h3>
+&lt;p>cpu 16, memory 64gb, ssd 1tb
+master 2대, worker 2대,&lt;/p></description></item><item><title>VM 생성</title><link>http://stevearsenelee.iptime.org/docs/infra/kvm/vm-creattion-guide/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/infra/kvm/vm-creattion-guide/</guid><description>&lt;p>[준비 단계]&lt;/p>
+&lt;ol>
+&lt;li>os image 다운로드 받아놓기&lt;/li>
+&lt;li>Resource 용량 산정 (cpu, memory, disk)&lt;/li>
+&lt;li>ip 설계&lt;/li>
+&lt;li>(선택) 물리 서버가 n대라면 VM 분배 계획&lt;/li>
+&lt;/ol>
+&lt;p>[실습 단계]&lt;/p></description></item><item><title>VM 생성 간단</title><link>http://stevearsenelee.iptime.org/docs/infra/kvm/vm-install-simple/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/infra/kvm/vm-install-simple/</guid><description>&lt;p>Home에는&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>set -e
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>echo &lt;span style="color:#e6db74">&amp;#34;[HOME SERVER - STORAGE POOL &amp;amp; VOLUME SETUP]&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># [1] Storage Pools 생성&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>echo &lt;span style="color:#e6db74">&amp;#34;[1] Creating storage pools...&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo mkdir -p /mnt/kvm-pool /mnt/ceph-pool
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo chown libvirt-qemu:kvm /mnt/kvm-pool /mnt/ceph-pool
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo chmod &lt;span style="color:#ae81ff">770&lt;/span> /mnt/kvm-pool /mnt/ceph-pool
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo virsh pool-define-as --name kvm-pool --type dir --target /mnt/kvm-pool
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo virsh pool-build kvm-pool
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo virsh pool-start kvm-pool
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo virsh pool-autostart kvm-pool
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo virsh pool-define-as --name ceph-pool --type dir --target /mnt/ceph-pool
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo virsh pool-build ceph-pool
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo virsh pool-start ceph-pool
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo virsh pool-autostart ceph-pool
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># [2] Volume 생성&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>echo &lt;span style="color:#e6db74">&amp;#34;[2] Creating VM OS disks...&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>cd /mnt/kvm-pool
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo qemu-img create -f qcow2 ctrl-node.qcow2 40G
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo qemu-img create -f qcow2 k8s-m1.qcow2 30G
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo qemu-img create -f qcow2 k8s-m2.qcow2 30G
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo qemu-img create -f qcow2 k8s-w1.qcow2 50G
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo qemu-img create -f qcow2 k8s-w2.qcow2 50G
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>echo &lt;span style="color:#e6db74">&amp;#34;[3] Creating Ceph raw disks...&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>cd /mnt/ceph-pool
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo qemu-img create -f raw k8s-w1-ceph.img 100G
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo qemu-img create -f raw k8s-w2-ceph.img 100G
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>echo &lt;span style="color:#e6db74">&amp;#34;[HOME SERVER SETUP COMPLETE]&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Test에는&lt;/p></description></item><item><title>리소스 이슈 인한 인프라 재구축</title><link>http://stevearsenelee.iptime.org/docs/%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/resource-issue/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/resource-issue/</guid><description>&lt;h3 id="상황">
+ 상황
+ &lt;a class="anchor" href="#%ec%83%81%ed%99%a9">#&lt;/a>
+&lt;/h3>
+&lt;p>&lt;img src="http://stevearsenelee.iptime.org/troubleshooting/resource-request.png" alt="resource issue" />&lt;/p>
+&lt;p>다음과 같은 이슈가 발생했다. 현재 구축된 스택은 ceph, minio, kafka, kafka-ui뿐인데, request&amp;amp;limit을 최적화했음에도 내 환경에서는 다소 버거운 것으로 보인다.
+따라서 다음과 같은 결정을 하게됐다.&lt;/p></description></item><item><title>여러 환경의 클러스터를 손쉽게 관리하기</title><link>http://stevearsenelee.iptime.org/docs/infra/kubernetes/context-switch/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/infra/kubernetes/context-switch/</guid><description>&lt;h3 id="1-원격-클러스터의-kubeconfig-받아오기">
+ 1. 원격 클러스터의 kubeconfig 받아오기
+ &lt;a class="anchor" href="#1-%ec%9b%90%ea%b2%a9-%ed%81%b4%eb%9f%ac%ec%8a%a4%ed%84%b0%ec%9d%98-kubeconfig-%eb%b0%9b%ec%95%84%ec%98%a4%ea%b8%b0">#&lt;/a>
+&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>sudo cat /etc/kubernetes/admin.conf
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="2-로컬-파일에-저장-내-경우">
+ 2. 로컬 파일에 저장 내 경우
+ &lt;a class="anchor" href="#2-%eb%a1%9c%ec%bb%ac-%ed%8c%8c%ec%9d%bc%ec%97%90-%ec%a0%80%ec%9e%a5-%eb%82%b4-%ea%b2%bd%ec%9a%b0">#&lt;/a>
+&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>~/kubeconfig
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>|- kubeconfig-cluster1
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>|- kubeconfig-cluster2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>|- ...
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>이런식으로 저장했음.&lt;/p></description></item><item><title>정규화 - 1NF, 2NF, 3NF, BCNF</title><link>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/normalization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%B4%EB%A1%A0/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/normalization/</guid><description>&lt;h2 id="정규화란">
+ 정규화란?
+ &lt;a class="anchor" href="#%ec%a0%95%ea%b7%9c%ed%99%94%eb%9e%80">#&lt;/a>
+&lt;/h2>
+&lt;blockquote>
+&lt;p>데이터를 효율적으로 관리하기 위해 데이터를 여러 테이블로 나누고, 데이터 중복과 이상 현상을 최소화해 데이터의 일관성을 유지하는 과정&lt;/p></description></item><item><title>하나의 operator와 여러 namespace의 여러 kafka cluster</title><link>http://stevearsenelee.iptime.org/docs/%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/kafka-one-operator-multi-kafka/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/kafka-one-operator-multi-kafka/</guid><description>&lt;h3 id="상황">
+ 상황
+ &lt;a class="anchor" href="#%ec%83%81%ed%99%a9">#&lt;/a>
+&lt;/h3>
+&lt;blockquote>
+&lt;p>Strimzi Kafka Operator를 하나만 설치한 뒤, 여러 namespace에 Kafka 클러스터를 각각 배포하려는 구조로 운영하고자 했음.&lt;/p></description></item></channel></rss>

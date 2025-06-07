@@ -1,0 +1,23 @@
+baseURL = "http://stevearsenelee.iptime.org"
+languageCode = "ko"
+title = "LogLee's Training Ground"
+theme = "book"  # 주의: book 테마는 submodule 경로 기준이 아니라 이름 기준
+
+defaultContentLanguage = "kr"
+defaultContentLanguageInSubdir = false
+summaryLength = 10
+
+[params]
+  BookTheme = "auto"
+  BookSection = ""  # 사이드바 루트로 사용할 section 지정
+  BookSearch = true
+  BookToC = true
+  
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"

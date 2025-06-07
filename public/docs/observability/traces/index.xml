@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Traces on LogLee's Training Ground</title><link>http://stevearsenelee.iptime.org/docs/observability/traces/</link><description>Recent content in Traces on LogLee's Training Ground</description><generator>Hugo</generator><language>ko</language><atom:link href="http://stevearsenelee.iptime.org/docs/observability/traces/index.xml" rel="self" type="application/rss+xml"/><item><title>Tracing에 대해서...</title><link>http://stevearsenelee.iptime.org/docs/observability/traces/tracing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://stevearsenelee.iptime.org/docs/observability/traces/tracing/</guid><description>&lt;h2 id="tracing이란">
+ Tracing이란?
+ &lt;a class="anchor" href="#tracing%ec%9d%b4%eb%9e%80">#&lt;/a>
+&lt;/h2>
+&lt;blockquote>
+&lt;p>microservice가 시스템을 경유하며 &lt;strong>transaction&lt;/strong> 을 처리하는 과정에서 발생하는 세부적인 정보
+또한, 트랜잭션이 이동한 경로, 트랜잭션을 처리하는 과정에서 발생하는 대기시간과 지연시간, 병목현상이나 에러를 일으키는 원인을 문맥(context)과 로그, 태그 등의 &lt;strong>metadata&lt;/strong>에 출력함&lt;/p></description></item></channel></rss>
