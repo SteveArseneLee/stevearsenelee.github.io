@@ -11,21 +11,16 @@ jobs:
 
     steps:
       - name: Checkout source
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          submodules: false
+          submodules: true  # 이거 true로 변경
+          fetch-depth: 0
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.121.1'
+          hugo-version: 'latest'  # 최신버전 사용
           extended: true
-
-      - name: List book theme contents
-        run: ls -R themes/book
-
-      - name: Clean previous public directory
-        run: rm -rf public
 
       - name: Build site
         run: hugo --minify
