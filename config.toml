@@ -1,18 +1,21 @@
 baseURL = "https://stevearsenelee.github.io"
 languageCode = "ko"
 title = "LogLee's Training Ground"
-theme = "book"  # 주의: book 테마는 submodule 경로 기준이 아니라 이름 기준
+theme = "book"
 
 defaultContentLanguage = "kr"
 defaultContentLanguageInSubdir = false
 summaryLength = 10
 
+[module]
+  [[module.imports]]
+    path = "github.com/alex-shpak/hugo-book"
+
 [params]
   BookTheme = "auto"
-  BookSection = ""  # 사이드바 루트로 사용할 section 지정
+  BookSection = ""
   BookSearch = true
   BookToC = true
-  
 
 [markup]
   [markup.goldmark.renderer]
