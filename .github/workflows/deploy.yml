@@ -18,6 +18,9 @@ jobs:
         with:
           hugo-version: '0.121.1'
           extended: true
+      
+      - name: Install Hugo modules
+        run: hugo mod get
 
       - name: Build site
         run: hugo --minify
