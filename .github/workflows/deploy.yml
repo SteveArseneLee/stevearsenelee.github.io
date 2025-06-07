@@ -25,7 +25,7 @@ jobs:
         run: ls -R themes/book
 
       - name: Build site
-        run: hugo --minify --buildDrafts
+        run: hugo --minify
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
