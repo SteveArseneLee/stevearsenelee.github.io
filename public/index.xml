@@ -205,13 +205,6 @@
       <description></description>
     </item>
     <item>
-      <title>Todo List</title>
-      <link>http://localhost:1313/docs/others/todolist/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/others/todolist/</guid>
-      <description>&lt;h2 id=&#34;todo&#34;&gt;&#xA;  Todo&amp;hellip;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#todo&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Ingress 설정&lt;/li&gt;&#xA;&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Test&lt;/li&gt;&#xA;&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Kafka 올리기&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;done&#34;&gt;&#xA;  Done&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#done&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Ceph 올리기&lt;/li&gt;&#xA;&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; &lt;/li&gt;&#xA;&lt;/ul&gt;</description>
-    </item>
-    <item>
       <title>Tracing에 대해서...</title>
       <link>http://localhost:1313/docs/observability/traces/tracing/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>

@@ -1,7 +1,6 @@
 +++
 title = "Ceph를 구축하며 발생한 cpu 이슈.."
 draft = false
-bookHidden = true
 +++
 
 

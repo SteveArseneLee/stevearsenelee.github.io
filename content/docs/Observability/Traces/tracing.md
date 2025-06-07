@@ -1,7 +1,7 @@
 +++
 title = "Tracing에 대해서..."
 draft = false
-bookHidden = true
+
 +++
 
 ## Tracing이란?

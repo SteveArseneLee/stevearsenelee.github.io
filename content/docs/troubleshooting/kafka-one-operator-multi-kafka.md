@@ -1,7 +1,6 @@
 +++
 title = "하나의 operator와 여러 namespace의 여러 kafka cluster"
 draft = false
-bookHidden = true
 +++
 
 ### 상황

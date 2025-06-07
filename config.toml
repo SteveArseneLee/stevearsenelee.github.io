@@ -2,7 +2,7 @@ baseURL = "https://stevearsenelee.github.io"
 languageCode = "ko"
 title = "LogLee's Training Ground"
 
-defaultContentLanguage = "kr"
+defaultContentLanguage = "ko"
 defaultContentLanguageInSubdir = false
 summaryLength = 10
 

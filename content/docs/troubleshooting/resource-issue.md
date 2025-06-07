@@ -1,7 +1,6 @@
 +++
 title = "리소스 이슈 인한 인프라 재구축"
 draft = false
-bookHidden = true
 +++
 
 ### 상황

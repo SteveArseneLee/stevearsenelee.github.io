@@ -1,7 +1,6 @@
 +++
 title = "Prom"
 draft = false
-bookHidden = true
 +++
 
 ## Producer Acks, Batch, Page Cache and Flush
