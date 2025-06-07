@@ -2,10 +2,11 @@
 title = "Kubespray로 쉽게 구축하기"
 draft = false
 +++
-모든 인스턴스에 접근할 수 있는 곳에서 다음과 같은 작업을 실행한다.
+## 소개
+모든 인스턴스에 접근할 수 있는 곳에서 다음과 같은 작업을 실행한다.  
 In my case, it's control node.
 
-1. Kubespray Downlaod & venv setting
+### 1. Kubespray Downlaod & venv setting
 ```sh
 # 필요한 패키지 설치
 sudo apt update
@@ -23,7 +24,7 @@ source k8s-venv/bin/activate
 pip install -r requirements.txt
 ```
 
-2. Inventory 구성
+### 2. Inventory 구성
 ```sh
 # 샘플 inventory 복사
 cp -rfp inventory/sample inventory/mycluster
@@ -61,20 +62,20 @@ kube_node
 ansible_user=ubuntu
 ```
 
-3. ssh 접속 확인 및 ping test
+### 3. ssh 접속 확인 및 ping test
 ```sh
 # passwordless ssh 접속 가능한지 확인
 ansible -i inventory/mycluster/inventory.ini all -m ping
 ```
 
-4. 모든 인스턴스에 다음 명령어 실행
+### 4. 모든 인스턴스에 다음 명령어 실행
 - ubuntu 사용자에게 sudo 비밀번호 없이 실행 허용
 ```sh
 echo 'ubuntu ALL=(ALL) NOPASSWD:ALL' | sudo tee /etc/sudoers.d/ubuntu
 
 ```
 
-5. Cluster install
+### 5. Cluster install
 ```sh
 ansible-playbook -i inventory/mycluster/inventory.ini cluster.yml -b --become-user=root
 ```

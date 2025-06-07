@@ -3,14 +3,19 @@
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="모든 인스턴스에 접근할 수 있는 곳에서 다음과 같은 작업을 실행한다.
+<meta name="description" content="
+  소개
+  #
+
+모든 인스턴스에 접근할 수 있는 곳에서 다음과 같은 작업을 실행한다.
 In my case, it&rsquo;s control node.">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/infra/kubernetes/install-with-kubespray/">
   <meta property="og:site_name" content="LogLee&#39;s Training Ground">
   <meta property="og:title" content="Kubespray로 쉽게 구축하기">
-  <meta property="og:description" content="모든 인스턴스에 접근할 수 있는 곳에서 다음과 같은 작업을 실행한다. In my case, it’s control node.">
+  <meta property="og:description" content="소개 # 모든 인스턴스에 접근할 수 있는 곳에서 다음과 같은 작업을 실행한다.
+In my case, it’s control node.">
   <meta property="og:locale" content="ko">
   <meta property="og:type" content="article">
     <meta property="article:section" content="docs">
@@ -1145,7 +1150,19 @@ https://github.com/alex-shpak/hugo-book
   <aside class="hidden clearfix">
     
   
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#소개">소개</a>
+      <ul>
+        <li><a href="#1-kubespray-downlaod--venv-setting">1. Kubespray Downlaod &amp; venv setting</a></li>
+        <li><a href="#2-inventory-구성">2. Inventory 구성</a></li>
+        <li><a href="#3-ssh-접속-확인-및-ping-test">3. ssh 접속 확인 및 ping test</a></li>
+        <li><a href="#4-모든-인스턴스에-다음-명령어-실행">4. 모든 인스턴스에 다음 명령어 실행</a></li>
+        <li><a href="#5-cluster-install">5. Cluster install</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
 
 
@@ -1156,11 +1173,16 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><p>모든 인스턴스에 접근할 수 있는 곳에서 다음과 같은 작업을 실행한다.
+  <article class="markdown book-article"><h2 id="소개">
+  소개
+  <a class="anchor" href="#%ec%86%8c%ea%b0%9c">#</a>
+</h2>
+<p>모든 인스턴스에 접근할 수 있는 곳에서 다음과 같은 작업을 실행한다.<br>
 In my case, it&rsquo;s control node.</p>
-<ol>
-<li>Kubespray Downlaod &amp; venv setting</li>
-</ol>
+<h3 id="1-kubespray-downlaod--venv-setting">
+  1. Kubespray Downlaod &amp; venv setting
+  <a class="anchor" href="#1-kubespray-downlaod--venv-setting">#</a>
+</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># 필요한 패키지 설치</span>
 </span></span><span style="display:flex;"><span>sudo apt update
 </span></span><span style="display:flex;"><span>sudo apt install -y git python3-venv python3-pip
@@ -1175,9 +1197,10 @@ In my case, it&rsquo;s control node.</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># 의존성 설치</span>
 </span></span><span style="display:flex;"><span>pip install -r requirements.txt
-</span></span></code></pre></div><ol start="2">
-<li>Inventory 구성</li>
-</ol>
+</span></span></code></pre></div><h3 id="2-inventory-구성">
+  2. Inventory 구성
+  <a class="anchor" href="#2-inventory-%ea%b5%ac%ec%84%b1">#</a>
+</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># 샘플 inventory 복사</span>
 </span></span><span style="display:flex;"><span>cp -rfp inventory/sample inventory/mycluster
 </span></span><span style="display:flex;"><span>
@@ -1209,21 +1232,24 @@ In my case, it&rsquo;s control node.</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>all:vars<span style="color:#f92672">]</span>
 </span></span><span style="display:flex;"><span>ansible_user<span style="color:#f92672">=</span>ubuntu
-</span></span></code></pre></div><ol start="3">
-<li>ssh 접속 확인 및 ping test</li>
-</ol>
+</span></span></code></pre></div><h3 id="3-ssh-접속-확인-및-ping-test">
+  3. ssh 접속 확인 및 ping test
+  <a class="anchor" href="#3-ssh-%ec%a0%91%ec%86%8d-%ed%99%95%ec%9d%b8-%eb%b0%8f-ping-test">#</a>
+</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># passwordless ssh 접속 가능한지 확인</span>
 </span></span><span style="display:flex;"><span>ansible -i inventory/mycluster/inventory.ini all -m ping
-</span></span></code></pre></div><ol start="4">
-<li>모든 인스턴스에 다음 명령어 실행</li>
-</ol>
+</span></span></code></pre></div><h3 id="4-모든-인스턴스에-다음-명령어-실행">
+  4. 모든 인스턴스에 다음 명령어 실행
+  <a class="anchor" href="#4-%eb%aa%a8%eb%93%a0-%ec%9d%b8%ec%8a%a4%ed%84%b4%ec%8a%a4%ec%97%90-%eb%8b%a4%ec%9d%8c-%eb%aa%85%eb%a0%b9%ec%96%b4-%ec%8b%a4%ed%96%89">#</a>
+</h3>
 <ul>
 <li>ubuntu 사용자에게 sudo 비밀번호 없이 실행 허용</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#39;ubuntu ALL=(ALL) NOPASSWD:ALL&#39;</span> | sudo tee /etc/sudoers.d/ubuntu
-</span></span></code></pre></div><ol start="5">
-<li>Cluster install</li>
-</ol>
+</span></span></code></pre></div><h3 id="5-cluster-install">
+  5. Cluster install
+  <a class="anchor" href="#5-cluster-install">#</a>
+</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>ansible-playbook -i inventory/mycluster/inventory.ini cluster.yml -b --become-user<span style="color:#f92672">=</span>root
 </span></span></code></pre></div></article>
  
@@ -1264,7 +1290,19 @@ In my case, it&rsquo;s control node.</p>
       <div class="book-toc-content">
         
   
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#소개">소개</a>
+      <ul>
+        <li><a href="#1-kubespray-downlaod--venv-setting">1. Kubespray Downlaod &amp; venv setting</a></li>
+        <li><a href="#2-inventory-구성">2. Inventory 구성</a></li>
+        <li><a href="#3-ssh-접속-확인-및-ping-test">3. ssh 접속 확인 및 ping test</a></li>
+        <li><a href="#4-모든-인스턴스에-다음-명령어-실행">4. 모든 인스턴스에 다음 명령어 실행</a></li>
+        <li><a href="#5-cluster-install">5. Cluster install</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
 
  
