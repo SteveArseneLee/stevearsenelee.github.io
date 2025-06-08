@@ -1,8 +1,8 @@
 +++
 title = "Flink to GCS"
-bookhidden = True
 draft = false
 +++
+
 # 1. equpiment_metrics
 
 #### [도메인 개요]
@@ -406,8 +406,6 @@ iot.robot_status.dlq:
   partitions: 4
   retention.ms: 2592000000  # 30일
 ```
-
-#### DLQ 설계
 
 #### 주요 모니터링 지표
 ```yaml
