@@ -1,20 +1,10 @@
 +++
-title = "Flink to GCS"
+title = "Dimension Table 정리"
 draft = false
 +++
-# [Dimension] dim-equipment
-### 개요
-항목 | 내용
--|-
-목적 | 각 설비의 메타 정보(모델, 종류, 설치 위치 등)를 저장하고, Fact 테이블과 조인 시 기준값 제공
-사용 도메인 | equipment_metrics, qc_result, robot_status, maintenance_log 등
-조인 키 | equipment_id (string)
-설계 유형 | Dimension Table (SCD Type 2)
-갱신 주기 | 비정기 (설비 추가/교체/이동 등 시점 기준)
+## [Dimension] dim-equipment
 
-
-
-### Table Schema (Iceberg DDL)
+### Schema
 ```sql
 CREATE TABLE dim_equipment (
   equipment_id     STRING COMMENT '설비 고유 ID',
@@ -38,58 +28,9 @@ CREATE TABLE dim_equipment (
 PARTITIONED BY (bucket(8, equipment_id));
 ```
 
-### 관리 정책
-항목 | 설명
--|-
-SCD 유형 | Type 2 (이력 유지)
-생성/수정 주체 | 수동 정의 또는 Faker 기반 dummy generator
-갱신 조건 | 설비 모델 변경, 이동, 교체 등
-폐기 처리 | retired_date 입력 + is_current = false
+## [Dimension] dim-device
 
-### 정규화 항목
-항목 | 정규화 여부 | 참조 테이블 / 방식
--|-|-
-equipment_type | ✅ 별도 enum 테이블 (e.g. dim_equipment_type)
-manufacturer | ⚠️ 선택 사항 (제조사 수가 많을 경우만 분리)
-location_id | ✅ dim_location 참조
-spec_json | ❌ 비정형 → raw JSON 필드로 유지
-
-### 데이터 수급 및 동기화
-항목 | 내용
--|-
-데이터 생성 방식 | 자체 정의 schema + Python faker 기반 generator
-초기 수급 방식 | 일괄 100~500건 규모의 mock 데이터
-갱신 방식 | 스크립트 기반 diff-injection (장비 ID 단위)
-외부 연계 | 없음 (실장비 없음) → 전체 내부 제어 방식
-데이터Hub 등록 | 수동 등록 or CLI 기반 ingestion 사용 예정
-
-### 연계 도메인 및 조인 흐름
-참조 Fact 도메인 | 조인 키 | 설명
--|-|-
-equipment_metrics | equipment_id | 센서 데이터 수집 시 설비별 스펙/위치 매핑
-qc_result | equipment_id | 설비별 품질 트렌드 분석
-robot_status | equipment_id | 로봇 가동률, 오류율 연계 분석
-maintenance_log | equipment_id | 설비별 고장 이력 트래킹
-
-### 사용 시나리오
-분석 목적 | 활용 필드
--|-
-설비 유형별 이상 발생률 비교 | equipment_type, is_critical
-제조사별 MTBF 분석 | manufacturer, install_date
-위치별 센서 알람 히트맵 | location_id, 조인된 equipment_metrics
-신규 설비 평균 초기 고장률 파악 | install_date, equipment_type, status
-
-# [Dimension] dim-device
-### 개요
-항목 | 내용
--|-
-목적 | 센서, 게이트웨이, 컨트롤러 등 모든 측정 장비의 메타정보 저장 및 분석 연계
-사용 도메인 | equipment_metrics, energy_usage, environmental_readings
-조인 키 | device_id (string)
-설계 유형 | Dimension Table (SCD Type 2 + 관계 테이블 고려)
-갱신 주기 | 비정기 (설치/보정/교체/업데이트 발생 시)
-
-### Iceberg DDL
+### Schema
 ```sql
 CREATE TABLE dim_device (
   device_id         STRING COMMENT '디바이스 고유 ID (MAC, Serial 등)',
@@ -118,58 +59,8 @@ CREATE TABLE dim_device (
 PARTITIONED BY (bucket(8, device_id));
 ```
 
-### 관리 정책
-항목 | 내용
--|-
-SCD 유형 | Type 2 (변경 이력 유지)
-장비 연결 구조 | equipment_id는 FK, 1:N 가능 (센서 다중 장착 허용)
-폐기 처리 | retired_date와 is_current = false 조합
-spec 관리 | JSON → 컬럼 분리로 전환 (스키마 정합성 ↑)
-
-### 정규화 항목
-항목 | 정규화 여부 | 참조 방식
--|-|-
-device_type | ✅ dim_device_type 또는 enum |
-manufacturer | ⚠️ 필요 시 enum 또는 코드 테이블 | 
-location_id | ✅ dim_location 참조 |
-equipment_id | ✅ dim_equipment 참조 | 
-firmware_version | ❌ (버전 다양성 ↑, 유지됨)
-
-### 데이터 수급 및 동기화
-항목 | 내용
--|-
-생성 방식 | faker or 자체 정의 스크립트
-생성 수 | 300~1000 단위 센서/디바이스
-변경 발생 조건 | 보정, 교체, 펌웨어 업데이트, 위치 이동 등
-연계 테이블 | equipment_device_map (필요 시)
-데이터Hub 등록 | 수동 또는 CLI 등록 예정
-
-### 연계 도메인 및 조인 흐름
-참조 Fact 도메인 | 조인 키  | 설명
--|-|-
-equipment_metrics | device_id | 센서 데이터 정합성 및 유효성 확인
-energy_usage | device_id | 전력 감시 센서 기준 집계
-environmental_readings | device_id | 환경 데이터 센서 연결 분석
-
-### 사용 시나리오
-분석 목적 | 활용 필드
--|-
-센서 유형별 이상 비율 분석 | device_type, is_calibrated
-제조사별 펌웨어 오류율 비교 | manufacturer, firmware_version
-장비별 센서 수명 분석 | install_date, retired_date, equipment_id
-센서 위치 기반 알람 분포 분석 | location_id, 연계된 equipment_metrics
-
-# [Dimension] dim-operator
-### 개요
-항목 | 내용
--|-
-목적 | 설비 작업자 식별 및 근무 이력 관리, 분석 기준 제공
-사용 도메인 | equipment_metrics, qc_result, maintenance_log
-조인 키 | operator_id (string)
-설계 유형 | Dimension Table (SCD Type 2)
-갱신 주기 | 배치 이동, 자격 변경, 근무조 변경 시
-
-### Iceberg DDL
+## [Dimension] dim-operator
+### Schema
 ```sql
 CREATE TABLE dim_operator (
   operator_id       STRING COMMENT '작업자 고유 ID',
@@ -210,54 +101,8 @@ CREATE TABLE pii_operator_contact (
 )
 ```
 
-### 관리 정책
-항목 | 내용
--|-
-변경 조건 | shift 변경, certification 갱신, 조직 이동
-퇴사자 처리 | retire_date와 is_current = false 조합
-PII 보안 처리 | 별도 테이블로 분리 저장 (contact_ref_id)
-정규화 항목 | shift_id, certification → 코드 테이블과 연계 가능
-
-### 정규화 항목
-항목 | 정규화 여부 | 참조 테이블
--|-|-
-shift_group | ✅ | dim_shift
-certification | ✅ | dim_certification_level
-role | ✅ | dim_role
-location_id | ✅ | dim_location
-organization_unit, team | ⚠️ 조직 구조 확장 시 분리 고려
-
-### 데이터 수급 및 동기화
-항목 | 내용
--|-
-더미 생성 | 초기 faker 기반 가능, 100~500명 범위
-시스템 연계 여부 | HR, MES 시스템 연계 고려 대상
-수동 업데이트 경로 | 관리자 수기 관리 or Airflow DAG
-
-### 연계 도메인 및 조인 흐름
-참조 Fact 도메인 | 조인 키 | 설명
--|-|-
-equipment_metrics | operator_id | 설비 운영자 추적
-qc_result | operator_id | 검사 담당자 조회
-maintenance_log | operator_id | 수리 담당자 분석
-
-### 사용 시나리오
-분석 목적 | 활용 필드
--|-
-교대조별 설비 이상률 분석 | shift_id, equipment_metrics
-자격 등급별 품질 불량률 비교 | certification, qc_result
-이직률/경력 기반 성과 비교 | experience_year, retire_date
-조직/팀별 업무 집중도 분석 | organization_unit, maintenance_log
-
 # [Dimension] dim-location
-### 개요
-항목 | 설명
--|-
-목적 | 설비, 품질, 유지보수, 물류 등과 연동 가능한 공장 내 위치 체계 관리
-설계 유형 | Dimension Table
-사용 도메인 | dim_equipment, equipment_metrics, qc_result, maintenance_log 등
-
-### Iceberg DDL
+### Schema
 ```sql
 CREATE TABLE dim_location (
   location_id           STRING COMMENT '위치 ID (예: LOC_LINE_A_01)',
@@ -281,39 +126,8 @@ CREATE TABLE dim_location (
 PARTITIONED BY (bucket(6, location_id));
 ```
 
-### 정규화 항목
-항목 | 정규화 필요 여부 | 이유
--|-|-
-factory_code | ✅ | 공장 코드-명 분리, PLANT 테이블로 정규화 가능
-line_id | ✅ | dim_line으로 분리 가능 (라인별 담당자, 설비 연결 시 유용)
-zone_type | ✅ | ENUM화 또는 코드 테이블화 (위험구역, 품질구역 등 정책 기반 분류)
-
-### 연계 도메인 예시
-연계 도메인 | 조인 키 | 활용 목적
--|-|-
-dim_equipment | location_id | 장비 설치 위치
-equipment_metrics | location_id | 라인/셀 단위 이상탐지 패턴 분석
-qc_result | location_id | 품질 검사 발생 지점
-maintenance_log | location_id | 정비 작업 장소 기준
-alarm_log | location_id | 위험 구역 알람 필터링
-
-### 사용 예시
-분석 목적 | 활용 필드
--|-
-셀 단위 이상 탐지율 비교 | cell_id, location_id
-위험 구역 이상 알람 비율 | is_critical_area = true
-품질검사 결과 지역별 통계 | zone_type, factory_name
-라인별 생산설비 집중도 분석 | line_id + dim_equipment 조인
-
-# [Dimension] dim-thresholds
-### rody
-항목 | 설명
--|-
-목적 | 장비 센서 기준값을 다조건(시즌, 교대조, 제품 등)으로 관리하여 실시간 이상 탐지에 활용
-사용 도메인 | equipment_metrics, alarm_log, maintenance_log 등
-특징 | Slowly Changing Dimension (SCD Type 2), Spark 실시간 조인 최적화
-
-### Iceberg DDL
+## [Dimension] dim-thresholds
+### Schema
 ```sql
 CREATE TABLE dim_thresholds (
   threshold_id        STRING COMMENT 'surrogate key: 해시 또는 UUID (필수 조건 조합 기반)',
@@ -341,50 +155,7 @@ PARTITIONED BY (
 );
 ```
 
-### 정규화 항목 및 ENUM 정의
-항목 | 처리 방식
--|-
-sensor_type | ENUM or dim_sensor_type (표준화)
-season | ENUM or dim_season (summer, winter, etc.)
-shift | ENUM (A, B, C, Night)
-product_type | dim_product로 정규화 가능
-confidence_level | ENUM(RULE_BASED, AI_BASED, HYBRID)
-
-### Spark Join 설계 시 고려사항
-```scala
-// 조건 Null-safe broadcast join (product_type nullable 허용)
-val joined = metrics
-  .join(thresholds.hint("broadcast"),
-        metrics("equipment_id") <=> thresholds("equipment_id") &&
-        metrics("sensor_type") <=> thresholds("sensor_type") &&
-        metrics("season") <=> thresholds("season") &&
-        metrics("shift") <=> thresholds("shift") &&
-        (metrics("product_type") <=> thresholds("product_type") || thresholds("product_type").isNull),
-        "left_outer")
-  .filter($"is_current" === true)
-```
-
-### 활용 예시
-목적 | 활용 필드
--|-
-교대조/계절별 이상률 분석 | shift, season
-AI 기반 threshold 적용률 모니터링 | confidence_level = 'AI_BASED'
-기준값 변경 이력 트래킹 | valid_from, valid_to, row_version
-센서별 허용 편차 시각화 | min_threshold, max_threshold 추이
-
-### 유효성 체크 규칙 (ETL or Airflow DAG)
-규칙 항목
-설명
-min_threshold < max_threshold
-필수 조건, 아니면 reject
-동일 조건 중복 방지
-(equipment_id + sensor_type + season + shift + product_type + valid_from) unique
-valid_to > valid_from
-시간 역전 방지
-is_current = true row 1개
-장비+센서 조건 당 최신 row는 1개만 존재해야 함
-
-# [Dimension] dim-batch
+## [Dimension] dim-batch
 ### 개요
 항목 | 설명
 -|-
@@ -392,7 +163,7 @@ is_current = true row 1개
 사용 도메인 | equipment_metrics, qc_result, maintenance_log, dim_operator, dim_product, dim_shift 등
 설계 유형 | Type 1 Dimension Table (SCD 가능성 고려됨, 단일 버전 관리
 
-### Iceberg DDL
+### Schema
 ```sql
 CREATE TABLE dim_batch (
   batch_id            STRING COMMENT '배치 고유 ID (ex: BATCH_20250601_001)',
@@ -418,47 +189,8 @@ PARTITIONED BY (
 );
 ```
 
-### 예시 데이터
-batch_id | product_id | equipment_id | line_id | operator_id | shift_code | start | end | produced | status
--|-|-|-|-|-|-|-|-|-
-BATCH_20250601_001 | P-001 | EQ-001 | LINE_1 | OP001 | A | 2025-06-01 08:00:00 | 2025-06-01 12:30:00 | 940 | completed
-BATCH_20250601_002 | P-002 | EQ-003 | LINE_2 | OP002 | B | 2025-06-01 13:00:00 | 2025-06-01 17:00:00 | 860 | completed
-
-### 조인 연계 및 활용 예시
-대상 도메인 | 조인 조건 | 활용 목적
--|-|-
-equipment_metrics | equipment_id + timestamp BETWEEN start AND end | 배치별 설비 센서 조인
-qc_result | batch_id | 배치별 품질 평가 결과 추적
-maintenance_log | equipment_id + batch_id or timestamp | 배치 중 장애 및 고장 분석
-dim_product | product_id | 제품 사양 기반 분석
-dim_operator | operator_id | 작업자 기준 생산 이력 조회
-dim_shift | shift_code | 교대조별 운영 비교
-
-### 운영 및 유입 전략
-항목 | 내용
--|-
-배치 ID 생성 | 규칙 기반 (BATCH_YYYYMMDD_XXX), 실시간 or 사후 입력 모두 가능
-생성 방식 | 초기 수동 / 자동 생성 스크립트 / MES API 연동
-종료 시점 기록 | API 혹은 배치 상태 업데이트 이벤트 기반으로 actual_end_time 입력
-
-### 정규화 항목 및 동기화 상태
-필드 | 정규화 여부 | 참조 테이블
--|-|-
-product_id | ✅ FK | dim_product
-equipment_id | ✅ FK | dim_equipment
-operator_id | ✅ FK | dim_operator
-production_line_id | ✅ FK (가능) | dim_location or 별도
-shift_code | ✅ FK | dim_shift
-
-# [Dimension] dim-certification-level
-## 개요
-항목 | 설명
--|-
-목적 | 작업자 자격 등급과 정책적 연계 정보 관리 (권한, 만료, 교육 등)
-설계 유형 | Dimension Table (정규화 + 확장 가능)
-사용 도메인 | dim_operator, certification_task_map, maintenance_log, qc_result 등
-
-### Iceberg DDL
+## [Dimension] dim-certification-level
+### Schema
 ```sql
 CREATE TABLE dim_certification_level (
   certification_level_id STRING COMMENT '자격 등급 ID (예: L1, L2, L3)',
@@ -508,31 +240,8 @@ CREATE TABLE dim_certifying_body (
 ```
 issued_by_code는 이 테이블과 FK 연계
 
-### 관리 정책
-항목 | 설명
--|-
-버전 관리 | SCD Type 2 (row_version, is_current) 사용
-자격 갱신 | 신규 버전 INSERT + 기존 버전 is_current = false
-만료 필터링 | valid_to < current_date 조건 처리
-정합성 | certification_task_map, dim_operator FK로 검증
-
-### 분석 활용 예시
-목적 | 활용 컬럼
--|-
-등급별 고위험 작업 수행률 | certification_task_map + qc_result, maintenance_log
-자격 만료/갱신 모니터링 | valid_to, is_current
-미이수 교육 대상 필터링 | training_required = true + dim_operator.last_training_date
-등급별 자격 발급 분포 | issued_by_code, level_name
-
-# [Dimension] dim-product
-### 개요
-항목 | 설명
--|-
-목적 | 제품군/모델/사양 정보 관리 및 SCD 이력 기반 분석 연계
-적용 도메인 | qc_result, equipment_metrics, dim_thresholds, dim_batch 등
-설계 유형 | Type 2 SCD Dimension Table
-
-### Iceberg DDL
+## [Dimension] dim-product
+### Schema
 ```sql
 CREATE TABLE dim_product (
   product_id         STRING COMMENT '제품 고유 ID',
@@ -558,43 +267,14 @@ PARTITIONED BY (
 );
 ```
 
-### 예시 데이용
+### 예시 데이터
 product_id | product_name | type | material | line_id | spec | pressure_max | voltage_rating | from | to | current
 -|-|-|-|-|-|-|-|-|-|-
 P-001 | Core Press A | actuator | aluminum | LINE_1 | {"pressure":"1.2MPa"} | 1.2 | 12.0 | 2024-01-01T00:00:00 | 2024-10 | false
 P-001 | Core Press A | actuator | aluminum | LINE_1 | {"pressure":"1.3MPa"} | 1.3 | 12.0 | 2024-10-01T00:00:00 | null | true
 
-### 사용 예시 및 조인
-대상 도메인 | 조인 조건 | 활용 목적
--|-|-
-qc_result | product_id, qc_result.timestamp BETWEEN valid_from AND valid_to | 사양 기준 품질 분석
-equipment_metrics | product_id + line_id | 기준 스펙 기반 이상 탐지 분석
-dim_thresholds | product_type, material_type | 제품 유형별 기준 임계값 적용
-dim_batch | product_id | 배치별 제품 매핑 및 추적성 확보
-
-### 유지 전략 및 유입 방식
-항목 | 내용
--|-
-운영 방식 | 초기: 수동 등록 / 이후: MES or 제품 DB 연계
-버전 관리 | 사양 변경 시 diff 비교 → Spark 기반 SCD 처리
-관리 주체 | 개발 초기에는 수기 또는 파생 로직, 실서비스 전환 시 연계 자동화 고려
-
-### 정규화 후보 필드
-필드 | 정규화 여부 | 대상 테이블 제안
--|-|-
-product_type | ENUM or FK | dim_product_type
-material_type | ENUM or FK | dim_material_type
-line_id | FK | dim_equipment_line 또는 dim_location 참조
-
-# [Dimension] dim-shift
-### 개요
-항목 | 설명
--|-
-목적 | 근무 교대조(Shift)에 대한 정보 관리 및 시간대 기반 이상 탐지·품질·정비 분석 연계
-사용 도메인 | equipment_metrics, qc_result, maintenance_log, dim_operator, dim_thresholds 등
-설계 유형 | Static Dimension Table (변경 거의 없음, 고정 값 기반 조인)
-
-### Iceberg DDL
+## [Dimension] dim-shift
+### Schema
 ```sql
 CREATE TABLE dim_shift (
   shift_code         STRING COMMENT '교대조 코드 (예: A, B, C, N)',

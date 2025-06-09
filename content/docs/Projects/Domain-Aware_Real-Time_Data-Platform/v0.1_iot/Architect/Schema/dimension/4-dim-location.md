@@ -1,5 +1,5 @@
 +++
-title = "Flink to GCS"
+title = "[Dimension] Location"
 draft = false
 +++
 ### 개요

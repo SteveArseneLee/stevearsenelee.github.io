@@ -1,5 +1,5 @@
 +++
-title = "Flink to GCS"
+title = "[Dimension] Batch"
 draft = false
 +++
 ### 개요
