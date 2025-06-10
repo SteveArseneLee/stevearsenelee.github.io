@@ -15,23 +15,6 @@ description = "Where code meets craft, and logs tell stories."
 >  _"Logs are not just data — they are the system’s story."_ 
 
 {{< tabs "id" >}}
-
-{{% tab "Philosophy" %}}
-## 🎯 My Learning Philosophy
-
-### 🤔 Thoughtful Decision Making
-제가 학습하는 철학은 다음과 같습니다.
-- 여러 관점을 토대로 **scoring**
-- **명확한 이유**와 **비용 효율성** 고려
-- Ceph → GCS/S3 전환 사례처럼 **실용적 판단** 우선
-- 호기심에 그치지 않고 **문제 해결 중심**의 기술 선택
-
-### 🌍 Beyond the Bubble
-- **KafkaKRU, AWS, MLOps, CSK** 등 다양한 컨퍼런스 참여
-- 개발 모임에서 **피드백 수용**과 **인사이트 교환**
-- 우물 안 개구리 탈피를 위한 **지속적인 외부 소통**
-
-{{< tabs "id" >}}
 {{% tab "MacOS" %}} # MacOS Content {{% /tab %}}
 {{% tab "Linux" %}} # Linux Content {{% /tab %}}
 {{% tab "Windows" %}} # Windows Content {{% /tab %}}

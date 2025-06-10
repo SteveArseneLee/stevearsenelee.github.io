@@ -3,13 +3,6 @@ title = "Data Engineer의 프트폴리오 작성법"
 date = 2025-06-10
 draft = false
 +++
-{{< mermaid >}}
-sequenceDiagram
-    Alice->>+John: Hello John, how are you?
-    Alice->>+John: John, can you hear me?
-    John-->>-Alice: Hi Alice, I can hear you!
-    John-->>-Alice: I feel great!
-{{< /mermaid >}}
 ### 유념해야할 사항들
 - 데이터를 이동하고 정리하는 방법을 알고 있음을 증명하는 ***production-level ETL pipeline***
 - Fraud detection, chatbots, live dashboards를 지원할 수 있는 실시간 처리
@@ -53,7 +46,7 @@ sequenceDiagram
 - YouTube나 Spotify public API - paginated, rate-limited data
 - Kaggle dataset - 자체 수집 및 변환 계층 추가
 
-## 2) "이벤트 스트리밍 구축법
+## 2) "이벤트 스트리밍 구축"
 ### 실시간 대시보드를 위한 스트리밍 클릭스트림 프로젝트 예시
 1. Event Ingestion : Kafka 토픽으로 실시간 클릭스트림 전송
 2. Stream Processing : Kafka + Kafka Streams 또는 Flink를 사용해 실시간으로 데이터를 정리, 필터링 및 보강
@@ -78,3 +71,5 @@ sequenceDiagram
 - 24h 부하 테스트에서 $99.99%$ 이상의 가동 시간 유지
 - 메시지 중복 제거 및 재시도 처리를 통해 $0.05%$ 미만의 오류율 보장
 - $10K+ event/second$ 에서 데이터 손실 없이 수평적 확장
+
+## 3) "Cloud Data Warehouse"
