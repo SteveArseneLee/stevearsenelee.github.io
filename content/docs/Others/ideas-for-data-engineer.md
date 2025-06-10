@@ -78,6 +78,6 @@ draft = false
 ### Cloud Warehousing 프로젝트
 - Data ingestion 
 - Schema design : dimensional modeling, star schema, snowflake schema, data vault 등으로 쿼리 속도와 유지 관리성 최적화
-- Query optimization
-- Data governance
+- Query optimization : 파티셔닝, 클러스터링 및 materialized view를 활용해 클라우드 비용 증가 없이 빠른 인사이트를 얻기
+- Data governance : metadata 관리, 세부적인 권한 제어 및 계보 
 - Lakehouse innovation
