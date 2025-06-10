@@ -2,7 +2,13 @@
 title = "Data Engineer의 프트폴리오 작성법"
 draft = false
 +++
-
+{{< mermaid >}}
+sequenceDiagram
+    Alice->>+John: Hello John, how are you?
+    Alice->>+John: John, can you hear me?
+    John-->>-Alice: Hi Alice, I can hear you!
+    John-->>-Alice: I feel great!
+{{< /mermaid >}}
 ### 유념해야할 사항들
 - 데이터를 이동하고 정리하는 방법을 알고 있음을 증명하는 ***production-level ETL pipeline***
 - Fraud detection, chatbots, live dashboards를 지원할 수 있는 실시간 처리
@@ -63,4 +69,4 @@ draft = false
 - Python / FastAPI
 
 ### 예시
-> 
+> "초당 5천건 이상의 이벤트를 일관된 200ms 미만의 end-to-end latency로 처리할 수 있는 실시간 데이터 파이프라인을 구축했습니다. 이 시스템은 Kafka를 사용해 시뮬레이션된 clickstream 트래픽을 수집하고, 
