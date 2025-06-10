@@ -77,7 +77,7 @@ draft = false
 - Delta Lake와 Iceberg와 같은 기술을 활용해 Data Lake의 유연성과 Warehouse의 고성능 쿼리 속도를 결합한 hybrid 아키텍쳐를 구축할 수 있음
 ### Cloud Warehousing 프로젝트
 - Data ingestion 
-- Schema design
+- Schema design : dimensional modeling, star schema, snowflake schema, data vault 등으로 쿼리 속도와 유지 관리성 최적화
 - Query optimization
 - Data governance
 - Lakehouse innovation

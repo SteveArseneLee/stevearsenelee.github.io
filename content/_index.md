@@ -2,7 +2,9 @@
 title = "LogLee's Tech Hub"
 description = "Where code meets craft, and logs tell stories."
 +++
+{{% hint "warning" %}}
 {{< countpages >}}
+{{% /hint %}}
 
 # 👋 Welcome to LogLee's Learning Lab
 
@@ -15,7 +17,7 @@ description = "Where code meets craft, and logs tell stories."
 >  _"Logs are not just data — they are the system’s story."_ 
 
 {{< tabs "id" >}}
-{{% tab "<span style='color: blue'>학습 철학</span>" %}}
+{{% tab "학습 철학" %}}
 제가 학습하는 철학은 다음과 같습니다.
 ### 철저한 의사결정
 - 여러 관점을 토대로 **scoring**
@@ -42,58 +44,15 @@ description = "Where code meets craft, and logs tell stories."
 - **비용 최적화**와 **성능 튜닝**의 균형점 탐구
 
 {{% /tab %}}
-{{% tab "Windows" %}} # Windows Content {{% /tab %}}
-{{< /tabs >}}
-
----
-
-## 🎯 My Learning Philosophy
-
-### 🤔 Thoughtful Decision Making
-제가 학습하는 철학은 다음과 같습니다.
-- 여러 관점을 토대로 **scoring**
-- **명확한 이유**와 **비용 효율성** 고려
-- Ceph → GCS/S3 전환 사례처럼 **실용적 판단** 우선
-- 호기심에 그치지 않고 **문제 해결 중심**의 기술 선택
-
-### 🌍 Beyond the Bubble
-- **KafkaKRU, AWS, MLOps, CSK** 등 다양한 컨퍼런스 참여
-- 개발 모임에서 **피드백 수용**과 **인사이트 교환**
-- 우물 안 개구리 탈피를 위한 **지속적인 외부 소통**
-
----
-
-## 🔥 Current Tech Stack (Learning)
-
-<div class="tech-grid">
-
-### 🎯 **Core Focus** 
-- **Streaming**: Kafka, Spark, Flink
-- **Storage**: Iceberg, Minio, Milvus
-- **Infrastructure**: Kubernetes, Prometheus, Loki, Grafana
-- **Languages**: Python, Java
-
-### 🚀 **Expanding Horizons**
-- **Data Engineering** & **Backend** & **Infrastructure**
-- 단일 도메인에 갇히지 않는 **엔지니어링** 지향
-- 홈서버 기반 **실무 시뮬레이션** 환경 구축
-- **비용 최적화**와 **성능 튜닝**의 균형점 탐구
-
----
-
-## 🏠 Home Lab
-
-
-### 💡 **Real-World Simulation**
+{{% tab "홈서버 테스트" %}}
 홈서버에서 **실제 운영 환경처럼** 고민하며 학습합니다:
-
 - **Architecture Decisions**: "왜 이 기술을 선택했는가?"
 - **Cost Optimization**: "클라우드 vs 온프레미스, 어떤 게 효율적인가?"
 - **Endurable Data Platform**: "유실없이 장기간 안정적으로 운영 가능한가?"
 - **Operational Excellence**: "장애 상황에서 어떻게 대응할 것인가?"
 - **Scalability Planning**: "트래픽이 늘어나면 어떻게 확장할 것인가?"
-
----
+{{% /tab %}}
+{{< /tabs >}}
 
 ## 🗺️ Learning Roadmap
 
@@ -101,15 +60,3 @@ description = "Where code meets craft, and logs tell stories."
 <img src="/images/de-landscape.png" alt="Data Engineering Learning Path" class="landscape-image">
 <p class="image-caption"> 데이터 엔지니어링 학습 여정</p>
 </div>
-
----
-
-
-## 💡 About This Journey
-
-이곳의 모든 내용은 **실무 경험이 없는 상황에서 더욱 치열하게 고민하고 학습한** 과정의 기록입니다.  
-각 글은 제가 **왜 이 기술을 선택했는지, 어떤 실패를 겪었는지, 무엇을 배웠는지**에 대한 솔직한 이야기입니다.
-
-**아직 갈 길이 멀지만, 매일 한 걸음씩 성장하고 있습니다.** 🌱
-
-**Ready to learn together? Let's grow!** 🚀
