@@ -69,6 +69,8 @@ sequenceDiagram
 - Superset / Grafana / Streamlit
 - Python / FastAPI
 
-### 예시
-> "초당 5천건 이상의 이벤트를 일관된 200ms 미만의 end-to-end latency로 처리할 수 있는 실시간 데이터 파이프라인을 구축했습니다. 이 시스템은 Kafka를 사용해 시뮬레이션된 clickstream 트래픽을 수집하고, Kafka Streams를 통해 이벤트를 처리하며, Redis와 Superset으로 구동되는 실시간 대시보드에 정제된 metric을 표시합니다."
+{{% hint [info] %}}
+"초당 5천건 이상의 이벤트를 일관된 200ms 미만의 end-to-end latency로 처리할 수 있는 실시간 데이터 파이프라인을 구축했습니다. 이 시스템은 Kafka를 사용해 시뮬레이션된 clickstream 트래픽을 수집하고, Kafka Streams를 통해 이벤트를 처리하며, Redis와 Superset으로 구동되는 실시간 대시보드에 정제된 metric을 표시합니다."
+{{ % /hint }}
 
+- Redis peak load 중 45ms 미만의 쿼리 지연 시간 달성

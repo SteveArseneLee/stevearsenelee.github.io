@@ -14,7 +14,46 @@ description = "Where code meets craft, and logs tell stories."
 > _"Every decision needs a reason, every failure teaches a lesson."_  
 >  _"Logs are not just data — they are the system’s story."_ 
 
----
+{{< tabs "id" >}}
+
+{{% tab "Philosophy" %}}
+## 🎯 My Learning Philosophy
+
+### 🤔 Thoughtful Decision Making
+제가 학습하는 철학은 다음과 같습니다.
+- 여러 관점을 토대로 **scoring**
+- **명확한 이유**와 **비용 효율성** 고려
+- Ceph → GCS/S3 전환 사례처럼 **실용적 판단** 우선
+- 호기심에 그치지 않고 **문제 해결 중심**의 기술 선택
+
+### 🌍 Beyond the Bubble
+- **KafkaKRU, AWS, MLOps, CSK** 등 다양한 컨퍼런스 참여
+- 개발 모임에서 **피드백 수용**과 **인사이트 교환**
+- 우물 안 개구리 탈피를 위한 **지속적인 외부 소통**
+{{% /tab %}}
+
+{{% tab "Current Tech Stack" %}} 
+## 🔥 Current Tech Stack (Learning)
+
+<div class="tech-grid">
+
+### 🎯 **Core Focus** 
+- **Streaming**: Kafka, Spark, Flink
+- **Storage**: Iceberg, Minio, Milvus
+- **Infrastructure**: Kubernetes, Prometheus, Loki, Grafana
+- **Languages**: Python, Java
+
+### 🚀 **Expanding Horizons**
+- **Data Engineering** & **Backend** & **Infrastructure**
+- 단일 도메인에 갇히지 않는 **엔지니어링** 지향
+- 홈서버 기반 **실무 시뮬레이션** 환경 구축
+- **비용 최적화**와 **성능 튜닝**의 균형점 탐구
+{{% /tab %}}
+
+{{% tab "Windows" %}} # Windows Content {{% /tab %}}
+
+{{< /tabs >}}
+
 
 ## 🎯 My Learning Philosophy
 
