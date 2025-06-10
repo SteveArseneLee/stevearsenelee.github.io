@@ -15,11 +15,28 @@ description = "Where code meets craft, and logs tell stories."
 >  _"Logs are not just data — they are the system’s story."_ 
 
 {{< tabs "id" >}}
-{{% tab "MacOS" %}} # MacOS Content {{% /tab %}}
-{{% tab "Linux" %}} # Linux Content {{% /tab %}}
+{{% tab "Philosophy" %}}
+## 🎯 My Learning Philosophy
+
+### 🤔 Thoughtful Decision Making
+제가 학습하는 철학은 다음과 같습니다.
+- 여러 관점을 토대로 **scoring**
+- **명확한 이유**와 **비용 효율성** 고려
+- Ceph → GCS/S3 전환 사례처럼 **실용적 판단** 우선
+- 호기심에 그치지 않고 **문제 해결 중심**의 기술 선택
+{{% /tab %}}
+{{% tab "Tech Stack" %}}
+## dfsdf
+asdvgas
+absbadfw
+evwaevawev
+ipsumd
+
+{{% /tab %}}
 {{% tab "Windows" %}} # Windows Content {{% /tab %}}
 {{< /tabs >}}
 
+---
 
 ## 🎯 My Learning Philosophy
 

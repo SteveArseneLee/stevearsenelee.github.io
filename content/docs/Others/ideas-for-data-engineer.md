@@ -73,3 +73,5 @@ draft = false
 - $10K+ event/second$ 에서 데이터 손실 없이 수평적 확장
 
 ## 3) "Cloud Data Warehouse"
+- Snowflake, Bigquery, Redshift는 modern 
+### Cloud Warehousing 프로젝트
