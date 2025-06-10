@@ -29,6 +29,6 @@ theme = "book"
   weight = 50
 
 [[menu.after]]
-  name = "GitHub"
+  name = "GitHub link는 여기!"
   url = "https://github.com/SteveArseneLee"
   weight = 51

@@ -1,5 +1,6 @@
 +++
 title = "CephFS 구축하기"
+draft = false
 categories = ["Data Engineering", "Ceph"]
 +++
 

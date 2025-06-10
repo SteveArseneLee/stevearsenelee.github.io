@@ -1,11 +1,7 @@
 +++
-author = "SteveArseneLee"
-title = "이걸 해볼까요"
-date = "2025-04-15T14:56:52+09:00"
+title = "Worker & NFS 설정"
 draft = false
 +++
-
-
 ### Worker Node에 Role 부여하기
 ```
 kubectl label node {node명} node-role.kubernetes.io/worker=worker

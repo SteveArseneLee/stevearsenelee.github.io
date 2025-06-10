@@ -1,8 +1,7 @@
 +++
-title = "Hello"
+title = "Home Server Spec Calc"
 draft = false
 +++
-
 
 인프라 구성은 다음과 같다.
 

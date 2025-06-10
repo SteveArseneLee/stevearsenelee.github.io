@@ -4,7 +4,7 @@ draft = false
 +++
 
 ## Producer Acks, Batch, Page Cache and Flush
-acks 설정은 요청이 성공할 때를 정의하는 데 사용되는 **Producer**에 설정하는 Parameter
+acks 설정은 요청이 성공할 때를 정의하는 데 사용되는 **Producer** 에 설정하는 Parameter
 - ```acks=0``` : ack가 필요하지 않음. 이 수준은 자주 사용되지 않음. 메시지 손실이 다소 있더라도 빠르게 메시지를 보내야 하는 경우에 사용된다.
 - ```acks=1(default)``` : Leader가 메시지를 수신하면 ack를 보냄. Leader가 Producer에게
 ACK를 보낸 후, Follower가 복제하기념전에 Leader에 장애가 발생하면 메시지가 손실. *“At most

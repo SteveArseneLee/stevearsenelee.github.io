@@ -3,7 +3,7 @@ title = "Kafka의 데이터 구조"
 draft = false
 +++
 
-Kafka의 메세지 저장 구조는 **논리적 구조**와 **물리적 구조**로 나눠서 생각하는 것이 좋다. Kafka는 단순한 message queue를 넘어서 ***Log-structured Storage***로 설계되어, 메세지의 저장 및 조회 방식이 일반적인 RDBMS나 단순 queueing system과는 다르다.
+Kafka의 메세지 저장 구조는 **논리적 구조** 와 **물리적 구조** 로 나눠서 생각하는 것이 좋다. Kafka는 단순한 message queue를 넘어서 ***Log-structured Storage*** 로 설계되어, 메세지의 저장 및 조회 방식이 일반적인 RDBMS나 단순 queueing system과는 다르다.
 
 ### 논리적 구조
 ```sh

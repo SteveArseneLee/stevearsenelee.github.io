@@ -3,6 +3,8 @@ title = "Data Engineer의 프트폴리오 작성법"
 date = 2025-06-10
 draft = false
 +++
+$ 4^2 = 14$
+
 ### 유념해야할 사항들
 - 데이터를 이동하고 정리하는 방법을 알고 있음을 증명하는 ***production-level ETL pipeline***
 - Fraud detection, chatbots, live dashboards를 지원할 수 있는 실시간 처리
@@ -79,5 +81,12 @@ draft = false
 - Data ingestion 
 - Schema design : dimensional modeling, star schema, snowflake schema, data vault 등으로 쿼리 속도와 유지 관리성 최적화
 - Query optimization : 파티셔닝, 클러스터링 및 materialized view를 활용해 클라우드 비용 증가 없이 빠른 인사이트를 얻기
-- Data governance : metadata 관리, 세부적인 권한 제어 및 계보 
-- Lakehouse innovation
+- Data governance : metadata 관리, 세부적인 권한 제어 및 계보 추적을 통해 데이터의 신뢰성과 규정 준수를 유지
+- Lakehouse innovation : 클라우드 object storage에 Delta Lake나 Iceberg를 구축해 Data Lake와 Warehouse의 장점을 결합
+
+### Stack
+- Snowflake, BigQuery, or AWS Redshift for warehouses
+- Delta Lake (Databricks) or Apache Iceberg for lakehouse projects
+- dbt (data build tool) for transformations, testing, and documentation
+- Cloud platforms: AWS, GCP, or Azure
+- Data governance tools: Apache Atlas, Amundsen, or open metadata platforms
