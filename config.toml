@@ -13,6 +13,7 @@ theme = "book"
   BookToC = true
   BookLogo = '/images/de-landscape.png'
   BookLogoText = 'LogLee.dev'
+  BookDateFormat = "January 2, 2006"
 
 [markup]
   [markup.goldmark.renderer]
