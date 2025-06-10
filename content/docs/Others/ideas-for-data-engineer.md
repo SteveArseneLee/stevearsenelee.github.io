@@ -3,7 +3,7 @@ title = "Data Engineer의 프트폴리오 작성법"
 date = 2025-06-10
 draft = false
 +++
-$$ 4^2 = 14 $$
+\( 4^2 = 14 \)
 
 ### 유념해야할 사항들
 - 데이터를 이동하고 정리하는 방법을 알고 있음을 증명하는 ***production-level ETL pipeline***
