@@ -2,7 +2,6 @@
 title = "Data Engineer의 프트폴리오 작성법"
 date = 2025-06-10
 draft = false
-math = true
 +++
 {{< katex display=true >}}
 f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi
