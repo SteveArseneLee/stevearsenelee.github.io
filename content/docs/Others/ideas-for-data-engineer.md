@@ -73,5 +73,11 @@ draft = false
 - $10K+ event/second$ 에서 데이터 손실 없이 수평적 확장
 
 ## 3) "Cloud Data Warehouse"
-- Snowflake, Bigquery, Redshift는 modern 
+- Snowflake, Bigquery, Redshift는 modern analytics와 AI 파이프라인의 근간임
+- Delta Lake와 Iceberg와 같은 기술을 활용해 Data Lake의 유연성과 Warehouse의 고성능 쿼리 속도를 결합한 hybrid 아키텍쳐를 구축할 수 있음
 ### Cloud Warehousing 프로젝트
+- Data ingestion 
+- Schema design
+- Query optimization
+- Data governance
+- Lakehouse innovation
