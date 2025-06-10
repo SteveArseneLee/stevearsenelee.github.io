@@ -30,28 +30,11 @@ description = "Where code meets craft, and logs tell stories."
 - **KafkaKRU, AWS, MLOps, CSK** 등 다양한 컨퍼런스 참여
 - 개발 모임에서 **피드백 수용**과 **인사이트 교환**
 - 우물 안 개구리 탈피를 위한 **지속적인 외부 소통**
-{{% /tab %}}
 
-{{% tab "Current Tech Stack" %}} 
-## 🔥 Current Tech Stack (Learning)
-
-<div class="tech-grid">
-
-### 🎯 **Core Focus** 
-- **Streaming**: Kafka, Spark, Flink
-- **Storage**: Iceberg, Minio, Milvus
-- **Infrastructure**: Kubernetes, Prometheus, Loki, Grafana
-- **Languages**: Python, Java
-
-### 🚀 **Expanding Horizons**
-- **Data Engineering** & **Backend** & **Infrastructure**
-- 단일 도메인에 갇히지 않는 **엔지니어링** 지향
-- 홈서버 기반 **실무 시뮬레이션** 환경 구축
-- **비용 최적화**와 **성능 튜닝**의 균형점 탐구
-{{% /tab %}}
-
+{{< tabs "id" >}}
+{{% tab "MacOS" %}} # MacOS Content {{% /tab %}}
+{{% tab "Linux" %}} # Linux Content {{% /tab %}}
 {{% tab "Windows" %}} # Windows Content {{% /tab %}}
-
 {{< /tabs >}}
 
 

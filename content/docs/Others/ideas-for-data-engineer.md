@@ -70,8 +70,11 @@ sequenceDiagram
 - Python / FastAPI
 
 {{% hint "info" %}}
+**예시**  
 "초당 5천건 이상의 이벤트를 일관된 200ms 미만의 end-to-end latency로 처리할 수 있는 실시간 데이터 파이프라인을 구축했습니다. 이 시스템은 Kafka를 사용해 시뮬레이션된 clickstream 트래픽을 수집하고, Kafka Streams를 통해 이벤트를 처리하며, Redis와 Superset으로 구동되는 실시간 대시보드에 정제된 metric을 표시합니다."
 {{% /hint %}}
 
 - Redis peak load 중 $< 45ms$ 의 쿼리 지연 시간 달성
 - 24h 부하 테스트에서 $99.99%$ 이상의 가동 시간 유지
+- 메시지 중복 제거 및 재시도 처리를 통해 $0.05%$ 미만의 오류율 보장
+- $10K+ event/second$ 에서 데이터 손실 없이 수평적 확장
