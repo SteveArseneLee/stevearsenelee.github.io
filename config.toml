@@ -7,7 +7,7 @@ summaryLength = 10
 theme = "book"
 
 [params]
-  BookTheme = "auto"
+  BookTheme = "light"
   BookSection = "docs"
   BookSearch = true
   BookToC = true
