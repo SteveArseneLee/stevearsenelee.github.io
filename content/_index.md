@@ -2,6 +2,7 @@
 title = "LogLee's Tech Hub"
 description = "Where code meets craft, and logs tell stories."
 +++
+{{< countpages >}}
 
 # 👋 Welcome to LogLee's Learning Lab
 
