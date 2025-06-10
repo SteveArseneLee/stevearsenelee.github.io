@@ -2,10 +2,12 @@
 title = "Data Engineer의 프트폴리오 작성법"
 date = 2025-06-10
 draft = false
+math = true
 +++
 {{< katex display=true >}}
 f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi
 {{< /katex >}}
+\( 4*2 <= x \)
 
 ### 유념해야할 사항들
 - 데이터를 이동하고 정리하는 방법을 알고 있음을 증명하는 ***production-level ETL pipeline***
