@@ -56,6 +56,13 @@ Buffer)에 있는 데이터가 모두 표시됨
 - Flush된 항목과 Flush되지 않은 항목을 표시하는 Linux 도구(예: vmtouch)도 있음
 
 ## Replica Failure
+- 메시지가 ISR 리스트의 모든 Replica에서 수신되면 Commit된 것으로 간주
+- n개의 Replica가 있는 경우 n-1개의 장애를 허용 가능
+Follower가 실패하는 경우 | Leader가 실패하는 경우
+-|-
+Leader에 의해 ISR 리스트에서 삭제됨 | Controller는 Follower 중에서 새로운 Leader를 선출
+Leader는 새로운 ISR을 사용해 Commit함 | Controller는 새 Leader와 ISR 정보를 먼저 Zookeeper에 Push한 다음 로컬 캐싱을 위해 Broker에 Push함
+
 
 ## Replica Recovery
 

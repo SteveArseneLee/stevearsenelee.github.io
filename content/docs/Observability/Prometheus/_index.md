@@ -1,7 +1,7 @@
 +++
-title = "Traces"
+title = "Prometheus"
 bookCollapseSection = true
 author = "LogLee"
-weight = 3
+weight = 1
 +++
 

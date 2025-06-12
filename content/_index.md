@@ -32,8 +32,8 @@ description = "Where code meets craft, and logs tell stories."
 {{% /tab %}}
 {{% tab "기술 스택" %}}
 ### 핵심
-- **Streaming**: Kafka, Spark, Flin택
-- **Storage**: Iceberg, Minio, Milvus
+- **Streaming**: Kafka, Spark, Flink
+- **Storage**: Iceberg, Minio
 - **Infrastructure**: Kubernetes, Prometheus, Loki, Grafana
 - **Languages**: Python, Java
 

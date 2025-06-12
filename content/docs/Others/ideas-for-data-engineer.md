@@ -3,11 +3,6 @@ title = "Data Engineer의 프트폴리오 작성법"
 date = 2025-06-10
 draft = false
 +++
-{{< katex display=true >}}
-f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi
-{{< /katex >}}
-\( 4*2 <= x \)
-
 ### 유념해야할 사항들
 - 데이터를 이동하고 정리하는 방법을 알고 있음을 증명하는 ***production-level ETL pipeline***
 - Fraud detection, chatbots, live dashboards를 지원할 수 있는 실시간 처리
@@ -42,8 +37,10 @@ f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi
 - 확장성 최적화 : Partitioning, Batch strategies, 대량 sample 데이터셋으로 테스트
 - System architect처럼 설계 : 다이어그램과 trade-off를 설명한 간단한 README 포함하기
 
-### 예시
-> "3개의 API에서 기상 데이터를 수집하고, 정규화 및 병합하여 BigQuery에 120만 건의 일별 레코드를 파티션 테이블로 로드하는 Airflow 기반 ETL 파이프라인을 구축했습니다. 자동화된 경고로 99.95% 이상의 가동 시간을 유지했습니다."
+{{% hint "info" %}}
+**예시**
+"3개의 API에서 기상 데이터를 수집하고, 정규화 및 병합하여 BigQuery에 120만 건의 일별 레코드를 파티션 테이블로 로드하는 Airflow 기반 ETL 파이프라인을 구축했습니다. 자동화된 경고로 99.95% 이상의 가동 시간을 유지했습니다."
+{{% /hint %}}
 
 ### Source Data
 - NYC Taxi data - 지저분한 timestamp, 중첩된 JSON, 지리공간 field
@@ -93,3 +90,8 @@ f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi
 - dbt (data build tool) for transformations, testing, and documentation
 - Cloud platforms: AWS, GCP, or Azure
 - Data governance tools: Apache Atlas, Amundsen, or open metadata platforms
+
+{{% hint "info" %}}
+**예시**  
+"Bigquery에 클라우드 데이터 웨어하우징 프로젝트를 구축해 Kafka와 Airflow 파이프라인을 통해 일일 100만건 이상의 이벤트를 수집했습니다. 파티셔닝과 클러스터링을 통해 최적화된 스타 스키마를 설계해 쿼리 대기 시간을 60% 줄이고 월간 쿼리 비용을 35% 절감했습니다. dbt 자동화 테스트와 Aumndsen의 메타데이터 관리 및 데이터 계보 기능을 통합했습니다. AWS S3의 Delta Lake와 결합해 Lake 유연성과 웨어하우스 성능을 제공했습니다. Superset 대시보드를 구축해 초당 KPI 업데이트를 제공하며 대규모 end-to-end 분석 기능을 구현했습니다"
+{{% /hint %}}
