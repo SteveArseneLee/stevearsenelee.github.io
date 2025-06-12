@@ -32,7 +32,7 @@ theme = "book"
   tag = "tags"
 
 [[menu.main]]
-  name = " "  # 공백 문자 또는 separator 역할
+  name = "---------------------"  # 공백 문자 또는 separator 역할
   url = ""
   weight = 50
 
