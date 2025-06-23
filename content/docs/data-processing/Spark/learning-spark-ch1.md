@@ -108,7 +108,7 @@ val graph2 = graph.joinVertices(messages) {
 
 # Spark 아키텍쳐 이해
 ## 핵심 구성 요소
-![/data-processing/spark/spark-components.png](image.png)
+![Spark Components](/data-processing/spark/spark-components.png)
 
 ### 1. Spark Driver
 - SparkSession 생성 및 관리
