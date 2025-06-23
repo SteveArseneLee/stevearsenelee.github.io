@@ -2,10 +2,11 @@
 title = "Learning Spark Ch.1"
 draft = false
 +++
-# 개요
+
+## 개요
 Apache Spark는 대규모 분산 데이터 처리를 위한 통합 분석 엔진입니다. 기존 Hadoop MapReduce의 한계를 극복하고, 메모리 기반 처리를 통해 획기적인 성능 향상을 제공하는 현대적인 빅데이터 처리 플랫폼입니다.
 
-# Apache Spark의 핵심 특징
+## Apache Spark의 핵심 특징
 > Spark’s design philosophy centers around four key characteristics
 - Speed
 - Ease of use
