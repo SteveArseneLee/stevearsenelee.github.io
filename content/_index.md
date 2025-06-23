@@ -17,7 +17,7 @@ description = "Where code meets craft, and logs tell stories."
 >  _"Logs are not just data — they are the system’s story."_ 
 
 {{< tabs "id" >}}
-{{% tab "**학습 철학**" %}}
+{{% tab "♨︎학습 철학" %}}
 제가 학습하는 철학은 다음과 같습니다.
 ### 철저한 의사결정
 - 여러 관점을 토대로 **scoring**
@@ -30,7 +30,7 @@ description = "Where code meets craft, and logs tell stories."
 - 개발 모임에서 **피드백 수용**과 **인사이트 교환**
 - 우물 안 개구리 탈피를 위한 **지속적인 외부 소통**
 {{% /tab %}}
-{{% tab "기술 스택" %}}
+{{% tab "⚛︎기술 스택" %}}
 ### 핵심
 - **Streaming**: Kafka, Spark, Flink
 - **Storage**: Iceberg, Minio
@@ -44,7 +44,7 @@ description = "Where code meets craft, and logs tell stories."
 - **비용 최적화**와 **성능 튜닝**의 균형점 탐구
 
 {{% /tab %}}
-{{% tab "홈서버 테스트" %}}
+{{% tab "⚙︎홈서버 테스트" %}}
 홈서버에서 **실제 운영 환경처럼** 고민하며 학습합니다:
 - **Architecture Decisions**: "왜 이 기술을 선택했는가?"
 - **Cost Optimization**: "클라우드 vs 온프레미스, 어떤 게 효율적인가?"
