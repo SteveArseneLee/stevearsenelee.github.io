@@ -17,7 +17,7 @@ description = "Where code meets craft, and logs tell stories."
 >  _"Logs are not just data — they are the system’s story."_ 
 
 {{< tabs "id" >}}
-{{% tab "학습 철학" %}}
+{{% tab "**학습 철학**" %}}
 제가 학습하는 철학은 다음과 같습니다.
 ### 철저한 의사결정
 - 여러 관점을 토대로 **scoring**
@@ -53,6 +53,11 @@ description = "Where code meets craft, and logs tell stories."
 - **Scalability Planning**: "트래픽이 늘어나면 어떻게 확장할 것인가?"
 {{% /tab %}}
 {{< /tabs >}}
+
+## Study Group
+[현재 운영중인 Study 그룹들입니다]
+- [Study & Project](https://dataengineerstudy.notion.site/)
+- [Spark&Haoop 단톡방](https://dataengineerclub.notion.site/)
 
 ## 🗺️ Learning Roadmap
 
