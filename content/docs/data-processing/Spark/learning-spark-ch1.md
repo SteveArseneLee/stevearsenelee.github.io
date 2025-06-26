@@ -1,6 +1,7 @@
 +++
 title = "Learning Spark Ch.1"
 draft = false
+weight = 1
 +++
 
 ## 개요
@@ -110,6 +111,13 @@ val graph2 = graph.joinVertices(messages) {
 # Spark 아키텍쳐 이해
 ## 핵심 구성 요소
 ![Spark Components](/data-processing/spark/spark-components.png)
+1. 클러스터 매니저(Cluster Manager)
+2. 드라이버(Driver)
+3. 실행기(Executor)
+4. 세션 (Session)
+5. Job
+6. Stage
+7. task
 
 ### 1. Spark Driver
 - SparkSession 생성 및 관리
@@ -147,6 +155,16 @@ val resultsDF = spark.sql("SELECT city, pop, state, zip FROM table_name")
 - 실제 작업 실행
 - 데이터 캐싱 및 저장
 - Driver와 양방향 통신
+
+### 5. Job
+- 스파크 액션(e.g. ```save(), collect()```)에 대한 응답으로 생성되는 여러 **task**로 이루어진 병렬 연산
+
+### 6. Stage
+- 스파크의 각 Job은 Stage라고 불리는 서로 의존성을 갖는 다수의 task 모음으로 나뉨
+
+### 7. Task
+- 스파크 각 Job별 Executor로 보내지는 작업 할당의 가장 기본적인 단위
+- 개별 task slot에 할당되고, 데이터의 개별 Partition을 갖고 작
 
 ### 배포 모드
 모드| Driver 위치 | Executor 위치 | 특징

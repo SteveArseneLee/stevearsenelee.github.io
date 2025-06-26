@@ -1,6 +1,7 @@
 +++
 title = "Learning Spark Ch.2"
 draft = false
+weight = 2
 +++
 
 ## Spark Applicaion Concepts
