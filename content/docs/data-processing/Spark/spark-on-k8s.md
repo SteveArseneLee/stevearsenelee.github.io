@@ -101,3 +101,10 @@ kubectl describe sparkapp spark-pi -n data-processing
 spark-pi-driver       Running
 spark-pi-<executor>   Running
 ```
+
+위 설치를 통해 사용하는 명령어는
+```sh
+kubectl get sparkapplications.sparkoperator.k8s.io
+kubectl get scheduledsparkapplications.sparkoperator.k8s.io
+```
+임
