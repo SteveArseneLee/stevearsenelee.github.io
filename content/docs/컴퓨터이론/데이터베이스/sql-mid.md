@@ -49,7 +49,7 @@ WHERE EXISTS (
 존재 여부만 확인
 - users 테이블의 각 행에 대해 events에 해당 user_id가 존재하는지만 확인
 - ```SELECT 1```처럼 실제로 필요한 컬럼이 없어도 상관없음
-{% hint [info] %}
+{% hint info %}
 - EXISTS는 내부 쿼리가 한 번이라도 TRUE를 반환하면 성립
 - 데이터량이 많을 경우 IN보다 효율적일 수 있음
 {% /hint %}
@@ -64,6 +64,10 @@ FROM users u;
 각 행마다 1개의 값 계산
 - 각 사용자마다 주문 수를 계산해 붙임
 - 내부 쿼리는 행당 정확히 하나의 값만 반환해야 함
+
+### 상관 Subquery (Correlated Subquery)
+- 바깥 쿼리의 컬럼 값을 내부 쿼리에서 참조
+- EXISTS, 스칼라 서브쿼리는 대
 
 
 ## 1. Filtering + Aggregation
@@ -86,5 +90,3 @@ HAVING COUNT(*) > 5;
 - ```WHERE event_type = 'click'```은 클릭 이벤트가 아닌 것을 모두 필터링함
 - ```GROUP BY user_id```는 나머지 데이터를 사용자별로 그룹화함
 - ```HAVING COUNT(*) > 5```는 5번 이상 클릭한 사용자만 보여줌
-
-## 2. Subquery

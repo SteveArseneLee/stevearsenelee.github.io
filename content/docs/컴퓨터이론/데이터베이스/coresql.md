@@ -41,7 +41,7 @@ LIMIT / OFFSET (또는 TOP N)
 
 > WHERE은 행 기준 필터, HAVING은 그룹 기준 필터
 
-{{% hint [info] %}}
+{{% hint info %}}
 - ```SELECT```에서 쓸 수 있는 컬럼은 대부분 GROUP BY 이후 정의된 컬럼
 - ```ORDER BY```에서는 ```SELECT```에 없는 컬럼도 사용 가능하지만, DB마다 제약이 있을 수 있음
 - ```LIMIT```은 속도 향상에 도움이 안 될수도 있음. 데이터 정렬 비용이 크면 여전히 느릴 수 있어서 인덱스를 활용하기
