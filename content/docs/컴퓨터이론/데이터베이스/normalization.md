@@ -1,5 +1,5 @@
 +++
-title = "정규화 - 1NF, 2NF, 3NF, BCNF"
+title = "Normalization"
 draft = false
 weight = 10
 +++
