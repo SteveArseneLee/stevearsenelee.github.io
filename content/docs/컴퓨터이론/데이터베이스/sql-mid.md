@@ -3,9 +3,6 @@ title = "중급 SQL"
 draft = false
 weight = 2
 +++
-
-JOIN -> Subquery -> UNION -> Filtering+Aggregation -> Window
-
 ## 1. JOIN
 JOIN 종류 | 설명
 -|-
