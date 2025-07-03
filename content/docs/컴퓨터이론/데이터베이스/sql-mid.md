@@ -1,6 +1,7 @@
 +++
 title = "중급 SQL"
 draft = false
+weight = 2
 +++
 
 JOIN -> Subquery -> UNION -> Filtering+Aggregation -> Window

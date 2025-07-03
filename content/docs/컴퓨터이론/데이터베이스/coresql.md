@@ -1,6 +1,7 @@
 +++
-title = "핵심 SQL"
+title = "기초 SQL"
 draft = false
+weight = 1
 +++
 ### SQL 문법 순서
 - ```SELECT```
