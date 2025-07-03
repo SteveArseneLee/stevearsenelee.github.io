@@ -56,7 +56,7 @@ description = "Where code meets craft, and logs tell stories."
 
 ## Study Group
 [현재 운영중인 Study 그룹들입니다]
-- [Study & Project](https://dataengineerstudy.notion.site/)
+- [Study & Project Notion](https://dataengineerstudy.notion.site/) / [Project Github](https://github.com/DE-Growth) 
 - [Spark&Haoop 단톡방](https://dataengineerclub.notion.site/)
 
 ## 🗺️ Learning Roadmap
