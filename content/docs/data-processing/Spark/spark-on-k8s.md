@@ -103,9 +103,8 @@ spark-pi-driver       Running
 spark-pi-<executor>   Running
 ```
 
-위 설치를 통해 사용하는 명령어는
+위 설치를 통해 사용하는 명령어는 아래와 같ㅡ
 ```sh
 kubectl get sparkapplications.sparkoperator.k8s.io
 kubectl get scheduledsparkapplications.sparkoperator.k8s.io
 ```
-임
