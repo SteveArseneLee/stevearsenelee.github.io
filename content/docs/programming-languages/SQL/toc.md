@@ -108,7 +108,7 @@ draft = true
 	•	3.2 OFFSET의 성능 문제
 
 4. 성능 최적화 패턴
-	•	4.1 키셋 페이징 (Seek Method)
+	•	4.1 셋 페이징 (Seek Method)
 	•	4.2 Chunk 단위 쿼리 분할
 
 5. CTE vs Subquery vs JOIN
@@ -127,34 +127,32 @@ draft = true
 📑 목차
 
 ⸻
+	1.	WITH (CTE) 활용
+• 1.1 기본 CTE
+• 1.2 재귀 CTE 실전 예시
+	2.	Top-N 그룹별 집계
+• 2.1 ROW_NUMBER + PARTITION BY
+• 2.2 사용자별 최근 3개 주문
+	3.	문자열 함수 고급
+• 3.1 REGEXP_REPLACE, SUBSTRING
+• 3.2 SPLIT_PART, POSITION, TRIM
+• 3.3 정규표현식 활용 (REGEXP_CONTAINS 등)
+	4.	날짜 처리 함수
+• 4.1 DATE_TRUNC, AGE, INTERVAL
+• 4.2 TO_CHAR, NOW, CURRENT_DATE
+	5.	조건 처리 함수 정리
+• 5.1 CASE WHEN
+• 5.2 COALESCE, NULLIF, IF
+	6.	윈도우 함수 고급
+• 6.1 ROWS BETWEEN 프레임 정의
+• 6.2 누적 합계, 이동 평균
+• 6.3 배열(ARRAY), 구조체(STRUCT) 데이터 처리
+• 6.4 GROUPING SETS로 복합 집계하기
+	7.	JSON 및 사용자 정의 함수 (UDF)
+• 7.1 JSON 추출 함수 (JSON_QUERY, JSON_VALUE)
+• 7.2 JSON 경로 표현식 ($.path.to.value)
+• 7.3 사용자 정의 함수 생성 (CREATE FUNCTION)
 
-1. WITH (CTE) 활용
-	•	1.1 기본 CTE
-	•	1.2 재귀 CTE 실전 예시
-
-2. Top-N 그룹별 집계
-	•	2.1 ROW_NUMBER + PARTITION BY
-	•	2.2 사용자별 최근 3개 주문
-
-3. 문자열 함수 고급
-	•	3.1 REGEXP_REPLACE, SUBSTRING
-	•	3.2 SPLIT_PART, POSITION, TRIM
-
-4. 날짜 처리 함수
-	•	4.1 DATE_TRUNC, AGE, INTERVAL
-	•	4.2 TO_CHAR, NOW, CURRENT_DATE
-
-5. 조건 처리 함수 정리
-	•	5.1 CASE WHEN
-	•	5.2 COALESCE, NULLIF, IF
-
-6. 윈도우 함수 Frame 고급
-	•	6.1 ROWS BETWEEN …
-	•	6.2 누적 합계, 이동 평균
-
-7. 사용자 정의 함수 (UDF, PostgreSQL 기준)
-	•	7.1 CREATE FUNCTION 구조
-	•	7.2 실전 사용 예시
 
 ⸻
 
