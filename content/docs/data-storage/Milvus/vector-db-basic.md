@@ -76,6 +76,14 @@ def rag_pipeline(query):
 - 임베딩 벡터는 딥러닝 모델(e.g. BERT, CLIP, Word2Vec)로 생성된 고차원 실수형 벡터
 ### 유사도 측정 방법
 거리 메트릭 비교
+메트릭 | 공식 | 특징 | 사용 사례
+-|-|-|-
+
+코사인 유사도
+유클리드 거리
+맨하탄 거리
+내적
+
 
 {{< katex display=true >}}
 f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi
