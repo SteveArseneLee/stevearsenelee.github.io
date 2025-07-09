@@ -1,6 +1,6 @@
 +++
 title = 'SQL 요약'
-draft = true
+draft = false
 +++
 ## 기본 SELECT 문법 구조
 ```sql
