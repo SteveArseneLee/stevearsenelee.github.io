@@ -16,3 +16,18 @@ except ValueError:
 - 타입이 잘못되었을 때 (예: 문자열 + 숫자)
 - 'abc' + 1, len(3)
 ```py
+try:
+    val = 'abc' + 1
+except TypeError:
+    print("타입이 맞지 않습니다")
+```
+
+## KeyError
+- 딕셔너리나 DataFrame에서 없는 키를 접근
+- my_dict['missing_key'], df['없는컬럼']
+```py
+try:
+    val = df['gender']
+except KeyError:
+    print("해당 컬럼이 존재하지 않습니다")
+```
