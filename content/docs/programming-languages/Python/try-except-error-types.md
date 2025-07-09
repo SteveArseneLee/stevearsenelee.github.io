@@ -1,6 +1,6 @@
 +++
-title = 'try-except에서 자주 보이는 에러 타입들'
-draft = True
+title = "try-except에서 자주 보이는 에러 타입들"
+draft = true
 +++
 ## ValueError
 - 값은 맞지만, 내용이 예상 범위가 아닐 때
@@ -15,3 +15,4 @@ except ValueError:
 ## TypeError
 - 타입이 잘못되었을 때 (예: 문자열 + 숫자)
 - 'abc' + 1, len(3)
+```py
