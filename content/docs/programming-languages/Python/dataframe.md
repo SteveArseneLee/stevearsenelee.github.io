@@ -89,3 +89,73 @@ df.drop_duplicates() | 중복 제거 | df.drop_duplicates(['name'])
 df.sample(n) | 샘플 추출 | df.sample(3)
 df.value_counts() | 고유값 개수 | df['gender'].value_counts()
 df.nunique() | 고유값 수 | df.nunique()
+
+---
+### pandas parameter
+axis 
+- 축을 기준으로 연산 방향 결정
+- 0 : 행 기준 / 아래 방향으로 계산(세로)
+- 1 : 열 기준 / 옆 방향으로 계산(가로)
+
+```py
+import pandas as pd
+
+df = pd.DataFrame({
+    'A': [1, 2],
+    'B': [3, 4]
+})
+
+# axis=0: 세로(열) 기준, 열 별 합
+df.sum(axis=0)  # A:3, B:7
+
+# axis=1: 가로(행) 기준, 행 별 합
+df.sum(axis=1)  # 0:4, 1:6
+```
+
+index
+- 행 이름 또는 축의 라벨
+- 기본적으로는 0부터 시작하는 정수지만, 이름 지정 가능
+```py
+df = pd.DataFrame({
+    'math': [90, 80],
+    'eng': [70, 85]
+}, index=['kim', 'lee'])
+
+print(df)
+#       math  eng
+# kim     90   70
+# lee     80   85
+```
+- index='kim' -> 첫 번째 행의 라벨
+- df.loc['kim'] -> 'kim'이라는 인덱스(row)에 접근
+
+columns
+- 열 이름. 마찬가지로 지정 가능
+```py
+data = [[1, 2], [3, 4]]
+df = pd.DataFrame(data, columns=['A', 'B'])
+print(df)
+
+#    A  B
+# 0  1  2
+# 1  3  4
+```
+- columns=['A', 'B'] -> 각 열의 이름을 지정
+- df['A'] -> A라는 컬럼에 접근
+
+### 실제 메서드에서의 index, columns 파라미터
+#### pivot()
+```py
+df.pivot(index='user', columns='category', values='score')
+```
+- index : 행으로 사용할 열
+- columns : 열로 사용할 열
+- values : 실제 채울 값
+
+
+#### rename()
+```py
+df.rename(columns={'old_col': 'new_col'}, index={0: 'first'})
+```
+- columns : 열 이름 변경
+- index : 행 라벨 변경
