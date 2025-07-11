@@ -90,16 +90,64 @@ f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi
 {{< /katex >}}
 
 ## VectorDB의 핵심 기능 및 특징
+기능 | 설명
+-|-
+고차원 벡터 저장 | 수백~수천 차원의 벡터 지원
+인덱싱 구조(AI용) | HNSW, IVF, PQ 등의 ANN 인덱스 시스템
+메타데이터 필터링 | 벡터 + 필터 조합 질의 지원
+확장성 | 수백만~수십억 벡터 저장, 분산·샤딩 가능
+실시간/저지연 응답 | 밀리초 단위 검색
+ML 워크플로우 통합 | HuggingFace, OpenAI, TensorFlow 등과 연동 용이
+CRUD 지원 | 생성, 검색, 업데이트, 삭제 가능
+
 
 ## 주요 인덱싱 알고리즘
+### IVF(Inverted File)
+- [IVF_FLAT](https://milvus.io/docs/ivf-flat.md)
+- K-means 클러스터링 기반 인덱싱
+- 클러스터 중심(centroid)과 쿼리 유사도 기반 검색 속도 향상
+
+### HNSW(Hierachical Navigable Small WOrld)
+- [HNSW](https://milvus.io/docs/hnsw.md)
+- 다계층 그래프 기반 ANN 구조
+- $log(N)$ 시간 복잡도, 높은 정확동와 빠른 응답
+
+### PQ(Product Qunaitzation)
+- 벡터를 sub-quantize하여 메모리와 계산량 절감
+- [IVF-PQ](https://milvus.io/docs/ivf-pq.md) 조합 시 효율 극대화
 
 ## 대표 VectorDB 비교
+제품 | 유형 | 언어 | 인덱스 | 특징
+-|-|-|-|-
+Milvus | 오픈소스 | C++/Go | IVF, HNSW, PQ | 분산·GPU 지원, 엔터프라이즈 
+Qdrant | 오픈소스 | Rust | HNSW | 고속 RPS, 메타필터 기능
+Weaviate | 오픈소스 | Go | HNSW | GraphQL, 자동 임베딩
+Chroma | 오픈소스 | Rust/Python | HNSW | LLM 연결 중심, 경량
+FAISS | 라이브러리 | C++/Python | IVF, PQ, HNSW | 현업·연구용, GPU 지원
+Pinecone, Zilliz Cloud | SaaS | – | 내부 ANN | 완전관리형, 서버리스
+
 
 ## RAG 및 주요 응용 사례
+- RAG : 벡터 검색 결과를 LLM 입력으로 응용
+- 추천 시스템 : 사용자&상품 임베딩 기반 추천
+- 이미지/비디오 검색 : CLIP 임베딩 기반 유사 컨텐츠 검색
+- NLP/의미 검색 : 문서 클러스터링, 이상 탐지, 의미 검색
 
 ## 내부 아키텍쳐 구조
+```
+Embedding Generator (BERT/CLIP 등)
+       ↓
+     VectorDB Core
+     - Vector Store
+     - ANN 인덱스
+     - Metadata 체인
+       ↓
+     Query API (REST/gRPC/SDK)
+```
+- 인덱는는 FAISS, HNSW, IVF-PQ 등 ANN 구조 활용
 
 ## 성능 최적화와 분산 설계
-
-## 참고 자료
-- [Qdrant Docs](https://qdrant.tech/documentation/overview/?selector=aHRtbCA%2BIGJvZHkgPiBtYWluID4gc2VjdGlvbiA%2BIGRpdiA%2BIGRpdiA%2BIGRpdjpudGgtb2YtdHlwZSgyKSA%2BIGRpdiA%2BIGRpdjpudGgtb2YtdHlwZSgxKSA%2BIGFydGljbGUgPiBoMjpudGgtb2YtdHlwZSgyKQ%3D%3D&q=vectordb)
+- Index 튜닝 : HNSW, IVF(n_probes)
+- 벡터 압축 : PQ, Scalar Quantization, PCA
+- 하드웨어 활용 : GPU 가속(cuVS)
+- 분산 처리 : 샤딩 구조로 수평 확장
