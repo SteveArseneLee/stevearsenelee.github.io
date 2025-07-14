@@ -3,11 +3,6 @@ title = "DE 기본 용어 정리"
 draft = false
 +++
 
-+++
-title = "DE 기본 용어 정리"
-draft = false
-+++
-
 # 📘 데이터 엔지니어링 및 플랫폼 용어 정리집
 ✅ 키워드
 📌 핵심 정의
