@@ -1,5 +1,5 @@
 +++
-title = "Dimensional Modeling: 분석을 위한 데이터 설계의 본질"
+title = "Dimensional Modeling: 분석을 위한 데이터 설계"
 draft = false
 +++
 
