@@ -1,5 +1,5 @@
 +++
-title = "Spark on Kubernetes"
+title = "Spark on Kubernetes-코"
 draft = false
 weight = 0
 +++
@@ -14,7 +14,7 @@ helm repo update
 k create ns spark-system
 k create ns data-processing
 ```
-
+드
 spark-values.yaml
 ```yaml
 spark:
