@@ -31,7 +31,7 @@ weight = 2
 
 통신 용량 : 샤논의 정의를 통해 계산
 {{< katex display=true >}}
-C = W*log_2(1+S/N)
+C = W*log_2(1+\frac{S}{N})
 {{< /katex >}}
 
 
