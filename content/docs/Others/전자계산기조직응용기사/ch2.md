@@ -31,8 +31,12 @@ weight = 2
 
 통신 용량 : 샤논의 정의를 통해 계산
 {{< katex display=true >}}
-C = W*log_2(1+\frac{S}{N})
+C = W*log_2(1+\\frac{S}{N})
 {{< /katex >}}
+- C : 통신 용량(bps)
+- W : 대역폭(Hz)
+- S : 신호 전력
+
 
 
 ## 2-2. 네트워크 및 프로토콜
